@@ -8,6 +8,8 @@ local layout_mod = require("css_infobox_layout")
 return {
     buildInfoBox         = layout_mod.buildInfoBox,
     freeTrackedBBs       = bg_mod.freeTrackedBBs,
+    beginTrackingScope   = bg_mod.beginTrackingScope,
+    endTrackingScope     = bg_mod.endTrackingScope,
     collectBookData      = bookdata.collectBookData,
     saveLastBookData     = bookdata.saveLastBookData,
     loadLastBookData     = bookdata.loadLastBookData,

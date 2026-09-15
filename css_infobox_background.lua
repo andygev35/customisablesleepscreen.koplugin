@@ -43,6 +43,17 @@ local function freeTrackedBBs()
     _active_blitbuffers = {}
 end
 
+local function beginTrackingScope()
+    local saved = _active_blitbuffers
+    _active_blitbuffers = {}
+    return saved
+end
+
+local function endTrackingScope(saved)
+    freeTrackedBBs()
+    _active_blitbuffers = saved
+end
+
 local function scaleImageToFit(bb, target_w, target_h, stretch, fill_color, align)
     if not bb then return nil end
     local src_w, src_h = bb:getWidth(), bb:getHeight()
@@ -341,6 +352,8 @@ end
 return {
     trackBB               = trackBB,
     freeTrackedBBs        = freeTrackedBBs,
+    beginTrackingScope    = beginTrackingScope,
+    endTrackingScope      = endTrackingScope,
     scaleImageToFit       = scaleImageToFit,
     buildBackgroundWidget = buildBackgroundWidget,
     buildDimmingLayer     = buildDimmingLayer,

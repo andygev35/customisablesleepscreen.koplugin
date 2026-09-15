@@ -309,10 +309,15 @@ function CustomisableSleepScreen:_exportToCoverImage(ui, state, book_data)
     local export_path = plugin_store:readSetting(SETTINGS.EXPORT_PATH)
     if not export_path or export_path == "" then return end
 
-    local ib     = getInfobox()
+    local ib = getInfobox()
+
+    local tracking_scope = ib.beginTrackingScope()
     local widget = ib.buildInfoBox(ui, state, book_data)
 
-    if not widget then return end
+    if not widget then
+        ib.endTrackingScope(tracking_scope)
+        return
+    end
 
     local Blitbuffer     = require("ffi/blitbuffer")
     local FrameContainer = require("ui/widget/container/framecontainer")
@@ -323,6 +328,7 @@ function CustomisableSleepScreen:_exportToCoverImage(ui, state, book_data)
     local ok_bb, bb = pcall(Blitbuffer.new, w, h, Blitbuffer.TYPE_BBRGB32)
     if not ok_bb then
         logger.warn("[Customisable Sleep Screen] export failed: could not create blitbuffer: " .. tostring(bb))
+        ib.endTrackingScope(tracking_scope)
         return
     end
 
@@ -344,7 +350,7 @@ function CustomisableSleepScreen:_exportToCoverImage(ui, state, book_data)
     end
     bb:free()
 
-    ib.freeTrackedBBs()
+    ib.endTrackingScope(tracking_scope)
 end
 
 function CustomisableSleepScreen:_exportCurrentBookData()
@@ -386,6 +392,8 @@ function CustomisableSleepScreen:_onPowerOff()
         local ui       = ReaderUI and ReaderUI.instance
         local widget   = nil
 
+        local tracking_scope = ib.beginTrackingScope()
+
         if ui and ui.document then
             if ui.statistics and ui.statistics.id_curr_book then
                 local avg_time_before = ui.statistics.avg_time
@@ -405,7 +413,10 @@ function CustomisableSleepScreen:_onPowerOff()
             end
         end
 
-        if not widget then return end
+        if not widget then
+            ib.endTrackingScope(tracking_scope)
+            return
+        end
 
         local FrameContainer = require("ui/widget/container/framecontainer")
         local wrapped = FrameContainer:new {
@@ -415,7 +426,7 @@ function CustomisableSleepScreen:_onPowerOff()
         }
         wrapped:paintTo(Screen.bb, 0, 0)
         Screen:refreshFull()
-        ib.freeTrackedBBs()
+        ib.endTrackingScope(tracking_scope)
         ib.restorePatches()
     end)
 end

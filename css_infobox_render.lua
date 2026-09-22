@@ -1,10 +1,11 @@
--- Shared rendering utilities: fonts, colours, text layout, and the progress bar patch.
+-- Shared rendering utilities
 
 local Blitbuffer         = require("ffi/blitbuffer")
 local logger             = require("logger")
 local util               = require("util")
 local Device             = require("device")
 local Font               = require("ui/font")
+local UIManager          = require("ui/uimanager")
 local ProgressWidget     = require("ui/widget/progresswidget")
 local TextWidget         = require("ui/widget/textwidget")
 local TextWidget_paintTo = TextWidget.paintTo
@@ -24,6 +25,8 @@ end
 
 local font_cache  = {}
 local color_cache = {}
+
+-- Widget paintTo patches
 
 local function patchedTextWidgetPaintTo(self, bb, x, y)
     self:updateSize()
@@ -46,7 +49,7 @@ local function patchedTextWidgetPaintTo(self, bb, x, y)
     local RenderText = require("ui/rendertext")
     local pen_x   = 0
     local baseline = self.forced_baseline or self._baseline_h
-    for i, xglyph in ipairs(self._xshaping) do
+    for _, xglyph in ipairs(self._xshaping) do
         if pen_x >= text_width then break end
         local face  = self.face.getFallbackFont(xglyph.font_num)
         local glyph = RenderText:getGlyphByIndex(face, xglyph.glyph, self.bold)
@@ -132,6 +135,8 @@ local function restoreProgressWidgetPatch()
     ProgressWidget.paintTo = ProgressWidget_paintTo
 end
 
+-- Colour helpers
+
 local function getCachedColor(hex)
     if not hex then return Blitbuffer.COLOR_BLACK end
     if not color_cache[hex] then
@@ -168,6 +173,8 @@ local function getColors(is_mono, mono_hex, mono_color)
         message = getBBColor(SETTINGS.COLOR_MESSAGE_FILL, USER_CONFIG.COLOR_MESSAGE_FILL),
     }
 end
+
+-- Font & rendering-context setup
 
 local function resolveFontPath(font_name)
     if not font_name or font_name == "cfont" then return nil end
@@ -234,6 +241,8 @@ local function setupRenderingContext()
 
     return title_face, subtitle_face, colors, color_config
 end
+
+-- Text layout & wrapping
 
 local function getTextWidth(text, face)
     if not face or not text or text == "" then return 0 end
@@ -320,6 +329,51 @@ local function createMultiLineText(text, face, color, max_width, allow_multiline
     return tg
 end
 
+local function isNightModeActive()
+    return (Device.screen.night_mode == true) or G_reader_settings:isTrue("night_mode")
+end
+
+local function suppressNightMode()
+    if not isNightModeActive() then return nil end
+
+    local saved_setting = G_reader_settings:readSetting("night_mode")
+    pcall(function()
+        if Device.screen.setHWNightmode then
+            Device.screen:setHWNightmode(false)
+        elseif Device.screen.toggleNightMode then
+            if Device.screen.getHWNightmode and Device.screen:getHWNightmode() then
+                Device.screen:toggleNightMode()
+            end
+        end
+        Device.screen.night_mode = false
+        G_reader_settings:delSetting("night_mode")
+    end)
+
+    return { saved_setting = saved_setting }
+end
+
+local function restoreNightMode(state)
+    if not state then return end
+
+    pcall(function()
+        if Device.screen.setHWNightmode then
+            Device.screen:setHWNightmode(true)
+        elseif Device.screen.toggleNightMode then
+            if Device.screen.getHWNightmode and not Device.screen:getHWNightmode() then
+                Device.screen:toggleNightMode()
+            end
+        end
+        Device.screen.night_mode = true
+        if state.saved_setting ~= nil then
+            G_reader_settings:saveSetting("night_mode", state.saved_setting)
+        else
+            G_reader_settings:delSetting("night_mode")
+        end
+    end)
+
+    UIManager:setDirty(nil, "full")
+end
+
 return {
     applyProgressWidgetPatch   = applyProgressWidgetPatch,
     restoreProgressWidgetPatch = restoreProgressWidgetPatch,
@@ -335,4 +389,6 @@ return {
     createMultiLineText        = createMultiLineText,
     clamp                      = clamp,
     getSetting                 = getSetting,
+    suppressNightMode          = suppressNightMode,
+    restoreNightMode           = restoreNightMode,
 }

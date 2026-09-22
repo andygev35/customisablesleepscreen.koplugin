@@ -6,6 +6,8 @@ local DataStorage = require("datastorage")
 local render     = require("css_infobox_render")
 local getSetting = render.getSetting
 
+-- Reading statistics (queries KOReader's own statistics.sqlite3)
+
 local function getDbPath()
     return DataStorage:getSettingsDir() .. "/statistics.sqlite3"
 end
@@ -201,6 +203,8 @@ local function getAllStats(book_id, today_pages_override, goal_type, daily_goal_
     return result
 end
 
+-- Public accessors
+
 local function getDailyStats(stats_source, book_id_override)
     local book_id = nil
     local scope = getSetting("GOAL_STAT_SCOPE") or "all"
@@ -234,6 +238,8 @@ local function getWeeklyGoalAchievement(today_pages_override)
         return r.days_met, r.days_in_week
     end
 end
+
+-- Battery drain rate (independent of the reading-stats DB above)
 
 local function getBatteryConsumptionRate()
     local batt_stat_type = getSetting("BATT_STAT_TYPE")

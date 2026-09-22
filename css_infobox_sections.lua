@@ -47,6 +47,8 @@ local isCoverExcluded  = bg_mod.isCoverExcluded
 
 local PluginStore = require("css_settings").plugin()
 
+-- Text & time formatting helpers
+
 local function getRandomCustomQuote()
     local ok, quotes = pcall(dofile, _plugin_dir .. "css_custom_quotes.lua")
     if not ok or type(quotes) ~= "table" or #quotes == 0 then return nil end
@@ -98,13 +100,27 @@ local function formatDuration(secs)
     return _("< 1 min")
 end
 
-local function formatBatteryTime(hours_left)
-    if hours_left > 0 then
-        local hour_text = ngettext("hr", "hrs", hours_left)
-        return string.format(_("~%d %s left"), hours_left, hour_text)
-    else
-        return _("~<1 hr left")
+local function formatBatteryTime(minutes_left)
+    if not minutes_left then
+        return _("Data unavailable")
     end
+
+    if minutes_left <= 0 then
+        return _("< 1 min left")
+    end
+
+    local hours   = math.floor(minutes_left / 60)
+    local minutes = minutes_left % 60
+
+    local parts = {}
+    if hours > 0 then
+        table.insert(parts, string.format("%d %s", hours, ngettext("hr", "hrs", hours)))
+    end
+    if minutes > 0 or hours == 0 then
+        table.insert(parts, string.format("%d %s", minutes, ngettext("min", "mins", minutes)))
+    end
+
+    return string.format(_("%s left"), table.concat(parts, " "))
 end
 
 local function formatDate()
@@ -154,9 +170,11 @@ local function expandMessage(str)
     return str
 end
 
+-- Small render helpers
+
 local function createMultiLineSubtitle(lines, subtitle_face, subtext_color)
     local subtitle = VerticalGroup:new { align = "left" }
-    for i, line in ipairs(lines) do
+    for _, line in ipairs(lines) do
         subtitle[#subtitle + 1] = TextWidget:new {
             text         = line,
             face         = subtitle_face,
@@ -172,16 +190,18 @@ local function getSettingWithDefault(setting_key, default_value)
     return val == nil and default_value or val
 end
 
+-- Battery display helpers
+
 local function getBatteryDisplayInfo()
     local pwr         = Device:hasBattery() and Device:getPowerDevice() or nil
     local batt_perc   = pwr and pwr:getCapacity() or 0
     local is_charging = pwr and pwr:isCharging() or false
     local batt_stat_type  = getSetting("BATT_STAT_TYPE")
-    local battery_hours_left = 0
+    local battery_minutes_left
 
     if batt_stat_type == "manual" then
-        local manual_rate    = getSetting("BATT_MANUAL_RATE")
-        battery_hours_left   = math.floor(batt_perc / math.max(manual_rate, 0.1))
+        local manual_rate      = getSetting("BATT_MANUAL_RATE")
+        battery_minutes_left   = math.floor((batt_perc / math.max(manual_rate, 0.1)) * 60 + 0.5)
     else
         local battery_time_seconds = nil
         local BatteryStat = package.loaded["plugins.batterystat.main"]
@@ -226,16 +246,13 @@ local function getBatteryDisplayInfo()
             end
         end
 
-        local SECONDS_PER_HOUR = 3600
+        local SECONDS_PER_MINUTE = 60
         if battery_time_seconds and battery_time_seconds > 0 then
-            battery_hours_left = math.floor(battery_time_seconds / SECONDS_PER_HOUR + 0.5)
-        else
-            local manual_rate  = getSetting("BATT_MANUAL_RATE")
-            battery_hours_left = math.floor(batt_perc / math.max(manual_rate, 0.1) + 0.5)
+            battery_minutes_left = math.floor(battery_time_seconds / SECONDS_PER_MINUTE + 0.5)
         end
     end
 
-    return { percent = batt_perc, is_charging = is_charging, hours_left = battery_hours_left }
+    return { percent = batt_perc, is_charging = is_charging, minutes_left = battery_minutes_left }
 end
 
 local function getBatteryColor(batt_perc, is_charging, color_config)
@@ -261,6 +278,8 @@ local function getBatteryIcon(batt_perc, is_charging)
     elseif batt_perc >= 30 then return "custom_battery_mid"
     else                        return "custom_battery_low" end
 end
+
+-- Generic section renderer (shared by all section builders below)
 
 local function buildSection(total_width, title, subtitle, icon_name, progress, colors, bar_height,
                              allow_title_multiline, allow_subtitle_multiline, title_face, subtitle_face,
@@ -366,7 +385,7 @@ local function buildSection(total_width, title, subtitle, icon_name, progress, c
     if allow_title_multiline and text_align ~= "left" then
         local title_lines = wrapText(title, title_face, text_width)
         title_widget = VerticalGroup:new { align = "left" }
-        for i, line in ipairs(title_lines) do
+        for _, line in ipairs(title_lines) do
             local line_w = getTextWidth(line, title_face)
             local pad    = 0
             if     text_align == "center" then pad = (text_width - line_w) / 2
@@ -391,7 +410,7 @@ local function buildSection(total_width, title, subtitle, icon_name, progress, c
             local child = subtitle[i]
             if child.text then
                 local wrapped_lines = wrapText(child.text, subtitle_face, text_width)
-                for j, wrapped_line in ipairs(wrapped_lines) do
+                for _, wrapped_line in ipairs(wrapped_lines) do
                     if text_align == "left" then
                         subtitle_widget[#subtitle_widget + 1] = TextWidget:new {
                             text         = wrapped_line,
@@ -415,7 +434,7 @@ local function buildSection(total_width, title, subtitle, icon_name, progress, c
     elseif allow_subtitle_multiline and text_align ~= "left" then
         local subtitle_lines = wrapText(subtitle, subtitle_face, text_width)
         subtitle_widget = VerticalGroup:new { align = "left" }
-        for i, line in ipairs(subtitle_lines) do
+        for _, line in ipairs(subtitle_lines) do
             local line_w = getTextWidth(line, subtitle_face)
             local pad    = 0
             if     text_align == "center" then pad = (text_width - line_w) / 2
@@ -513,7 +532,7 @@ local function buildSection(total_width, title, subtitle, icon_name, progress, c
             final_header_widgets[2] = header_widgets[2]
         end
         final_header_widgets[#final_header_widgets + 1] = text_with_bar
-        
+
         local header_container = FrameContainer:new {
             width      = total_width,
             bordersize = 0,
@@ -584,6 +603,8 @@ local function buildSection(total_width, title, subtitle, icon_name, progress, c
     end
 end
 
+-- Cover image fetching
+
 local function fetchCoverBB(ui, book_data, has_ui)
     local cover_bb = nil
     if has_ui and ui.document then
@@ -609,6 +630,8 @@ local function fetchCoverBB(ui, book_data, has_ui)
     end
     return cover_bb
 end
+
+-- Per-section builders
 
 local function buildBookSection(ui, state, book_data, has_ui, total_width, colors, color_config, title_face, subtitle_face, layout)
     if getSetting("SHOW_BOOK") == false then return nil end
@@ -661,7 +684,24 @@ local function buildBookSection(ui, state, book_data, has_ui, total_width, color
     end
     if PluginStore:isTrue(SETTINGS.SHOW_BOOK_AUTHOR) then table.insert(subtitle_lines, authors) end
     if PluginStore:isTrue(SETTINGS.SHOW_BOOK_PAGES)  then
-        table.insert(subtitle_lines, string.format(_("Page %d of %d"), page_now, page_total))
+        local stable_label, stable_last
+        local ok_wants, wants_labels = pcall(function()
+            return has_ui and ui.pagemap and ui.pagemap.wantsPageLabels and ui.pagemap:wantsPageLabels()
+        end)
+        if ok_wants and wants_labels then
+            local ok, cur, last = pcall(function()
+                return ui.pagemap:getCurrentPageLabel(true), ui.pagemap:getLastPageLabel(true)
+            end)
+            if ok then stable_label, stable_last = cur, last end
+        elseif not has_ui then
+            stable_label = book_data and book_data.stable_page_label
+            stable_last  = book_data and book_data.stable_page_last
+        end
+        if stable_label and stable_label ~= "" then
+            table.insert(subtitle_lines, string.format(_("Page %s of %s"), stable_label, stable_last or "?"))
+        else
+            table.insert(subtitle_lines, string.format(_("Page %d of %d"), page_now, page_total))
+        end
     end
     if progress_line then table.insert(subtitle_lines, progress_line) end
 
@@ -848,7 +888,7 @@ local function buildChapterSection(ui, state, book_data, has_ui, total_width, co
     )
 end
 
-local function buildGoalSection(ui, state, book_data, has_ui, total_width, colors, color_config, title_face, subtitle_face, layout)
+local function buildGoalSection(ui, _state, book_data, has_ui, total_width, colors, color_config, title_face, subtitle_face, layout)
     if getSetting("SHOW_GOAL") == false then return nil end
 
     local book_id = nil
@@ -893,11 +933,11 @@ local function buildGoalSection(ui, state, book_data, has_ui, total_width, color
         if goal_title_type == "pages" then
             local page_word = ngettext("page", "pages", day_pages or 0)
             goal_title = string.format(_("%s %s read today"), pages_str, page_word)
-            
+
         elseif goal_title_type == "both" then
             local page_word = (day_pages == 1) and _("pg") or _("pgs")
-            goal_title = string.format(_("%s %s & %s read today"), pages_str, page_word, time_str)
-            
+            goal_title = string.format(_("%s & %s %s read today"), time_str, pages_str, page_word)
+
         else
             goal_title = string.format(_("%s read today"), time_str)
         end
@@ -924,7 +964,6 @@ local function buildGoalSection(ui, state, book_data, has_ui, total_width, color
         local show_detail   = getSettingWithDefault(SETTINGS.SHOW_GOAL_PAGES, USER_CONFIG.SHOW_GOAL_PAGES)
         local show_goal_pct = getSettingWithDefault(SETTINGS.SHOW_GOAL_PERCENTAGE, true)
         if show_detail then
-            local done_str   = formatDuration(day_dur_safe) or _("0 mins")
             local h          = math.floor(daily_goal_minutes / 60)
             local m          = daily_goal_minutes % 60
             local target_str
@@ -996,20 +1035,20 @@ local function buildGoalSection(ui, state, book_data, has_ui, total_width, color
     )
 end
 
-local function buildBatterySection(ui, state, book_data, has_ui, total_width, colors, color_config, title_face, subtitle_face, layout)
+local function buildBatterySection(_ui, _state, _book_data, _has_ui, total_width, colors, color_config, title_face, subtitle_face, layout)
     if getSetting("SHOW_BATT") == false then return nil end
 
-    local batt_info          = getBatteryDisplayInfo()
-    local batt_perc          = batt_info.percent
-    local is_charging        = batt_info.is_charging
-    local battery_hours_left = batt_info.hours_left
+    local batt_info            = getBatteryDisplayInfo()
+    local batt_perc            = batt_info.percent
+    local is_charging          = batt_info.is_charging
+    local battery_minutes_left = batt_info.minutes_left
 
     local batt_fill, batt_fill_hex = getBatteryColor(batt_perc, is_charging, color_config)
     local battery_icon             = getBatteryIcon(batt_perc, is_charging)
 
     local show_batt_date     = getSettingWithDefault(SETTINGS.SHOW_BATT_DATE,          USER_CONFIG.SHOW_BATT_DATE)
     local show_batt_time     = getSettingWithDefault(SETTINGS.SHOW_BATT_TIME,          true)
-    local show_batt_clock    = getSettingWithDefault(SETTINGS.SHOW_BATT_CLOCK,         true)
+    local show_batt_clock    = getSettingWithDefault(SETTINGS.SHOW_BATT_CLOCK,         USER_CONFIG.SHOW_BATT_CLOCK)
     local show_rate          = PluginStore:isTrue(SETTINGS.SHOW_BATT_RATE)
 
     local time_fmt   = G_reader_settings:isTrue("twelve_hour_clock") and "%I:%M %p" or "%H:%M"
@@ -1023,20 +1062,30 @@ local function buildBatterySection(ui, state, book_data, has_ui, total_width, co
     end
     local charging_symbol = is_charging and "⚡" or ""
 
-    local battery_top_line = string.format("%d%% %s", batt_perc, charging_symbol)
+    local show_status_text = PluginStore:isTrue(SETTINGS.SHOW_BATT_STATUS_TEXT)
+    local battery_top_line
+    if is_charging then
+        battery_top_line = show_status_text
+            and string.format("%d%% %s %s", batt_perc, _("charging"), charging_symbol)
+            or string.format("%d%% %s", batt_perc, charging_symbol)
+    else
+        battery_top_line = show_status_text
+            and string.format("%d%% %s", batt_perc, _("remaining"))
+            or string.format("%d%%", batt_perc)
+    end
     local subtitle_lines   = {}
 
     if current_display then table.insert(subtitle_lines, current_display) end
     if show_rate then
         local consumption_rate = require("css_stats").getBatteryConsumptionRate()
         if consumption_rate and consumption_rate > 0 then
-            table.insert(subtitle_lines, string.format(_("~%.1f%%/hour"), consumption_rate))
+            table.insert(subtitle_lines, string.format(_("%.1f%% / hour"), consumption_rate))
         else
-            table.insert(subtitle_lines, _("Rate unavailable"))
+            table.insert(subtitle_lines, _("Data unavailable"))
         end
     end
     if show_batt_time then
-        table.insert(subtitle_lines, formatBatteryTime(battery_hours_left))
+        table.insert(subtitle_lines, formatBatteryTime(battery_minutes_left))
     end
 
     local battery_subtitle = #subtitle_lines > 1
@@ -1051,7 +1100,7 @@ local function buildBatterySection(ui, state, book_data, has_ui, total_width, co
     )
 end
 
-local function buildMessageSection(ui, state, book_data, has_ui, total_width, colors, color_config, title_face, subtitle_face, layout)
+local function buildMessageSection(ui, _state, book_data, has_ui, total_width, colors, color_config, title_face, subtitle_face, layout)
     if getSetting("SHOW_MSG") == false then return nil end
 
     local message_source = getSetting("MESSAGE_SOURCE") or "custom"
@@ -1091,7 +1140,7 @@ local function buildMessageSection(ui, state, book_data, has_ui, total_width, co
                 message_text = addQuotationMarks(quote.text)
             end
         else
-            message_text = _("No custom quotes found. Add quotes to custom_quotes.lua.")
+            message_text = _("No custom quotes found. Add quotes to css_custom_quotes.lua.")
         end
     elseif message_source == "highlight" then
         local cover_path = has_ui and ui.document.file or (book_data and book_data.cover_path)

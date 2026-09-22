@@ -27,6 +27,8 @@ local function safeGet(obj, ...)
     return obj
 end
 
+-- Text helpers
+
 local function truncateText(text, max_length)
     if not max_length or max_length <= 0 or #text <= max_length then return text end
     local truncated  = text:sub(1, max_length)
@@ -39,6 +41,8 @@ end
 
 local function cleanChapterTitle(raw_title)
     if not raw_title or raw_title == "" then return _("No Chapter") end
+
+    raw_title = raw_title:gsub("\194\160", " ")
     local structural = " chapter ch part pt one two three four five six seven eight nine ten " ..
                        "eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen " ..
                        "twenty thirty forty fifty sixty seventy eighty ninety hundred and "
@@ -52,13 +56,38 @@ local function cleanChapterTitle(raw_title)
             break
         end
     end
+
     local cleaned = raw_title
     if has_content then
-        cleaned = raw_title:gsub("^%s*[Cc]hap[ter%.]*%s+%d+[%.%s%-:]*", "")
-                           :gsub("^%s*[Pp]art%s+%d+[%.%s%-:]*", "")
-                           :gsub("^%s*%d+[%.%s%-:]+", "")
+        local lower = raw_title:lower()
+
+        local function stripArabic(pattern)
+            local s, e = lower:find(pattern)
+            if s == 1 then
+                cleaned = raw_title:sub(e + 1)
+                return true
+            end
+            return false
+        end
+
+        local function stripRoman(pattern)
+            local s, e, marker = lower:find(pattern)
+            if s == 1 and #marker <= 4 and not roman_except[marker] then
+                cleaned = raw_title:sub(e + 1)
+                return true
+            end
+            return false
+        end
+
+        local _ = stripArabic("^%s*chap[ter%.]*%s+%d+[%.%s%-:]*")
+            or stripArabic("^%s*part%s+%d+[%.%s%-:]*")
+            or stripRoman("^%s*chap[ter%.]*%s+([ivxlcdm]+)[%.%s%-:]*")
+            or stripRoman("^%s*part%s+([ivxlcdm]+)[%.%s%-:]*")
+            or stripArabic("^%s*%d+[%.%s%-:]+")
+            or stripRoman("^%s*([ivxlcdm]+)[%.%s%-:]+")
     end
-    if cleaned == cleaned:upper() and cleaned:match("%a") then
+
+    if has_content and cleaned:match("%a") and (cleaned == cleaned:upper() or cleaned == cleaned:lower()) then
         cleaned = cleaned:lower():gsub("(%a)([%w']*)", function(f, r) return f:upper() .. r end)
     end
     return cleaned:gsub("^%s+", ""):gsub("%s+$", ""):gsub("^[:%.%-%s]+", "")
@@ -91,6 +120,8 @@ local function addQuotationMarks(text)
     local ts = text:match("(%s*)$")
     return ls .. "\u{201C}" .. content .. "\u{201D}" .. ts
 end
+
+-- Highlights
 
 local function getRandomHighlight(ui, book_path_override)
     if not book_path_override then
@@ -135,6 +166,8 @@ local function getRandomHighlight(ui, book_path_override)
     return { text = ht, page = sel.page, chapter = sel.chapter }
 end
 
+-- Chapter numbering
+
 local function getChapterCount(ui, current_page)
     if not ui or not ui.toc then return nil, nil end
     local toc_items = ui.toc.toc
@@ -159,19 +192,19 @@ local function getChapterCount(ui, current_page)
         "^part %d",
         "^book %d",
         "^part [ivxlcdm]",
-        "^cover",            
+        "^cover",
         "^title page$",
         "^title$",
-        "^index$",           
+        "^index$",
         "^notes$",
         "^map$",
         "^maps$",
         "^insert$",
         "^praise$",
         "^excerpt$",
-        "^by %a",            
-        "^image$",           
-        "^introduction",    
+        "^by %a",
+        "^image$",
+        "^introduction",
     }
 
     local function isExcluded(title)
@@ -206,15 +239,15 @@ local function getChapterCount(ui, current_page)
     local MONTHS = "jan%.?|feb%.?|mar%.?|apr%.?|may|jun%.?|jul%.?|aug%.?|sep%.?|oct%.?|nov%.?|dec%.?"
 
     local chapter_patterns = {
-        "^chapter%s+%d+",           
-        "^ch%.?%s*%d+",             
-        "^%d+%.%s+",                
-        "^%d+$",                    
-        "^%d+%s+%a+",               
-        "chapter%s+[ivxlcdm]+",     
-        "^[ivxlcdm]+$",             
-        "^[ivxlcdm]+%s+%a+",        
-        "^chapter%s+%a+",          
+        "^chapter%s+%d+",
+        "^ch%.?%s*%d+",
+        "^%d+%.%s+",
+        "^%d+$",
+        "^%d+%s+%a+",
+        "chapter%s+[ivxlcdm]+",
+        "^[ivxlcdm]+$",
+        "^[ivxlcdm]+%s+%a+",
+        "^chapter%s+%a+",
         "^(" .. MONTHS .. ")%.?%s+%d+",
         "%((" .. MONTHS .. ")%.?%s+%d+%)",
     }
@@ -268,6 +301,8 @@ local function getChapterCount(ui, current_page)
     return cur or 1, #filtered
 end
 
+-- Page helpers
+
 local function getCurrentPage(ui, state)
     if ui.document and type(ui.document.getCurrentPage) == "function" then
         local ok, page = pcall(ui.document.getCurrentPage, ui.document)
@@ -309,6 +344,8 @@ local function getDisplayPage(ui, state)
     return page
 end
 
+-- Main collection & persistence
+
 local function collectBookData(ui, state)
     if not (ui and ui.document) then return nil end
     local data          = {}
@@ -320,6 +357,18 @@ local function collectBookData(ui, state)
     data.display_page   = getDisplayPage(ui, state)
     data.doc_pages      = getDocPages(ui)
     data.cover_path     = safeGet(ui, "document", "file")
+    local ok_wants, wants_labels = pcall(function()
+        return ui.pagemap and ui.pagemap.wantsPageLabels and ui.pagemap:wantsPageLabels()
+    end)
+    if ok_wants and wants_labels then
+        local ok, cur, last = pcall(function()
+            return ui.pagemap:getCurrentPageLabel(true), ui.pagemap:getLastPageLabel(true)
+        end)
+        if ok and cur and cur ~= "" then
+            data.stable_page_label = cur
+            data.stable_page_last  = last
+        end
+    end
     data.exclude_cover  = ui.doc_settings and ui.doc_settings:isTrue(COVER_EXCLUDE_KEY) or false
     if ui.toc then
         local ok_raw, raw = pcall(function()

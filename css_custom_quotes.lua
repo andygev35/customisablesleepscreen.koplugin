@@ -1,4 +1,5 @@
--- Custom quotes. Add, remove, or edit entries freely. Each entry is a string. Author and book details can be shown on a seperate line but aren't required.
+-- Custom quotes. Add, remove, or edit entries freely. Each entry is a string.
+-- Author and book details can be shown on a seperate line but aren't required.
 
 return {
     {

@@ -8,7 +8,6 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. ---- Display sleep screen strings ----
-
 msgid "January"
 msgstr "1月"
 
@@ -67,13 +66,6 @@ msgstr[0] "分钟"
 
 msgid "< 1 min"
 msgstr "不到1分钟"
-
-#, lua-format
-msgid "~%d %s left"
-msgstr "约剩%d%s"
-
-msgid "~<1 hr left"
-msgstr "约剩不到1小时"
 
 msgid "Untitled"
 msgstr "无标题"
@@ -146,18 +138,11 @@ msgstr "目标的%d%%"
 msgid "%d page goal"
 msgstr "%d页目标"
 
-#, lua-format
-msgid "~%.1f%%/hour"
-msgstr "约%.1f%%/小时"
-
 msgid "Rate unavailable"
 msgstr "速率不可用"
 
 msgid "No message set"
 msgstr "未设置消息"
-
-msgid "No custom quotes found. Add quotes to custom_quotes.lua."
-msgstr "未找到自定义引言。请在 custom_quotes.lua 中添加引言。"
 
 #, lua-format
 msgid "pg. %s"
@@ -178,8 +163,27 @@ msgstr "引言"
 msgid "Message"
 msgstr "消息"
 
-#. ---- All other strings (menu items, help text, headers, buttons) ----
+msgid "< 1 min left"
+msgstr "剩余不到 1 分钟"
 
+#, lua-format
+msgid "Page %s of %s"
+msgstr "第 %s 页，共 %s 页"
+
+msgid "charging"
+msgstr "充电中"
+
+msgid "remaining"
+msgstr "剩余"
+
+#, lua-format
+msgid "%.1f%% / hour"
+msgstr "%.1f%% / 小时"
+
+msgid "No custom quotes found. Add quotes to css_custom_quotes.lua."
+msgstr "未找到自定义名言。请在 css_custom_quotes.lua 中添加名言。"
+
+#. ---- All other strings (menu items, help text, headers, buttons) ----
 msgid "Customisable sleep screen settings"
 msgstr "可定制休眠屏幕设置"
 
@@ -196,31 +200,19 @@ msgid "Enable customisable sleep screen"
 msgstr "启用可定制休眠屏幕"
 
 msgid ""
-"Customisable Sleep Screen: no book data found.\n\nOpen a book and trigger "
-"the sleep screen at least once before it will work in the file manager."
-msgstr "可自定义休眠屏幕：未找到书籍数据。\n\n请先打开一本书并至少触发一次休眠屏幕，然后才能在文件管理器中使用。"
-
-msgid "Delete all custom presets"
-msgstr "删除所有自定义预设"
-
-msgid ""
-"Permanently removes all custom presets you've created. The built-in "
-"'Default' preset will remain. This cannot be undone."
-msgstr "永久删除您创建的所有自定义预设。内置的\"默认\"预设将保留。\n此操作无法撤销。"
-
-msgid ""
-"Are you sure you want to delete all custom presets? (built-in presets will "
-"remain)"
-msgstr "确定要删除所有自定义预设吗？\n（内置预设将保留）"
+"Customisable Sleep Screen: no book data found.\n"
+"\n"
+"Open a book and trigger the sleep screen at least once before it will work in the file manager."
+msgstr ""
+"可自定义休眠屏幕：未找到书籍数据。\n"
+"\n"
+"请先打开一本书并至少触发一次休眠屏幕，然后才能在文件管理器中使用。"
 
 msgid "Delete"
 msgstr "删除"
 
 msgid "Cancel"
 msgstr "取消"
-
-msgid "All custom presets deleted. Built-in presets remain."
-msgstr "所有自定义预设已删除。内置预设保留。"
 
 msgid "Sleep screen orientation"
 msgstr "休眠屏幕方向"
@@ -306,7 +298,9 @@ msgid ""
 "Controls whether today's reading time and page count applies to the current "
 "book only, or all books read today. Note: reading streak and weekly goal "
 "achievement always reflect all books regardless of this setting."
-msgstr "控制今日阅读时间和页数是仅适用于当前书籍，还是今日阅读的所有书籍。\n注意：阅读连续天数和每周目标达成始终反映所有书籍，不受此设置影响。"
+msgstr ""
+"控制今日阅读时间和页数是仅适用于当前书籍，还是今日阅读的所有书籍。\n"
+"注意：阅读连续天数和每周目标达成始终反映所有书籍，不受此设置影响。"
 
 msgid "All books"
 msgstr "所有书籍"
@@ -337,25 +331,14 @@ msgid ""
 "using the last saved book data."
 msgstr "启用后，可定制休眠屏幕将在文件管理器中使用最后保存的书籍数据显示。"
 
-msgid "Hide built-in presets (except Default)"
-msgstr "隐藏内置预设（默认除外）"
-
-msgid ""
-"Hide the built-in presets from the preset list, keeping only the Default "
-"preset and your custom presets visible."
-msgstr "从预设列表中隐藏内置预设，仅显示默认预设和您的自定义预设。"
-
-msgid "Setting saved. Preset list will update when you reopen this menu."
-msgstr "设置已保存。重新打开此菜单时，预设列表将更新。"
-
 msgid "Export sleep screen to file"
 msgstr "导出休眠屏幕到文件"
 
 msgid ""
-"When enabled, a screenshot of the sleep screen will be saved in the selected "
-"export folder each time a book is closed, using the filename and format set "
-"below."
-msgstr "启用后，每次关闭书籍时，都会使用下方设置的文件名和格式，将休眠屏幕的截图保存到所选的导出文件夹中。"
+"When enabled, a screenshot of the sleep screen will be saved in the selected"
+" export folder each time you close a book or put the device to sleep, using "
+"the format set below."
+msgstr "启用后，每次关闭书籍或使设备进入睡眠时，都会按下方设置的格式，将睡眠屏幕的截图保存到所选的导出文件夹中。"
 
 msgid "Sleep screen export disabled."
 msgstr "休眠屏幕导出已禁用。"
@@ -364,17 +347,13 @@ msgid "No export folder set. Please set an export folder first."
 msgstr "未设置导出文件夹。请先设置导出文件夹。"
 
 #, lua-format
-msgid "Sleep screen will be exported to:\n%s/%s.%s"
+msgid ""
+"Sleep screen will be exported to:\n"
+"%s/%s.%s"
 msgstr "休眠屏幕将导出至：%s/%s.%s"
 
 msgid "Set export filename"
 msgstr "设置导出文件名"
-
-msgid ""
-"Choose the filename used for the exported image (without extension). Some "
-"devices need a specific filename to recognise it as their native sleep "
-"screen e.g. 'suspend_others' for Tolino."
-msgstr "选择导出图片所用的文件名（不含扩展名）。部分设备需要特定文件名才能将其识别为自带的休眠屏幕，例如 Tolino 需要 'suspend_others'。"
 
 msgid "Export filename"
 msgstr "导出文件名"
@@ -382,59 +361,43 @@ msgstr "导出文件名"
 msgid "Save"
 msgstr "保存"
 
-msgid "Export format"
-msgstr "导出格式"
-
-msgid ""
-"Choose the image format for the exported file. BMP is needed for "
-"PocketBook's native sleep screen; PNG and JPG suit most other devices."
-msgstr "选择导出文件的图片格式。PocketBook 自带的休眠屏幕需要 BMP 格式；PNG 和 JPG 适合大多数其他设备。"
-
 msgid "PNG"
 msgstr "PNG"
 
-msgid "Lossless, larger file size. Default."
-msgstr "无损，文件较大。默认选项。"
+msgid "Lossless. Medium file size, slower save."
+msgstr "无损压缩。文件大小适中，保存较慢。"
 
 msgid "JPG"
 msgstr "JPG"
 
-msgid "Lossy, smaller file size."
-msgstr "有损，文件较小。"
+msgid "Lossy. Smallest file size, quick save."
+msgstr "有损压缩。文件最小，保存最快。"
 
 msgid "BMP"
 msgstr "BMP"
 
-msgid "Uncompressed. Required for PocketBook's native sleep screen support."
-msgstr "无压缩。PocketBook 自带休眠屏幕支持所必需。"
+msgid "Uncompressed. Largest file size, quick save."
+msgstr "无压缩。文件最大，保存最快。"
 
 msgid "Set export folder"
 msgstr "设置导出文件夹"
 
-msgid "Choose the folder where the exported image will be saved."
-msgstr "选择导出图片的保存文件夹。"
-
 #, lua-format
-msgid "Export folder set to:\n%s"
-msgstr "导出文件夹已设置为：\n%s"
+msgid ""
+"Export folder set to:\n"
+"%s"
+msgstr ""
+"导出文件夹已设置为：\n"
+"%s"
 
 msgid "Exclude this book's cover from sleep screen"
 msgstr "在休眠屏幕中排除本书封面"
 
 msgid ""
-"Hides the cover for this book only, for when you'd rather it not be shown on "
-"your sleep screen - without having to switch presets or background settings "
-"each time you read it."
+"Hides the cover for this book only, for when you'd rather it not be shown on"
+" your sleep screen - without having to switch presets or background settings"
+" each time you read it."
 msgstr "仅隐藏本书的封面，适用于您不想让它出现在休眠屏幕上的情况——无需每次阅读时都切换预设或背景设置。"
-
-msgid "Cover-excluded fallback background"
-msgstr "排除封面时的替代背景"
-
-msgid ""
-"What to show instead of the cover. Uses the colour, image, or folder already "
-"set in Background → Background type. Only selectable when \"Exclude this "
-"book's cover from sleep screen\" is turned on."
-msgstr "封面被排除时显示的内容。使用已在“背景 → 背景类型”中设置的颜色、图片或文件夹。仅当启用“在休眠屏幕中排除本书封面”时才可选择。"
 
 msgid "No background (leave screen as-is)"
 msgstr "无背景（保持屏幕原样）"
@@ -454,23 +417,19 @@ msgstr "预设"
 msgid "Save, load, and manage presets."
 msgstr "保存、加载和管理预设。"
 
-msgid "Display modes"
-msgstr "显示模式"
-
-msgid "Global appearance settings."
-msgstr "全局外观设置。"
-
 msgid "Contents"
 msgstr "内容"
 
 msgid "Control which sections appear and what information they display."
 msgstr "控制显示哪些区域以及它们显示什么信息。"
 
-msgid "Layout & Spacing"
-msgstr "布局与间距"
+msgid "Layout, Spacing & Frame"
+msgstr "布局、间距与框架"
 
-msgid "Adjust the spatial settings of the information box."
-msgstr "调整信息框的空间设置。"
+msgid ""
+"Position and size of the box, the gaps between sections, and its border, "
+"corner radius, and opacity."
+msgstr "信息框的位置和大小、区域之间的间隙，以及它的边框、圆角半径和不透明度。"
 
 msgid "Colours, Icons & Bars"
 msgstr "颜色、图标与进度条"
@@ -490,18 +449,8 @@ msgstr "背景"
 msgid "Choose what appears behind the information box."
 msgstr "选择信息框后面显示的内容。"
 
-msgid "Advanced"
-msgstr "高级"
-
-msgid "Advanced configuration options."
-msgstr "高级配置选项。"
-
 msgid "About"
 msgstr "关于"
-
-#, lua-format
-msgid "%s\nVersion: %s\n\nFor updates and issues:\ngithub.com/%s"
-msgstr "%s\n版本：%s\n\n更新与反馈：\ngithub.com/%s"
 
 msgid "Book info"
 msgstr "书籍信息"
@@ -517,12 +466,6 @@ msgstr "电池信息"
 
 msgid "Message info"
 msgstr "消息信息"
-
-msgid "Reorder sections"
-msgstr "重新排列区域"
-
-msgid "Section order"
-msgstr "区域顺序"
 
 msgid "At least one section must remain visible."
 msgstr "至少一个区域必须保持可见。"
@@ -544,13 +487,16 @@ msgstr "封面图片高度限制（像素）。"
 msgid "Cover image size (pixels)"
 msgstr "封面图片大小（像素）"
 
-msgid "100–150px fits neatly in most layouts. Go up to 250px+ for a prominent cover."
+msgid ""
+"100–150px fits neatly in most layouts. Go up to 250px+ for a prominent "
+"cover."
 msgstr "100–150px 适合大多数布局。250px+ 可获得突出的封面效果。"
 
 msgid "Cover border size"
 msgstr "封面边框大小"
 
-msgid "Width of the border drawn around the cover image. Set to 0 for no border."
+msgid ""
+"Width of the border drawn around the cover image. Set to 0 for no border."
 msgstr "封面图片周围边框的宽度。设为 0 则无边框。"
 
 msgid "Cover border size (pixels)"
@@ -608,7 +554,8 @@ msgstr "显示本书的完成百分比。"
 msgid "Show chapter count (ch x of x)"
 msgstr "显示章节数（第x章 / 共x章）"
 
-msgid "Display current chapter number and total chapters (e.g., 'Chapter 5 of 12')."
+msgid ""
+"Display current chapter number and total chapters (e.g., 'Chapter 5 of 12')."
 msgstr "显示当前章节编号和总章节数（例如：第5章 / 共12章）。"
 
 msgid "Show chapter pages (pg x of x)"
@@ -631,9 +578,6 @@ msgstr "显示章节百分比"
 msgid "Display the percentage of the current chapter completed."
 msgstr "显示当前章节的完成百分比。"
 
-msgid "Title Line"
-msgstr "标题行"
-
 msgid "Choose what the top line of the daily info section displays."
 msgstr "选择每日信息区域顶部行的显示内容。"
 
@@ -655,10 +599,8 @@ msgstr "今日已读页数与时间"
 msgid "e.g. '35 pgs & 42 mins read today'"
 msgstr "ex. '今日已读35页 & 42分钟'"
 
-msgid "Goal type"
-msgstr "目标类型"
-
-msgid "Choose whether your daily goal tracks pages read or time spent reading."
+msgid ""
+"Choose whether your daily goal tracks pages read or time spent reading."
 msgstr "选择每日目标是按阅读页数还是阅读时间计算。"
 
 msgid "Page goal"
@@ -710,7 +652,9 @@ msgid ""
 "Days this week you have met your reading goal, shown as completed days out "
 "of the current weekday (Monday = 1... Sunday = 7). For example: Thursday "
 "with goals met on Monday and Tuesday will show 2/4."
-msgstr "本周达成阅读目标的天数，以当前星期几为基准显示完成天数（周一=1…\n周日=7）。例如：周四且周一、周二已达标，则显示2/4。"
+msgstr ""
+"本周达成阅读目标的天数，以当前星期几为基准显示完成天数（周一=1…\n"
+"周日=7）。例如：周四且周一、周二已达标，则显示2/4。"
 
 msgid "Show daily goal"
 msgstr "显示每日目标"
@@ -725,9 +669,6 @@ msgstr "显示目标百分比"
 
 msgid "Display the percentage of your daily goal completed."
 msgstr "显示每日目标的完成百分比。"
-
-msgid "Show clock"
-msgstr "显示时钟"
 
 msgid ""
 "Display the current time. Note this is a snapshot taken when the sleep "
@@ -744,11 +685,6 @@ msgstr "显示当前日期。请注意，这是休眠屏幕显示时的一次快
 
 msgid "Show battery consumption rate"
 msgstr "显示电池消耗率"
-
-msgid ""
-"Display battery drain percentage per hour based on recent usage or manual "
-"input (see advanced menu)"
-msgstr "根据近期使用情况或手动输入显示每小时电量消耗百分比（见高级菜单）"
 
 msgid "Show battery time remaining"
 msgstr "显示剩余电池时间"
@@ -767,11 +703,12 @@ msgstr "仅为可定制休眠屏幕使用单独的自定义消息"
 msgid "Edit custom message"
 msgstr "编辑自定义消息"
 
-#, lua-format
 msgid ""
 "Write your custom message text. Only active when 'Custom message' is "
 "selected. Supports variables: %d, %y, %t, %b, %r."
-msgstr "输入自定义消息文本。仅在选择\"自定义消息\"时有效。支持变量：\n%d、%y、%t、%b、%r。"
+msgstr ""
+"输入自定义消息文本。仅在选择\"自定义消息\"时有效。支持变量：\n"
+"%d、%y、%t、%b、%r。"
 
 msgid "Custom Customisable Sleep Screen message"
 msgstr "可定制休眠屏幕自定义消息"
@@ -807,31 +744,27 @@ msgstr "高亮显示的最大字符数（0 = 无限制）。"
 msgid "Maximum highlight length (characters)"
 msgstr "最大高亮长度（字符）"
 
-msgid "100–150 chars keeps highlights readable. Set to 0 to show the full highlight."
+msgid ""
+"100–150 chars keeps highlights readable. Set to 0 to show the full "
+"highlight."
 msgstr "100–150个字符保持高亮可读性。设为0可显示完整高亮。"
 
 msgid "Custom quotes"
 msgstr "自定义引言"
 
-msgid "Show a random quote from the custom_quotes.lua file in the plugin folder."
-msgstr "从插件文件夹中的 custom_quotes.lua 文件随机显示一条引言。"
-
 msgid "Show quote attribution"
 msgstr "显示引言出处"
-
-msgid ""
-"Display the author and book name below the quote, if provided in "
-"custom_quotes.lua."
-msgstr "在引言下方显示作者和书名（如在 custom_quotes.lua 中提供）。"
 
 msgid "KOReader sleep message"
 msgstr "KOReader休眠消息"
 
 msgid ""
-"Uses KOReaders own sleep screen message function. Enable 'Add custom message "
-"to sleep screen' to use this (Settings → Screen → Sleep screen → Sleep "
+"Uses KOReaders own sleep screen message function. Enable 'Add custom message"
+" to sleep screen' to use this (Settings → Screen → Sleep screen → Sleep "
 "screen message)."
-msgstr "使用KOReader自有的休眠屏幕消息功能。启用\"向休眠屏幕添加自定义消息\"\n以使用此功能（设置 → 屏幕 → 休眠屏幕 → 休眠屏幕消息）。"
+msgstr ""
+"使用KOReader自有的休眠屏幕消息功能。启用\"向休眠屏幕添加自定义消息\"\n"
+"以使用此功能（设置 → 屏幕 → 休眠屏幕 → 休眠屏幕消息）。"
 
 msgid "Show message header"
 msgstr "显示消息标题"
@@ -839,10 +772,6 @@ msgstr "显示消息标题"
 msgid "Show or hide the header label above the message text."
 msgstr "显示或隐藏消息文本上方的标题标签。"
 
-msgid "Message header"
-msgstr "消息标题"
-
-#, lua-format
 msgid ""
 "Custom header text displayed above the message. Supports variables: %d, %y, "
 "%t, %b, %r."
@@ -850,15 +779,6 @@ msgstr "显示在消息上方的自定义标题文本。支持变量：%d、%y�
 
 msgid "Change custom message header"
 msgstr "更改自定义消息标题"
-
-msgid "Displayed sections"
-msgstr "显示的区域"
-
-msgid "Toggle which sections show on the sleep screen. At least one must be visible."
-msgstr "切换休眠屏幕上显示的区域。至少一个必须可见。"
-
-msgid "[ Section Content ]"
-msgstr "[ 区域内容 ]"
 
 msgid "Book section"
 msgstr "书籍区域"
@@ -921,10 +841,12 @@ msgid "Dark mode"
 msgstr "深色模式"
 
 msgid ""
-"Inverts the colour scheme. Text becomes white and backgrounds becomes black. "
-"Useful for reading in low-light conditions. Can be combined with monochrome "
-"mode."
-msgstr "反转配色方案。文本变为白色，背景变为黑色。适合在弱光条件下阅读。\n可与单色模式结合使用。"
+"Inverts the colour scheme. Text becomes white and backgrounds becomes black."
+" Useful for reading in low-light conditions. Can be combined with monochrome"
+" mode."
+msgstr ""
+"反转配色方案。文本变为白色，背景变为黑色。适合在弱光条件下阅读。\n"
+"可与单色模式结合使用。"
 
 msgid "Monochrome mode"
 msgstr "单色模式"
@@ -933,12 +855,15 @@ msgid ""
 "Suitable for B&W e-readers. Assigns one colour to all sections using "
 "monochrome light or monochrome dark hex values. Overwrites individual "
 "assigned section colours. Can be combined with dark mode."
-msgstr "适用于黑白电子阅读器。使用单色亮或单色暗的十六进制值为所有区域分配\n同一颜色。覆盖单独分配的区域颜色。可与深色模式结合使用。"
+msgstr ""
+"适用于黑白电子阅读器。使用单色亮或单色暗的十六进制值为所有区域分配\n"
+"同一颜色。覆盖单独分配的区域颜色。可与深色模式结合使用。"
 
 msgid "Section gaps"
 msgstr "区域间隙"
 
-msgid "Add transparent gaps between sections to make each appear as a separate box"
+msgid ""
+"Add transparent gaps between sections to make each appear as a separate box"
 msgstr "在各区域之间添加透明间隙，使每个区域显示为独立的框"
 
 msgid "Enable section gaps"
@@ -954,8 +879,8 @@ msgid "Section gap size (pixels)"
 msgstr "区域间隙大小（像素）"
 
 msgid ""
-"10–20px gives a subtle separation. 30–50px makes sections feel like distinct "
-"cards."
+"10–20px gives a subtle separation. 30–50px makes sections feel like distinct"
+" cards."
 msgstr "10–20px 产生细微分隔。30–50px 使各区域看起来像独立的卡片。"
 
 msgid "Position"
@@ -991,13 +916,13 @@ msgstr "从锚点向上 (+) 或向下 (-) 微调信息框。适合将圆角推�
 msgid "Width"
 msgstr "宽度"
 
-msgid "Horizontal width of the information box as a percentage of screen width."
+msgid ""
+"Horizontal width of the information box as a percentage of screen width."
 msgstr "信息框的水平宽度，以屏幕宽度的百分比表示。"
 
 msgid "Box width (%)"
 msgstr "框宽度（%）"
 
-#, lua-format
 msgid "60–70% suits portrait screens."
 msgstr "60–70% 适合竖屏。"
 
@@ -1010,7 +935,6 @@ msgstr "信息框的透明度。"
 msgid "Opacity (%)"
 msgstr "不透明度（%）"
 
-#, lua-format
 msgid "75% is semi-transparent. 100% is fully opaque."
 msgstr "75% 为半透明。100% 为完全不透明。"
 
@@ -1054,12 +978,15 @@ msgstr "圆角半径（px）"
 msgid ""
 "0 for square corners. 15–30px for softly rounded. 150px+ for a pill-shaped "
 "box (depending on the section box height)."
-msgstr "0 为直角。15–30px 为轻微圆角。150px+ 为胶囊形框\n（取决于区域框高度）。"
+msgstr ""
+"0 为直角。15–30px 为轻微圆角。150px+ 为胶囊形框\n"
+"（取决于区域框高度）。"
 
 msgid "Internal padding"
 msgstr "内部填充"
 
-msgid "Space between section borders and their content, configurable per side."
+msgid ""
+"Space between section borders and their content, configurable per side."
 msgstr "区域边框与其内容之间的间距，可按各边单独配置。"
 
 msgid "Top"
@@ -1086,7 +1013,9 @@ msgstr "左对齐"
 msgid "Internal padding - left (px)"
 msgstr "内边距 - 左侧 (px)"
 
-msgid "Space to the left of section content. Increase when using large corner radii."
+msgid ""
+"Space to the left of section content. Increase when using large corner "
+"radii."
 msgstr "区域内容左侧的间距。使用大圆角半径时增加此值。"
 
 msgid "Right"
@@ -1106,7 +1035,8 @@ msgstr "四边统一设置"
 msgid "Internal padding - all sides (px)"
 msgstr "内边距 - 四周 (px)"
 
-msgid "Sets top, bottom, left and right padding to the same value in one step."
+msgid ""
+"Sets top, bottom, left and right padding to the same value in one step."
 msgstr "一步将上、下、左、右填充设置为相同值。"
 
 msgid "Icon to text gap"
@@ -1118,7 +1048,8 @@ msgstr "区域图标与其附带文本之间的水平间距。"
 msgid "Icon to text gap (px)"
 msgstr "图标与文本间距（px）"
 
-msgid "8–12px gives comfortable breathing room between icon and text. 0 is flush."
+msgid ""
+"8–12px gives comfortable breathing room between icon and text. 0 is flush."
 msgstr "8–12px 在图标和文本之间提供舒适的间隔。0 为紧贴。"
 
 msgid "No icon sets found in customisablesleepscreen.koplugin/icons/"
@@ -1133,7 +1064,8 @@ msgstr "设置每个部分的进度条颜色。"
 msgid "Use saved colours for icon fill"
 msgstr "使用已保存的颜色填充图标"
 
-msgid "When enabled, icons will match the colour of their section's progress bar."
+msgid ""
+"When enabled, icons will match the colour of their section's progress bar."
 msgstr "启用后，图标将与其所在区域的进度条颜色匹配。"
 
 msgid "Battery section (High)"
@@ -1155,7 +1087,9 @@ msgid ""
 "Configure colours for monochrome mode, infobox background, and text. Light "
 "and dark correspond to the current dark mode setting. Monochrome replaces "
 "all colours with that single chosen color."
-msgstr "配置单色模式、信息框背景和文本的颜色。明亮和黑暗对应当前的深色模式\n设置。单色模式将所有颜色替换为所选的单一颜色。"
+msgstr ""
+"配置单色模式、信息框背景和文本的颜色。明亮和黑暗对应当前的深色模式\n"
+"设置。单色模式将所有颜色替换为所选的单一颜色。"
 
 msgid "Monochrome mode (light)"
 msgstr "单色模式（亮）"
@@ -1223,15 +1157,19 @@ msgstr "在消息区域显示装饰条"
 msgid ""
 "Displays a purely decorative progress bar under the message section, "
 "matching the message section colour and the progress bars in other sections."
-msgstr "在消息区域下方显示纯装饰性进度条，与消息区域颜色及其他区域的进度条\n保持一致。"
+msgstr ""
+"在消息区域下方显示纯装饰性进度条，与消息区域颜色及其他区域的进度条\n"
+"保持一致。"
 
 msgid "Inline progress bars"
 msgstr "内联进度条"
 
 msgid ""
-"Progress bars sit inside the text area rather than spanning the full section "
-"width. Automatically enabled when corner radius > 0."
-msgstr "进度条位于文本区域内，而非跨越整个区域宽度。当圆角半径 > 0 时\n自动启用。"
+"Progress bars sit inside the text area rather than spanning the full section"
+" width. Automatically enabled when corner radius > 0."
+msgstr ""
+"进度条位于文本区域内，而非跨越整个区域宽度。当圆角半径 > 0 时\n"
+"自动启用。"
 
 msgid "Enable inline bars"
 msgstr "启用内联条"
@@ -1270,7 +1208,6 @@ msgstr "内联进度条宽度，以可用文本列的百分比表示。对齐方
 msgid "Inline bar width (%)"
 msgstr "内联条宽度（%）"
 
-#, lua-format
 msgid ""
 "100% fills the text column. The bar is aligned to match your text alignment "
 "setting."
@@ -1315,7 +1252,9 @@ msgstr "区域内所有文本的水平对齐方式。"
 msgid "Book multiline titles"
 msgstr "书籍标题多行显示"
 
-msgid "If deselected book titles will be truncated to a single line with an ellipsis"
+msgid ""
+"If deselected book titles will be truncated to a single line with an "
+"ellipsis"
 msgstr "如果取消选择，书籍标题将被截断为带省略号的单行"
 
 msgid "Chapter multiline titles"
@@ -1333,7 +1272,9 @@ msgid ""
 "Removes structural prefixes like 'Chapter 5:' or 'Part II' from chapter "
 "titles and normalises capitalisation. Only works correctly with English "
 "chapter titles - disable for non-English books."
-msgstr "从章节标题中删除\"第5章：\"或\"第II部分\"等结构性前缀，并规范化大小写。\n仅适用于英文章节标题——非英文书籍请禁用。"
+msgstr ""
+"从章节标题中删除\"第5章：\"或\"第II部分\"等结构性前缀，并规范化大小写。\n"
+"仅适用于英文章节标题——非英文书籍请禁用。"
 
 msgid "Make titles bold"
 msgstr "标题加粗"
@@ -1414,7 +1355,6 @@ msgstr "叠加层不透明度"
 msgid "Overlay opacity (%)"
 msgstr "叠加层不透明度（%）"
 
-#, lua-format
 msgid "0% is no overlay. 20–40% adds a soft tint. 100% is fully opaque."
 msgstr "0% 为无叠加。20–40% 添加柔和色调。100% 为完全不透明。"
 
@@ -1452,26 +1392,20 @@ msgstr "重命名"
 msgid "Enter new preset name"
 msgstr "输入新预设名称"
 
-msgid "[ Built-in Presets ]"
-msgstr "[ 内置预设 ]"
-
-msgid "[ Your Custom Presets ]"
-msgstr "[ 自定义预设 ]"
-
 msgid "Apply"
 msgstr "应用"
 
 msgid "Invalid hex code. Use format: #RRGGBB"
 msgstr "无效的十六进制代码。请使用格式：#RRGGBB"
 
-msgid "Reset layout & spacing settings to default"
-msgstr "重置布局与间距设置"
+msgid "Reset layout, spacing & frame settings to default"
+msgstr "重置布局、间距与框架设置"
 
-msgid "Are you sure you want to reset layout & spacing settings?"
-msgstr "确定要重置布局与间距设置吗？"
+msgid "Are you sure you want to reset layout, spacing & frame settings?"
+msgstr "确定要重置布局、间距与框架设置吗？"
 
-msgid "Layout & spacing settings reset to defaults"
-msgstr "布局与间距设置已重置"
+msgid "Layout, spacing & frame settings reset to defaults"
+msgstr "布局、间距与框架设置已重置"
 
 msgid "Reset contents settings to default"
 msgstr "重置内容设置"
@@ -1534,3 +1468,533 @@ msgstr "输入十六进制"
 
 msgid "Enter hex colour code"
 msgstr "输入十六进制颜色代码"
+
+msgid ""
+"Saves a screenshot of the sleep screen to a file each time a book is closed."
+" Useful for devices that use an exported image as their own native sleep "
+"screen."
+msgstr "每次关闭书籍时都会将休眠屏幕的截图保存为文件。适用于将导出图像用作自身原生休眠屏幕的设备。"
+
+msgid "Enable export"
+msgstr "启用导出"
+
+msgid "Choose the filename used for the exported image (without extension)."
+msgstr "选择导出图像使用的文件名（不含扩展名）。"
+
+#, lua-format
+msgid "Export format: %s"
+msgstr "导出格式：%s"
+
+msgid "Choose the image format and colour profile for the exported file."
+msgstr "选择导出文件的图像格式和颜色配置。"
+
+msgid ""
+"Choose the folder where the exported image will be saved. Must be set before"
+" export can be enabled."
+msgstr "选择保存导出图像的文件夹。必须先设置此项才能启用导出。"
+
+msgid "Preview sleep screen"
+msgstr "预览休眠屏幕"
+
+msgid ""
+"Shows what the sleep screen currently looks like, without actually "
+"suspending the device."
+msgstr "显示休眠屏幕当前的样子，而不会真正让设备进入休眠状态。"
+
+msgid "Behaviour"
+msgstr "行为"
+
+msgid ""
+"How the plugin behaves: file manager display, ghosting, export, battery "
+"estimation, and stats scope."
+msgstr "插件的行为方式：文件管理器中的显示、重影处理、导出、电池估算和统计范围。"
+
+#, lua-format
+msgid "Version: %s"
+msgstr "版本：%s"
+
+#, lua-format
+msgid "Author: %s"
+msgstr "作者：%s"
+
+#, lua-format
+msgid "https://github.com/%s"
+msgstr "https://github.com/%s"
+
+#, lua-format
+msgid ""
+"GitHub:\n"
+"https://github.com/%s"
+msgstr ""
+"GitHub：\n"
+"https://github.com/%s"
+
+msgid "Check for updates"
+msgstr "检查更新"
+
+msgid "Check GitHub for a newer release, and install it if one is available."
+msgstr "在 GitHub 上检查是否有新版本，如果有则安装。"
+
+msgid "Border"
+msgstr "边框"
+
+msgid "Primary border thickness and its secondary decorative trim."
+msgstr "主边框粗细及其次要装饰边饰。"
+
+msgid "Icons"
+msgstr "图标"
+
+msgid "Icon style, size, and visibility."
+msgstr "图标样式、大小和显示状态。"
+
+msgid "Bars"
+msgstr "进度条"
+
+msgid "Progress bar height, visibility, and inline styling."
+msgstr "进度条的高度、显示状态和内联样式。"
+
+msgid "Multiline titles"
+msgstr "多行标题"
+
+msgid ""
+"Allow book and chapter titles to wrap across multiple lines instead of being"
+" truncated to one."
+msgstr "允许书名和章节标题换行显示为多行，而不是截断为一行。"
+
+msgid "Cover exclusion"
+msgstr "排除封面"
+
+msgid ""
+"Hide this book's cover from the sleep screen, and choose what shows instead."
+msgstr "在休眠屏幕中隐藏此书的封面，并选择改为显示的内容。"
+
+msgid "Fallback background"
+msgstr "备用背景"
+
+msgid ""
+"What to show instead of the cover. Uses the colour, image, or folder already"
+" set in Background type. Only selectable when \"Exclude this book's cover "
+"from sleep screen\" is turned on."
+msgstr "代替封面显示的内容。使用背景类型中已设置的颜色、图像或文件夹。仅当启用“在休眠屏幕中排除此书封面”时才可选择。"
+
+msgid ""
+"No book data available to preview yet.\n"
+"\n"
+"Open a book and show the sleep screen at least once before previewing."
+msgstr ""
+"目前还没有可用于预览的书籍数据。\n"
+"\n"
+"请先打开一本书并至少显示一次休眠屏幕，然后再使用预览功能。"
+
+msgid "Couldn't build a preview - check crash.log for details."
+msgstr "无法生成预览 - 详情请查看 crash.log。"
+
+msgid "Enable automatic preset switching"
+msgstr "启用自动预设切换"
+
+msgid ""
+"When enabled, switches between the day and night presets below as needed. If"
+" you manually switch to a different preset, this pauses until you switch "
+"back to one of the two, or use \"Sync now\" below."
+msgstr "启用后，将根据需要在下方的日间和夜间预设之间切换。如果手动切换到其他预设，此功能会暂停，直到切回这两者之一，或使用下方的“立即同步”。"
+
+msgid "Sync now"
+msgstr "立即同步"
+
+msgid ""
+"Immediately switches to the correct day/night preset, even if a different "
+"preset is currently active."
+msgstr "立即切换到正确的日间/夜间预设，即使当前正在使用其他预设。"
+
+#, lua-format
+msgid ""
+"Couldn't switch to '%s' - it may no longer exist. Check the day/night preset"
+" pickers below."
+msgstr "无法切换到“%s” - 该预设可能已不存在。请检查下方的日间/夜间预设选择。"
+
+#, lua-format
+msgid "Switched to '%s'"
+msgstr "已切换到“%s”"
+
+#, lua-format
+msgid "Already on '%s' - no change needed"
+msgstr "已经是“%s” - 无需更改"
+
+#, lua-format
+msgid "Day preset: %s"
+msgstr "日间预设：%s"
+
+msgid "Preset to switch to outside the night window."
+msgstr "夜间时段以外要切换到的预设。"
+
+#, lua-format
+msgid "Night preset: %s"
+msgstr "夜间预设：%s"
+
+msgid "Preset to switch to during the night window."
+msgstr "夜间时段要切换到的预设。"
+
+msgid "Follow KOReader's night mode"
+msgstr "跟随 KOReader 的夜间模式"
+
+msgid "Time window"
+msgstr "时间段"
+
+#, lua-format
+msgid "Trigger: %s"
+msgstr "触发方式：%s"
+
+msgid ""
+"How the schedule decides when to switch: a fixed time window, or KOReader's "
+"own night mode setting (useful if you toggle that manually rather than on a "
+"fixed schedule)."
+msgstr "计划如何决定切换时机：固定时间段，或 KOReader 自身的夜间模式设置（如果您是手动切换而非按固定时间表，这会很有用）。"
+
+msgid "Switch based on the start/end times."
+msgstr "根据开始/结束时间切换。"
+
+msgid ""
+"Switch to the night preset whenever KOReader's own night mode is turned on, "
+"and back to the day preset when it's off."
+msgstr "只要 KOReader 自身的夜间模式开启就切换到夜间预设，关闭时切回日间预设。"
+
+#, lua-format
+msgid "Night window start: %02d:%02d"
+msgstr "夜间时段开始：%02d:%02d"
+
+msgid "Time of day the night preset starts being used."
+msgstr "开始使用夜间预设的时间。"
+
+msgid "Night window start"
+msgstr "夜间时段开始"
+
+msgid "Enter time in hours and minutes."
+msgstr "请输入小时和分钟。"
+
+msgid "Set time"
+msgstr "设置时间"
+
+#, lua-format
+msgid "Night window end: %02d:%02d"
+msgstr "夜间时段结束：%02d:%02d"
+
+msgid "Time of day the day preset resumes being used."
+msgstr "恢复使用日间预设的时间。"
+
+msgid "Night window end"
+msgstr "夜间时段结束"
+
+msgid " (auto-switch: day)"
+msgstr "（自动切换：日间）"
+
+msgid " (auto-switch: night)"
+msgstr "（自动切换：夜间）"
+
+#, lua-format
+msgid "Preview preset '%s'?"
+msgstr "预览预设“%s”？"
+
+msgid "Preview"
+msgstr "预览"
+
+msgid "Hold a preset below to preview it."
+msgstr "按住下方的预设即可预览。"
+
+msgid "Hold a custom preset below to preview, update, rename, or delete it."
+msgstr "按住下方的自定义预设即可预览、更新、重命名或删除它。"
+
+msgid "Save your current sleep screen settings as a new custom preset."
+msgstr "将当前的休眠屏幕设置保存为新的自定义预设。"
+
+msgid "Automatic preset switching"
+msgstr "自动预设切换"
+
+msgid ""
+"Automatically switch between two presets - e.g. a light one by day and a "
+"dark one at night."
+msgstr "在两个预设之间自动切换 - 例如白天使用浅色、夜间使用深色。"
+
+msgid "Built-in Presets"
+msgstr "内置预设"
+
+msgid "Load one of the built-in presets."
+msgstr "加载一个内置预设。"
+
+msgid "Your Custom Presets"
+msgstr "您的自定义预设"
+
+msgid "Load, rename, update or delete one of your saved presets."
+msgstr "加载、重命名、更新或删除您保存的某个预设。"
+
+msgid "No custom presets currently saved"
+msgstr "当前没有已保存的自定义预设"
+
+msgid "Section order & visibility"
+msgstr "区块顺序与可见性"
+
+msgid ""
+"Select a section and tap the bottom arrows to reorder. Tap the checkmark to "
+"show or hide the section. At least one section must stay visible."
+msgstr "选择一个区块并点击底部箭头以重新排序。点击复选标记以显示或隐藏该区块。至少要保留一个区块可见。"
+
+#, lua-format
+msgid "Title Line: %s"
+msgstr "标题行：%s"
+
+#, lua-format
+msgid "Goal type: %s"
+msgstr "目标类型：%s"
+
+msgid "Show remaining & charging text"
+msgstr "显示“充电中”/“剩余”文字"
+
+msgid ""
+"Show the words \"remaining\" and \"charging\" next to the battery "
+"percentage, e.g. \"82% remaining\" instead of just \"82%\"."
+msgstr "在电量百分比旁显示“剩余”和“充电中”字样，例如显示“剩余 82%”而不只是“82%”。"
+
+msgid "Show time"
+msgstr "显示时间"
+
+msgid ""
+"Display battery drain percentage per hour based on recent usage or manual "
+"input (see Global settings menu)"
+msgstr "根据最近的使用情况或手动输入显示每小时的电量消耗百分比（参见全局设置菜单）"
+
+msgid "Edit message header"
+msgstr "编辑消息标题"
+
+msgid ""
+"Show a random quote from the css_custom_quotes.lua file in the plugin "
+"folder."
+msgstr "从插件文件夹中的 css_custom_quotes.lua 文件显示一条随机名言。"
+
+msgid ""
+"Display the author and book name below the quote, if provided in "
+"css_custom_quotes.lua."
+msgstr "如果 css_custom_quotes.lua 中提供了作者和书名，则在名言下方显示。"
+
+msgid "archive extractor unavailable"
+msgstr "压缩包解压工具不可用"
+
+msgid "could not open archive"
+msgstr "无法打开压缩包"
+
+msgid "extract failed"
+msgstr "解压失败"
+
+msgid "Downloading update..."
+msgstr "正在下载更新..."
+
+msgid "the connection failed"
+msgstr "连接失败"
+
+msgid "the connection timed out"
+msgstr "连接超时"
+
+msgid "the secure connection failed"
+msgstr "安全连接失败"
+
+msgid "there was no response"
+msgstr "没有响应"
+
+msgid "the file could not be saved"
+msgstr "无法保存文件"
+
+msgid "Download failed."
+msgstr "下载失败。"
+
+msgid "Installation failed: "
+msgstr "安装失败："
+
+msgid "Customisable Sleep Screen updated to v"
+msgstr "Customisable Sleep Screen 已更新到 v"
+
+msgid "Restart KOReader now?"
+msgstr "现在重启 KOReader 吗？"
+
+msgid "Restart"
+msgstr "重启"
+
+msgid "Checking for updates..."
+msgstr "正在检查更新..."
+
+msgid "Could not check for updates."
+msgstr "无法检查更新。"
+
+#, lua-format
+msgid "Customisable Sleep Screen is up to date (v%s)"
+msgstr "Customisable Sleep Screen 已是最新版本 (v%s)"
+
+msgid "Update available"
+msgstr "有可用更新"
+
+msgid "Installed: "
+msgstr "已安装："
+
+msgid "Latest: "
+msgstr "最新版本："
+
+msgid "Close"
+msgstr "关闭"
+
+msgid "Update and restart"
+msgstr "更新并重启"
+
+msgid "No download available for this release."
+msgstr "此版本没有可用的下载。"
+
+#, lua-format, lua-format
+msgid "Data unavailable"
+msgstr "数据不可用"
+
+#, lua-format
+msgid "%s & %s %s read today"
+msgstr "今日已读%s & %s%s"
+
+msgid ""
+"Menu icons are hidden because KOReader's bundled fonts/nerdfonts/symbols.ttf"
+" couldn't be found. Restore that font file to bring the menu icons back."
+msgstr ""
+"由于找不到 KOReader 自带的 fonts/nerdfonts/symbols.ttf "
+"文件，菜单图标已隐藏。恢复该字体文件即可让菜单图标重新显示。"
+
+msgid "Transparent"
+msgstr "透明"
+
+msgid "File manager background colour"
+msgstr "文件管理器背景颜色"
+
+msgid ""
+"Colour for the alternative file manager background. Independent of your "
+"presets - stays the same no matter which preset is active."
+msgstr "备用文件管理器背景的颜色。独立于您的预设 - 无论当前使用哪个预设都保持不变。"
+
+msgid "File manager background image path"
+msgstr "文件管理器背景图片路径"
+
+msgid ""
+"Choose a single image to use as the alternative file manager background. "
+"Independent of your presets - stays the same no matter which preset is "
+"active."
+msgstr "选择一张图片用作备用文件管理器背景。独立于您的预设 - 无论当前使用哪个预设都保持不变。"
+
+msgid "File manager background folder path"
+msgstr "文件管理器背景文件夹路径"
+
+msgid ""
+"Choose a folder to pick a random image from as the alternative file manager "
+"background. Independent of your presets - stays the same no matter which "
+"preset is active."
+msgstr "选择一个文件夹，从中随机选取图片作为备用文件管理器背景。独立于您的预设 - 无论当前使用哪个预设都保持不变。"
+
+msgid "Stretch image to fill"
+msgstr "拉伸图片以填充"
+
+msgid ""
+"When disabled, the image will be scaled to fit within the screen while "
+"preserving aspect ratio. Independent of your presets - stays the same no "
+"matter which preset is active."
+msgstr "禁用时，图片将在保持宽高比的同时缩放以适应屏幕。独立于您的预设 - 无论当前使用哪个预设都保持不变。"
+
+msgid "Fill colour"
+msgstr "填充颜色"
+
+msgid ""
+"Background colour for the image when not stretched. Independent of your "
+"presets - stays the same no matter which preset is active."
+msgstr "图片未拉伸时的背景颜色。独立于您的预设 - 无论当前使用哪个预设都保持不变。"
+
+msgid "Image alignment"
+msgstr "图片对齐方式"
+
+msgid ""
+"Horizontal alignment of the image when not stretched. Independent of your "
+"presets - stays the same no matter which preset is active."
+msgstr "图片未拉伸时的水平对齐方式。独立于您的预设 - 无论当前使用哪个预设都保持不变。"
+
+msgid "Show alternative sleep screen (no infobox)"
+msgstr "显示备用休眠屏幕（无信息框）"
+
+msgid ""
+"When disabled (default), the regular customisable sleep screen displays in "
+"file manager using the last saved book data. When enabled, a simpler "
+"alternative is shown instead - just a background, with no information box."
+msgstr ""
+"禁用（默认）时，文件管理器中会使用最后保存的书籍数据显示常规的可定制休眠屏幕。启用后，则会改为显示更简单的替代方案 - 仅显示背景，没有信息框。"
+
+msgid "File manager background"
+msgstr "文件管理器背景"
+
+msgid "Sleep screen in file manager"
+msgstr "文件管理器中的休眠屏幕"
+
+msgid ""
+"Control what the sleep screen looks like when triggered from the file "
+"manager, outside of a book."
+msgstr "控制从文件管理器（书籍之外）触发时休眠屏幕的外观。"
+
+msgid ""
+"File manager display, ghosting, export, battery estimation, and stats scope."
+" Unlike the menus above, these settings don't change when you switch "
+"presets."
+msgstr "文件管理器显示、重影、导出、电池估算和统计范围。与上面的菜单不同，这些设置在切换预设时不会改变。"
+
+msgid "Global settings"
+msgstr "全局设置"
+
+msgid "System Default (cfont)"
+msgstr "系统默认 (cfont)"
+
+#, lua-format
+msgid "Title font face: %s"
+msgstr "标题字体：%s"
+
+#, lua-format
+msgid "Title font size: %dpx"
+msgstr "标题字体大小：%dpx"
+
+#, lua-format
+msgid "Subtitle font face: %s"
+msgstr "副标题字体：%s"
+
+#, lua-format
+msgid "Subtitle font size: %dpx"
+msgstr "副标题字体大小：%dpx"
+
+msgid "Time and pages read today"
+msgstr "今日已读时间与页数"
+
+msgid "e.g. '42 mins & 35 pgs read today'"
+msgstr "ex. '今日已读42分钟 & 35页'"
+
+msgid ""
+"What to show as the background for the alternative file manager sleep "
+"screen. This background is independent of your presets, so it looks the same"
+" no matter which preset was last active. Only selectable when \"Show "
+"alternative sleep screen\" is turned on."
+msgstr ""
+"文件管理器备用休眠屏幕要显示的背景内容。此背景独立于您的预设，因此无论最后激活的是哪个预设，外观都保持一致。仅在启用“显示备用休眠屏幕”时可选。"
+
+msgid ""
+"Hides the cover for this book only, for when you'd rather it not be shown on"
+" your sleep screen - without having to switch presets or background settings"
+" each time you read it. Only has an effect while Background type is set to "
+"\"Book cover\" - it has nothing to exclude otherwise."
+msgstr ""
+"仅隐藏这本书的封面，适用于您不想在休眠屏幕上显示它的情况 - 无需每次阅读时都切换预设或背景设置。仅在背景类型设置为“书籍封面”时才有效果 - "
+"否则没有可排除的内容。"
+
+msgid ""
+"What to show instead of the cover. Uses the colour, image, or folder already"
+" set in Background type. Only selectable when \"Exclude this book's cover "
+"from sleep screen\" is turned on and Background type is set to \"Book "
+"cover\"."
+msgstr "封面替代内容。使用背景类型中已设置的颜色、图片或文件夹。仅在启用“从休眠屏幕中排除此书封面”且背景类型设置为“书籍封面”时可选。"
+
+msgid "Export in greyscale"
+msgstr "以灰度导出"
+
+msgid ""
+"Saves the exported image without colour, reducing file size for any format."
+msgstr "以无色方式保存导出的图像，从而减小任何格式的文件大小。"

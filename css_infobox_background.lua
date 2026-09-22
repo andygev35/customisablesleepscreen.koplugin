@@ -1,4 +1,4 @@
--- Builds the background widget (cover, folder image, or solid colour) and dimming overlay.
+-- Builds the background widget (cover, image, or solid colour) and dimming overlay.
 
 local _plugin_dir = (debug.getinfo(1, "S").source:match("^@(.+)/[^/]+$") or ".") .. "/"
 
@@ -29,6 +29,8 @@ local function isCoverExcluded(ui, book_data)
     return false
 end
 
+-- Blitbuffer lifetime tracking
+
 local _active_blitbuffers = {}
 
 local function trackBB(bb)
@@ -53,6 +55,8 @@ local function endTrackingScope(saved)
     freeTrackedBBs()
     _active_blitbuffers = saved
 end
+
+-- Image scaling & rendering
 
 local function scaleImageToFit(bb, target_w, target_h, stretch, fill_color, align)
     if not bb then return nil end
@@ -106,15 +110,16 @@ local function scaleImageToFit(bb, target_w, target_h, stretch, fill_color, alig
     return trackBB(final_bb)
 end
 
-local function renderImageFileAsBackground(filepath, screen_size)
+local function renderImageFileAsBackground(filepath, screen_size, fit_keys)
     local ok, image_bb = pcall(function()
         return RenderImage:renderImageFile(filepath, screen_size.w, screen_size.h)
     end)
     if not (ok and image_bb) then return nil end
 
-    local stretch    = getSetting("BG_STRETCH")
-    local fill_color = getSetting("BG_COVER_FILL_COLOR")
-    local align      = getSetting("BG_COVER_ALIGN")
+    fit_keys = fit_keys or {}
+    local stretch    = getSetting(fit_keys.stretch_key or "BG_STRETCH")
+    local fill_color = getSetting(fit_keys.fill_key or "BG_COVER_FILL_COLOR")
+    local align      = getSetting(fit_keys.align_key or "BG_COVER_ALIGN")
     local scaled_bb  = scaleImageToFit(image_bb, screen_size.w, screen_size.h, stretch, fill_color, align)
     if not scaled_bb then return nil end
 
@@ -150,6 +155,8 @@ local function buildBackground(ui)
     }
 end
 
+-- Folder image picking
+
 local function isValidImageFile(filepath)
     local f = io.open(filepath, "rb")
     if not f then return false end
@@ -165,7 +172,7 @@ local function isValidImageFile(filepath)
     return false
 end
 
-local function getRandomImageFromFolder(folder)
+local function getRandomImageFromFolder(folder, fit_keys)
     if not folder or folder == "" then return nil end
     folder = folder:gsub("/$", "")
 
@@ -202,7 +209,7 @@ local function getRandomImageFromFolder(folder)
     end
 
     local tried = {}
-    for attempt = 1, math.min(3, #valid_images) do
+    for _ = 1, math.min(3, #valid_images) do
         local idx
         repeat
             idx = math.random(#valid_images)
@@ -210,15 +217,17 @@ local function getRandomImageFromFolder(folder)
         tried[idx] = true
 
         local random_file = valid_images[idx]
-        local widget = renderImageFileAsBackground(random_file, screen_size)
+        local widget = renderImageFileAsBackground(random_file, screen_size, fit_keys)
         if widget then return widget end
     end
 
     return nil
 end
 
-local function renderSolidBackground(screen_size)
-    local solid_color = getSetting("BG_SOLID_COLOR")
+-- Background type renderers
+
+local function renderSolidBackground(screen_size, color_key)
+    local solid_color = getSetting(color_key or "BG_SOLID_COLOR")
     local r = tonumber(solid_color:sub(2, 3), 16) or 44
     local g = tonumber(solid_color:sub(4, 5), 16) or 62
     local b = tonumber(solid_color:sub(6, 7), 16) or 80
@@ -234,29 +243,51 @@ local function renderSolidBackground(screen_size)
     }
 end
 
-local function renderFolderBackground(screen_size)
-    local folder = getSetting("BG_FOLDER")
+local function renderFolderBackground(_screen_size, folder_key, fit_keys)
+    local folder = getSetting(folder_key or "BG_FOLDER")
     if folder and folder:match("^@plugin/") then
         folder = _plugin_dir .. folder:sub(9)
     end
-    return getRandomImageFromFolder(folder)
+    return getRandomImageFromFolder(folder, fit_keys)
 end
 
-local function renderCustomBackground(screen_size)
-    local path = getSetting("BG_IMAGE_PATH")
+local function renderCustomBackground(screen_size, path_key, fit_keys)
+    local path = getSetting(path_key or "BG_IMAGE_PATH")
     if not path or path == "" or not util.fileExists(path) or not isValidImageFile(path) then
         return nil
     end
-    return renderImageFileAsBackground(path, screen_size)
+    return renderImageFileAsBackground(path, screen_size, fit_keys)
+end
+
+local function renderByType(bg_type, screen_size, keys)
+    keys = keys or {}
+    local fit_keys = {
+        stretch_key = keys.stretch_key,
+        fill_key    = keys.fill_key,
+        align_key   = keys.align_key,
+    }
+    if bg_type == "solid"  then return renderSolidBackground(screen_size, keys.color_key) end
+    if bg_type == "folder" then return renderFolderBackground(screen_size, keys.folder_key, fit_keys) end
+    if bg_type == "custom" then return renderCustomBackground(screen_size, keys.path_key, fit_keys) end
+    return nil
 end
 
 local function renderExcludedCoverFallback(screen_size)
-    local fallback_type = getSetting("EXCLUDED_COVER_BG_TYPE")
-    if fallback_type == "solid"  then return renderSolidBackground(screen_size) end
-    if fallback_type == "folder" then return renderFolderBackground(screen_size) end
-    if fallback_type == "custom" then return renderCustomBackground(screen_size) end
-    return nil
+    return renderByType(getSetting("EXCLUDED_COVER_BG_TYPE"), screen_size)
 end
+
+local function renderFileManagerBackground(screen_size)
+    return renderByType(getSetting("FM_BG_TYPE"), screen_size, {
+        color_key   = "FM_BG_SOLID_COLOR",
+        path_key    = "FM_BG_IMAGE_PATH",
+        folder_key  = "FM_BG_FOLDER",
+        stretch_key = "FM_BG_STRETCH",
+        fill_key    = "FM_BG_COVER_FILL_COLOR",
+        align_key   = "FM_BG_COVER_ALIGN",
+    })
+end
+
+-- Entry points
 
 local function buildBackgroundWidget(ui, book_data)
     local screen_size = Screen:getSize()
@@ -350,13 +381,14 @@ local function buildDimmingLayer()
 end
 
 return {
-    trackBB               = trackBB,
-    freeTrackedBBs        = freeTrackedBBs,
-    beginTrackingScope    = beginTrackingScope,
-    endTrackingScope      = endTrackingScope,
-    scaleImageToFit       = scaleImageToFit,
-    buildBackgroundWidget = buildBackgroundWidget,
-    buildDimmingLayer     = buildDimmingLayer,
-    isCoverExcluded       = isCoverExcluded,
-    COVER_EXCLUDE_KEY     = COVER_EXCLUDE_KEY,
+    trackBB                    = trackBB,
+    freeTrackedBBs             = freeTrackedBBs,
+    beginTrackingScope         = beginTrackingScope,
+    endTrackingScope           = endTrackingScope,
+    scaleImageToFit            = scaleImageToFit,
+    buildBackgroundWidget      = buildBackgroundWidget,
+    buildDimmingLayer          = buildDimmingLayer,
+    isCoverExcluded            = isCoverExcluded,
+    COVER_EXCLUDE_KEY          = COVER_EXCLUDE_KEY,
+    renderFileManagerBackground = renderFileManagerBackground,
 }

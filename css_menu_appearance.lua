@@ -10,10 +10,11 @@ local SETTINGS    = config.SETTINGS
 
 local PluginStore = require("css_settings").plugin()
 
+local bg_mod = require("css_infobox_background")
+
 local h                        = require("css_menu_helpers")
 local getSetting               = h.getSetting
 local createToggleItem         = h.createToggleItem
-local createFlipNilOrFalseItem = h.createFlipNilOrFalseItem
 local createRadioItem          = h.createRadioItem
 local createColorMenuItem      = h.createColorMenuItem
 local createResetMenuItem      = h.createResetMenuItem
@@ -23,6 +24,8 @@ local hexToHSV                 = h.hexToHSV
 local getColourWheelWidget     = h.getColourWheelWidget
 
 local cre
+-- CRE engine & icon-set discovery helpers
+
 local function getCre()
     if not cre then
         local ok, mod = pcall(require, "document/credocument")
@@ -60,6 +63,8 @@ local function getAvailableIconSets()
     return icon_sets
 end
 
+-- Layout, Spacing & Frame menu
+
 local function buildPositionMenu()
     local options = {
         { text = _("Top left"),      val = "top_left"      },
@@ -75,68 +80,49 @@ local function buildPositionMenu()
     return buildNumericMenu("POS", options)
 end
 
-local function buildDisplayModesMenu()
+local function buildLayoutAndSpacingMenu(ui)
     return {
-        createToggleItem(_("Dark mode"),
-            _("Inverts the colour scheme. Text becomes white and backgrounds becomes black. Useful for reading in low-light conditions. Can be combined with monochrome mode."),
-            SETTINGS.DARK_MODE, false),
-        createToggleItem(_("Monochrome mode"),
-            _("Suitable for B&W e-readers. Assigns one colour to all sections using monochrome light or monochrome dark hex values. Overwrites individual assigned section colours. Can be combined with dark mode."),
-            SETTINGS.MONOCHROME, false),
-    }
-end
-
-local function buildLayoutAndSpacingMenu()
-    return {
-        createResetMenuItem("layout & spacing", {
+        h.buildPreviewMenuItem(ui, false),
+        createResetMenuItem("layout, spacing & frame", {
             SETTINGS.SECTION_GAPS_ENABLED, SETTINGS.SECTION_GAP_SIZE,
             SETTINGS.POS, SETTINGS.BOX_WIDTH_PCT, SETTINGS.OPACITY,
             SETTINGS.BORDER_SIZE, SETTINGS.BORDER_SIZE_2,
             SETTINGS.SECTION_PADDING, SETTINGS.SECTION_PADDING_TOP, SETTINGS.SECTION_PADDING_BOTTOM,
             SETTINGS.SECTION_PADDING_LEFT, SETTINGS.SECTION_PADDING_RIGHT, SETTINGS.ICON_TEXT_GAP,
             SETTINGS.SLEEP_ORIENTATION,
-            SETTINGS.SECTION_RADIUS, 
+            SETTINGS.SECTION_RADIUS,
             SETTINGS.POS_OFFSET_X, SETTINGS.POS_OFFSET_Y,
         }),
         {
-            text = _("Section gaps"),
-            help_text = _("Add transparent gaps between sections to make each appear as a separate box"),
+            text      = _("Sleep screen orientation"),
+            help_text = _("Force the sleep screen to display in a specific orientation, regardless of how the device is held."),
             sub_item_table = {
-                {
-                    text      = _("Enable section gaps"),
-                    checked_func = function() return getSetting("SECTION_GAPS_ENABLED") end,
-                    callback = function()
-                        PluginStore:saveSetting(SETTINGS.SECTION_GAPS_ENABLED,
-                            not getSetting("SECTION_GAPS_ENABLED"))
-                    end,
-                },
-                {
-                    text      = _("Section gap size"),
-                    help_text = _("Spacing between sections when gaps are enabled."),
-                    enabled_func   = function() return getSetting("SECTION_GAPS_ENABLED") end,
-                    keep_menu_open = true,
-
-                    callback = function()
-                        local Device = require("device")
-                        local enabled_sections = 0
-                        for _, key in ipairs({ "SHOW_BOOK", "SHOW_CHAP", "SHOW_GOAL", "SHOW_BATT", "SHOW_MSG" }) do
-                            if getSetting(key) ~= false then enabled_sections = enabled_sections + 1 end
-                        end
-                        local gaps_between = math.max(enabled_sections - 1, 1)
-                        local section_height_estimate = 250
-                        local usable_height = Device.screen:getHeight() - (enabled_sections * section_height_estimate)
-                        local max_gap = math.floor(math.max(usable_height, 100) / gaps_between)
-
-                        createSpinDialog(
-                            _("Section gap size (pixels)"),
-                            getSetting("SECTION_GAP_SIZE") or USER_CONFIG.SECTION_GAP_SIZE,
-                            0, max_gap, 5,
-                            function(val) PluginStore:saveSetting(SETTINGS.SECTION_GAP_SIZE, val) end,
-                            _("10–20px gives a subtle separation. 30–50px makes sections feel like distinct cards.")
-                        )
-                    end,
-                },
-            }
+                createRadioItem(
+                    _("Auto (follow device)"),
+                    _("Use whatever orientation the device is currently in."),
+                    SETTINGS.SLEEP_ORIENTATION, "auto"
+                ),
+                createRadioItem(
+                    _("Force portrait"),
+                    _("Always display the sleep screen in portrait mode."),
+                    SETTINGS.SLEEP_ORIENTATION, "portrait"
+                ),
+                createRadioItem(
+                    _("Force landscape"),
+                    _("Always display the sleep screen in landscape mode."),
+                    SETTINGS.SLEEP_ORIENTATION, "landscape"
+                ),
+                createRadioItem(
+                    _("Force upside-down portrait"),
+                    _("Always display the sleep screen in inverted portrait mode."),
+                    SETTINGS.SLEEP_ORIENTATION, "uportrait"
+                ),
+                createRadioItem(
+                    _("Force upside-down landscape"),
+                    _("Always display the sleep screen in inverted landscape mode."),
+                    SETTINGS.SLEEP_ORIENTATION, "ulandscape"
+                ),
+            },
         },
         { text = _("Position"),       sub_item_table = buildPositionMenu(),    help_text = _("Screen location where the information box appears.") },
         {
@@ -192,69 +178,47 @@ local function buildLayoutAndSpacingMenu()
                     _("60–70% suits portrait screens."), "%d", 10
                 )
             end,
+            separator = true,
         },
         {
-            text           = _("Opacity"),
-            help_text      = _("Transparency of the information box."),
-            keep_menu_open = true,
-            callback = function()
-                local current_alpha = getSetting("OPACITY") or USER_CONFIG.OPACITY
-                createSpinDialog(
-                    _("Opacity (%)"),
-                    math.floor((current_alpha / 255) * 100),
-                    50, 100, 5,
-                    function(val)
-                        local alpha = math.floor((val / 100) * 255)
-                        PluginStore:saveSetting(SETTINGS.OPACITY, alpha)
+            text = _("Section gaps"),
+            help_text = _("Add transparent gaps between sections to make each appear as a separate box"),
+            sub_item_table = {
+                {
+                    text      = _("Enable section gaps"),
+                    checked_func = function() return getSetting("SECTION_GAPS_ENABLED") end,
+                    callback = function()
+                        PluginStore:saveSetting(SETTINGS.SECTION_GAPS_ENABLED,
+                            not getSetting("SECTION_GAPS_ENABLED"))
                     end,
-                    _("75% is semi-transparent. 100% is fully opaque."),
-                    "%d", 5
-                )
-            end,
-        },
-        {
-            text           = _("Border size"),
-            help_text      = _("Thickness of the primary border around sections."),
-            keep_menu_open = true,
-            callback = function()
-                createSpinDialog(
-                    _("Border size (px)"),
-                    getSetting("BORDER_SIZE") or USER_CONFIG.BORDER_SIZE,
-                    0, 15, 1,
-                    function(val) PluginStore:saveSetting(SETTINGS.BORDER_SIZE, val) end,
-                    _("0 for no border. 1–2px is subtle, 4–6px is bold and visible."), "%d", 5
-                )
-            end,
-        },
-        {
-            text           = _("Border trim size"),
-            help_text      = _("Secondary decorative border surrounding the primary border."),
-            enabled_func   = function() return getSetting("BORDER_SIZE") > 0 end,
-            keep_menu_open = true,
-            callback = function()
-                createSpinDialog(
-                    _("Border trim size (px)"),
-                    getSetting("BORDER_SIZE_2") or USER_CONFIG.BORDER_SIZE_2,
-                    0, 15, 1,
-                    function(val) PluginStore:saveSetting(SETTINGS.BORDER_SIZE_2, val) end,
-                    _("0 for no trim. 1–2px is subtle, 4–6px is a bold decorative outline around the primary border."), "%d", 5
-                )
-            end,
-        },
-        {
-            text           = _("Corner radius"),
-            help_text      = _("Round the corners of the info box. Also moves progress bars inline with the text when active."),
-            keep_menu_open = true,
-            callback = function()
-                createSpinDialog(
-                    _("Corner radius (px)"),
-                    getSetting("SECTION_RADIUS") or 0,
-                    0, 300, 5,
-                    function(val) PluginStore:saveSetting(SETTINGS.SECTION_RADIUS, val) end,
-                    _("0 for square corners. 15–30px for softly rounded. 150px+ for a pill-shaped box (depending on the section box height)."),
-                    "%d", 25
-                )
-            end,
+                },
+                {
+                    text      = _("Section gap size"),
+                    help_text = _("Spacing between sections when gaps are enabled."),
+                    enabled_func   = function() return getSetting("SECTION_GAPS_ENABLED") end,
+                    keep_menu_open = true,
+
+                    callback = function()
+                        local Device = require("device")
+                        local enabled_sections = 0
+                        for _, key in ipairs({ "SHOW_BOOK", "SHOW_CHAP", "SHOW_GOAL", "SHOW_BATT", "SHOW_MSG" }) do
+                            if getSetting(key) ~= false then enabled_sections = enabled_sections + 1 end
+                        end
+                        local gaps_between = math.max(enabled_sections - 1, 1)
+                        local section_height_estimate = 250
+                        local usable_height = Device.screen:getHeight() - (enabled_sections * section_height_estimate)
+                        local max_gap = math.floor(math.max(usable_height, 100) / gaps_between)
+
+                        createSpinDialog(
+                            _("Section gap size (pixels)"),
+                            getSetting("SECTION_GAP_SIZE") or USER_CONFIG.SECTION_GAP_SIZE,
+                            0, max_gap, 5,
+                            function(val) PluginStore:saveSetting(SETTINGS.SECTION_GAP_SIZE, val) end,
+                            _("10–20px gives a subtle separation. 30–50px makes sections feel like distinct cards.")
+                        )
+                    end,
+                },
+            }
         },
         {
             text      = _("Internal padding"),
@@ -351,9 +315,84 @@ local function buildLayoutAndSpacingMenu()
                     "%d", 10
                 )
             end,
+            separator = true,
+        },
+        {
+            text      = _("Border"),
+            help_text = _("Primary border thickness and its secondary decorative trim."),
+            sub_item_table = {
+                {
+                    text           = _("Border size"),
+                    help_text      = _("Thickness of the primary border around sections."),
+                    keep_menu_open = true,
+                    callback = function(touchmenu_instance)
+                        createSpinDialog(
+                            _("Border size (px)"),
+                            getSetting("BORDER_SIZE") or USER_CONFIG.BORDER_SIZE,
+                            0, 15, 1,
+                            function(val)
+                                PluginStore:saveSetting(SETTINGS.BORDER_SIZE, val)
+                                if touchmenu_instance then touchmenu_instance:updateItems() end
+                            end,
+                            _("0 for no border. 1–2px is subtle, 4–6px is bold and visible."), "%d", 5
+                        )
+                    end,
+                },
+                {
+                    text           = _("Border trim size"),
+                    help_text      = _("Secondary decorative border surrounding the primary border."),
+                    enabled_func   = function() return getSetting("BORDER_SIZE") > 0 end,
+                    keep_menu_open = true,
+                    callback = function()
+                        createSpinDialog(
+                            _("Border trim size (px)"),
+                            getSetting("BORDER_SIZE_2") or USER_CONFIG.BORDER_SIZE_2,
+                            0, 15, 1,
+                            function(val) PluginStore:saveSetting(SETTINGS.BORDER_SIZE_2, val) end,
+                            _("0 for no trim. 1–2px is subtle, 4–6px is a bold decorative outline around the primary border."), "%d", 5
+                        )
+                    end,
+                },
+            },
+        },
+        {
+            text           = _("Corner radius"),
+            help_text      = _("Round the corners of the info box. Also moves progress bars inline with the text when active."),
+            keep_menu_open = true,
+            callback = function()
+                createSpinDialog(
+                    _("Corner radius (px)"),
+                    getSetting("SECTION_RADIUS") or 0,
+                    0, 300, 5,
+                    function(val) PluginStore:saveSetting(SETTINGS.SECTION_RADIUS, val) end,
+                    _("0 for square corners. 15–30px for softly rounded. 150px+ for a pill-shaped box (depending on the section box height)."),
+                    "%d", 25
+                )
+            end,
+        },
+        {
+            text           = _("Opacity"),
+            help_text      = _("Transparency of the information box."),
+            keep_menu_open = true,
+            callback = function()
+                local current_alpha = getSetting("OPACITY") or USER_CONFIG.OPACITY
+                createSpinDialog(
+                    _("Opacity (%)"),
+                    math.floor((current_alpha / 255) * 100),
+                    50, 100, 5,
+                    function(val)
+                        local alpha = math.floor((val / 100) * 255)
+                        PluginStore:saveSetting(SETTINGS.OPACITY, alpha)
+                    end,
+                    _("75% is semi-transparent. 100% is fully opaque."),
+                    "%d", 5
+                )
+            end,
         },
     }
 end
+
+-- Colours, Icons & Bars menu
 
 local function buildIconSetMenu()
     local icon_sets = getAvailableIconSets()
@@ -361,14 +400,20 @@ local function buildIconSetMenu()
         return {{ text = _("No icon sets found in customisablesleepscreen.koplugin/icons/"), enabled = false }}
     end
     local options = {}
-    for i, set_name in ipairs(icon_sets) do
+    for _, set_name in ipairs(icon_sets) do
         options[#options + 1] = { text = set_name, val = set_name }
     end
     return buildNumericMenu("ICON_SET", options)
 end
 
-local function buildColorsIconsBarsMenu()
+local function isInlineBarsEnabled()
+    return PluginStore:isTrue(SETTINGS.BAR_INLINE)
+        or (getSetting("SECTION_GAPS_ENABLED") and (getSetting("SECTION_RADIUS") or 0) > 0)
+end
+
+local function buildColorsIconsBarsMenu(ui)
     return {
+        h.buildPreviewMenuItem(ui, false),
         createResetMenuItem("colours, icons & bars", {
             SETTINGS.COLOR_BOOK_FILL,       SETTINGS.COLOR_CHAPTER_FILL,
             SETTINGS.COLOR_GOAL_FILL,       SETTINGS.BATT_HIGH_COLOR,
@@ -382,7 +427,14 @@ local function buildColorsIconsBarsMenu()
             SETTINGS.COLOR_BOX_BG_DARK,     SETTINGS.COLOR_TEXT,
             SETTINGS.COLOR_TEXT_DARK,       SETTINGS.BAR_INLINE,
             SETTINGS.BAR_INLINE_WIDTH_PCT,  SETTINGS.BAR_BORDER_SIZE,
+            SETTINGS.DARK_MODE,             SETTINGS.MONOCHROME,
         }),
+        createToggleItem(_("Dark mode"),
+            _("Inverts the colour scheme. Text becomes white and backgrounds becomes black. Useful for reading in low-light conditions. Can be combined with monochrome mode."),
+            SETTINGS.DARK_MODE, false),
+        createToggleItem(_("Monochrome mode"),
+            _("Suitable for B&W e-readers. Assigns one colour to all sections using monochrome light or monochrome dark hex values. Overwrites individual assigned section colours. Can be combined with dark mode."),
+            SETTINGS.MONOCHROME, false),
         {
             text      = _("Colours (progress bars)"),
             help_text = _("Set the progress bar colours for each section."),
@@ -426,142 +478,158 @@ local function buildColorsIconsBarsMenu()
                 end
                 return menu_items
             end)(),
-        },
-        { text = _("Icon set"),            help_text = _("Choose from different icon styles."),
-          sub_item_table = buildIconSetMenu() },
-        {
-            text           = _("Icon size"),
-            help_text      = _("Size of section icons."),
-            keep_menu_open = true,
-            callback = function()
-                createSpinDialog(
-                    _("Icon size (px)"),
-                    getSetting("ICON_SIZE") or USER_CONFIG.ICON_SIZE,
-                    16, 128, 4,
-                    function(val) PluginStore:saveSetting(SETTINGS.ICON_SIZE, val) end,
-                    _("32–48px suits most layouts."), "%d", 16
-                )
-            end,
+            separator = true,
         },
         {
-            text           = _("Progress bar height"),
-            help_text      = _("Thickness of the horizontal progress bars shown in each section."),
-            keep_menu_open = true,
-            callback = function()
-                createSpinDialog(
-                    _("Bar height (px)"),
-                    getSetting("BAR_HEIGHT") or USER_CONFIG.BAR_HEIGHT,
-                    2, 40, 4,
-                    function(val) PluginStore:saveSetting(SETTINGS.BAR_HEIGHT, val) end,
-                    _("4–8px is subtle. 12–16px is standard. 20+px is heavy."), "%d", 8
-                )
-            end,
-        },
-        {
-            text      = _("Show icons"),
-            help_text = _("Display decorative icons at the start of each section."),
-            checked_func = function() return getSetting("SHOW_ICONS") ~= false end,
-            callback = function()
-                PluginStore:saveSetting(SETTINGS.SHOW_ICONS, not (getSetting("SHOW_ICONS") ~= false))
-            end,
-        },
-        {
-            text      = _("Show progress bars"),
-            help_text = _("Display horizontal progress bars showing completion percentage."),
-            checked_func = function() return getSetting("SHOW_BARS") ~= false end,
-            callback = function()
-                PluginStore:saveSetting(SETTINGS.SHOW_BARS, not (getSetting("SHOW_BARS") ~= false))
-            end,
-        },
-        {
-            text      = _("Show decorative bar on message section"),
-            help_text = _("Displays a purely decorative progress bar under the message section, matching the message section colour and the progress bars in other sections."),
-            enabled_func = function()
-                return getSetting("SHOW_BARS") ~= false
-            end,
-            checked_func = function()
-                local val = PluginStore:readSetting(SETTINGS.MSG_SHOW_FULL_BAR)
-                return val == nil and false or val
-            end,
-            callback = function()
-                local current = PluginStore:readSetting(SETTINGS.MSG_SHOW_FULL_BAR)
-                if current == nil then current = false end
-                PluginStore:saveSetting(SETTINGS.MSG_SHOW_FULL_BAR, not current)
-            end,
-        },
-        {
-            text      = _("Inline progress bars"),
-            help_text = _("Progress bars sit inside the text area rather than spanning the full section width. Automatically enabled when corner radius > 0."),
+            text      = _("Icons"),
+            help_text = _("Icon style, size, and visibility."),
+            separator = true,
             sub_item_table = {
                 {
-                    text      = _("Enable inline bars"),
-                    help_text = _("When section gaps are enabled and corner radius > 0, inline bars are automatically enabled."),
+                    text      = _("Show icons"),
+                    help_text = _("Display decorative icons at the start of each section."),
+                    checked_func = function() return getSetting("SHOW_ICONS") ~= false end,
+                    callback = function()
+                        PluginStore:saveSetting(SETTINGS.SHOW_ICONS, getSetting("SHOW_ICONS") == false)
+                    end,
+                },
+                { text = _("Icon set"),            help_text = _("Choose from different icon styles."),
+                  enabled_func = function() return getSetting("SHOW_ICONS") ~= false end,
+                  sub_item_table = buildIconSetMenu() },
+                {
+                    text           = _("Icon size"),
+                    help_text      = _("Size of section icons."),
+                    enabled_func   = function() return getSetting("SHOW_ICONS") ~= false end,
+                    keep_menu_open = true,
+                    callback = function()
+                        createSpinDialog(
+                            _("Icon size (px)"),
+                            getSetting("ICON_SIZE") or USER_CONFIG.ICON_SIZE,
+                            16, 128, 4,
+                            function(val) PluginStore:saveSetting(SETTINGS.ICON_SIZE, val) end,
+                            _("32–48px suits most layouts."), "%d", 16
+                        )
+                    end,
+                },
+            },
+        },
+        {
+            text      = _("Bars"),
+            help_text = _("Progress bar height, visibility, and inline styling."),
+            sub_item_table = {
+                {
+                    text      = _("Show progress bars"),
+                    help_text = _("Display horizontal progress bars showing completion percentage."),
+                    checked_func = function() return getSetting("SHOW_BARS") ~= false end,
+                    callback = function()
+                        PluginStore:saveSetting(SETTINGS.SHOW_BARS, getSetting("SHOW_BARS") == false)
+                    end,
+                },
+                {
+                    text      = _("Show decorative bar on message section"),
+                    help_text = _("Displays a purely decorative progress bar under the message section, matching the message section colour and the progress bars in other sections."),
+                    enabled_func = function()
+                        return getSetting("SHOW_BARS") ~= false
+                    end,
                     checked_func = function()
-                        return PluginStore:isTrue(SETTINGS.BAR_INLINE)
-                            or (getSetting("SECTION_GAPS_ENABLED") and (getSetting("SECTION_RADIUS") or 0) > 0)
+                        local val = PluginStore:readSetting(SETTINGS.MSG_SHOW_FULL_BAR)
+                        return val == nil and false or val
                     end,
                     callback = function()
-                        if getSetting("SECTION_GAPS_ENABLED") and (getSetting("SECTION_RADIUS") or 0) > 0 then
-                            UIManager:show(require("ui/widget/infomessage"):new {
-                                text    = _("Inline bars are force-enabled because section gaps and corner radius are both set. Set corner radius to 0 or disable section gaps to toggle inline bars independently."),
-                                timeout = 3,
-                            })
-                            return
-                        end
-                        PluginStore:saveSetting(SETTINGS.BAR_INLINE,
-                            not PluginStore:isTrue(SETTINGS.BAR_INLINE))
+                        local current = PluginStore:readSetting(SETTINGS.MSG_SHOW_FULL_BAR)
+                        if current == nil then current = false end
+                        PluginStore:saveSetting(SETTINGS.MSG_SHOW_FULL_BAR, not current)
                     end,
                 },
                 {
-                    text           = _("Inline bar border size"),
-                    help_text      = _("Thickness of the border around the inline progress bar."),
-                    enabled_func = function()
-                        return PluginStore:isTrue(SETTINGS.BAR_INLINE)
-                            or (getSetting("SECTION_RADIUS") or 0) > 0
-                    end,
+                    text           = _("Progress bar height"),
+                    help_text      = _("Thickness of the horizontal progress bars shown in each section."),
+                    enabled_func   = function() return getSetting("SHOW_BARS") ~= false end,
                     keep_menu_open = true,
                     callback = function()
                         createSpinDialog(
-                            _("Inline bar border size (px)"),
-                            getSetting("BAR_BORDER_SIZE") or USER_CONFIG.BAR_BORDER_SIZE,
-                            0, 10, 1,
-                            function(val) PluginStore:saveSetting(SETTINGS.BAR_BORDER_SIZE, val) end,
-                            _("0 for no border. 1–2px adds a subtle outline around the bar."),
-                            "%d", 2
+                            _("Bar height (px)"),
+                            getSetting("BAR_HEIGHT") or USER_CONFIG.BAR_HEIGHT,
+                            2, 40, 4,
+                            function(val) PluginStore:saveSetting(SETTINGS.BAR_HEIGHT, val) end,
+                            _("4–8px is subtle. 12–16px is standard. 20+px is heavy."), "%d", 8
                         )
                     end,
                 },
                 {
-                    text      = _("Bar width"),
-                    help_text = _("Width of the inline progress bar as a percentage of the available text column. Alignment follows the text alignment setting."),
-                    enabled_func = function()
-                        return PluginStore:isTrue(SETTINGS.BAR_INLINE)
-                            or (getSetting("SECTION_RADIUS") or 0) > 0
-                    end,
-                    keep_menu_open = true,
-                    callback = function()
-                        createSpinDialog(
-                            _("Inline bar width (%)"),
-                            getSetting("BAR_INLINE_WIDTH_PCT") or 100,
-                            10, 100, 5,
-                            function(val) PluginStore:saveSetting(SETTINGS.BAR_INLINE_WIDTH_PCT, val) end,
-                            _("100% fills the text column. The bar is aligned to match your text alignment setting."),
-                            "%d"
-                        )
-                    end,
+                    text         = _("Inline progress bars"),
+                    help_text    = _("Progress bars sit inside the text area rather than spanning the full section width. Automatically enabled when corner radius > 0."),
+                    enabled_func = function() return getSetting("SHOW_BARS") ~= false end,
+                    sub_item_table = {
+                        {
+                            text      = _("Enable inline bars"),
+                            help_text = _("When section gaps are enabled and corner radius > 0, inline bars are automatically enabled."),
+                            checked_func = isInlineBarsEnabled,
+                            callback = function()
+                                if getSetting("SECTION_GAPS_ENABLED") and (getSetting("SECTION_RADIUS") or 0) > 0 then
+                                    UIManager:show(require("ui/widget/infomessage"):new {
+                                        text    = _("Inline bars are force-enabled because section gaps and corner radius are both set. Set corner radius to 0 or disable section gaps to toggle inline bars independently."),
+                                        timeout = 3,
+                                    })
+                                    return
+                                end
+                                PluginStore:saveSetting(SETTINGS.BAR_INLINE,
+                                    not PluginStore:isTrue(SETTINGS.BAR_INLINE))
+                            end,
+                        },
+                        {
+                            text           = _("Inline bar border size"),
+                            help_text      = _("Thickness of the border around the inline progress bar."),
+                            enabled_func   = isInlineBarsEnabled,
+                            keep_menu_open = true,
+                            callback = function()
+                                createSpinDialog(
+                                    _("Inline bar border size (px)"),
+                                    getSetting("BAR_BORDER_SIZE") or USER_CONFIG.BAR_BORDER_SIZE,
+                                    0, 10, 1,
+                                    function(val) PluginStore:saveSetting(SETTINGS.BAR_BORDER_SIZE, val) end,
+                                    _("0 for no border. 1–2px adds a subtle outline around the bar."),
+                                    "%d", 2
+                                )
+                            end,
+                        },
+                        {
+                            text         = _("Bar width"),
+                            help_text    = _("Width of the inline progress bar as a percentage of the available text column. Alignment follows the text alignment setting."),
+                            enabled_func = isInlineBarsEnabled,
+                            keep_menu_open = true,
+                            callback = function()
+                                createSpinDialog(
+                                    _("Inline bar width (%)"),
+                                    getSetting("BAR_INLINE_WIDTH_PCT") or 100,
+                                    10, 100, 5,
+                                    function(val) PluginStore:saveSetting(SETTINGS.BAR_INLINE_WIDTH_PCT, val) end,
+                                    _("100% fills the text column. The bar is aligned to match your text alignment setting."),
+                                    "%d"
+                                )
+                            end,
+                        },
+                    },
                 },
             },
         },
     }
 end
 
-local function buildFontFaceMenu(setting_key)
+-- Fonts & Text menu
+
+local function fontFaceDisplayLabel(value)
+    if value == "cfont" then return _("System Default (cfont)") end
+    return value
+end
+
+local function buildFontFaceMenu(setting_key, default_value)
     local Font     = require("ui/font")
     local sub_menu = {}
     sub_menu[1] = {
-        text = "System Default (cfont)",
+        text = _("System Default (cfont)"),
         checked_func = function()
-            return (PluginStore:readSetting(setting_key) or "cfont") == "cfont"
+            return (PluginStore:readSetting(setting_key) or default_value) == "cfont"
         end,
         callback = function() PluginStore:saveSetting(setting_key, "cfont") end,
         radio    = true,
@@ -571,14 +639,14 @@ local function buildFontFaceMenu(setting_key)
     local cre_engine = getCachedCreEngine()
     if cre_engine and cre_engine.getFontFaces then
         local faces = cre_engine.getFontFaces()
-        for i, font_name in ipairs(faces) do
+        for _, font_name in ipairs(faces) do
             local font_path = cre_engine.getFontFaceFilenameAndFaceIndex(font_name)
             if font_path then table.insert(font_list, { name = font_name, path = font_path }) end
         end
         table.sort(font_list, function(a, b) return a.name < b.name end)
     end
 
-    for i, font_data in ipairs(font_list) do
+    for _, font_data in ipairs(font_list) do
         sub_menu[#sub_menu + 1] = {
             text = font_data.name,
             font_func = function(size)
@@ -591,7 +659,7 @@ local function buildFontFaceMenu(setting_key)
                 end
             end,
             checked_func = function()
-                return (PluginStore:readSetting(setting_key) or "cfont") == font_data.name
+                return (PluginStore:readSetting(setting_key) or default_value) == font_data.name
             end,
             callback = function() PluginStore:saveSetting(setting_key, font_data.name) end,
             radio    = true,
@@ -600,8 +668,9 @@ local function buildFontFaceMenu(setting_key)
     return sub_menu
 end
 
-local function buildFontsAndTextMenu()
+local function buildFontsAndTextMenu(ui)
     return {
+        h.buildPreviewMenuItem(ui, false),
         createResetMenuItem("fonts & text", {
             SETTINGS.FONT_FACE_TITLE,   SETTINGS.FONT_SIZE_TITLE,
             SETTINGS.FONT_FACE_SUBTITLE, SETTINGS.FONT_SIZE_SUBTITLE,
@@ -609,35 +678,62 @@ local function buildFontsAndTextMenu()
             SETTINGS.CHAP_MULTILINE,    SETTINGS.CLEAN_CHAP,
             SETTINGS.ALL_TITLES_BOLD,
         }),
-        { text = _("Title font face"),    help_text = _("Choose the font face for the main heading text in each section"),       sub_item_table = buildFontFaceMenu(SETTINGS.FONT_FACE_TITLE)    },
         {
-            text           = _("Title font size"),
+            text_func = function()
+                return string.format(_("Title font face: %s"),
+                    fontFaceDisplayLabel(getSetting("FONT_FACE_TITLE") or USER_CONFIG.FONT_FACE_TITLE))
+            end,
+            help_text      = _("Choose the font face for the main heading text in each section"),
+            sub_item_table = buildFontFaceMenu(SETTINGS.FONT_FACE_TITLE, USER_CONFIG.FONT_FACE_TITLE),
+        },
+        {
+            text_func = function()
+                return string.format(_("Title font size: %dpx"),
+                    getSetting("FONT_SIZE_TITLE") or USER_CONFIG.FONT_SIZE_TITLE)
+            end,
             help_text      = _("Choose the font size for the main heading text in each section."),
             keep_menu_open = true,
-            callback = function()
+            callback = function(touchmenu_instance)
                 createSpinDialog(
                     _("Title font size"),
                     getSetting("FONT_SIZE_TITLE") or USER_CONFIG.FONT_SIZE_TITLE,
                     5, 30, 1,
-                    function(val) PluginStore:saveSetting(SETTINGS.FONT_SIZE_TITLE, val) end,
+                    function(val)
+                        PluginStore:saveSetting(SETTINGS.FONT_SIZE_TITLE, val)
+                        if touchmenu_instance then touchmenu_instance:updateItems() end
+                    end,
                     _("10–12px works well for most screens."), "%d", 5
                 )
             end,
         },
-        { text = _("Subtitle font face"), help_text = _("Choose the font face for the information below the main heading text."), sub_item_table = buildFontFaceMenu(SETTINGS.FONT_FACE_SUBTITLE) },
         {
-            text           = _("Subtitle font size"),
+            text_func = function()
+                return string.format(_("Subtitle font face: %s"),
+                    fontFaceDisplayLabel(getSetting("FONT_FACE_SUBTITLE") or USER_CONFIG.FONT_FACE_SUBTITLE))
+            end,
+            help_text      = _("Choose the font face for the information below the main heading text."),
+            sub_item_table = buildFontFaceMenu(SETTINGS.FONT_FACE_SUBTITLE, USER_CONFIG.FONT_FACE_SUBTITLE),
+        },
+        {
+            text_func = function()
+                return string.format(_("Subtitle font size: %dpx"),
+                    getSetting("FONT_SIZE_SUBTITLE") or USER_CONFIG.FONT_SIZE_SUBTITLE)
+            end,
             help_text      = _("Choose the font size for the information below the main heading text."),
             keep_menu_open = true,
-            callback = function()
+            callback = function(touchmenu_instance)
                 createSpinDialog(
                     _("Subtitle font size"),
                     getSetting("FONT_SIZE_SUBTITLE") or USER_CONFIG.FONT_SIZE_SUBTITLE,
                     5, 25, 1,
-                    function(val) PluginStore:saveSetting(SETTINGS.FONT_SIZE_SUBTITLE, val) end,
+                    function(val)
+                        PluginStore:saveSetting(SETTINGS.FONT_SIZE_SUBTITLE, val)
+                        if touchmenu_instance then touchmenu_instance:updateItems() end
+                    end,
                     _("9–11px works well for most screens."), "%d", 5
                 )
             end,
+            separator = true,
         },
         {
             text      = _("Text alignment"),
@@ -648,16 +744,24 @@ local function buildFontsAndTextMenu()
                 createRadioItem(_("Right"),  nil, SETTINGS.TEXT_ALIGN, "right"),
             },
         },
-        createToggleItem(_("Book multiline titles"),    _("If deselected book titles will be truncated to a single line with an ellipsis"),    SETTINGS.BOOK_MULTILINE, USER_CONFIG.BOOK_MULTILINE),
-        createToggleItem(_("Chapter multiline titles"), _("If deselected chapter titles will be truncated to a single line with an ellipsis"), SETTINGS.CHAP_MULTILINE, USER_CONFIG.CHAP_MULTILINE),
+        {
+            text      = _("Multiline titles"),
+            help_text = _("Allow book and chapter titles to wrap across multiple lines instead of being truncated to one."),
+            sub_item_table = {
+                createToggleItem(_("Book multiline titles"),    _("If deselected book titles will be truncated to a single line with an ellipsis"),    SETTINGS.BOOK_MULTILINE, USER_CONFIG.BOOK_MULTILINE),
+                createToggleItem(_("Chapter multiline titles"), _("If deselected chapter titles will be truncated to a single line with an ellipsis"), SETTINGS.CHAP_MULTILINE, USER_CONFIG.CHAP_MULTILINE),
+            },
+        },
+        createToggleItem(_("Make titles bold"),
+            _("Display the section titles in bold font weight for extra emphasis."),
+            SETTINGS.ALL_TITLES_BOLD, USER_CONFIG.ALL_TITLES_BOLD),
         createToggleItem(_("Clean chapter titles"),
             _("Removes structural prefixes like 'Chapter 5:' or 'Part II' from chapter titles and normalises capitalisation. Only works correctly with English chapter titles - disable for non-English books."),
             SETTINGS.CLEAN_CHAP, USER_CONFIG.CLEAN_CHAP),
-        createFlipNilOrFalseItem(_("Make titles bold"),
-            _("Display the section titles in bold font weight for extra emphasis."),
-            SETTINGS.ALL_TITLES_BOLD),
     }
 end
+
+-- Background menu
 
 local function buildBackgroundTypeMenu()
     local options = {
@@ -674,11 +778,13 @@ local function buildBackgroundTypeMenu()
         enabled_func   = function() return getSetting("BG_TYPE") == "solid" end,
         keep_menu_open = true,
         callback = function()
+            local saved_color   = PluginStore:readSetting(SETTINGS.BG_SOLID_COLOR)
             local current_color = getSetting("BG_SOLID_COLOR")
-            local h, s, v = hexToHSV(current_color)
+            local hh, ss, vv = hexToHSV(current_color)
+            if not saved_color then vv = 1 end
             local wheel = getColourWheelWidget():new({
                 title_text = _("Pick background colour"),
-                hue = h, saturation = s, value = v,
+                hue = hh, saturation = ss, value = vv,
                 callback = function(hex)
                     PluginStore:saveSetting(SETTINGS.BG_SOLID_COLOR, hex)
                     UIManager:setDirty(nil, "ui")
@@ -858,14 +964,16 @@ local function buildBackgroundTypeMenu()
         end,
         keep_menu_open = true,
         callback = function()
+            local saved_color   = PluginStore:readSetting(SETTINGS.BG_COVER_FILL_COLOR)
             local current_color = getSetting("BG_COVER_FILL_COLOR")
             if current_color == "black" then current_color = "#000000"
             elseif current_color == "white" then current_color = "#ffffff"
             end
-            local h, s, v = hexToHSV(current_color)
+            local hh, ss, vv = hexToHSV(current_color)
+            if not saved_color then vv = 1 end
             local wheel = getColourWheelWidget():new({
                 title_text = _("Pick cover fill colour"),
-                hue = h, saturation = s, value = v,
+                hue = hh, saturation = ss, value = vv,
                 callback = function(hex)
                     PluginStore:saveSetting(SETTINGS.BG_COVER_FILL_COLOR, hex)
                     UIManager:setDirty(nil, "ui")
@@ -894,8 +1002,9 @@ local function buildBackgroundTypeMenu()
     return sub_menu
 end
 
-local function buildBackgroundMenu()
+local function buildBackgroundMenu(ui)
     return {
+        h.buildPreviewMenuItem(ui, false),
         createResetMenuItem("background", {
             SETTINGS.BG_DIMMING, SETTINGS.BG_DIMMING_COLOR,
             SETTINGS.BG_TYPE,    SETTINGS.BG_FOLDER,
@@ -914,11 +1023,13 @@ local function buildBackgroundMenu()
                         text           = _("Overlay colour"),
                         keep_menu_open = true,
                         callback = function()
+                            local saved_color   = PluginStore:readSetting(SETTINGS.BG_DIMMING_COLOR)
                             local current_color = getSetting("BG_DIMMING_COLOR")
-                            local h, s, v = hexToHSV(current_color)
+                            local hh, ss, vv = hexToHSV(current_color)
+                            if not saved_color then vv = 1 end
                             local wheel = getColourWheelWidget():new({
                                 title_text = _("Background overlay colour"),
-                                hue = h, saturation = s, value = v,
+                                hue = hh, saturation = ss, value = vv,
                                 callback = function(hex)
                                     PluginStore:saveSetting(SETTINGS.BG_DIMMING_COLOR, hex)
                                     UIManager:setDirty(nil, "ui")
@@ -950,11 +1061,50 @@ local function buildBackgroundMenu()
                 return sub
             end)(),
         },
+        {
+            text      = _("Cover exclusion"),
+            help_text = _("Hide this book's cover from the sleep screen, and choose what shows instead."),
+            sub_item_table = {
+                {
+                    text      = _("Exclude this book's cover from sleep screen"),
+                    help_text = _("Hides the cover for this book only, for when you'd rather it not be shown on your sleep screen - without having to switch presets or background settings each time you read it. Only has an effect while Background type is set to \"Book cover\" - it has nothing to exclude otherwise."),
+                    enabled_func = function()
+                        return ui and ui.document ~= nil and getSetting("BG_TYPE") == "cover"
+                    end,
+                    checked_func = function()
+                        return ui and ui.doc_settings and ui.doc_settings:isTrue(bg_mod.COVER_EXCLUDE_KEY)
+                    end,
+                    callback = function()
+                        if not (ui and ui.doc_settings) then return end
+                        if ui.doc_settings:isTrue(bg_mod.COVER_EXCLUDE_KEY) then
+                            ui.doc_settings:makeFalse(bg_mod.COVER_EXCLUDE_KEY)
+                        else
+                            ui.doc_settings:makeTrue(bg_mod.COVER_EXCLUDE_KEY)
+                        end
+                        ui:saveSettings()
+                    end,
+                },
+                {
+                    text      = _("Fallback background"),
+                    help_text = _("What to show instead of the cover. Uses the colour, image, or folder already set in Background type. Only selectable when \"Exclude this book's cover from sleep screen\" is turned on and Background type is set to \"Book cover\"."),
+                    enabled_func = function()
+                        if not (ui and ui.document and ui.doc_settings) then return false end
+                        return ui.doc_settings:isTrue(bg_mod.COVER_EXCLUDE_KEY) == true
+                            and getSetting("BG_TYPE") == "cover"
+                    end,
+                    sub_item_table = buildNumericMenu("EXCLUDED_COVER_BG_TYPE", {
+                        { text = _("No background (leave screen as-is)"), val = "transparent" },
+                        { text = _("Solid colour"),                       val = "solid"       },
+                        { text = _("Custom image"),                       val = "custom"      },
+                        { text = _("Random image from folder"),           val = "folder"      },
+                    }),
+                },
+            },
+        },
     }
 end
 
 return {
-    buildDisplayModesMenu     = buildDisplayModesMenu,
     buildLayoutAndSpacingMenu = buildLayoutAndSpacingMenu,
     buildColorsIconsBarsMenu  = buildColorsIconsBarsMenu,
     buildFontsAndTextMenu     = buildFontsAndTextMenu,

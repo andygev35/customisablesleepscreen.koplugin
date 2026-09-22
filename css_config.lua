@@ -1,9 +1,7 @@
 -- Default setting values (USER_CONFIG) and storage key names (SETTINGS).
 
 local USER_CONFIG = {
-    DARK_MODE                = false,
-    MONOCHROME               = false,
-
+    -- Contents
     SHOW_BOOK                = true,
     SHOW_CHAP                = true,
     SHOW_GOAL                = true,
@@ -19,37 +17,44 @@ local USER_CONFIG = {
     SHOW_CHAP_PAGES          = false,
     SHOW_CHAP_TIME_REMAINING = true,
     SHOW_CHAP_PERCENTAGE     = true,
-    DAILY_GOAL               = 50,
-    GOAL_TYPE                = "pages",
+    DAILY_GOAL               = 30,
+    GOAL_TYPE                = "time",
     DAILY_GOAL_MINUTES       = 30,
     SHOW_GOAL_STREAK         = false,
     SHOW_GOAL_ACHIEVEMENT    = false,
-    SHOW_GOAL_PAGES          = true,
+    SHOW_GOAL_PAGES          = false,
     SHOW_GOAL_PERCENTAGE     = true,
     GOAL_TITLE_TYPE          = "time",
     SHOW_BATT_RATE           = false,
     SHOW_BATT_TIME           = true,
-    SHOW_BATT_CLOCK          = true,
+    SHOW_BATT_CLOCK          = false,
     SHOW_BATT_DATE           = false,
+    SHOW_BATT_STATUS_TEXT    = true,
     MESSAGE_SOURCE           = "highlight",
     MSG_HEADER               = "Highlights",
     CUSTOM_MESSAGE           = "Books are a uniquely portable magic.",
-    MAX_HIGHLIGHT_LENGTH     = 200,
+    MAX_HIGHLIGHT_LENGTH     = 150,
     HIGHLIGHT_ADD_QUOTES     = true,
     SHOW_HIGHLIGHT_LOCATION  = false,
     SHOW_QUOTE_ATTRIBUTION   = false,
-    SHOW_MSG_HEADER          = true,
+    SHOW_MSG_HEADER          = false,
+    MSG_SHOW_FULL_BAR        = false,
+    COVER_IN_BOOK            = false,
+    COVER_SIZE               = 150,
+    COVER_BORDER_SIZE        = 0,
+    COVER_ALIGN_TO_TEXT      = false,
 
+    -- Layout, spacing & frame
     SECTION_GAPS_ENABLED     = false,
     SECTION_GAP_SIZE         = 20,
     POS                      = "center",
     POS_OFFSET_X             = 0,
     POS_OFFSET_Y             = 0,
-    BOX_WIDTH_PCT            = 60,
-    OPACITY                  = 204,
+    BOX_WIDTH_PCT            = 65,
+    OPACITY                  = 229,
     BORDER_SIZE              = 0,
     BORDER_SIZE_2            = 0,
-    SECTION_RADIUS           = 0,
+    SECTION_RADIUS           = 35,
     BAR_INLINE               = false,
     BAR_INLINE_WIDTH_PCT     = 100,
     BAR_BORDER_SIZE          = 0,
@@ -60,8 +65,20 @@ local USER_CONFIG = {
     SECTION_PADDING_RIGHT    = 12,
     ICON_TEXT_GAP            = 16,
     SLEEP_ORIENTATION        = "auto",
-    ANTI_GHOSTING_FLASH      = false,
 
+    -- Automatic preset switching
+    AUTO_PRESET_SWITCH_ENABLED      = false,
+    AUTO_PRESET_SWITCH_TRIGGER      = "time",
+    AUTO_PRESET_SWITCH_START_HOUR   = 21,
+    AUTO_PRESET_SWITCH_START_MIN    = 0,
+    AUTO_PRESET_SWITCH_END_HOUR     = 7,
+    AUTO_PRESET_SWITCH_END_MIN      = 0,
+    AUTO_PRESET_SWITCH_DAY_PRESET   = "Default Day",
+    AUTO_PRESET_SWITCH_NIGHT_PRESET = "Default Night",
+
+    -- Colours, icons & bars
+    DARK_MODE                = false,
+    MONOCHROME               = false,
     COLOR_BOOK_FILL          = "#82A9D9",
     COLOR_CHAPTER_FILL       = "#F2C2CF",
     COLOR_GOAL_FILL          = "#F9E480",
@@ -72,6 +89,10 @@ local USER_CONFIG = {
     COLOR_MESSAGE_FILL       = "#99A7D9",
     COLOR_LIGHT              = "#000000",
     COLOR_DARK               = "#ffffff",
+    COLOR_BOX_BG             = "#FFFFFF",
+    COLOR_BOX_BG_DARK        = "#000000",
+    COLOR_TEXT               = "#000000",
+    COLOR_TEXT_DARK          = "#FFFFFF",
     ICON_USE_BAR_COLOR       = true,
     ICON_SET                 = "Default",
     ICON_SIZE                = 40,
@@ -79,60 +100,60 @@ local USER_CONFIG = {
     SHOW_ICONS               = true,
     SHOW_BARS                = true,
 
-    FONT_FACE_TITLE          = "Zilla Slab",
-    FONT_SIZE_TITLE          = 10,
-    FONT_FACE_SUBTITLE       = "Zilla Slab",
+    -- Fonts & text
+    FONT_FACE_TITLE          = "Nunito",
+    FONT_SIZE_TITLE          = 9,
+    FONT_FACE_SUBTITLE       = "Nunito",
     FONT_SIZE_SUBTITLE       = 9,
     TEXT_ALIGN               = "left",
     BOOK_MULTILINE           = true,
     CHAP_MULTILINE           = true,
     CLEAN_CHAP               = true,
-    ALL_TITLES_BOLD          = false,
+    ALL_TITLES_BOLD          = true,
 
-    BG_DIMMING               = 128,
+    -- Background
+    BG_DIMMING               = 51,
     BG_DIMMING_COLOR         = "#000000",
     BG_TYPE                  = "cover",
     BG_FOLDER                = "",
     BG_IMAGE_PATH            = "",
-    BG_SOLID_COLOR           = "#2C3E50",
+    BG_SOLID_COLOR           = "#000000",
     BG_STRETCH               = true,
     EXCLUDED_COVER_BG_TYPE   = "transparent",
     BG_COVER_FILL_COLOR      = "black",
     BG_COVER_ALIGN           = "center",
 
-    SHOW_IN_FILEMANAGER      = true,
-    HIDE_PRELOADED_PRESETS   = false,
+    -- Global
+    FM_ALT_MODE              = false,
+    FM_BG_TYPE               = "transparent",
+    FM_BG_SOLID_COLOR        = "#000000",
+    FM_BG_IMAGE_PATH         = "",
+    FM_BG_FOLDER             = "",
+    FM_BG_STRETCH            = true,
+    FM_BG_COVER_FILL_COLOR   = "#000000",
+    FM_BG_COVER_ALIGN        = "center",
     BATT_STAT_TYPE           = "awake",
     BATT_MANUAL_RATE         = 2.5,
-    MSG_SHOW_FULL_BAR        = false,
     GOAL_STAT_SCOPE          = "all",
     EXPORT_PATH              = "",
     EXPORT_ENABLED           = false,
-    EXPORT_FILENAME          = "screensaver",
-    EXPORT_FORMAT            = "png",
-
-    COLOR_BOX_BG             = "#FFFFFF",
-    COLOR_BOX_BG_DARK        = "#000000",
-    COLOR_TEXT               = "#000000",
-    COLOR_TEXT_DARK          = "#FFFFFF",
-
-    COVER_IN_BOOK            = false,
-    COVER_SIZE               = 120,
-    COVER_BORDER_SIZE        = 0,
-    COVER_ALIGN_TO_TEXT      = false,
+    EXPORT_FILENAME          = "sleep_screen",
+    EXPORT_FORMAT            = "jpg",
+    EXPORT_GRAYSCALE         = false,
+    ANTI_GHOSTING_FLASH      = false,
 }
 
 local SETTINGS = {
+    -- KOReader-owned keys
     TYPE                     = "screensaver_type",
     SHOW_MSG_GLOBAL          = "screensaver_show_message",
     MSG_TEXT                 = "screensaver_message",
 
+    -- Internal
     VERSION                  = "customisable_ss_version",
     LAST_BOOK_STATE          = "customisable_ss_last_book_state",
 
-    DARK_MODE                = "customisable_ss_dark_mode",
-    MONOCHROME               = "customisable_ss_monochrome",
-
+    -- Contents
     SHOW_BOOK                = "customisable_ss_show_book",
     SHOW_CHAP                = "customisable_ss_show_chap",
     SHOW_GOAL                = "customisable_ss_show_goal",
@@ -157,6 +178,7 @@ local SETTINGS = {
     SHOW_GOAL_PERCENTAGE     = "customisable_ss_show_goal_percentage",
     GOAL_TITLE_TYPE          = "customisable_ss_goal_title_type",
     SHOW_BATT_DATE           = "customisable_ss_show_batt_date",
+    SHOW_BATT_STATUS_TEXT    = "customisable_ss_show_batt_status_text",
     SHOW_BATT_RATE           = "customisable_ss_show_batt_rate",
     SHOW_BATT_TIME           = "customisable_ss_show_batt_time",
     SHOW_BATT_CLOCK          = "customisable_ss_show_batt_clock",
@@ -168,7 +190,13 @@ local SETTINGS = {
     SHOW_HIGHLIGHT_LOCATION  = "customisable_ss_show_highlight_location",
     SHOW_QUOTE_ATTRIBUTION   = "customisable_ss_show_quote_attribution",
     SHOW_MSG_HEADER          = "customisable_ss_show_msg_header",
+    MSG_SHOW_FULL_BAR        = "customisable_ss_msg_show_full_bar",
+    COVER_IN_BOOK            = "customisable_ss_cover_in_book",
+    COVER_SIZE               = "customisable_ss_cover_size",
+    COVER_BORDER_SIZE        = "customisable_ss_cover_border_size",
+    COVER_ALIGN_TO_TEXT      = "customisable_ss_cover_align_to_text",
 
+    -- Layout, spacing & frame
     SECTION_GAPS_ENABLED     = "customisable_ss_section_gaps_enabled",
     SECTION_GAP_SIZE         = "customisable_ss_section_gap_size",
     POS                      = "customisable_ss_position",
@@ -189,8 +217,20 @@ local SETTINGS = {
     SECTION_PADDING_RIGHT    = "customisable_ss_section_padding_right",
     ICON_TEXT_GAP            = "customisable_ss_icon_text_gap",
     SLEEP_ORIENTATION        = "customisable_ss_sleep_orientation",
-    ANTI_GHOSTING_FLASH      = "customisable_ss_anti_ghosting_flash",
 
+    -- Automatic preset switching
+    AUTO_PRESET_SWITCH_ENABLED      = "customisable_ss_auto_preset_switch_enabled",
+    AUTO_PRESET_SWITCH_TRIGGER      = "customisable_ss_auto_preset_switch_trigger",
+    AUTO_PRESET_SWITCH_START_HOUR   = "customisable_ss_auto_preset_switch_start_hour",
+    AUTO_PRESET_SWITCH_START_MIN    = "customisable_ss_auto_preset_switch_start_min",
+    AUTO_PRESET_SWITCH_END_HOUR     = "customisable_ss_auto_preset_switch_end_hour",
+    AUTO_PRESET_SWITCH_END_MIN      = "customisable_ss_auto_preset_switch_end_min",
+    AUTO_PRESET_SWITCH_DAY_PRESET   = "customisable_ss_auto_preset_switch_day_preset",
+    AUTO_PRESET_SWITCH_NIGHT_PRESET = "customisable_ss_auto_preset_switch_night_preset",
+
+    -- Colours, icons & bars
+    DARK_MODE                = "customisable_ss_dark_mode",
+    MONOCHROME               = "customisable_ss_monochrome",
     COLOR_BOOK_FILL          = "customisable_ss_color_book",
     COLOR_CHAPTER_FILL       = "customisable_ss_color_chapter",
     COLOR_GOAL_FILL          = "customisable_ss_color_goal",
@@ -201,6 +241,10 @@ local SETTINGS = {
     COLOR_MESSAGE_FILL       = "customisable_ss_color_message",
     COLOR_DARK               = "customisable_ss_color_dark",
     COLOR_LIGHT              = "customisable_ss_color_light",
+    COLOR_BOX_BG             = "customisable_ss_color_box_bg",
+    COLOR_BOX_BG_DARK        = "customisable_ss_color_box_bg_dark",
+    COLOR_TEXT               = "customisable_ss_color_text",
+    COLOR_TEXT_DARK          = "customisable_ss_color_text_dark",
     ICON_USE_BAR_COLOR       = "customisable_ss_icon_use_bar_color",
     ICON_SET                 = "customisable_ss_icon_set",
     ICON_SIZE                = "customisable_ss_icon_size",
@@ -208,6 +252,7 @@ local SETTINGS = {
     SHOW_ICONS               = "customisable_ss_show_icons",
     SHOW_BARS                = "customisable_ss_show_bars",
 
+    -- Fonts & text
     FONT_FACE_TITLE          = "customisable_ss_font_face_title",
     FONT_SIZE_TITLE          = "customisable_ss_font_size_title",
     FONT_FACE_SUBTITLE       = "customisable_ss_font_face_subtitle",
@@ -218,6 +263,7 @@ local SETTINGS = {
     CLEAN_CHAP               = "customisable_ss_clean_chapters",
     ALL_TITLES_BOLD          = "customisable_ss_all_titles_bold",
 
+    -- Background
     BG_DIMMING               = "customisable_ss_bg_dimming",
     BG_DIMMING_COLOR         = "customisable_ss_bg_dimming_color",
     BG_TYPE                  = "customisable_ss_bg_type",
@@ -229,29 +275,29 @@ local SETTINGS = {
     BG_COVER_ALIGN           = "customisable_ss_bg_cover_align",
     EXCLUDED_COVER_BG_TYPE   = "customisable_ss_excluded_cover_bg_type",
 
+    -- Preset management
     PRESETS                  = "customisable_ss_presets",
     CYCLE_INDEX              = "customisable_ss_presets_cycle_index",
     LAST_LOADED_PRESET       = "customisable_ss_last_loaded_preset",
-    SHOW_IN_FILEMANAGER      = "customisable_ss_show_in_filemanager",
-    HIDE_PRELOADED_PRESETS   = "customisable_ss_hide_preloaded_presets",
+
+    -- Global
+    FM_ALT_MODE              = "customisable_ss_fm_alt_mode",
+    FM_BG_TYPE               = "customisable_ss_fm_bg_type",
+    FM_BG_SOLID_COLOR        = "customisable_ss_fm_bg_solid_color",
+    FM_BG_IMAGE_PATH         = "customisable_ss_fm_bg_image_path",
+    FM_BG_FOLDER             = "customisable_ss_fm_bg_folder",
+    FM_BG_STRETCH            = "customisable_ss_fm_bg_stretch",
+    FM_BG_COVER_FILL_COLOR   = "customisable_ss_fm_bg_cover_fill_color",
+    FM_BG_COVER_ALIGN        = "customisable_ss_fm_bg_cover_align",
     BATT_STAT_TYPE           = "customisable_ss_batt_stat_type",
     BATT_MANUAL_RATE         = "customisable_ss_batt_manual_rate",
-    MSG_SHOW_FULL_BAR        = "customisable_ss_msg_show_full_bar",
     GOAL_STAT_SCOPE          = "customisable_ss_goal_stat_scope",
     EXPORT_PATH              = "customisable_ss_export_path",
     EXPORT_ENABLED           = "customisable_ss_export_enabled",
     EXPORT_FILENAME          = "customisable_ss_export_filename",
     EXPORT_FORMAT            = "customisable_ss_export_format",
-
-    COLOR_BOX_BG             = "customisable_ss_color_box_bg",
-    COLOR_BOX_BG_DARK        = "customisable_ss_color_box_bg_dark",
-    COLOR_TEXT               = "customisable_ss_color_text",
-    COLOR_TEXT_DARK          = "customisable_ss_color_text_dark",
-
-    COVER_IN_BOOK            = "customisable_ss_cover_in_book",
-    COVER_SIZE               = "customisable_ss_cover_size",
-    COVER_BORDER_SIZE        = "customisable_ss_cover_border_size",
-    COVER_ALIGN_TO_TEXT      = "customisable_ss_cover_align_to_text",
+    EXPORT_GRAYSCALE         = "customisable_ss_export_grayscale",
+    ANTI_GHOSTING_FLASH      = "customisable_ss_anti_ghosting_flash",
 }
 
 local function getSetting(key)

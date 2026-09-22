@@ -31,6 +31,8 @@ local Screen = Device.screen
 
 local WidgetContainer = require("ui/widget/container/widgetcontainer")
 
+-- Positioning & framing helpers
+
 local function makeAlphaWidget(widget, alpha)
     local W = WidgetContainer:extend{ alpha = alpha, private_bb = nil }
     W[1] = widget
@@ -61,7 +63,7 @@ local function calculateWidgetPosition(border_wrap, layout)
 
     local total_border_size = border_size + (border_size > 0 and border_size_2 or 0)
 
-    local x_off, y_off = 0, 0
+    local x_off, y_off
 
     if pos:find("center") or pos == "middle_center" then
         x_off = (screen_size.w - widget_size.w) / 2
@@ -129,6 +131,8 @@ local function wrapSectionWithBorders(section, colors, layout)
     return wrapped
 end
 
+-- Main assembly
+
 local function buildInfoBox(ui, state, book_data)
     applyProgressWidgetPatch()
     local ok, result = pcall(function()
@@ -188,7 +192,7 @@ local function buildInfoBox(ui, state, book_data)
         end
 
         local built_sections = {}
-        for i, key in ipairs(section_order) do
+        for _, key in ipairs(section_order) do
             local builder = section_builders[key]
             if builder then
                 local ok2, section = pcall(builder, ui, state, book_data, has_ui, total_width,
@@ -281,8 +285,18 @@ local function buildInfoBox(ui, state, book_data)
     end
 end
 
+local function buildFileManagerBackground()
+    local screen_size = Screen:getSize()
+    local bg_widget    = bg_mod.renderFileManagerBackground(screen_size)
+    return OverlapGroup:new {
+        dimen = screen_size,
+        bg_widget or HorizontalSpan:new { width = screen_size.w },
+    }
+end
+
 return {
-    calculateWidgetPosition = calculateWidgetPosition,
-    wrapSectionWithBorders  = wrapSectionWithBorders,
-    buildInfoBox            = buildInfoBox,
+    calculateWidgetPosition    = calculateWidgetPosition,
+    wrapSectionWithBorders     = wrapSectionWithBorders,
+    buildInfoBox               = buildInfoBox,
+    buildFileManagerBackground = buildFileManagerBackground,
 }

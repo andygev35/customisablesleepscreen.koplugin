@@ -8,7 +8,6 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. ---- Display sleep screen strings ----
-
 msgid "January"
 msgstr "Tháng 1"
 
@@ -67,13 +66,6 @@ msgstr[0] "phút"
 
 msgid "< 1 min"
 msgstr "< 1 phút"
-
-#, lua-format
-msgid "~%d %s left"
-msgstr "~%d %s còn lại"
-
-msgid "~<1 hr left"
-msgstr "~<1 giờ còn lại"
 
 msgid "Untitled"
 msgstr "Không có tiêu đề"
@@ -146,18 +138,11 @@ msgstr "%d%% mục tiêu"
 msgid "%d page goal"
 msgstr "Mục tiêu %d trang"
 
-#, lua-format
-msgid "~%.1f%%/hour"
-msgstr "~%.1f%%/giờ"
-
 msgid "Rate unavailable"
 msgstr "Không có dữ liệu tốc độ"
 
 msgid "No message set"
 msgstr "Chưa đặt tin nhắn"
-
-msgid "No custom quotes found. Add quotes to custom_quotes.lua."
-msgstr "Không tìm thấy trích dẫn tùy chỉnh. Thêm trích dẫn vào custom_quotes.lua."
 
 #, lua-format
 msgid "pg. %s"
@@ -178,8 +163,29 @@ msgstr "Trích dẫn"
 msgid "Message"
 msgstr "Tin nhắn"
 
-#. ---- All other strings (menu items, help text, headers, buttons) ----
+msgid "< 1 min left"
+msgstr "còn lại < 1 phút"
 
+#, lua-format
+msgid "Page %s of %s"
+msgstr "Trang %s / %s"
+
+msgid "charging"
+msgstr "đang sạc"
+
+msgid "remaining"
+msgstr "còn lại"
+
+#, lua-format
+msgid "%.1f%% / hour"
+msgstr "%.1f%% / giờ"
+
+msgid "No custom quotes found. Add quotes to css_custom_quotes.lua."
+msgstr ""
+"Không tìm thấy trích dẫn tùy chỉnh. Thêm trích dẫn vào "
+"css_custom_quotes.lua."
+
+#. ---- All other strings (menu items, help text, headers, buttons) ----
 msgid "Customisable sleep screen settings"
 msgstr "Cài đặt màn hình chờ tùy chỉnh"
 
@@ -196,38 +202,20 @@ msgid "Enable customisable sleep screen"
 msgstr "Bật màn hình chờ tùy chỉnh"
 
 msgid ""
-"Customisable Sleep Screen: no book data found.\n\nOpen a book and trigger "
-"the sleep screen at least once before it will work in the file manager."
+"Customisable Sleep Screen: no book data found.\n"
+"\n"
+"Open a book and trigger the sleep screen at least once before it will work in the file manager."
 msgstr ""
-"Màn hình ngủ tùy chỉnh: không tìm thấy dữ liệu sách.\n\nHãy mở sách và kích "
-"hoạt màn hình ngủ ít nhất một lần trước khi nó\nhoạt động trong trình quản "
-"lý tệp."
-
-msgid "Delete all custom presets"
-msgstr "Xóa tất cả cấu hình tùy chỉnh"
-
-msgid ""
-"Permanently removes all custom presets you've created. The built-in "
-"'Default' preset will remain. This cannot be undone."
-msgstr ""
-"Xóa vĩnh viễn tất cả cấu hình tùy chỉnh bạn đã tạo. Cấu hình tích hợp\n'Mặc "
-"định' sẽ vẫn còn. Thao tác này không thể hoàn tác."
-
-msgid ""
-"Are you sure you want to delete all custom presets? (built-in presets will "
-"remain)"
-msgstr ""
-"Bạn có chắc muốn xóa tất cả cấu hình tùy chỉnh không?\n(Các cấu hình tích "
-"hợp sẽ vẫn còn)"
+"Màn hình ngủ tùy chỉnh: không tìm thấy dữ liệu sách.\n"
+"\n"
+"Hãy mở sách và kích hoạt màn hình ngủ ít nhất một lần trước khi nó\n"
+"hoạt động trong trình quản lý tệp."
 
 msgid "Delete"
 msgstr "Xóa"
 
 msgid "Cancel"
 msgstr "Hủy"
-
-msgid "All custom presets deleted. Built-in presets remain."
-msgstr "Đã xóa tất cả cấu hình tùy chỉnh. Các cấu hình tích hợp vẫn còn."
 
 msgid "Sleep screen orientation"
 msgstr "Hướng màn hình chờ"
@@ -236,8 +224,8 @@ msgid ""
 "Force the sleep screen to display in a specific orientation, regardless of "
 "how the device is held."
 msgstr ""
-"Buộc màn hình chờ hiển thị theo hướng cụ thể, bất kể thiết bị được\ncầm theo "
-"chiều nào."
+"Buộc màn hình chờ hiển thị theo hướng cụ thể, bất kể thiết bị được\n"
+"cầm theo chiều nào."
 
 msgid "Auto (follow device)"
 msgstr "Tự động (theo thiết bị)"
@@ -316,9 +304,9 @@ msgid ""
 "book only, or all books read today. Note: reading streak and weekly goal "
 "achievement always reflect all books regardless of this setting."
 msgstr ""
-"Kiểm soát xem thời gian đọc và số trang hôm nay áp dụng chỉ cho sách\nhiện "
-"tại hay tất cả sách đã đọc hôm nay. Lưu ý: chuỗi đọc sách và hoàn\nthành mục "
-"tiêu hàng tuần luôn phản ánh tất cả sách bất kể cài đặt này."
+"Kiểm soát xem thời gian đọc và số trang hôm nay áp dụng chỉ cho sách\n"
+"hiện tại hay tất cả sách đã đọc hôm nay. Lưu ý: chuỗi đọc sách và hoàn\n"
+"thành mục tiêu hàng tuần luôn phản ánh tất cả sách bất kể cài đặt này."
 
 msgid "All books"
 msgstr "Tất cả sách"
@@ -351,32 +339,20 @@ msgid ""
 "When enabled, the customisable sleep screen will display in file manager "
 "using the last saved book data."
 msgstr ""
-"Khi bật, màn hình chờ tùy chỉnh sẽ hiển thị trong trình quản lý tệp\nbằng dữ "
-"liệu sách đã lưu gần nhất."
-
-msgid "Hide built-in presets (except Default)"
-msgstr "Ẩn cấu hình tích hợp (trừ Mặc định)"
-
-msgid ""
-"Hide the built-in presets from the preset list, keeping only the Default "
-"preset and your custom presets visible."
-msgstr ""
-"Ẩn các cấu hình tích hợp khỏi danh sách, chỉ hiển thị cấu hình Mặc định\nvà "
-"các cấu hình tùy chỉnh của bạn."
-
-msgid "Setting saved. Preset list will update when you reopen this menu."
-msgstr "Đã lưu cài đặt. Danh sách cấu hình sẽ cập nhật khi bạn mở lại menu này."
+"Khi bật, màn hình chờ tùy chỉnh sẽ hiển thị trong trình quản lý tệp\n"
+"bằng dữ liệu sách đã lưu gần nhất."
 
 msgid "Export sleep screen to file"
 msgstr "Xuất màn hình chờ ra tệp"
 
 msgid ""
-"When enabled, a screenshot of the sleep screen will be saved in the selected "
-"export folder each time a book is closed, using the filename and format set "
-"below."
+"When enabled, a screenshot of the sleep screen will be saved in the selected"
+" export folder each time you close a book or put the device to sleep, using "
+"the format set below."
 msgstr ""
-"Khi bật, ảnh chụp màn hình chờ sẽ được lưu vào thư mục xuất đã chọn mỗi khi "
-"đóng sách, sử dụng tên tệp và định dạng được đặt bên dưới."
+"Khi được bật, ảnh chụp màn hình chờ sẽ được lưu vào thư mục xuất đã chọn mỗi"
+" khi bạn đóng sách hoặc đưa thiết bị vào chế độ ngủ, theo định dạng được đặt"
+" bên dưới."
 
 msgid "Sleep screen export disabled."
 msgstr "Xuất màn hình chờ đã tắt."
@@ -385,20 +361,13 @@ msgid "No export folder set. Please set an export folder first."
 msgstr "Chưa đặt thư mục xuất. Vui lòng đặt thư mục xuất trước."
 
 #, lua-format
-msgid "Sleep screen will be exported to:\n%s/%s.%s"
+msgid ""
+"Sleep screen will be exported to:\n"
+"%s/%s.%s"
 msgstr "Màn hình chờ sẽ được xuất tới: %s/%s.%s"
 
 msgid "Set export filename"
 msgstr "Đặt tên tệp xuất"
-
-msgid ""
-"Choose the filename used for the exported image (without extension). Some "
-"devices need a specific filename to recognise it as their native sleep "
-"screen e.g. 'suspend_others' for Tolino."
-msgstr ""
-"Chọn tên tệp dùng cho hình ảnh xuất ra (không có phần mở rộng). Một số thiết "
-"bị cần tên tệp cụ thể để nhận diện đó là màn hình chờ gốc của chúng, ví dụ "
-"'suspend_others' đối với Tolino."
 
 msgid "Export filename"
 msgstr "Tên tệp xuất"
@@ -406,66 +375,45 @@ msgstr "Tên tệp xuất"
 msgid "Save"
 msgstr "Lưu"
 
-msgid "Export format"
-msgstr "Định dạng xuất"
-
-msgid ""
-"Choose the image format for the exported file. BMP is needed for "
-"PocketBook's native sleep screen; PNG and JPG suit most other devices."
-msgstr ""
-"Chọn định dạng hình ảnh cho tệp xuất ra. BMP cần thiết cho màn hình chờ gốc "
-"của PocketBook; PNG và JPG phù hợp với hầu hết các thiết bị khác."
-
 msgid "PNG"
 msgstr "PNG"
 
-msgid "Lossless, larger file size. Default."
-msgstr "Không mất dữ liệu, kích thước tệp lớn hơn. Mặc định."
+msgid "Lossless. Medium file size, slower save."
+msgstr "Không mất dữ liệu. Kích thước tệp trung bình, lưu chậm hơn."
 
 msgid "JPG"
 msgstr "JPG"
 
-msgid "Lossy, smaller file size."
-msgstr "Mất dữ liệu, kích thước tệp nhỏ hơn."
+msgid "Lossy. Smallest file size, quick save."
+msgstr "Nén mất dữ liệu. Kích thước tệp nhỏ nhất, lưu nhanh."
 
 msgid "BMP"
 msgstr "BMP"
 
-msgid "Uncompressed. Required for PocketBook's native sleep screen support."
-msgstr "Không nén. Cần thiết để hỗ trợ màn hình chờ gốc của PocketBook."
+msgid "Uncompressed. Largest file size, quick save."
+msgstr "Không nén. Kích thước tệp lớn nhất, lưu nhanh."
 
 msgid "Set export folder"
 msgstr "Đặt thư mục xuất"
 
-msgid "Choose the folder where the exported image will be saved."
-msgstr "Chọn thư mục để lưu hình ảnh xuất ra."
-
 #, lua-format
-msgid "Export folder set to:\n%s"
-msgstr "Thư mục xuất đã đặt thành:\n%s"
+msgid ""
+"Export folder set to:\n"
+"%s"
+msgstr ""
+"Thư mục xuất đã đặt thành:\n"
+"%s"
 
 msgid "Exclude this book's cover from sleep screen"
 msgstr "Loại trừ ảnh bìa của sách này khỏi màn hình chờ"
 
 msgid ""
-"Hides the cover for this book only, for when you'd rather it not be shown on "
-"your sleep screen - without having to switch presets or background settings "
-"each time you read it."
+"Hides the cover for this book only, for when you'd rather it not be shown on"
+" your sleep screen - without having to switch presets or background settings"
+" each time you read it."
 msgstr ""
 "Chỉ ẩn ảnh bìa cho sách này, dành cho khi bạn không muốn nó hiển thị trên "
 "màn hình chờ - mà không cần đổi cấu hình sẵn hoặc cài đặt nền mỗi khi đọc."
-
-msgid "Cover-excluded fallback background"
-msgstr "Nền thay thế khi loại trừ ảnh bìa"
-
-msgid ""
-"What to show instead of the cover. Uses the colour, image, or folder already "
-"set in Background → Background type. Only selectable when \"Exclude this "
-"book's cover from sleep screen\" is turned on."
-msgstr ""
-"Hiển thị gì thay cho ảnh bìa. Dùng màu, hình ảnh hoặc thư mục đã đặt trong "
-"Nền → Loại nền. Chỉ chọn được khi \"Loại trừ ảnh bìa của sách này khỏi màn "
-"hình chờ\" được bật."
 
 msgid "No background (leave screen as-is)"
 msgstr "Không có nền (giữ nguyên màn hình)"
@@ -485,29 +433,28 @@ msgstr "Cấu hình"
 msgid "Save, load, and manage presets."
 msgstr "Lưu, tải và quản lý các cấu hình."
 
-msgid "Display modes"
-msgstr "Chế độ hiển thị"
-
-msgid "Global appearance settings."
-msgstr "Cài đặt giao diện toàn cục."
-
 msgid "Contents"
 msgstr "Nội dung"
 
 msgid "Control which sections appear and what information they display."
 msgstr "Kiểm soát các phần hiển thị và thông tin chúng hiện thị."
 
-msgid "Layout & Spacing"
-msgstr "Bố cục & Khoảng cách"
+msgid "Layout, Spacing & Frame"
+msgstr "Bố cục, Khoảng cách & Khung"
 
-msgid "Adjust the spatial settings of the information box."
-msgstr "Điều chỉnh cài đặt không gian của hộp thông tin."
+msgid ""
+"Position and size of the box, the gaps between sections, and its border, "
+"corner radius, and opacity."
+msgstr ""
+"Vị trí và kích thước của hộp, khoảng cách giữa các phần, cùng với viền, bán "
+"kính góc và độ mờ của hộp."
 
 msgid "Colours, Icons & Bars"
 msgstr "Màu sắc, Biểu tượng & Thanh"
 
 msgid "Customise section colours, icon appearance, and progress bar styling."
-msgstr "Tùy chỉnh màu sắc phần, giao diện biểu tượng và kiểu thanh tiến trình."
+msgstr ""
+"Tùy chỉnh màu sắc phần, giao diện biểu tượng và kiểu thanh tiến trình."
 
 msgid "Fonts & Text"
 msgstr "Phông chữ & Văn bản"
@@ -521,18 +468,8 @@ msgstr "Nền"
 msgid "Choose what appears behind the information box."
 msgstr "Chọn nội dung hiển thị phía sau hộp thông tin."
 
-msgid "Advanced"
-msgstr "Nâng cao"
-
-msgid "Advanced configuration options."
-msgstr "Tùy chọn cấu hình nâng cao."
-
 msgid "About"
 msgstr "Giới thiệu"
-
-#, lua-format
-msgid "%s\nVersion: %s\n\nFor updates and issues:\ngithub.com/%s"
-msgstr "%s\nPhiên bản: %s\n\nCập nhật và báo lỗi:\ngithub.com/%s"
 
 msgid "Book info"
 msgstr "Thông tin sách"
@@ -549,12 +486,6 @@ msgstr "Thông tin pin"
 msgid "Message info"
 msgstr "Thông tin tin nhắn"
 
-msgid "Reorder sections"
-msgstr "Sắp xếp lại các phần"
-
-msgid "Section order"
-msgstr "Thứ tự phần"
-
 msgid "At least one section must remain visible."
 msgstr "Ít nhất một phần phải hiển thị."
 
@@ -564,7 +495,8 @@ msgstr "Hiển thị ảnh bìa trên thông tin sách"
 msgid ""
 "Display the book's cover image above the title and progress in the book "
 "section."
-msgstr "Hiển thị ảnh bìa sách phía trên tiêu đề và tiến trình trong phần sách."
+msgstr ""
+"Hiển thị ảnh bìa sách phía trên tiêu đề và tiến trình trong phần sách."
 
 msgid "Cover image size"
 msgstr "Kích thước ảnh bìa"
@@ -575,15 +507,18 @@ msgstr "Giới hạn chiều cao của ảnh bìa tính bằng pixel."
 msgid "Cover image size (pixels)"
 msgstr "Kích thước ảnh bìa (pixel)"
 
-msgid "100–150px fits neatly in most layouts. Go up to 250px+ for a prominent cover."
+msgid ""
+"100–150px fits neatly in most layouts. Go up to 250px+ for a prominent "
+"cover."
 msgstr ""
-"100–150px vừa vặn trong hầu hết các bố cục. Lên đến 250px+ để có\nbìa nổi "
-"bật."
+"100–150px vừa vặn trong hầu hết các bố cục. Lên đến 250px+ để có\n"
+"bìa nổi bật."
 
 msgid "Cover border size"
 msgstr "Kích thước viền bìa"
 
-msgid "Width of the border drawn around the cover image. Set to 0 for no border."
+msgid ""
+"Width of the border drawn around the cover image. Set to 0 for no border."
 msgstr "Độ rộng của viền vẽ xung quanh ảnh bìa. Đặt thành 0 để không có viền."
 
 msgid "Cover border size (pixels)"
@@ -598,7 +533,8 @@ msgstr "Căn bìa theo căn chỉnh văn bản"
 msgid ""
 "When enabled, the cover image follows the text alignment setting instead of "
 "always being centered."
-msgstr "Khi bật, ảnh bìa theo cài đặt căn chỉnh văn bản thay vì luôn căn giữa."
+msgstr ""
+"Khi bật, ảnh bìa theo cài đặt căn chỉnh văn bản thay vì luôn căn giữa."
 
 msgid "Cover image"
 msgstr "Ảnh bìa"
@@ -643,8 +579,10 @@ msgstr "Hiển thị phần trăm hoàn thành của sách."
 msgid "Show chapter count (ch x of x)"
 msgstr "Hiển thị số chương (ch. x / x)"
 
-msgid "Display current chapter number and total chapters (e.g., 'Chapter 5 of 12')."
-msgstr "Hiển thị số chương hiện tại và tổng số chương (ví dụ: 'Chương 5 / 12')."
+msgid ""
+"Display current chapter number and total chapters (e.g., 'Chapter 5 of 12')."
+msgstr ""
+"Hiển thị số chương hiện tại và tổng số chương (ví dụ: 'Chương 5 / 12')."
 
 msgid "Show chapter pages (pg x of x)"
 msgstr "Hiển thị số trang chương (tr. x / x)"
@@ -668,9 +606,6 @@ msgstr "Hiển thị phần trăm chương"
 msgid "Display the percentage of the current chapter completed."
 msgstr "Hiển thị phần trăm hoàn thành của chương hiện tại."
 
-msgid "Title Line"
-msgstr "Dòng tiêu đề"
-
 msgid "Choose what the top line of the daily info section displays."
 msgstr "Chọn nội dung hiển thị ở dòng đầu của phần thông tin hàng ngày."
 
@@ -692,10 +627,8 @@ msgstr "Số trang và thời gian đọc hôm nay"
 msgid "e.g. '35 pgs & 42 mins read today'"
 msgstr "vd: '35 tr. & 42 phút đã đọc hôm nay'"
 
-msgid "Goal type"
-msgstr "Loại mục tiêu"
-
-msgid "Choose whether your daily goal tracks pages read or time spent reading."
+msgid ""
+"Choose whether your daily goal tracks pages read or time spent reading."
 msgstr "Chọn xem mục tiêu hàng ngày theo dõi số trang đọc hay thời gian đọc."
 
 msgid "Page goal"
@@ -720,7 +653,8 @@ msgid "Daily page goal (pages)"
 msgstr "Mục tiêu trang hàng ngày (trang)"
 
 msgid "20–50 pages for a daily habit. 50–100 for dedicated reading sessions."
-msgstr "20–50 trang cho thói quen hàng ngày. 50–100 cho các buổi đọc chuyên tâm."
+msgstr ""
+"20–50 trang cho thói quen hàng ngày. 50–100 cho các buổi đọc chuyên tâm."
 
 msgid "Daily time goal"
 msgstr "Mục tiêu thời gian hàng ngày"
@@ -732,7 +666,8 @@ msgid "Daily time goal (minutes)"
 msgstr "Mục tiêu thời gian hàng ngày (phút)"
 
 msgid "20–30 mins for a daily habit. 60+ mins for dedicated reading sessions."
-msgstr "20–30 phút cho thói quen hàng ngày. 60+ phút cho các buổi đọc chuyên tâm."
+msgstr ""
+"20–30 phút cho thói quen hàng ngày. 60+ phút cho các buổi đọc chuyên tâm."
 
 msgid "Show current reading streak"
 msgstr "Hiển thị chuỗi đọc sách hiện tại"
@@ -748,9 +683,10 @@ msgid ""
 "of the current weekday (Monday = 1... Sunday = 7). For example: Thursday "
 "with goals met on Monday and Tuesday will show 2/4."
 msgstr ""
-"Số ngày trong tuần bạn đạt mục tiêu đọc sách, hiển thị dưới dạng ngày\nhoàn "
-"thành trên tổng ngày đến ngày hiện tại trong tuần (Thứ Hai = 1...\nChủ Nhật "
-"= 7). Ví dụ: Thứ Năm với mục tiêu đạt vào Thứ Hai và Thứ Ba\nsẽ hiển thị 2/4."
+"Số ngày trong tuần bạn đạt mục tiêu đọc sách, hiển thị dưới dạng ngày\n"
+"hoàn thành trên tổng ngày đến ngày hiện tại trong tuần (Thứ Hai = 1...\n"
+"Chủ Nhật = 7). Ví dụ: Thứ Năm với mục tiêu đạt vào Thứ Hai và Thứ Ba\n"
+"sẽ hiển thị 2/4."
 
 msgid "Show daily goal"
 msgstr "Hiển thị mục tiêu hàng ngày"
@@ -759,8 +695,8 @@ msgid ""
 "Target page mode: e.g. 50 page goal. Target time mode: e.g. 1hr 15min time "
 "goal."
 msgstr ""
-"Chế độ mục tiêu trang: vd. mục tiêu 50 trang. Chế độ mục tiêu thời\ngian: "
-"vd. mục tiêu 1 giờ 15 phút."
+"Chế độ mục tiêu trang: vd. mục tiêu 50 trang. Chế độ mục tiêu thời\n"
+"gian: vd. mục tiêu 1 giờ 15 phút."
 
 msgid "Show goal percentage"
 msgstr "Hiển thị phần trăm mục tiêu"
@@ -768,15 +704,12 @@ msgstr "Hiển thị phần trăm mục tiêu"
 msgid "Display the percentage of your daily goal completed."
 msgstr "Hiển thị phần trăm hoàn thành mục tiêu hàng ngày của bạn."
 
-msgid "Show clock"
-msgstr "Hiển thị đồng hồ"
-
 msgid ""
 "Display the current time. Note this is a snapshot taken when the sleep "
 "screen is shown, it does not update live while the screen is asleep."
 msgstr ""
-"Hiển thị giờ hiện tại. Lưu ý đây là ảnh chụp nhanh được lấy khi màn hình chờ "
-"hiển thị, không cập nhật trực tiếp khi màn hình đang ở chế độ chờ."
+"Hiển thị giờ hiện tại. Lưu ý đây là ảnh chụp nhanh được lấy khi màn hình chờ"
+" hiển thị, không cập nhật trực tiếp khi màn hình đang ở chế độ chờ."
 
 msgid "Show date"
 msgstr "Hiển thị ngày"
@@ -790,13 +723,6 @@ msgstr ""
 
 msgid "Show battery consumption rate"
 msgstr "Hiển thị tốc độ tiêu hao pin"
-
-msgid ""
-"Display battery drain percentage per hour based on recent usage or manual "
-"input (see advanced menu)"
-msgstr ""
-"Hiển thị phần trăm tiêu hao pin mỗi giờ dựa trên mức sử dụng gần đây\nhoặc "
-"nhập thủ công (xem menu nâng cao)"
 
 msgid "Show battery time remaining"
 msgstr "Hiển thị thời gian pin còn lại"
@@ -817,13 +743,12 @@ msgstr "Dùng tin nhắn tùy chỉnh riêng chỉ cho màn hình chờ tùy ch�
 msgid "Edit custom message"
 msgstr "Chỉnh sửa tin nhắn tùy chỉnh"
 
-#, lua-format
 msgid ""
 "Write your custom message text. Only active when 'Custom message' is "
 "selected. Supports variables: %d, %y, %t, %b, %r."
 msgstr ""
-"Nhập văn bản tin nhắn tùy chỉnh. Chỉ hoạt động khi chọn 'Tin nhắn "
-"tùy\nchỉnh'. Hỗ trợ biến: %d, %y, %t, %b, %r."
+"Nhập văn bản tin nhắn tùy chỉnh. Chỉ hoạt động khi chọn 'Tin nhắn tùy\n"
+"chỉnh'. Hỗ trợ biến: %d, %y, %t, %b, %r."
 
 msgid "Custom Customisable Sleep Screen message"
 msgstr "Tin nhắn tùy chỉnh màn hình chờ tùy chỉnh"
@@ -841,8 +766,8 @@ msgid ""
 "Wraps all highlights in curly double quotes, removing any pre-existing "
 "quotation marks."
 msgstr ""
-"Bọc tất cả đánh dấu trong dấu ngoặc kép cong, xóa bỏ các dấu ngoặc kép\ncó "
-"sẵn."
+"Bọc tất cả đánh dấu trong dấu ngoặc kép cong, xóa bỏ các dấu ngoặc kép\n"
+"có sẵn."
 
 msgid "Show highlight location"
 msgstr "Hiển thị vị trí đánh dấu"
@@ -851,8 +776,8 @@ msgid ""
 "Display the chapter title and page number where the highlight is found, "
 "shown below the highlight text."
 msgstr ""
-"Hiển thị tiêu đề chương và số trang nơi đánh dấu được tìm thấy, hiển\nthị "
-"bên dưới văn bản đánh dấu."
+"Hiển thị tiêu đề chương và số trang nơi đánh dấu được tìm thấy, hiển\n"
+"thị bên dưới văn bản đánh dấu."
 
 msgid "Book highlight maximum length"
 msgstr "Độ dài tối đa đánh dấu sách"
@@ -863,38 +788,30 @@ msgstr "Số ký tự tối đa để hiển thị đánh dấu (0 = không gi�
 msgid "Maximum highlight length (characters)"
 msgstr "Độ dài đánh dấu tối đa (ký tự)"
 
-msgid "100–150 chars keeps highlights readable. Set to 0 to show the full highlight."
-msgstr "100–150 ký tự giữ đánh dấu dễ đọc. Đặt thành 0 để hiển thị đầy đủ\nđánh dấu."
+msgid ""
+"100–150 chars keeps highlights readable. Set to 0 to show the full "
+"highlight."
+msgstr ""
+"100–150 ký tự giữ đánh dấu dễ đọc. Đặt thành 0 để hiển thị đầy đủ\n"
+"đánh dấu."
 
 msgid "Custom quotes"
 msgstr "Trích dẫn tùy chỉnh"
 
-msgid "Show a random quote from the custom_quotes.lua file in the plugin folder."
-msgstr ""
-"Hiển thị một trích dẫn ngẫu nhiên từ tệp custom_quotes.lua trong thư\nmục "
-"plugin."
-
 msgid "Show quote attribution"
 msgstr "Hiển thị nguồn trích dẫn"
-
-msgid ""
-"Display the author and book name below the quote, if provided in "
-"custom_quotes.lua."
-msgstr ""
-"Hiển thị tác giả và tên sách bên dưới trích dẫn, nếu được cung cấp\ntrong "
-"custom_quotes.lua."
 
 msgid "KOReader sleep message"
 msgstr "Tin nhắn màn hình chờ KOReader"
 
 msgid ""
-"Uses KOReaders own sleep screen message function. Enable 'Add custom message "
-"to sleep screen' to use this (Settings → Screen → Sleep screen → Sleep "
+"Uses KOReaders own sleep screen message function. Enable 'Add custom message"
+" to sleep screen' to use this (Settings → Screen → Sleep screen → Sleep "
 "screen message)."
 msgstr ""
-"Sử dụng chức năng tin nhắn màn hình chờ riêng của KOReader. Bật 'Thêm\ntin "
-"nhắn tùy chỉnh vào màn hình chờ' để sử dụng (Cài đặt → Màn hình →\nMàn hình "
-"chờ → Tin nhắn màn hình chờ)."
+"Sử dụng chức năng tin nhắn màn hình chờ riêng của KOReader. Bật 'Thêm\n"
+"tin nhắn tùy chỉnh vào màn hình chờ' để sử dụng (Cài đặt → Màn hình →\n"
+"Màn hình chờ → Tin nhắn màn hình chờ)."
 
 msgid "Show message header"
 msgstr "Hiển thị tiêu đề tin nhắn"
@@ -902,28 +819,15 @@ msgstr "Hiển thị tiêu đề tin nhắn"
 msgid "Show or hide the header label above the message text."
 msgstr "Hiển thị hoặc ẩn nhãn tiêu đề phía trên văn bản tin nhắn."
 
-msgid "Message header"
-msgstr "Tiêu đề tin nhắn"
-
-#, lua-format
 msgid ""
 "Custom header text displayed above the message. Supports variables: %d, %y, "
 "%t, %b, %r."
 msgstr ""
-"Văn bản tiêu đề tùy chỉnh hiển thị phía trên tin nhắn. Hỗ trợ biến:\n%d, %y, "
-"%t, %b, %r."
+"Văn bản tiêu đề tùy chỉnh hiển thị phía trên tin nhắn. Hỗ trợ biến:\n"
+"%d, %y, %t, %b, %r."
 
 msgid "Change custom message header"
 msgstr "Thay đổi tiêu đề tin nhắn tùy chỉnh"
-
-msgid "Displayed sections"
-msgstr "Các phần hiển thị"
-
-msgid "Toggle which sections show on the sleep screen. At least one must be visible."
-msgstr "Bật/tắt các phần hiển thị trên màn hình chờ. Ít nhất một phần phải\nhiển thị."
-
-msgid "[ Section Content ]"
-msgstr "[ Nội dung phần ]"
 
 msgid "Book section"
 msgstr "Phần sách"
@@ -986,13 +890,13 @@ msgid "Dark mode"
 msgstr "Chế độ tối"
 
 msgid ""
-"Inverts the colour scheme. Text becomes white and backgrounds becomes black. "
-"Useful for reading in low-light conditions. Can be combined with monochrome "
-"mode."
+"Inverts the colour scheme. Text becomes white and backgrounds becomes black."
+" Useful for reading in low-light conditions. Can be combined with monochrome"
+" mode."
 msgstr ""
-"Đảo ngược bảng màu. Văn bản chuyển thành màu trắng, nền chuyển thành "
-"màu\nđen. Hữu ích khi đọc trong điều kiện ánh sáng yếu. Có thể kết hợp "
-"với\nchế độ đơn sắc."
+"Đảo ngược bảng màu. Văn bản chuyển thành màu trắng, nền chuyển thành màu\n"
+"đen. Hữu ích khi đọc trong điều kiện ánh sáng yếu. Có thể kết hợp với\n"
+"chế độ đơn sắc."
 
 msgid "Monochrome mode"
 msgstr "Chế độ đơn sắc"
@@ -1002,17 +906,18 @@ msgid ""
 "monochrome light or monochrome dark hex values. Overwrites individual "
 "assigned section colours. Can be combined with dark mode."
 msgstr ""
-"Phù hợp với máy đọc sách đen trắng. Gán một màu cho tất cả các phần "
-"bằng\ncách sử dụng giá trị hex đơn sắc sáng hoặc đơn sắc tối. Ghi đè màu "
-"phần\nriêng lẻ. Có thể kết hợp với chế độ tối."
+"Phù hợp với máy đọc sách đen trắng. Gán một màu cho tất cả các phần bằng\n"
+"cách sử dụng giá trị hex đơn sắc sáng hoặc đơn sắc tối. Ghi đè màu phần\n"
+"riêng lẻ. Có thể kết hợp với chế độ tối."
 
 msgid "Section gaps"
 msgstr "Khoảng cách giữa các phần"
 
-msgid "Add transparent gaps between sections to make each appear as a separate box"
+msgid ""
+"Add transparent gaps between sections to make each appear as a separate box"
 msgstr ""
-"Thêm khoảng cách trong suốt giữa các phần để mỗi phần hiển thị như\nmột hộp "
-"riêng biệt"
+"Thêm khoảng cách trong suốt giữa các phần để mỗi phần hiển thị như\n"
+"một hộp riêng biệt"
 
 msgid "Enable section gaps"
 msgstr "Bật khoảng cách giữa các phần"
@@ -1027,11 +932,11 @@ msgid "Section gap size (pixels)"
 msgstr "Kích thước khoảng cách phần (pixel)"
 
 msgid ""
-"10–20px gives a subtle separation. 30–50px makes sections feel like distinct "
-"cards."
+"10–20px gives a subtle separation. 30–50px makes sections feel like distinct"
+" cards."
 msgstr ""
-"10–20px tạo sự phân cách tinh tế. 30–50px khiến các phần trông như\nnhững "
-"thẻ riêng biệt."
+"10–20px tạo sự phân cách tinh tế. 30–50px khiến các phần trông như\n"
+"những thẻ riêng biệt."
 
 msgid "Position"
 msgstr "Vị trí"
@@ -1046,8 +951,8 @@ msgid ""
 "Nudge the box from its anchor position. Useful for pushing rounded corners "
 "off-screen."
 msgstr ""
-"Dịch chuyển hộp khỏi vị trí neo. Hữu ích để đẩy các góc bo tròn ra\nngoài "
-"màn hình."
+"Dịch chuyển hộp khỏi vị trí neo. Hữu ích để đẩy các góc bo tròn ra\n"
+"ngoài màn hình."
 
 msgid "Horizontal offset (px)"
 msgstr "Độ lệch ngang (px)"
@@ -1056,8 +961,8 @@ msgid ""
 "Nudges the box left (-) or right (+) from its anchor. Useful for pushing "
 "rounded corners off-screen."
 msgstr ""
-"Dịch chuyển hộp sang trái (-) hoặc phải (+) từ điểm neo. Hữu ích để đẩy\ncác "
-"góc bo tròn ra ngoài màn hình."
+"Dịch chuyển hộp sang trái (-) hoặc phải (+) từ điểm neo. Hữu ích để đẩy\n"
+"các góc bo tròn ra ngoài màn hình."
 
 msgid "Vertical offset (px)"
 msgstr "Độ lệch dọc (px)"
@@ -1066,19 +971,20 @@ msgid ""
 "Nudges the box up (+) or down (-) from its anchor. Useful for pushing "
 "rounded corners off-screen."
 msgstr ""
-"Dịch chuyển hộp lên (+) hoặc xuống (-) từ điểm neo. Hữu ích để đẩy\ncác góc "
-"bo tròn ra ngoài màn hình."
+"Dịch chuyển hộp lên (+) hoặc xuống (-) từ điểm neo. Hữu ích để đẩy\n"
+"các góc bo tròn ra ngoài màn hình."
 
 msgid "Width"
 msgstr "Chiều rộng"
 
-msgid "Horizontal width of the information box as a percentage of screen width."
-msgstr "Chiều rộng ngang của hộp thông tin theo phần trăm chiều rộng màn hình."
+msgid ""
+"Horizontal width of the information box as a percentage of screen width."
+msgstr ""
+"Chiều rộng ngang của hộp thông tin theo phần trăm chiều rộng màn hình."
 
 msgid "Box width (%)"
 msgstr "Chiều rộng hộp (%)"
 
-#, lua-format
 msgid "60–70% suits portrait screens."
 msgstr "60–70% phù hợp với màn hình dọc."
 
@@ -1091,7 +997,6 @@ msgstr "Độ trong suốt của hộp thông tin."
 msgid "Opacity (%)"
 msgstr "Độ mờ (%)"
 
-#, lua-format
 msgid "75% is semi-transparent. 100% is fully opaque."
 msgstr "75% là nửa trong suốt. 100% là hoàn toàn mờ đục."
 
@@ -1120,8 +1025,8 @@ msgid ""
 "0 for no trim. 1–2px is subtle, 4–6px is a bold decorative outline around "
 "the primary border."
 msgstr ""
-"0 là không có viền trang trí. 1–2px tinh tế, 4–6px là đường viền trang\ntrí "
-"đậm xung quanh viền chính."
+"0 là không có viền trang trí. 1–2px tinh tế, 4–6px là đường viền trang\n"
+"trí đậm xung quanh viền chính."
 
 msgid "Corner radius"
 msgstr "Bán kính góc"
@@ -1130,8 +1035,8 @@ msgid ""
 "Round the corners of the info box. Also moves progress bars inline with the "
 "text when active."
 msgstr ""
-"Bo tròn các góc của hộp thông tin. Khi bật cũng chuyển thanh tiến trình\nvào "
-"cùng dòng với văn bản."
+"Bo tròn các góc của hộp thông tin. Khi bật cũng chuyển thanh tiến trình\n"
+"vào cùng dòng với văn bản."
 
 msgid "Corner radius (px)"
 msgstr "Bán kính góc (px)"
@@ -1140,14 +1045,16 @@ msgid ""
 "0 for square corners. 15–30px for softly rounded. 150px+ for a pill-shaped "
 "box (depending on the section box height)."
 msgstr ""
-"0 là góc vuông. 15–30px bo tròn nhẹ. 150px+ tạo hộp hình viên thuốc\n(tùy "
-"thuộc vào chiều cao hộp phần)."
+"0 là góc vuông. 15–30px bo tròn nhẹ. 150px+ tạo hộp hình viên thuốc\n"
+"(tùy thuộc vào chiều cao hộp phần)."
 
 msgid "Internal padding"
 msgstr "Đệm bên trong"
 
-msgid "Space between section borders and their content, configurable per side."
-msgstr "Khoảng cách giữa viền phần và nội dung, có thể cấu hình từng mặt riêng."
+msgid ""
+"Space between section borders and their content, configurable per side."
+msgstr ""
+"Khoảng cách giữa viền phần và nội dung, có thể cấu hình từng mặt riêng."
 
 msgid "Top"
 msgstr "Trên"
@@ -1173,7 +1080,9 @@ msgstr "Trái"
 msgid "Internal padding - left (px)"
 msgstr "Đệm bên trong - trái (px)"
 
-msgid "Space to the left of section content. Increase when using large corner radii."
+msgid ""
+"Space to the left of section content. Increase when using large corner "
+"radii."
 msgstr "Khoảng cách bên trái nội dung phần. Tăng khi dùng bán kính góc lớn."
 
 msgid "Right"
@@ -1193,7 +1102,8 @@ msgstr "Đặt tất cả các mặt bằng nhau"
 msgid "Internal padding - all sides (px)"
 msgstr "Đệm bên trong - tất cả các cạnh (px)"
 
-msgid "Sets top, bottom, left and right padding to the same value in one step."
+msgid ""
+"Sets top, bottom, left and right padding to the same value in one step."
 msgstr "Đặt đệm trên, dưới, trái và phải về cùng một giá trị trong một bước."
 
 msgid "Icon to text gap"
@@ -1205,11 +1115,14 @@ msgstr "Khoảng cách ngang giữa biểu tượng phần và văn bản đi k�
 msgid "Icon to text gap (px)"
 msgstr "Khoảng cách biểu tượng - văn bản (px)"
 
-msgid "8–12px gives comfortable breathing room between icon and text. 0 is flush."
-msgstr "8–12px tạo khoảng cách thoải mái giữa biểu tượng và văn bản. 0 là sát."
+msgid ""
+"8–12px gives comfortable breathing room between icon and text. 0 is flush."
+msgstr ""
+"8–12px tạo khoảng cách thoải mái giữa biểu tượng và văn bản. 0 là sát."
 
 msgid "No icon sets found in customisablesleepscreen.koplugin/icons/"
-msgstr "Không tìm thấy bộ biểu tượng trong customisablesleepscreen.koplugin/icons/"
+msgstr ""
+"Không tìm thấy bộ biểu tượng trong customisablesleepscreen.koplugin/icons/"
 
 msgid "Colours (progress bars)"
 msgstr "Màu sắc (thanh tiến trình)"
@@ -1220,7 +1133,8 @@ msgstr "Đặt màu thanh tiến trình cho từng phần."
 msgid "Use saved colours for icon fill"
 msgstr "Dùng màu đã lưu để tô biểu tượng"
 
-msgid "When enabled, icons will match the colour of their section's progress bar."
+msgid ""
+"When enabled, icons will match the colour of their section's progress bar."
 msgstr "Khi bật, biểu tượng sẽ khớp màu với thanh tiến trình của phần đó."
 
 msgid "Battery section (High)"
@@ -1243,9 +1157,9 @@ msgid ""
 "and dark correspond to the current dark mode setting. Monochrome replaces "
 "all colours with that single chosen color."
 msgstr ""
-"Cấu hình màu sắc cho chế độ đơn sắc, nền hộp thông tin và văn bản.\nSáng và "
-"tối tương ứng với cài đặt chế độ tối hiện tại. Đơn sắc thay thế\ntất cả màu "
-"sắc bằng một màu đã chọn."
+"Cấu hình màu sắc cho chế độ đơn sắc, nền hộp thông tin và văn bản.\n"
+"Sáng và tối tương ứng với cài đặt chế độ tối hiện tại. Đơn sắc thay thế\n"
+"tất cả màu sắc bằng một màu đã chọn."
 
 msgid "Monochrome mode (light)"
 msgstr "Chế độ đơn sắc (sáng)"
@@ -1314,18 +1228,18 @@ msgid ""
 "Displays a purely decorative progress bar under the message section, "
 "matching the message section colour and the progress bars in other sections."
 msgstr ""
-"Hiển thị thanh tiến trình thuần trang trí bên dưới phần thông điệp,\nkhớp "
-"với màu của phần thông điệp và các thanh tiến trình ở các phần khác."
+"Hiển thị thanh tiến trình thuần trang trí bên dưới phần thông điệp,\n"
+"khớp với màu của phần thông điệp và các thanh tiến trình ở các phần khác."
 
 msgid "Inline progress bars"
 msgstr "Thanh tiến trình nội tuyến"
 
 msgid ""
-"Progress bars sit inside the text area rather than spanning the full section "
-"width. Automatically enabled when corner radius > 0."
+"Progress bars sit inside the text area rather than spanning the full section"
+" width. Automatically enabled when corner radius > 0."
 msgstr ""
-"Thanh tiến trình nằm bên trong vùng văn bản thay vì trải dài toàn bộ\nchiều "
-"rộng phần. Tự động bật khi bán kính góc > 0."
+"Thanh tiến trình nằm bên trong vùng văn bản thay vì trải dài toàn bộ\n"
+"chiều rộng phần. Tự động bật khi bán kính góc > 0."
 
 msgid "Enable inline bars"
 msgstr "Bật thanh nội tuyến"
@@ -1334,8 +1248,8 @@ msgid ""
 "When section gaps are enabled and corner radius > 0, inline bars are "
 "automatically enabled."
 msgstr ""
-"Khi khoảng cách phần được bật và bán kính góc > 0, các thanh nội tuyến sẽ tự "
-"động được bật."
+"Khi khoảng cách phần được bật và bán kính góc > 0, các thanh nội tuyến sẽ tự"
+" động được bật."
 
 msgid ""
 "Inline bars are force-enabled because section gaps and corner radius are "
@@ -1365,19 +1279,18 @@ msgid ""
 "Width of the inline progress bar as a percentage of the available text "
 "column. Alignment follows the text alignment setting."
 msgstr ""
-"Chiều rộng của thanh tiến trình nội tuyến theo phần trăm cột văn bản\ncó "
-"sẵn. Căn chỉnh theo cài đặt căn chỉnh văn bản."
+"Chiều rộng của thanh tiến trình nội tuyến theo phần trăm cột văn bản\n"
+"có sẵn. Căn chỉnh theo cài đặt căn chỉnh văn bản."
 
 msgid "Inline bar width (%)"
 msgstr "Chiều rộng thanh nội tuyến (%)"
 
-#, lua-format
 msgid ""
 "100% fills the text column. The bar is aligned to match your text alignment "
 "setting."
 msgstr ""
-"100% lấp đầy cột văn bản. Thanh được căn chỉnh theo cài đặt căn chỉnh\nvăn "
-"bản của bạn."
+"100% lấp đầy cột văn bản. Thanh được căn chỉnh theo cài đặt căn chỉnh\n"
+"văn bản của bạn."
 
 msgid "Title font face"
 msgstr "Phông chữ tiêu đề"
@@ -1418,7 +1331,9 @@ msgstr "Căn chỉnh ngang của tất cả văn bản trong các phần."
 msgid "Book multiline titles"
 msgstr "Tiêu đề sách nhiều dòng"
 
-msgid "If deselected book titles will be truncated to a single line with an ellipsis"
+msgid ""
+"If deselected book titles will be truncated to a single line with an "
+"ellipsis"
 msgstr "Nếu bỏ chọn, tiêu đề sách sẽ bị cắt thành một dòng với dấu chấm lửng"
 
 msgid "Chapter multiline titles"
@@ -1427,7 +1342,8 @@ msgstr "Tiêu đề chương nhiều dòng"
 msgid ""
 "If deselected chapter titles will be truncated to a single line with an "
 "ellipsis"
-msgstr "Nếu bỏ chọn, tiêu đề chương sẽ bị cắt thành một dòng với dấu chấm lửng"
+msgstr ""
+"Nếu bỏ chọn, tiêu đề chương sẽ bị cắt thành một dòng với dấu chấm lửng"
 
 msgid "Clean chapter titles"
 msgstr "Làm sạch tiêu đề chương"
@@ -1437,9 +1353,9 @@ msgid ""
 "titles and normalises capitalisation. Only works correctly with English "
 "chapter titles - disable for non-English books."
 msgstr ""
-"Xóa các tiền tố cấu trúc như 'Chapter 5:' hoặc 'Part II' khỏi tiêu "
-"đề\nchương và chuẩn hóa chữ hoa. Chỉ hoạt động chính xác với tiêu đề "
-"chương\ntiếng Anh — tắt đi cho sách không phải tiếng Anh."
+"Xóa các tiền tố cấu trúc như 'Chapter 5:' hoặc 'Part II' khỏi tiêu đề\n"
+"chương và chuẩn hóa chữ hoa. Chỉ hoạt động chính xác với tiêu đề chương\n"
+"tiếng Anh — tắt đi cho sách không phải tiếng Anh."
 
 msgid "Make titles bold"
 msgstr "In đậm tiêu đề"
@@ -1485,8 +1401,8 @@ msgid ""
 "When disabled, book cover will be scaled to fit within the screen while "
 "preserving aspect ratio."
 msgstr ""
-"Khi tắt, bìa sách sẽ được thu nhỏ/phóng to để vừa với màn hình trong\nkhi "
-"giữ nguyên tỷ lệ khung hình."
+"Khi tắt, bìa sách sẽ được thu nhỏ/phóng to để vừa với màn hình trong\n"
+"khi giữ nguyên tỷ lệ khung hình."
 
 msgid "Cover fill colour"
 msgstr "Màu nền bìa sách"
@@ -1524,9 +1440,9 @@ msgstr "Độ mờ lớp phủ"
 msgid "Overlay opacity (%)"
 msgstr "Độ mờ lớp phủ (%)"
 
-#, lua-format
 msgid "0% is no overlay. 20–40% adds a soft tint. 100% is fully opaque."
-msgstr "0% là không có lớp phủ. 20–40% thêm màu nhạt mềm. 100% là hoàn toàn mờ đục."
+msgstr ""
+"0% là không có lớp phủ. 20–40% thêm màu nhạt mềm. 100% là hoàn toàn mờ đục."
 
 msgid "None"
 msgstr "Không có"
@@ -1562,26 +1478,20 @@ msgstr "Đổi tên"
 msgid "Enter new preset name"
 msgstr "Nhập tên cấu hình mới"
 
-msgid "[ Built-in Presets ]"
-msgstr "[ Cấu hình tích hợp ]"
-
-msgid "[ Your Custom Presets ]"
-msgstr "[ Cấu hình tùy chỉnh của bạn ]"
-
 msgid "Apply"
 msgstr "Áp dụng"
 
 msgid "Invalid hex code. Use format: #RRGGBB"
 msgstr "Mã hex không hợp lệ. Dùng định dạng: #RRGGBB"
 
-msgid "Reset layout & spacing settings to default"
-msgstr "Đặt lại cài đặt bố cục & khoảng cách"
+msgid "Reset layout, spacing & frame settings to default"
+msgstr "Đặt lại cài đặt bố cục, khoảng cách & khung"
 
-msgid "Are you sure you want to reset layout & spacing settings?"
-msgstr "Bạn có chắc muốn đặt lại cài đặt bố cục & khoảng cách không?"
+msgid "Are you sure you want to reset layout, spacing & frame settings?"
+msgstr "Bạn có chắc muốn đặt lại cài đặt bố cục, khoảng cách & khung không?"
 
-msgid "Layout & spacing settings reset to defaults"
-msgstr "Đã đặt lại cài đặt bố cục & khoảng cách"
+msgid "Layout, spacing & frame settings reset to defaults"
+msgstr "Đã đặt lại cài đặt bố cục, khoảng cách & khung"
 
 msgid "Reset contents settings to default"
 msgstr "Đặt lại cài đặt nội dung"
@@ -1644,3 +1554,611 @@ msgstr "Nhập mã hex"
 
 msgid "Enter hex colour code"
 msgstr "Nhập mã màu hex"
+
+msgid ""
+"Saves a screenshot of the sleep screen to a file each time a book is closed."
+" Useful for devices that use an exported image as their own native sleep "
+"screen."
+msgstr ""
+"Lưu ảnh chụp màn hình chờ vào một tệp mỗi khi đóng sách. Hữu ích cho các "
+"thiết bị dùng ảnh đã xuất làm màn hình chờ gốc của riêng chúng."
+
+msgid "Enable export"
+msgstr "Bật xuất tệp"
+
+msgid "Choose the filename used for the exported image (without extension)."
+msgstr "Chọn tên tệp dùng cho ảnh đã xuất (không có phần mở rộng)."
+
+#, lua-format
+msgid "Export format: %s"
+msgstr "Định dạng xuất: %s"
+
+msgid "Choose the image format and colour profile for the exported file."
+msgstr "Chọn định dạng hình ảnh và hồ sơ màu cho tệp đã xuất."
+
+msgid ""
+"Choose the folder where the exported image will be saved. Must be set before"
+" export can be enabled."
+msgstr ""
+"Chọn thư mục lưu ảnh đã xuất. Phải được đặt trước khi có thể bật tính năng "
+"xuất."
+
+msgid "Preview sleep screen"
+msgstr "Xem trước màn hình chờ"
+
+msgid ""
+"Shows what the sleep screen currently looks like, without actually "
+"suspending the device."
+msgstr ""
+"Hiển thị giao diện hiện tại của màn hình chờ mà không thực sự đưa thiết bị "
+"vào chế độ chờ."
+
+msgid "Behaviour"
+msgstr "Hành vi"
+
+msgid ""
+"How the plugin behaves: file manager display, ghosting, export, battery "
+"estimation, and stats scope."
+msgstr ""
+"Cách plugin hoạt động: hiển thị trong trình quản lý tệp, hiện tượng bóng mờ,"
+" xuất tệp, ước tính pin và phạm vi thống kê."
+
+#, lua-format
+msgid "Version: %s"
+msgstr "Phiên bản: %s"
+
+#, lua-format
+msgid "Author: %s"
+msgstr "Tác giả: %s"
+
+#, lua-format
+msgid "https://github.com/%s"
+msgstr "https://github.com/%s"
+
+#, lua-format
+msgid ""
+"GitHub:\n"
+"https://github.com/%s"
+msgstr ""
+"GitHub:\n"
+"https://github.com/%s"
+
+msgid "Check for updates"
+msgstr "Kiểm tra cập nhật"
+
+msgid "Check GitHub for a newer release, and install it if one is available."
+msgstr ""
+"Kiểm tra trên GitHub xem có phiên bản mới hơn không và cài đặt nếu có."
+
+msgid "Border"
+msgstr "Viền"
+
+msgid "Primary border thickness and its secondary decorative trim."
+msgstr "Độ dày viền chính và đường viền trang trí phụ."
+
+msgid "Icons"
+msgstr "Biểu tượng"
+
+msgid "Icon style, size, and visibility."
+msgstr "Kiểu, kích thước và khả năng hiển thị của biểu tượng."
+
+msgid "Bars"
+msgstr "Thanh"
+
+msgid "Progress bar height, visibility, and inline styling."
+msgstr ""
+"Chiều cao, khả năng hiển thị và kiểu hiển thị nội tuyến của thanh tiến "
+"trình."
+
+msgid "Multiline titles"
+msgstr "Tiêu đề nhiều dòng"
+
+msgid ""
+"Allow book and chapter titles to wrap across multiple lines instead of being"
+" truncated to one."
+msgstr ""
+"Cho phép tiêu đề sách và chương xuống nhiều dòng thay vì bị cắt ngắn thành "
+"một dòng."
+
+msgid "Cover exclusion"
+msgstr "Loại trừ bìa sách"
+
+msgid ""
+"Hide this book's cover from the sleep screen, and choose what shows instead."
+msgstr ""
+"Ẩn bìa của cuốn sách này khỏi màn hình chờ và chọn nội dung hiển thị thay "
+"thế."
+
+msgid "Fallback background"
+msgstr "Nền dự phòng"
+
+msgid ""
+"What to show instead of the cover. Uses the colour, image, or folder already"
+" set in Background type. Only selectable when \"Exclude this book's cover "
+"from sleep screen\" is turned on."
+msgstr ""
+"Nội dung hiển thị thay cho bìa sách. Dùng màu, ảnh hoặc thư mục đã đặt trong"
+" Loại nền. Chỉ chọn được khi bật \"Loại trừ bìa cuốn sách này khỏi màn hình "
+"chờ\"."
+
+msgid ""
+"No book data available to preview yet.\n"
+"\n"
+"Open a book and show the sleep screen at least once before previewing."
+msgstr ""
+"Chưa có dữ liệu sách để xem trước.\n"
+"\n"
+"Mở một cuốn sách và hiện màn hình chờ ít nhất một lần trước khi dùng chức năng xem trước."
+
+msgid "Couldn't build a preview - check crash.log for details."
+msgstr "Không thể tạo bản xem trước - xem crash.log để biết chi tiết."
+
+msgid "Enable automatic preset switching"
+msgstr "Bật chuyển cấu hình tự động"
+
+msgid ""
+"When enabled, switches between the day and night presets below as needed. If"
+" you manually switch to a different preset, this pauses until you switch "
+"back to one of the two, or use \"Sync now\" below."
+msgstr ""
+"Khi bật, sẽ chuyển đổi giữa cấu hình ngày và đêm bên dưới khi cần. Nếu bạn "
+"tự chuyển sang cấu hình khác, tính năng này sẽ tạm dừng cho đến khi bạn quay"
+" lại một trong hai cấu hình đó, hoặc dùng \"Đồng bộ ngay\" bên dưới."
+
+msgid "Sync now"
+msgstr "Đồng bộ ngay"
+
+msgid ""
+"Immediately switches to the correct day/night preset, even if a different "
+"preset is currently active."
+msgstr ""
+"Chuyển ngay sang cấu hình ngày/đêm phù hợp, ngay cả khi một cấu hình khác "
+"đang hoạt động."
+
+#, lua-format
+msgid ""
+"Couldn't switch to '%s' - it may no longer exist. Check the day/night preset"
+" pickers below."
+msgstr ""
+"Không thể chuyển sang '%s' - có thể cấu hình này không còn tồn tại. Kiểm tra"
+" bộ chọn cấu hình ngày/đêm bên dưới."
+
+#, lua-format
+msgid "Switched to '%s'"
+msgstr "Đã chuyển sang '%s'"
+
+#, lua-format
+msgid "Already on '%s' - no change needed"
+msgstr "Đã đang ở '%s' - không cần thay đổi"
+
+#, lua-format
+msgid "Day preset: %s"
+msgstr "Cấu hình ngày: %s"
+
+msgid "Preset to switch to outside the night window."
+msgstr "Cấu hình để chuyển sang ngoài khung giờ đêm."
+
+#, lua-format
+msgid "Night preset: %s"
+msgstr "Cấu hình đêm: %s"
+
+msgid "Preset to switch to during the night window."
+msgstr "Cấu hình để chuyển sang trong khung giờ đêm."
+
+msgid "Follow KOReader's night mode"
+msgstr "Theo chế độ ban đêm của KOReader"
+
+msgid "Time window"
+msgstr "Khung giờ"
+
+#, lua-format
+msgid "Trigger: %s"
+msgstr "Kích hoạt: %s"
+
+msgid ""
+"How the schedule decides when to switch: a fixed time window, or KOReader's "
+"own night mode setting (useful if you toggle that manually rather than on a "
+"fixed schedule)."
+msgstr ""
+"Cách lịch trình quyết định thời điểm chuyển đổi: một khung giờ cố định, hoặc"
+" cài đặt chế độ ban đêm riêng của KOReader (hữu ích nếu bạn bật/tắt thủ công"
+" thay vì theo lịch cố định)."
+
+msgid "Switch based on the start/end times."
+msgstr "Chuyển đổi dựa trên giờ bắt đầu/kết thúc."
+
+msgid ""
+"Switch to the night preset whenever KOReader's own night mode is turned on, "
+"and back to the day preset when it's off."
+msgstr ""
+"Chuyển sang cấu hình đêm bất cứ khi nào chế độ ban đêm riêng của KOReader "
+"được bật, và quay lại cấu hình ngày khi tắt."
+
+#, lua-format
+msgid "Night window start: %02d:%02d"
+msgstr "Bắt đầu khung giờ đêm: %02d:%02d"
+
+msgid "Time of day the night preset starts being used."
+msgstr "Thời điểm trong ngày mà cấu hình đêm bắt đầu được sử dụng."
+
+msgid "Night window start"
+msgstr "Bắt đầu khung giờ đêm"
+
+msgid "Enter time in hours and minutes."
+msgstr "Nhập giờ theo giờ và phút."
+
+msgid "Set time"
+msgstr "Đặt giờ"
+
+#, lua-format
+msgid "Night window end: %02d:%02d"
+msgstr "Kết thúc khung giờ đêm: %02d:%02d"
+
+msgid "Time of day the day preset resumes being used."
+msgstr "Thời điểm trong ngày mà cấu hình ngày được sử dụng trở lại."
+
+msgid "Night window end"
+msgstr "Kết thúc khung giờ đêm"
+
+msgid " (auto-switch: day)"
+msgstr " (tự động chuyển: ngày)"
+
+msgid " (auto-switch: night)"
+msgstr " (tự động chuyển: đêm)"
+
+#, lua-format
+msgid "Preview preset '%s'?"
+msgstr "Xem trước cấu hình '%s'?"
+
+msgid "Preview"
+msgstr "Xem trước"
+
+msgid "Hold a preset below to preview it."
+msgstr "Giữ một cấu hình bên dưới để xem trước."
+
+msgid "Hold a custom preset below to preview, update, rename, or delete it."
+msgstr ""
+"Giữ một cấu hình tùy chỉnh bên dưới để xem trước, cập nhật, đổi tên hoặc "
+"xóa."
+
+msgid "Save your current sleep screen settings as a new custom preset."
+msgstr ""
+"Lưu cài đặt màn hình chờ hiện tại của bạn thành một cấu hình tùy chỉnh mới."
+
+msgid "Automatic preset switching"
+msgstr "Chuyển cấu hình tự động"
+
+msgid ""
+"Automatically switch between two presets - e.g. a light one by day and a "
+"dark one at night."
+msgstr ""
+"Tự động chuyển đổi giữa hai cấu hình - ví dụ: một cấu hình sáng vào ban ngày"
+" và một cấu hình tối vào ban đêm."
+
+msgid "Built-in Presets"
+msgstr "Cấu hình có sẵn"
+
+msgid "Load one of the built-in presets."
+msgstr "Tải một trong các cấu hình có sẵn."
+
+msgid "Your Custom Presets"
+msgstr "Cấu hình tùy chỉnh của bạn"
+
+msgid "Load, rename, update or delete one of your saved presets."
+msgstr ""
+"Tải, đổi tên, cập nhật hoặc xóa một trong các cấu hình đã lưu của bạn."
+
+msgid "No custom presets currently saved"
+msgstr "Hiện chưa có cấu hình tùy chỉnh nào được lưu"
+
+msgid "Section order & visibility"
+msgstr "Thứ tự & hiển thị mục"
+
+msgid ""
+"Select a section and tap the bottom arrows to reorder. Tap the checkmark to "
+"show or hide the section. At least one section must stay visible."
+msgstr ""
+"Chọn một mục và chạm vào các mũi tên bên dưới để sắp xếp lại. Chạm vào dấu "
+"tích để hiện hoặc ẩn mục. Phải có ít nhất một mục luôn hiển thị."
+
+#, lua-format
+msgid "Title Line: %s"
+msgstr "Dòng tiêu đề: %s"
+
+#, lua-format
+msgid "Goal type: %s"
+msgstr "Loại mục tiêu: %s"
+
+msgid "Show remaining & charging text"
+msgstr "Hiện chữ \"đang sạc\"/\"còn lại\""
+
+msgid ""
+"Show the words \"remaining\" and \"charging\" next to the battery "
+"percentage, e.g. \"82% remaining\" instead of just \"82%\"."
+msgstr ""
+"Hiện các chữ \"còn lại\" và \"đang sạc\" bên cạnh phần trăm pin, ví dụ \"còn"
+" lại 82%\" thay vì chỉ \"82%\"."
+
+msgid "Show time"
+msgstr "Hiện giờ"
+
+msgid ""
+"Display battery drain percentage per hour based on recent usage or manual "
+"input (see Global settings menu)"
+msgstr ""
+"Hiện phần trăm hao pin mỗi giờ dựa trên mức sử dụng gần đây hoặc nhập thủ "
+"công (xem menu Cài đặt chung)"
+
+msgid "Edit message header"
+msgstr "Sửa tiêu đề tin nhắn"
+
+msgid ""
+"Show a random quote from the css_custom_quotes.lua file in the plugin "
+"folder."
+msgstr ""
+"Hiện một trích dẫn ngẫu nhiên từ tệp css_custom_quotes.lua trong thư mục "
+"plugin."
+
+msgid ""
+"Display the author and book name below the quote, if provided in "
+"css_custom_quotes.lua."
+msgstr ""
+"Hiện tên tác giả và tên sách bên dưới trích dẫn, nếu có trong "
+"css_custom_quotes.lua."
+
+msgid "archive extractor unavailable"
+msgstr "không có công cụ giải nén"
+
+msgid "could not open archive"
+msgstr "không thể mở tệp nén"
+
+msgid "extract failed"
+msgstr "giải nén thất bại"
+
+msgid "Downloading update..."
+msgstr "Đang tải bản cập nhật..."
+
+msgid "the connection failed"
+msgstr "kết nối thất bại"
+
+msgid "the connection timed out"
+msgstr "kết nối hết thời gian chờ"
+
+msgid "the secure connection failed"
+msgstr "kết nối bảo mật thất bại"
+
+msgid "there was no response"
+msgstr "không có phản hồi"
+
+msgid "the file could not be saved"
+msgstr "không thể lưu tệp"
+
+msgid "Download failed."
+msgstr "Tải xuống thất bại."
+
+msgid "Installation failed: "
+msgstr "Cài đặt thất bại: "
+
+msgid "Customisable Sleep Screen updated to v"
+msgstr "Customisable Sleep Screen đã cập nhật lên v"
+
+msgid "Restart KOReader now?"
+msgstr "Khởi động lại KOReader ngay bây giờ?"
+
+msgid "Restart"
+msgstr "Khởi động lại"
+
+msgid "Checking for updates..."
+msgstr "Đang kiểm tra cập nhật..."
+
+msgid "Could not check for updates."
+msgstr "Không thể kiểm tra cập nhật."
+
+#, lua-format
+msgid "Customisable Sleep Screen is up to date (v%s)"
+msgstr "Customisable Sleep Screen đã là phiên bản mới nhất (v%s)"
+
+msgid "Update available"
+msgstr "Có bản cập nhật"
+
+msgid "Installed: "
+msgstr "Đã cài đặt: "
+
+msgid "Latest: "
+msgstr "Mới nhất: "
+
+msgid "Close"
+msgstr "Đóng"
+
+msgid "Update and restart"
+msgstr "Cập nhật và khởi động lại"
+
+msgid "No download available for this release."
+msgstr "Không có bản tải xuống cho phiên bản này."
+
+#, lua-format, lua-format
+msgid "Data unavailable"
+msgstr "Không có dữ liệu"
+
+#, lua-format
+msgid "%s & %s %s read today"
+msgstr "Đã đọc %s & %s %s hôm nay"
+
+msgid ""
+"Menu icons are hidden because KOReader's bundled fonts/nerdfonts/symbols.ttf"
+" couldn't be found. Restore that font file to bring the menu icons back."
+msgstr ""
+"Biểu tượng menu bị ẩn vì không tìm thấy tệp fonts/nerdfonts/symbols.ttf đi "
+"kèm với KOReader. Khôi phục tệp phông chữ đó để hiển thị lại biểu tượng "
+"menu."
+
+msgid "Transparent"
+msgstr "Trong suốt"
+
+msgid "File manager background colour"
+msgstr "Màu nền trình quản lý tệp"
+
+msgid ""
+"Colour for the alternative file manager background. Independent of your "
+"presets - stays the same no matter which preset is active."
+msgstr ""
+"Màu cho nền trình quản lý tệp thay thế. Độc lập với cấu hình của bạn - luôn "
+"giữ nguyên bất kể cấu hình nào đang hoạt động."
+
+msgid "File manager background image path"
+msgstr "Đường dẫn ảnh nền trình quản lý tệp"
+
+msgid ""
+"Choose a single image to use as the alternative file manager background. "
+"Independent of your presets - stays the same no matter which preset is "
+"active."
+msgstr ""
+"Chọn một ảnh duy nhất để dùng làm nền trình quản lý tệp thay thế. Độc lập "
+"với cấu hình của bạn - luôn giữ nguyên bất kể cấu hình nào đang hoạt động."
+
+msgid "File manager background folder path"
+msgstr "Đường dẫn thư mục nền trình quản lý tệp"
+
+msgid ""
+"Choose a folder to pick a random image from as the alternative file manager "
+"background. Independent of your presets - stays the same no matter which "
+"preset is active."
+msgstr ""
+"Chọn một thư mục để lấy ngẫu nhiên một ảnh làm nền trình quản lý tệp thay "
+"thế. Độc lập với cấu hình của bạn - luôn giữ nguyên bất kể cấu hình nào đang"
+" hoạt động."
+
+msgid "Stretch image to fill"
+msgstr "Kéo giãn ảnh để lấp đầy"
+
+msgid ""
+"When disabled, the image will be scaled to fit within the screen while "
+"preserving aspect ratio. Independent of your presets - stays the same no "
+"matter which preset is active."
+msgstr ""
+"Khi tắt, ảnh sẽ được thu nhỏ/phóng to để vừa với màn hình trong khi giữ "
+"nguyên tỷ lệ khung hình. Độc lập với cấu hình của bạn - luôn giữ nguyên bất "
+"kể cấu hình nào đang hoạt động."
+
+msgid "Fill colour"
+msgstr "Màu nền"
+
+msgid ""
+"Background colour for the image when not stretched. Independent of your "
+"presets - stays the same no matter which preset is active."
+msgstr ""
+"Màu nền cho ảnh khi không kéo giãn. Độc lập với cấu hình của bạn - luôn giữ "
+"nguyên bất kể cấu hình nào đang hoạt động."
+
+msgid "Image alignment"
+msgstr "Căn chỉnh ảnh"
+
+msgid ""
+"Horizontal alignment of the image when not stretched. Independent of your "
+"presets - stays the same no matter which preset is active."
+msgstr ""
+"Căn chỉnh ngang của ảnh khi không kéo giãn. Độc lập với cấu hình của bạn - "
+"luôn giữ nguyên bất kể cấu hình nào đang hoạt động."
+
+msgid "Show alternative sleep screen (no infobox)"
+msgstr "Hiển thị màn hình chờ thay thế (không có hộp thông tin)"
+
+msgid ""
+"When disabled (default), the regular customisable sleep screen displays in "
+"file manager using the last saved book data. When enabled, a simpler "
+"alternative is shown instead - just a background, with no information box."
+msgstr ""
+"Khi tắt (mặc định), màn hình chờ tùy chỉnh thông thường sẽ hiển thị trong "
+"trình quản lý tệp bằng dữ liệu sách đã lưu gần nhất. Khi bật, một phương án "
+"đơn giản hơn sẽ hiển thị thay thế - chỉ là một nền, không có hộp thông tin."
+
+msgid "File manager background"
+msgstr "Nền trình quản lý tệp"
+
+msgid "Sleep screen in file manager"
+msgstr "Màn hình chờ trong trình quản lý tệp"
+
+msgid ""
+"Control what the sleep screen looks like when triggered from the file "
+"manager, outside of a book."
+msgstr ""
+"Điều khiển giao diện màn hình chờ khi được kích hoạt từ trình quản lý tệp, "
+"ngoài một cuốn sách."
+
+msgid ""
+"File manager display, ghosting, export, battery estimation, and stats scope."
+" Unlike the menus above, these settings don't change when you switch "
+"presets."
+msgstr ""
+"Hiển thị trong trình quản lý tệp, bóng mờ, xuất tệp, ước tính pin và phạm vi"
+" thống kê. Khác với các menu ở trên, các cài đặt này không thay đổi khi bạn "
+"chuyển cấu hình."
+
+msgid "Global settings"
+msgstr "Cài đặt chung"
+
+msgid "System Default (cfont)"
+msgstr "Mặc định hệ thống (cfont)"
+
+#, lua-format
+msgid "Title font face: %s"
+msgstr "Phông chữ tiêu đề: %s"
+
+#, lua-format
+msgid "Title font size: %dpx"
+msgstr "Cỡ chữ tiêu đề: %dpx"
+
+#, lua-format
+msgid "Subtitle font face: %s"
+msgstr "Phông chữ phụ đề: %s"
+
+#, lua-format
+msgid "Subtitle font size: %dpx"
+msgstr "Cỡ chữ phụ đề: %dpx"
+
+msgid "Time and pages read today"
+msgstr "Thời gian và số trang đọc hôm nay"
+
+msgid "e.g. '42 mins & 35 pgs read today'"
+msgstr "vd: '42 phút & 35 tr. đã đọc hôm nay'"
+
+msgid ""
+"What to show as the background for the alternative file manager sleep "
+"screen. This background is independent of your presets, so it looks the same"
+" no matter which preset was last active. Only selectable when \"Show "
+"alternative sleep screen\" is turned on."
+msgstr ""
+"Nội dung hiển thị làm nền cho màn hình chờ thay thế của trình quản lý tệp. "
+"Nền này độc lập với cấu hình của bạn, nên luôn trông giống nhau bất kể cấu "
+"hình nào được kích hoạt gần nhất. Chỉ có thể chọn khi \"Hiển thị màn hình "
+"chờ thay thế\" được bật."
+
+msgid ""
+"Hides the cover for this book only, for when you'd rather it not be shown on"
+" your sleep screen - without having to switch presets or background settings"
+" each time you read it. Only has an effect while Background type is set to "
+"\"Book cover\" - it has nothing to exclude otherwise."
+msgstr ""
+"Ẩn bìa chỉ cho cuốn sách này, dùng khi bạn không muốn nó hiển thị trên màn "
+"hình chờ - mà không cần chuyển cấu hình hay cài đặt nền mỗi lần đọc. Chỉ có "
+"tác dụng khi Loại nền được đặt thành \"Bìa sách\" - nếu không thì không có "
+"gì để loại trừ."
+
+msgid ""
+"What to show instead of the cover. Uses the colour, image, or folder already"
+" set in Background type. Only selectable when \"Exclude this book's cover "
+"from sleep screen\" is turned on and Background type is set to \"Book "
+"cover\"."
+msgstr ""
+"Nội dung hiển thị thay cho bìa. Sử dụng màu, hình ảnh hoặc thư mục đã được "
+"đặt trong Loại nền. Chỉ có thể chọn khi \"Loại trừ bìa sách này khỏi màn "
+"hình chờ\" được bật và Loại nền được đặt thành \"Bìa sách\"."
+
+msgid "Export in greyscale"
+msgstr "Xuất dưới dạng thang độ xám"
+
+msgid ""
+"Saves the exported image without colour, reducing file size for any format."
+msgstr ""
+"Lưu hình ảnh đã xuất mà không có màu, giúp giảm dung lượng tệp cho mọi định "
+"dạng."

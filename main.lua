@@ -30,6 +30,8 @@ package.loaded["customisablesleepscreen/_meta"] = meta
 local PATCH_VERSION = meta.version
 local Screen        = Device.screen
 
+-- Lazy module accessors (avoid circular requires at load time)
+
 local function getReaderUI()
     return package.loaded["apps/reader/readerui"]
 end
@@ -42,11 +44,17 @@ local function getMenu()
     return require("css_menu")
 end
 
+local function getRender()
+    return require("css_infobox_render")
+end
+
 local CustomisableSleepScreen = WidgetContainer:extend {
     name             = "customisablesleepscreen",
     _hooks_installed = false,
     _saved_rotation  = nil,
 }
+
+-- Settings migrations
 
 local function parseVersion(v)
     if not v then return 0, 0, 0 end
@@ -88,7 +96,7 @@ local function migrateFromGlobalSettings()
     local plugin_store = css_settings.plugin()
     local preset_store = css_settings.presets()
 
-    for key_name, raw_key in pairs(SETTINGS) do
+    for _, raw_key in pairs(SETTINGS) do
         if not KOREADER_OWNED_KEYS[raw_key] then
             local val = G_reader_settings:readSetting(raw_key)
             if val ~= nil then
@@ -126,18 +134,43 @@ local function runMigrations(saved_version)
 
     if saved_version == nil then return end
 
-    if versionLessThan(saved_version, 2, 3, 0) then
+    if versionLessThan(saved_version, 2, 2, 0) then
         local old_bold = plugin_store:readSetting("customisable_ss_book_title_bold")
         if old_bold ~= nil then
             plugin_store:saveSetting(SETTINGS.ALL_TITLES_BOLD, old_bold)
             plugin_store:delSetting("customisable_ss_book_title_bold")
         end
+    end
 
+    if versionLessThan(saved_version, 2, 3, 0) then
         if plugin_store:readSetting(SETTINGS.SHOW_BATT_DATE) == true then
             plugin_store:saveSetting(SETTINGS.SHOW_BATT_CLOCK, false)
         end
     end
+
+    if versionLessThan(saved_version, 2, 4, 0) then
+        if plugin_store:readSetting("customisable_ss_show_in_filemanager") == false then
+            plugin_store:saveSetting(SETTINGS.FM_ALT_MODE, true)
+            plugin_store:saveSetting(SETTINGS.FM_BG_TYPE, "transparent")
+        end
+        plugin_store:delSetting("customisable_ss_show_in_filemanager")
+
+        if plugin_store:readSetting(SETTINGS.EXPORT_FORMAT) == nil then
+            plugin_store:saveSetting(SETTINGS.EXPORT_FORMAT, "png")
+        end
+    end
+
+    local renamed_presets = {
+        ["Default"] = "Default Day",
+        ["Night"]   = "Default Night",
+    }
+    local last_loaded = preset_store:readSetting(SETTINGS.LAST_LOADED_PRESET)
+    if last_loaded and renamed_presets[last_loaded] then
+        preset_store:saveSetting(SETTINGS.LAST_LOADED_PRESET, renamed_presets[last_loaded])
+    end
 end
+
+-- Plugin lifecycle
 
 function CustomisableSleepScreen:init()
     logger.info(string.format("[Customisable Sleep Screen] v%s initialised", PATCH_VERSION))
@@ -157,6 +190,7 @@ function CustomisableSleepScreen:init()
             "MESSAGE_SOURCE", "BG_COVER_FILL_COLOR",
             "GOAL_TYPE", "DAILY_GOAL_MINUTES", "GOAL_TITLE_TYPE",
             "SHOW_QUOTE_ATTRIBUTION", "SLEEP_ORIENTATION",
+            "AUTO_PRESET_SWITCH_TRIGGER", "AUTO_PRESET_SWITCH_DAY_PRESET", "AUTO_PRESET_SWITCH_NIGHT_PRESET",
         }
         for _, key in ipairs(settings_to_init_if_missing) do
             if plugin_store:readSetting(SETTINGS[key]) == nil then
@@ -298,6 +332,8 @@ function CustomisableSleepScreen:init()
     end
 end
 
+-- Screenshot export
+
 function CustomisableSleepScreen:_exportToCoverImage(ui, state, book_data)
 
     if G_reader_settings:readSetting(SETTINGS.TYPE) ~= "customisable_ss" then
@@ -325,7 +361,9 @@ function CustomisableSleepScreen:_exportToCoverImage(ui, state, book_data)
     local w  = Screen:getWidth()
     local h  = Screen:getHeight()
 
-    local ok_bb, bb = pcall(Blitbuffer.new, w, h, Blitbuffer.TYPE_BBRGB32)
+    local grayscale = plugin_store:isTrue(SETTINGS.EXPORT_GRAYSCALE)
+    local bb_type = grayscale and Blitbuffer.TYPE_BB8 or Blitbuffer.TYPE_BBRGB32
+    local ok_bb, bb = pcall(Blitbuffer.new, w, h, bb_type)
     if not ok_bb then
         logger.warn("[Customisable Sleep Screen] export failed: could not create blitbuffer: " .. tostring(bb))
         ib.endTrackingScope(tracking_scope)
@@ -337,12 +375,14 @@ function CustomisableSleepScreen:_exportToCoverImage(ui, state, book_data)
         padding    = 0,
         widget,
     }
+    local night_mode_state = getRender().suppressNightMode()
     wrapped:paintTo(bb, 0, 0)
+    getRender().restoreNightMode(night_mode_state)
 
-    local filename = plugin_store:readSetting(SETTINGS.EXPORT_FILENAME) or "screensaver"
-    local format   = plugin_store:readSetting(SETTINGS.EXPORT_FORMAT) or "png"
+    local filename  = plugin_store:readSetting(SETTINGS.EXPORT_FILENAME) or USER_CONFIG.EXPORT_FILENAME
+    local format    = plugin_store:readSetting(SETTINGS.EXPORT_FORMAT) or "jpg"
     export_path = export_path:gsub("/$", "") .. "/" .. filename .. "." .. format
-    local ok = bb:writeToFile(export_path, format, 90, format == "bmp")
+    local ok = bb:writeToFile(export_path, format, 90, grayscale)
     if not ok then
         logger.warn("[Customisable Sleep Screen] export failed: could not write " .. tostring(export_path))
     else
@@ -383,9 +423,11 @@ function CustomisableSleepScreen:_exportCurrentBookData()
     end
 end
 
+-- Power-off hook
+
 function CustomisableSleepScreen:_onPowerOff()
     if G_reader_settings:readSetting(SETTINGS.TYPE) ~= "customisable_ss" then return end
-    
+
     pcall(function()
         local ib  = getInfobox()
         local ReaderUI = getReaderUI()
@@ -424,12 +466,16 @@ function CustomisableSleepScreen:_onPowerOff()
             padding    = 0,
             widget,
         }
+        local night_mode_state = getRender().suppressNightMode()
         wrapped:paintTo(Screen.bb, 0, 0)
         Screen:refreshFull()
+        getRender().restoreNightMode(night_mode_state)
         ib.endTrackingScope(tracking_scope)
         ib.restorePatches()
     end)
 end
+
+-- KOReader menu integration
 
 function CustomisableSleepScreen:addToMainMenu(menu_items)
     menu_items.customisable_sleep_screen = {
@@ -469,11 +515,20 @@ function CustomisableSleepScreen:addToMainMenu(menu_items)
                 return { enable_item }
             end
 
+            local function isEnabled()
+                return G_reader_settings:readSetting(SETTINGS.TYPE) == "customisable_ss"
+            end
+            for _, item in ipairs(settings_items) do
+                item.enabled_func = isEnabled
+            end
+
             table.insert(settings_items, 1, enable_item)
             return settings_items
         end,
     }
 end
+
+-- Widget teardown & suspend
 
 function CustomisableSleepScreen:onCloseWidget()
     if UIManager._entered_poweroff_stage then
@@ -485,6 +540,7 @@ function CustomisableSleepScreen:onCloseWidget()
     if CustomisableSleepScreen._hooks_installed then
         pcall(function() self._screensaver_hook:revert() end)
         pcall(function() self._screensaver_close_hook:revert() end)
+        pcall(function() self._screensaver_widget_close_hook:revert() end)
         CustomisableSleepScreen._hooks_installed = false
     end
 
@@ -506,6 +562,8 @@ function CustomisableSleepScreen:onSuspend()
     pcall(function() G_reader_settings:flush() end)
 end
 
+-- Screensaver hook (the actual sleep-screen display logic)
+
 function CustomisableSleepScreen:_installScreensaverHook()
     if not util.wrapMethod then
         logger.warn("[CSS] util.wrapMethod not available - screensaver hook cannot be installed")
@@ -520,6 +578,14 @@ function CustomisableSleepScreen:_installScreensaverHook()
             css._saved_rotation = nil
         end
         return css._screensaver_close_hook:raw_call(ss_self)
+    end)
+
+    self._screensaver_widget_close_hook = util.wrapMethod(ScreenSaverWidget, "onCloseWidget", function(sw_self)
+        if css._night_mode_state then
+            getRender().restoreNightMode(css._night_mode_state)
+            css._night_mode_state = nil
+        end
+        return css._screensaver_widget_close_hook:raw_call(sw_self)
     end)
 
     self._screensaver_hook = util.wrapMethod(Screensaver, "show", function(ss_self)
@@ -547,6 +613,8 @@ function CustomisableSleepScreen:_installScreensaverHook()
         else
             css._saved_rotation = nil
         end
+
+        pcall(function() require("css_auto_preset_switch").applyIfDue() end)
 
         if css_settings.plugin():isTrue(SETTINGS.ANTI_GHOSTING_FLASH) then
             pcall(function()
@@ -592,23 +660,26 @@ function CustomisableSleepScreen:_installScreensaverHook()
             end
         else
             local render_ref = require("css_infobox_render")
-            local show_in_fm = render_ref.getSetting("SHOW_IN_FILEMANAGER")
-            if not show_in_fm then
-                return css._screensaver_hook:raw_call(ss_self)
-            end
-            local book_data = ib.loadLastBookData()
-            if book_data then
-                widget = ib.buildInfoBox(nil, nil, book_data)
+            local fm_alt_mode = render_ref.getSetting("FM_ALT_MODE")
+            if fm_alt_mode then
+                widget = ib.buildFileManagerBackground()
             else
-                UIManager:show(require("ui/widget/infomessage"):new {
-                    text    = _("Customisable Sleep Screen: no book data found.\n\nOpen a book and trigger the sleep screen at least once before it will work in the file manager."),
-                })
+                local book_data = ib.loadLastBookData()
+                if book_data then
+                    widget = ib.buildInfoBox(nil, nil, book_data)
+                else
+                    UIManager:show(require("ui/widget/infomessage"):new {
+                        text    = _("Customisable Sleep Screen: no book data found.\n\nOpen a book and trigger the sleep screen at least once before it will work in the file manager."),
+                    })
+                end
             end
         end
 
         if not widget then return css._screensaver_hook:raw_call(ss_self) end
 
         logger.info("[Customisable Sleep Screen] Sleep screen built successfully")
+
+        css._night_mode_state = getRender().suppressNightMode()
 
         Device.screen_saver_mode = true
         UIManager:setIgnoreTouchInput(false)
@@ -620,6 +691,7 @@ function CustomisableSleepScreen:_installScreensaverHook()
 
         ss_self.screensaver_widget.modal    = true
         ss_self.screensaver_widget.dithered = true
+
         UIManager:show(ss_self.screensaver_widget, "full")
 
         local screensaver_delay = G_reader_settings:readSetting("screensaver_delay")
@@ -641,6 +713,8 @@ function CustomisableSleepScreen:_installScreensaverHook()
         end
     end)
 end
+
+-- Dispatcher actions (gestures/shortcuts)
 
 function CustomisableSleepScreen:_onShowSettings()
 
@@ -672,7 +746,7 @@ end
 
 function CustomisableSleepScreen:_onShowPresets()
     local ok, result = pcall(function()
-        return getMenu().buildPresetManagementMenu(true)
+        return getMenu().buildPresetManagementMenu(true, self.ui)
     end)
     if not ok then
         logger.warn("[Customisable Sleep Screen] presets build error: " .. tostring(result))
@@ -693,6 +767,8 @@ function CustomisableSleepScreen:_onCyclePresets()
     local Presets = require("ui/presets")
     return Presets.cycleThroughPresets(require("css_presets").getPresetObj(), true)
 end
+
+-- Uninstall helper
 
 function CustomisableSleepScreen:deletePluginSettings()
     local DataStorage  = require("datastorage")

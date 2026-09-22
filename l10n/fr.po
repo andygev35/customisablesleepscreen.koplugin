@@ -8,7 +8,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. ---- Display sleep screen strings ----
-
 msgid "January"
 msgstr "Janvier"
 
@@ -69,13 +68,6 @@ msgstr[1] "min"
 
 msgid "< 1 min"
 msgstr "< 1 min"
-
-#, lua-format
-msgid "~%d %s left"
-msgstr "~%d %s restant"
-
-msgid "~<1 hr left"
-msgstr "~<1 h restante"
 
 msgid "Untitled"
 msgstr "Sans titre"
@@ -149,20 +141,11 @@ msgstr "%d%% de l'objectif"
 msgid "%d page goal"
 msgstr "%d objectif de pages"
 
-#, lua-format
-msgid "~%.1f%%/hour"
-msgstr "~%.1f%%/heure"
-
 msgid "Rate unavailable"
 msgstr "Taux non disponible"
 
 msgid "No message set"
 msgstr "Aucun message défini"
-
-msgid "No custom quotes found. Add quotes to custom_quotes.lua."
-msgstr ""
-"Aucune citation personnalisée trouvée. Ajoutez des citations dans "
-"custom_quotes.lua."
 
 #, lua-format
 msgid "pg. %s"
@@ -183,8 +166,29 @@ msgstr "Citations"
 msgid "Message"
 msgstr "Message"
 
-#. ---- All other strings (menu items, help text, headers, buttons) ----
+msgid "< 1 min left"
+msgstr "< 1 min restante"
 
+#, lua-format
+msgid "Page %s of %s"
+msgstr "Page %s sur %s"
+
+msgid "charging"
+msgstr "en charge"
+
+msgid "remaining"
+msgstr "restant"
+
+#, lua-format
+msgid "%.1f%% / hour"
+msgstr "%.1f%% / heure"
+
+msgid "No custom quotes found. Add quotes to css_custom_quotes.lua."
+msgstr ""
+"Aucune citation personnalisée trouvée. Ajoutez des citations dans "
+"css_custom_quotes.lua."
+
+#. ---- All other strings (menu items, help text, headers, buttons) ----
 msgid "Customisable sleep screen settings"
 msgstr "Paramètres de l'écran de veille personnalisable"
 
@@ -201,40 +205,19 @@ msgid "Enable customisable sleep screen"
 msgstr "Activer l'écran de veille personnalisable"
 
 msgid ""
-"Customisable Sleep Screen: no book data found.\n\nOpen a book and trigger "
-"the sleep screen at least once before it will work in the file manager."
+"Customisable Sleep Screen: no book data found.\n"
+"\n"
+"Open a book and trigger the sleep screen at least once before it will work in the file manager."
 msgstr ""
-"Écran de veille personnalisable : aucune donnée de livre trouvée.\n\nOuvrez "
-"un livre et déclenchez l'écran de veille au moins une fois avant qu'il "
-"fonctionne dans le gestionnaire de fichiers."
-
-msgid "Delete all custom presets"
-msgstr "Supprimer tous les préréglages personnalisés"
-
-msgid ""
-"Permanently removes all custom presets you've created. The built-in "
-"'Default' preset will remain. This cannot be undone."
-msgstr ""
-"Supprime définitivement tous les préréglages personnalisés créés. Le "
-"préréglage intégré 'Par défaut' sera conservé. Cette action est irréversible."
-
-msgid ""
-"Are you sure you want to delete all custom presets? (built-in presets will "
-"remain)"
-msgstr ""
-"Supprimer tous les préréglages personnalisés ? (les préréglages intégrés "
-"seront conservés)"
+"Écran de veille personnalisable : aucune donnée de livre trouvée.\n"
+"\n"
+"Ouvrez un livre et déclenchez l'écran de veille au moins une fois avant qu'il fonctionne dans le gestionnaire de fichiers."
 
 msgid "Delete"
 msgstr "Supprimer"
 
 msgid "Cancel"
 msgstr "Annuler"
-
-msgid "All custom presets deleted. Built-in presets remain."
-msgstr ""
-"Tous les préréglages personnalisés supprimés. Les préréglages intégrés sont "
-"conservés."
 
 msgid "Sleep screen orientation"
 msgstr "Orientation de l'écran de veille"
@@ -287,8 +270,8 @@ msgstr "Depuis la dernière charge"
 
 msgid "Uses combined awake and sleeping battery drain since last charge"
 msgstr ""
-"Utilise la consommation combinée en veille et en activité depuis la dernière "
-"charge"
+"Utilise la consommation combinée en veille et en activité depuis la dernière"
+" charge"
 
 msgid "Awake since last charge"
 msgstr "Temps actif depuis la dernière charge"
@@ -345,7 +328,8 @@ msgid "Current book only"
 msgstr "Livre actuel uniquement"
 
 msgid "Today's reading time and page count for the current book only"
-msgstr "Temps de lecture et nombre de pages du jour uniquement pour le livre actuel"
+msgstr ""
+"Temps de lecture et nombre de pages du jour uniquement pour le livre actuel"
 
 msgid "Flash screen to reduce ghosting"
 msgstr "Flash de l'écran pour réduire la rémanence"
@@ -369,30 +353,18 @@ msgstr ""
 "Quand activé, l'écran de veille personnalisable s'affiche dans le "
 "gestionnaire de fichiers avec les dernières données de livre enregistrées."
 
-msgid "Hide built-in presets (except Default)"
-msgstr "Masquer les préréglages intégrés (sauf Par défaut)"
-
-msgid ""
-"Hide the built-in presets from the preset list, keeping only the Default "
-"preset and your custom presets visible."
-msgstr ""
-"Masque les préréglages intégrés dans la liste, ne laissant visibles que le "
-"préréglage Par défaut et vos préréglages personnalisés."
-
-msgid "Setting saved. Preset list will update when you reopen this menu."
-msgstr "Paramètre enregistré. La liste se mettra à jour à la réouverture de ce menu."
-
 msgid "Export sleep screen to file"
 msgstr "Exporter l'écran de veille vers un fichier"
 
 msgid ""
-"When enabled, a screenshot of the sleep screen will be saved in the selected "
-"export folder each time a book is closed, using the filename and format set "
-"below."
+"When enabled, a screenshot of the sleep screen will be saved in the selected"
+" export folder each time you close a book or put the device to sleep, using "
+"the format set below."
 msgstr ""
-"Si activé, une capture d'écran de l'écran de veille sera enregistrée dans le "
-"dossier d'export sélectionné à chaque fermeture d'un livre, avec le nom de "
-"fichier et le format définis ci-dessous."
+"Lorsque cette option est activée, une capture d'écran de l'écran de veille "
+"est enregistrée dans le dossier d'exportation sélectionné chaque fois que "
+"vous fermez un livre ou mettez l'appareil en veille, selon le format défini "
+"ci-dessous."
 
 msgid "Sleep screen export disabled."
 msgstr "Exportation de l'écran de veille désactivée."
@@ -403,21 +375,13 @@ msgstr ""
 "d'exportation."
 
 #, lua-format
-msgid "Sleep screen will be exported to:\n%s/%s.%s"
+msgid ""
+"Sleep screen will be exported to:\n"
+"%s/%s.%s"
 msgstr "L'écran de veille sera exporté vers : %s/%s.%s"
 
 msgid "Set export filename"
 msgstr "Définir le nom de fichier d'export"
-
-msgid ""
-"Choose the filename used for the exported image (without extension). Some "
-"devices need a specific filename to recognise it as their native sleep "
-"screen e.g. 'suspend_others' for Tolino."
-msgstr ""
-"Choisissez le nom de fichier utilisé pour l'image exportée (sans extension). "
-"Certains appareils ont besoin d'un nom de fichier spécifique pour le "
-"reconnaître comme leur écran de veille natif, par ex. 'suspend_others' pour "
-"Tolino."
 
 msgid "Export filename"
 msgstr "Nom de fichier d'export"
@@ -425,71 +389,45 @@ msgstr "Nom de fichier d'export"
 msgid "Save"
 msgstr "Enregistrer"
 
-msgid "Export format"
-msgstr "Format d'export"
-
-msgid ""
-"Choose the image format for the exported file. BMP is needed for "
-"PocketBook's native sleep screen; PNG and JPG suit most other devices."
-msgstr ""
-"Choisissez le format d'image pour le fichier exporté. Le BMP est nécessaire "
-"pour l'écran de veille natif de PocketBook ; PNG et JPG conviennent à la "
-"plupart des autres appareils."
-
 msgid "PNG"
 msgstr "PNG"
 
-msgid "Lossless, larger file size. Default."
-msgstr "Sans perte, taille de fichier plus grande. Par défaut."
+msgid "Lossless. Medium file size, slower save."
+msgstr "Sans perte. Taille de fichier moyenne, enregistrement plus lent."
 
 msgid "JPG"
 msgstr "JPG"
 
-msgid "Lossy, smaller file size."
-msgstr "Avec perte, taille de fichier plus petite."
+msgid "Lossy. Smallest file size, quick save."
+msgstr "Avec perte. Taille de fichier la plus petite, enregistrement rapide."
 
 msgid "BMP"
 msgstr "BMP"
 
-msgid "Uncompressed. Required for PocketBook's native sleep screen support."
+msgid "Uncompressed. Largest file size, quick save."
 msgstr ""
-"Non compressé. Requis pour la prise en charge native de l'écran de veille de "
-"PocketBook."
+"Non compressé. Taille de fichier la plus grande, enregistrement rapide."
 
 msgid "Set export folder"
 msgstr "Définir le dossier d'exportation"
 
-msgid "Choose the folder where the exported image will be saved."
-msgstr "Choisissez le dossier où l'image exportée sera enregistrée."
-
 #, lua-format
-msgid "Export folder set to:\n%s"
+msgid ""
+"Export folder set to:\n"
+"%s"
 msgstr "Dossier d'exportation défini sur : %s"
 
 msgid "Exclude this book's cover from sleep screen"
 msgstr "Exclure la couverture de ce livre de l'écran de veille"
 
 msgid ""
-"Hides the cover for this book only, for when you'd rather it not be shown on "
-"your sleep screen - without having to switch presets or background settings "
-"each time you read it."
+"Hides the cover for this book only, for when you'd rather it not be shown on"
+" your sleep screen - without having to switch presets or background settings"
+" each time you read it."
 msgstr ""
 "Masque la couverture pour ce livre uniquement, si vous préférez qu'elle "
 "n'apparaisse pas sur votre écran de veille - sans avoir à changer de "
 "préréglage ou de paramètres d'arrière-plan à chaque lecture."
-
-msgid "Cover-excluded fallback background"
-msgstr "Arrière-plan de remplacement quand la couverture est exclue"
-
-msgid ""
-"What to show instead of the cover. Uses the colour, image, or folder already "
-"set in Background → Background type. Only selectable when \"Exclude this "
-"book's cover from sleep screen\" is turned on."
-msgstr ""
-"Ce qui s'affiche à la place de la couverture. Utilise la couleur, l'image ou "
-"le dossier déjà définis dans Arrière-plan → Type d'arrière-plan. "
-"Sélectionnable uniquement lorsque « Exclure la couverture de ce livre de "
-"l'écran de veille » est activé."
 
 msgid "No background (leave screen as-is)"
 msgstr "Pas d'arrière-plan (laisser l'écran tel quel)"
@@ -509,12 +447,6 @@ msgstr "Préréglages"
 msgid "Save, load, and manage presets."
 msgstr "Enregistrer, charger et gérer les préréglages."
 
-msgid "Display modes"
-msgstr "Modes d'affichage"
-
-msgid "Global appearance settings."
-msgstr "Paramètres d'apparence globaux."
-
 msgid "Contents"
 msgstr "Contenu"
 
@@ -523,11 +455,15 @@ msgstr ""
 "Contrôler quelles sections apparaissent et quelles informations elles "
 "affichent."
 
-msgid "Layout & Spacing"
-msgstr "Mise en page & espacement"
+msgid "Layout, Spacing & Frame"
+msgstr "Mise en page, espacement & cadre"
 
-msgid "Adjust the spatial settings of the information box."
-msgstr "Ajuster les paramètres spatiaux de la boîte d'informations."
+msgid ""
+"Position and size of the box, the gaps between sections, and its border, "
+"corner radius, and opacity."
+msgstr ""
+"Position et taille de la boîte, l'espacement entre les sections, ainsi que "
+"sa bordure, son rayon des coins et son opacité."
 
 msgid "Colours, Icons & Bars"
 msgstr "Couleurs, icônes & barres"
@@ -549,18 +485,8 @@ msgstr "Arrière-plan"
 msgid "Choose what appears behind the information box."
 msgstr "Choisir ce qui apparaît derrière la boîte d'informations."
 
-msgid "Advanced"
-msgstr "Avancé"
-
-msgid "Advanced configuration options."
-msgstr "Options de configuration avancées."
-
 msgid "About"
 msgstr "À propos"
-
-#, lua-format
-msgid "%s\nVersion: %s\n\nFor updates and issues:\ngithub.com/%s"
-msgstr "%s\nVersion : %s\n\nPour les mises à jour et signalements :\ngithub.com/%s"
 
 msgid "Book info"
 msgstr "Infos livre"
@@ -577,12 +503,6 @@ msgstr "Infos batterie"
 msgid "Message info"
 msgstr "Infos message"
 
-msgid "Reorder sections"
-msgstr "Réorganiser les sections"
-
-msgid "Section order"
-msgstr "Ordre des sections"
-
 msgid "At least one section must remain visible."
 msgstr "Au moins une section doit rester visible."
 
@@ -593,8 +513,8 @@ msgid ""
 "Display the book's cover image above the title and progress in the book "
 "section."
 msgstr ""
-"Afficher la couverture du livre au-dessus du titre et de la progression dans "
-"la section du livre."
+"Afficher la couverture du livre au-dessus du titre et de la progression dans"
+" la section du livre."
 
 msgid "Cover image size"
 msgstr "Taille de la couverture"
@@ -605,15 +525,18 @@ msgstr "Limite de hauteur pour la couverture en pixels."
 msgid "Cover image size (pixels)"
 msgstr "Taille de la couverture (pixels)"
 
-msgid "100–150px fits neatly in most layouts. Go up to 250px+ for a prominent cover."
+msgid ""
+"100–150px fits neatly in most layouts. Go up to 250px+ for a prominent "
+"cover."
 msgstr ""
-"100–150 px s'intègre bien dans la plupart des mises en page. Jusqu'à 250 px+ "
-"pour une couverture proéminente."
+"100–150 px s'intègre bien dans la plupart des mises en page. Jusqu'à 250 px+"
+" pour une couverture proéminente."
 
 msgid "Cover border size"
 msgstr "Taille de la bordure de couverture"
 
-msgid "Width of the border drawn around the cover image. Set to 0 for no border."
+msgid ""
+"Width of the border drawn around the cover image. Set to 0 for no border."
 msgstr ""
 "Largeur de la bordure dessinée autour de la couverture. Définir à 0 pour "
 "aucune bordure."
@@ -638,7 +561,8 @@ msgid "Cover image"
 msgstr "Image de couverture"
 
 msgid "Configure the book cover image shown above the book section."
-msgstr "Configurer la couverture du livre affichée au-dessus de la section du livre."
+msgstr ""
+"Configurer la couverture du livre affichée au-dessus de la section du livre."
 
 msgid "Show book author"
 msgstr "Afficher l'auteur du livre"
@@ -677,8 +601,10 @@ msgstr "Affiche le pourcentage du livre terminé."
 msgid "Show chapter count (ch x of x)"
 msgstr "Afficher le nombre de chapitres (ch. x sur x)"
 
-msgid "Display current chapter number and total chapters (e.g., 'Chapter 5 of 12')."
-msgstr "Afficher le numéro du chapitre actuel et le total (ex. 'Chapitre 5 sur 12')."
+msgid ""
+"Display current chapter number and total chapters (e.g., 'Chapter 5 of 12')."
+msgstr ""
+"Afficher le numéro du chapitre actuel et le total (ex. 'Chapitre 5 sur 12')."
 
 msgid "Show chapter pages (pg x of x)"
 msgstr "Afficher les pages du chapitre (p. x sur x)"
@@ -702,11 +628,9 @@ msgstr "Afficher le pourcentage du chapitre"
 msgid "Display the percentage of the current chapter completed."
 msgstr "Affiche le pourcentage du chapitre en cours terminé."
 
-msgid "Title Line"
-msgstr "Ligne de titre"
-
 msgid "Choose what the top line of the daily info section displays."
-msgstr "Choisir ce qu'affiche la première ligne de la section informations du jour."
+msgstr ""
+"Choisir ce qu'affiche la première ligne de la section informations du jour."
 
 msgid "Pages read today"
 msgstr "Pages lues aujourd'hui"
@@ -726,10 +650,8 @@ msgstr "Pages et temps lus aujourd'hui"
 msgid "e.g. '35 pgs & 42 mins read today'"
 msgstr "ex. '35 p. & 42 min lu aujourd'hui'"
 
-msgid "Goal type"
-msgstr "Type d'objectif"
-
-msgid "Choose whether your daily goal tracks pages read or time spent reading."
+msgid ""
+"Choose whether your daily goal tracks pages read or time spent reading."
 msgstr ""
 "Choisir si votre objectif quotidien suit les pages lues ou le temps de "
 "lecture."
@@ -778,7 +700,8 @@ msgid "Show current reading streak"
 msgstr "Afficher la série de lecture actuelle"
 
 msgid "Display consecutive days you've met your reading goal."
-msgstr "Afficher les jours consécutifs où l'objectif de lecture a été atteint."
+msgstr ""
+"Afficher les jours consécutifs où l'objectif de lecture a été atteint."
 
 msgid "Show weekly progress"
 msgstr "Afficher la progression hebdomadaire"
@@ -809,9 +732,6 @@ msgstr "Afficher le pourcentage de l'objectif"
 msgid "Display the percentage of your daily goal completed."
 msgstr "Affiche le pourcentage de votre objectif quotidien atteint."
 
-msgid "Show clock"
-msgstr "Afficher l'heure"
-
 msgid ""
 "Display the current time. Note this is a snapshot taken when the sleep "
 "screen is shown, it does not update live while the screen is asleep."
@@ -834,13 +754,6 @@ msgstr ""
 msgid "Show battery consumption rate"
 msgstr "Afficher le taux de consommation de la batterie"
 
-msgid ""
-"Display battery drain percentage per hour based on recent usage or manual "
-"input (see advanced menu)"
-msgstr ""
-"Afficher le pourcentage de décharge de la batterie par heure basé sur "
-"l'utilisation récente ou une saisie manuelle (voir menu avancé)"
-
 msgid "Show battery time remaining"
 msgstr "Afficher le temps restant de batterie"
 
@@ -862,7 +775,6 @@ msgstr ""
 msgid "Edit custom message"
 msgstr "Modifier le message personnalisé"
 
-#, lua-format
 msgid ""
 "Write your custom message text. Only active when 'Custom message' is "
 "selected. Supports variables: %d, %y, %t, %b, %r."
@@ -910,7 +822,9 @@ msgstr ""
 msgid "Maximum highlight length (characters)"
 msgstr "Longueur maximale du surlignage (caractères)"
 
-msgid "100–150 chars keeps highlights readable. Set to 0 to show the full highlight."
+msgid ""
+"100–150 chars keeps highlights readable. Set to 0 to show the full "
+"highlight."
 msgstr ""
 "100–150 caractères maintient les surlignages lisibles. Définir à 0 pour "
 "afficher le surlignage complet."
@@ -918,43 +832,28 @@ msgstr ""
 msgid "Custom quotes"
 msgstr "Citations personnalisées"
 
-msgid "Show a random quote from the custom_quotes.lua file in the plugin folder."
-msgstr ""
-"Afficher une citation aléatoire du fichier custom_quotes.lua dans le dossier "
-"du plugin."
-
 msgid "Show quote attribution"
 msgstr "Afficher l'attribution de la citation"
-
-msgid ""
-"Display the author and book name below the quote, if provided in "
-"custom_quotes.lua."
-msgstr ""
-"Afficher l'auteur et le titre du livre sous la citation, si fournis dans "
-"custom_quotes.lua."
 
 msgid "KOReader sleep message"
 msgstr "Message de veille KOReader"
 
 msgid ""
-"Uses KOReaders own sleep screen message function. Enable 'Add custom message "
-"to sleep screen' to use this (Settings → Screen → Sleep screen → Sleep "
+"Uses KOReaders own sleep screen message function. Enable 'Add custom message"
+" to sleep screen' to use this (Settings → Screen → Sleep screen → Sleep "
 "screen message)."
 msgstr ""
-"Utilise la propre fonction de message d'écran de veille de KOReader. Activer "
-"'Ajouter un message personnalisé à l'écran de veille' pour l'utiliser "
+"Utilise la propre fonction de message d'écran de veille de KOReader. Activer"
+" 'Ajouter un message personnalisé à l'écran de veille' pour l'utiliser "
 "(Paramètres → Écran → Écran de veille → Message de l'écran de veille)."
 
 msgid "Show message header"
 msgstr "Afficher l'en-tête du message"
 
 msgid "Show or hide the header label above the message text."
-msgstr "Afficher ou masquer l'étiquette d'en-tête au-dessus du texte du message."
+msgstr ""
+"Afficher ou masquer l'étiquette d'en-tête au-dessus du texte du message."
 
-msgid "Message header"
-msgstr "En-tête du message"
-
-#, lua-format
 msgid ""
 "Custom header text displayed above the message. Supports variables: %d, %y, "
 "%t, %b, %r."
@@ -964,17 +863,6 @@ msgstr ""
 
 msgid "Change custom message header"
 msgstr "Modifier l'en-tête du message personnalisé"
-
-msgid "Displayed sections"
-msgstr "Sections affichées"
-
-msgid "Toggle which sections show on the sleep screen. At least one must be visible."
-msgstr ""
-"Basculer les sections affichées sur l'écran de veille. Au moins une doit "
-"être visible."
-
-msgid "[ Section Content ]"
-msgstr "[ Contenu des sections ]"
 
 msgid "Book section"
 msgstr "Section livre"
@@ -1037,9 +925,9 @@ msgid "Dark mode"
 msgstr "Mode sombre"
 
 msgid ""
-"Inverts the colour scheme. Text becomes white and backgrounds becomes black. "
-"Useful for reading in low-light conditions. Can be combined with monochrome "
-"mode."
+"Inverts the colour scheme. Text becomes white and backgrounds becomes black."
+" Useful for reading in low-light conditions. Can be combined with monochrome"
+" mode."
 msgstr ""
 "Inverse le schéma de couleurs. Le texte devient blanc et les fonds "
 "deviennent noirs. Utile pour lire dans des conditions de faible éclairage. "
@@ -1061,7 +949,8 @@ msgstr ""
 msgid "Section gaps"
 msgstr "Espacement des sections"
 
-msgid "Add transparent gaps between sections to make each appear as a separate box"
+msgid ""
+"Add transparent gaps between sections to make each appear as a separate box"
 msgstr ""
 "Ajouter des espacements transparents entre les sections pour que chacune "
 "apparaisse comme une boîte séparée"
@@ -1079,8 +968,8 @@ msgid "Section gap size (pixels)"
 msgstr "Taille de l'espacement entre sections (pixels)"
 
 msgid ""
-"10–20px gives a subtle separation. 30–50px makes sections feel like distinct "
-"cards."
+"10–20px gives a subtle separation. 30–50px makes sections feel like distinct"
+" cards."
 msgstr ""
 "10–20 px donne une séparation subtile. 30–50 px donne à chaque section "
 "l'aspect d'une carte distincte."
@@ -1124,7 +1013,8 @@ msgstr ""
 msgid "Width"
 msgstr "Largeur"
 
-msgid "Horizontal width of the information box as a percentage of screen width."
+msgid ""
+"Horizontal width of the information box as a percentage of screen width."
 msgstr ""
 "Largeur horizontale de la boîte d'informations en pourcentage de la largeur "
 "d'écran."
@@ -1132,7 +1022,6 @@ msgstr ""
 msgid "Box width (%)"
 msgstr "Largeur du cadre (%)"
 
-#, lua-format
 msgid "60–70% suits portrait screens."
 msgstr "60–70 % convient aux écrans en mode portrait."
 
@@ -1145,7 +1034,6 @@ msgstr "Transparence de la boîte d'informations."
 msgid "Opacity (%)"
 msgstr "Opacité (%)"
 
-#, lua-format
 msgid "75% is semi-transparent. 100% is fully opaque."
 msgstr "75 % est semi-transparent. 100 % est entièrement opaque."
 
@@ -1174,8 +1062,8 @@ msgid ""
 "0 for no trim. 1–2px is subtle, 4–6px is a bold decorative outline around "
 "the primary border."
 msgstr ""
-"0 pour aucun liseré. 1–2 px est subtil, 4–6 px est un contour décoratif gras "
-"autour de la bordure principale."
+"0 pour aucun liseré. 1–2 px est subtil, 4–6 px est un contour décoratif gras"
+" autour de la bordure principale."
 
 msgid "Corner radius"
 msgstr "Rayon des coins"
@@ -1200,8 +1088,10 @@ msgstr ""
 msgid "Internal padding"
 msgstr "Marge intérieure"
 
-msgid "Space between section borders and their content, configurable per side."
-msgstr "Espace entre les bordures de section et leur contenu, configurable par côté."
+msgid ""
+"Space between section borders and their content, configurable per side."
+msgstr ""
+"Espace entre les bordures de section et leur contenu, configurable par côté."
 
 msgid "Top"
 msgstr "Haut"
@@ -1227,10 +1117,12 @@ msgstr "Gauche"
 msgid "Internal padding - left (px)"
 msgstr "Marge interne - gauche (px)"
 
-msgid "Space to the left of section content. Increase when using large corner radii."
+msgid ""
+"Space to the left of section content. Increase when using large corner "
+"radii."
 msgstr ""
-"Espace à gauche du contenu de la section. Augmenter avec de grands rayons de "
-"coins."
+"Espace à gauche du contenu de la section. Augmenter avec de grands rayons de"
+" coins."
 
 msgid "Right"
 msgstr "Droite"
@@ -1242,8 +1134,8 @@ msgid ""
 "Space to the right of section content. Increase when using large corner "
 "radii."
 msgstr ""
-"Espace à droite du contenu de la section. Augmenter avec de grands rayons de "
-"coins."
+"Espace à droite du contenu de la section. Augmenter avec de grands rayons de"
+" coins."
 
 msgid "Set all sides equally"
 msgstr "Définir tous les côtés de manière égale"
@@ -1251,7 +1143,8 @@ msgstr "Définir tous les côtés de manière égale"
 msgid "Internal padding - all sides (px)"
 msgstr "Marge interne - tous les côtés (px)"
 
-msgid "Sets top, bottom, left and right padding to the same value in one step."
+msgid ""
+"Sets top, bottom, left and right padding to the same value in one step."
 msgstr ""
 "Définit le rembourrage haut, bas, gauche et droite à la même valeur en une "
 "étape."
@@ -1260,16 +1153,20 @@ msgid "Icon to text gap"
 msgstr "Espacement icône-texte"
 
 msgid "Horizontal spacing between section icons and their accompanying text."
-msgstr "Espacement horizontal entre les icônes de section et le texte associé."
+msgstr ""
+"Espacement horizontal entre les icônes de section et le texte associé."
 
 msgid "Icon to text gap (px)"
 msgstr "Écart icône-texte (px)"
 
-msgid "8–12px gives comfortable breathing room between icon and text. 0 is flush."
-msgstr "8–12 px donne un espace confortable entre l'icône et le texte. 0 est en ras."
+msgid ""
+"8–12px gives comfortable breathing room between icon and text. 0 is flush."
+msgstr ""
+"8–12 px donne un espace confortable entre l'icône et le texte. 0 est en ras."
 
 msgid "No icon sets found in customisablesleepscreen.koplugin/icons/"
-msgstr "Aucun jeu d'icônes trouvé dans customisablesleepscreen.koplugin/icons/"
+msgstr ""
+"Aucun jeu d'icônes trouvé dans customisablesleepscreen.koplugin/icons/"
 
 msgid "Colours (progress bars)"
 msgstr "Couleurs (barres de progression)"
@@ -1280,7 +1177,8 @@ msgstr "Définit les couleurs des barres de progression pour chaque section."
 msgid "Use saved colours for icon fill"
 msgstr "Utiliser les couleurs enregistrées pour le remplissage des icônes"
 
-msgid "When enabled, icons will match the colour of their section's progress bar."
+msgid ""
+"When enabled, icons will match the colour of their section's progress bar."
 msgstr ""
 "Quand activé, les icônes correspondront à la couleur de la barre de "
 "progression de leur section."
@@ -1389,8 +1287,8 @@ msgid "Inline progress bars"
 msgstr "Barres de progression en ligne"
 
 msgid ""
-"Progress bars sit inside the text area rather than spanning the full section "
-"width. Automatically enabled when corner radius > 0."
+"Progress bars sit inside the text area rather than spanning the full section"
+" width. Automatically enabled when corner radius > 0."
 msgstr ""
 "Les barres de progression se trouvent dans la zone de texte plutôt que de "
 "couvrir toute la largeur de la section. Activé automatiquement lorsque le "
@@ -1403,8 +1301,8 @@ msgid ""
 "When section gaps are enabled and corner radius > 0, inline bars are "
 "automatically enabled."
 msgstr ""
-"Lorsque les espaces de section sont activés et que le rayon de coin > 0, les "
-"barres en ligne sont automatiquement activées."
+"Lorsque les espaces de section sont activés et que le rayon de coin > 0, les"
+" barres en ligne sont automatiquement activées."
 
 msgid ""
 "Inline bars are force-enabled because section gaps and corner radius are "
@@ -1425,7 +1323,8 @@ msgid "Inline bar border size (px)"
 msgstr "Taille de la bordure de barre en ligne (px)"
 
 msgid "0 for no border. 1–2px adds a subtle outline around the bar."
-msgstr "0 pour aucune bordure. 1–2 px ajoute un contour subtil autour de la barre."
+msgstr ""
+"0 pour aucune bordure. 1–2 px ajoute un contour subtil autour de la barre."
 
 msgid "Bar width"
 msgstr "Largeur de barre"
@@ -1440,7 +1339,6 @@ msgstr ""
 msgid "Inline bar width (%)"
 msgstr "Largeur de barre en ligne (%)"
 
-#, lua-format
 msgid ""
 "100% fills the text column. The bar is aligned to match your text alignment "
 "setting."
@@ -1452,7 +1350,8 @@ msgid "Title font face"
 msgstr "Police du titre"
 
 msgid "Choose the font face for the main heading text in each section"
-msgstr "Choisir la police pour le texte de titre principal dans chaque section"
+msgstr ""
+"Choisir la police pour le texte de titre principal dans chaque section"
 
 msgid "Title font size"
 msgstr "Taille de police du titre"
@@ -1469,7 +1368,8 @@ msgid "Subtitle font face"
 msgstr "Police du sous-titre"
 
 msgid "Choose the font face for the information below the main heading text."
-msgstr "Choisir la police pour les informations sous le texte de titre principal."
+msgstr ""
+"Choisir la police pour les informations sous le texte de titre principal."
 
 msgid "Subtitle font size"
 msgstr "Taille de police du sous-titre"
@@ -1491,10 +1391,12 @@ msgstr "Alignement horizontal de tout le texte dans les sections."
 msgid "Book multiline titles"
 msgstr "Titres de livre multiligne"
 
-msgid "If deselected book titles will be truncated to a single line with an ellipsis"
+msgid ""
+"If deselected book titles will be truncated to a single line with an "
+"ellipsis"
 msgstr ""
-"Si désélectionné, les titres de livre seront tronqués à une seule ligne avec "
-"des points de suspension"
+"Si désélectionné, les titres de livre seront tronqués à une seule ligne avec"
+" des points de suspension"
 
 msgid "Chapter multiline titles"
 msgstr "Titres de chapitre multiligne"
@@ -1555,8 +1457,8 @@ msgstr "Chemin du dossier d'arrière-plan"
 
 msgid "No images found in the selected folder. No background will be shown."
 msgstr ""
-"Aucune image trouvée dans le dossier sélectionné. Aucun arrière-plan ne sera "
-"affiché."
+"Aucune image trouvée dans le dossier sélectionné. Aucun arrière-plan ne sera"
+" affiché."
 
 msgid "Stretch book cover to fill"
 msgstr "Étirer la couverture pour remplir"
@@ -1581,7 +1483,8 @@ msgid "Cover alignment"
 msgstr "Alignement de la couverture"
 
 msgid "Horizontal alignment of the cover image when not stretched."
-msgstr "Alignement horizontal de l'image de couverture quand elle n'est pas étirée."
+msgstr ""
+"Alignement horizontal de l'image de couverture quand elle n'est pas étirée."
 
 msgid "Background type"
 msgstr "Type d'arrière-plan"
@@ -1590,7 +1493,8 @@ msgid "Background overlay"
 msgstr "Superposition d'arrière-plan"
 
 msgid "Add a colour layer over the background to reduce contrast."
-msgstr "Ajouter une couche de couleur sur l'arrière-plan pour réduire le contraste."
+msgstr ""
+"Ajouter une couche de couleur sur l'arrière-plan pour réduire le contraste."
 
 msgid "Overlay colour"
 msgstr "Couleur de superposition"
@@ -1604,7 +1508,6 @@ msgstr "Opacité du calque"
 msgid "Overlay opacity (%)"
 msgstr "Opacité du calque (%)"
 
-#, lua-format
 msgid "0% is no overlay. 20–40% adds a soft tint. 100% is fully opaque."
 msgstr ""
 "0 % est sans calque. 20–40 % ajoute une teinte douce. 100 % est entièrement "
@@ -1644,26 +1547,22 @@ msgstr "Renommer"
 msgid "Enter new preset name"
 msgstr "Saisir un nouveau nom de préréglage"
 
-msgid "[ Built-in Presets ]"
-msgstr "[ Préréglages intégrés ]"
-
-msgid "[ Your Custom Presets ]"
-msgstr "[ Vos préréglages personnalisés ]"
-
 msgid "Apply"
 msgstr "Appliquer"
 
 msgid "Invalid hex code. Use format: #RRGGBB"
 msgstr "Code hex invalide. Utiliser le format : #RRGGBB"
 
-msgid "Reset layout & spacing settings to default"
-msgstr "Réinitialiser les paramètres de mise en page et d'espacement"
+msgid "Reset layout, spacing & frame settings to default"
+msgstr ""
+"Réinitialiser les paramètres de mise en page, d'espacement et de cadre"
 
-msgid "Are you sure you want to reset layout & spacing settings?"
-msgstr "Réinitialiser les paramètres de mise en page et d'espacement ?"
+msgid "Are you sure you want to reset layout, spacing & frame settings?"
+msgstr ""
+"Réinitialiser les paramètres de mise en page, d'espacement et de cadre ?"
 
-msgid "Layout & spacing settings reset to defaults"
-msgstr "Paramètres de mise en page et d'espacement réinitialisés"
+msgid "Layout, spacing & frame settings reset to defaults"
+msgstr "Paramètres de mise en page, d'espacement et de cadre réinitialisés"
 
 msgid "Reset contents settings to default"
 msgstr "Réinitialiser les paramètres de contenu"
@@ -1728,3 +1627,626 @@ msgstr "Saisir hex"
 
 msgid "Enter hex colour code"
 msgstr "Saisir le code couleur hex"
+
+msgid ""
+"Saves a screenshot of the sleep screen to a file each time a book is closed."
+" Useful for devices that use an exported image as their own native sleep "
+"screen."
+msgstr ""
+"Enregistre une capture d'écran de l'écran de veille dans un fichier à chaque"
+" fermeture d'un livre. Utile pour les appareils qui utilisent une image "
+"exportée comme écran de veille natif."
+
+msgid "Enable export"
+msgstr "Activer l'export"
+
+msgid "Choose the filename used for the exported image (without extension)."
+msgstr ""
+"Choisissez le nom de fichier utilisé pour l'image exportée (sans extension)."
+
+#, lua-format
+msgid "Export format: %s"
+msgstr "Format d'export : %s"
+
+msgid "Choose the image format and colour profile for the exported file."
+msgstr ""
+"Choisissez le format d'image et le profil de couleur du fichier exporté."
+
+msgid ""
+"Choose the folder where the exported image will be saved. Must be set before"
+" export can be enabled."
+msgstr ""
+"Choisissez le dossier où l'image exportée sera enregistrée. Doit être défini"
+" avant de pouvoir activer l'export."
+
+msgid "Preview sleep screen"
+msgstr "Aperçu de l'écran de veille"
+
+msgid ""
+"Shows what the sleep screen currently looks like, without actually "
+"suspending the device."
+msgstr ""
+"Montre l'apparence actuelle de l'écran de veille, sans mettre réellement "
+"l'appareil en veille."
+
+msgid "Behaviour"
+msgstr "Comportement"
+
+msgid ""
+"How the plugin behaves: file manager display, ghosting, export, battery "
+"estimation, and stats scope."
+msgstr ""
+"Comment le plugin se comporte : affichage dans le gestionnaire de fichiers, "
+"rémanence, export, estimation de la batterie et portée des statistiques."
+
+#, lua-format
+msgid "Version: %s"
+msgstr "Version : %s"
+
+#, lua-format
+msgid "Author: %s"
+msgstr "Auteur : %s"
+
+#, lua-format
+msgid "https://github.com/%s"
+msgstr "https://github.com/%s"
+
+#, lua-format
+msgid ""
+"GitHub:\n"
+"https://github.com/%s"
+msgstr ""
+"GitHub :\n"
+"https://github.com/%s"
+
+msgid "Check for updates"
+msgstr "Vérifier les mises à jour"
+
+msgid "Check GitHub for a newer release, and install it if one is available."
+msgstr ""
+"Vérifie sur GitHub s'il existe une version plus récente et l'installe si "
+"c'est le cas."
+
+msgid "Border"
+msgstr "Bordure"
+
+msgid "Primary border thickness and its secondary decorative trim."
+msgstr ""
+"Épaisseur de la bordure principale et de son liseré décoratif secondaire."
+
+msgid "Icons"
+msgstr "Icônes"
+
+msgid "Icon style, size, and visibility."
+msgstr "Style, taille et visibilité des icônes."
+
+msgid "Bars"
+msgstr "Barres"
+
+msgid "Progress bar height, visibility, and inline styling."
+msgstr "Hauteur, visibilité et style en ligne des barres de progression."
+
+msgid "Multiline titles"
+msgstr "Titres multi-lignes"
+
+msgid ""
+"Allow book and chapter titles to wrap across multiple lines instead of being"
+" truncated to one."
+msgstr ""
+"Permet aux titres de livre et de chapitre de s'étendre sur plusieurs lignes "
+"au lieu d'être tronqués sur une seule."
+
+msgid "Cover exclusion"
+msgstr "Exclusion de la couverture"
+
+msgid ""
+"Hide this book's cover from the sleep screen, and choose what shows instead."
+msgstr ""
+"Masquer la couverture de ce livre sur l'écran de veille et choisir ce qui "
+"s'affiche à la place."
+
+msgid "Fallback background"
+msgstr "Arrière-plan de repli"
+
+msgid ""
+"What to show instead of the cover. Uses the colour, image, or folder already"
+" set in Background type. Only selectable when \"Exclude this book's cover "
+"from sleep screen\" is turned on."
+msgstr ""
+"Ce qu'il faut afficher à la place de la couverture. Utilise la couleur, "
+"l'image ou le dossier déjà défini dans Type d'arrière-plan. Sélectionnable "
+"uniquement lorsque \"Exclure la couverture de ce livre de l'écran de "
+"veille\" est activé."
+
+msgid ""
+"No book data available to preview yet.\n"
+"\n"
+"Open a book and show the sleep screen at least once before previewing."
+msgstr ""
+"Aucune donnée de livre disponible pour l'aperçu pour le moment.\n"
+"\n"
+"Ouvrez un livre et affichez l'écran de veille au moins une fois avant d'utiliser l'aperçu."
+
+msgid "Couldn't build a preview - check crash.log for details."
+msgstr "Impossible de générer l'aperçu - voir crash.log pour plus de détails."
+
+msgid "Enable automatic preset switching"
+msgstr "Activer le changement automatique de préréglage"
+
+msgid ""
+"When enabled, switches between the day and night presets below as needed. If"
+" you manually switch to a different preset, this pauses until you switch "
+"back to one of the two, or use \"Sync now\" below."
+msgstr ""
+"Si activé, bascule entre les préréglages jour et nuit ci-dessous selon les "
+"besoins. Si vous passez manuellement à un autre préréglage, cela est mis en "
+"pause jusqu'à ce que vous reveniez à l'un des deux, ou utilisez "
+"\"Synchroniser maintenant\" ci-dessous."
+
+msgid "Sync now"
+msgstr "Synchroniser maintenant"
+
+msgid ""
+"Immediately switches to the correct day/night preset, even if a different "
+"preset is currently active."
+msgstr ""
+"Bascule immédiatement vers le bon préréglage jour/nuit, même si un autre "
+"préréglage est actuellement actif."
+
+#, lua-format
+msgid ""
+"Couldn't switch to '%s' - it may no longer exist. Check the day/night preset"
+" pickers below."
+msgstr ""
+"Impossible de basculer vers '%s' - il n'existe peut-être plus. Vérifiez les "
+"sélecteurs de préréglage jour/nuit ci-dessous."
+
+#, lua-format
+msgid "Switched to '%s'"
+msgstr "Basculé vers '%s'"
+
+#, lua-format
+msgid "Already on '%s' - no change needed"
+msgstr "Déjà sur '%s' - aucun changement nécessaire"
+
+#, lua-format
+msgid "Day preset: %s"
+msgstr "Préréglage jour : %s"
+
+msgid "Preset to switch to outside the night window."
+msgstr "Préréglage vers lequel basculer en dehors de la plage nocturne."
+
+#, lua-format
+msgid "Night preset: %s"
+msgstr "Préréglage nuit : %s"
+
+msgid "Preset to switch to during the night window."
+msgstr "Préréglage vers lequel basculer pendant la plage nocturne."
+
+msgid "Follow KOReader's night mode"
+msgstr "Suivre le mode nuit de KOReader"
+
+msgid "Time window"
+msgstr "Plage horaire"
+
+#, lua-format
+msgid "Trigger: %s"
+msgstr "Déclencheur : %s"
+
+msgid ""
+"How the schedule decides when to switch: a fixed time window, or KOReader's "
+"own night mode setting (useful if you toggle that manually rather than on a "
+"fixed schedule)."
+msgstr ""
+"Comment le planning décide du moment du basculement : une plage horaire "
+"fixe, ou le mode nuit propre à KOReader (utile si vous l'activez "
+"manuellement plutôt que selon un planning fixe)."
+
+msgid "Switch based on the start/end times."
+msgstr "Basculer selon les heures de début/fin."
+
+msgid ""
+"Switch to the night preset whenever KOReader's own night mode is turned on, "
+"and back to the day preset when it's off."
+msgstr ""
+"Bascule vers le préréglage nuit dès que le mode nuit propre à KOReader est "
+"activé, et revient au préréglage jour lorsqu'il est désactivé."
+
+#, lua-format
+msgid "Night window start: %02d:%02d"
+msgstr "Début de la plage nocturne : %02d:%02d"
+
+msgid "Time of day the night preset starts being used."
+msgstr "Heure à laquelle le préréglage nuit commence à être utilisé."
+
+msgid "Night window start"
+msgstr "Début de la plage nocturne"
+
+msgid "Enter time in hours and minutes."
+msgstr "Saisissez l'heure en heures et minutes."
+
+msgid "Set time"
+msgstr "Définir l'heure"
+
+#, lua-format
+msgid "Night window end: %02d:%02d"
+msgstr "Fin de la plage nocturne : %02d:%02d"
+
+msgid "Time of day the day preset resumes being used."
+msgstr "Heure à laquelle le préréglage jour reprend son utilisation."
+
+msgid "Night window end"
+msgstr "Fin de la plage nocturne"
+
+msgid " (auto-switch: day)"
+msgstr " (changement auto : jour)"
+
+msgid " (auto-switch: night)"
+msgstr " (changement auto : nuit)"
+
+#, lua-format
+msgid "Preview preset '%s'?"
+msgstr "Aperçu du préréglage '%s' ?"
+
+msgid "Preview"
+msgstr "Aperçu"
+
+msgid "Hold a preset below to preview it."
+msgstr "Maintenez un préréglage ci-dessous pour en afficher l'aperçu."
+
+msgid "Hold a custom preset below to preview, update, rename, or delete it."
+msgstr ""
+"Maintenez un préréglage personnalisé ci-dessous pour l'afficher en aperçu, "
+"le mettre à jour, le renommer ou le supprimer."
+
+msgid "Save your current sleep screen settings as a new custom preset."
+msgstr ""
+"Enregistrer vos paramètres actuels de l'écran de veille comme nouveau "
+"préréglage personnalisé."
+
+msgid "Automatic preset switching"
+msgstr "Changement automatique de préréglage"
+
+msgid ""
+"Automatically switch between two presets - e.g. a light one by day and a "
+"dark one at night."
+msgstr ""
+"Bascule automatiquement entre deux préréglages - par ex. un clair le jour et"
+" un sombre la nuit."
+
+msgid "Built-in Presets"
+msgstr "Préréglages intégrés"
+
+msgid "Load one of the built-in presets."
+msgstr "Charger l'un des préréglages intégrés."
+
+msgid "Your Custom Presets"
+msgstr "Vos préréglages personnalisés"
+
+msgid "Load, rename, update or delete one of your saved presets."
+msgstr ""
+"Charger, renommer, mettre à jour ou supprimer l'un de vos préréglages "
+"enregistrés."
+
+msgid "No custom presets currently saved"
+msgstr "Aucun préréglage personnalisé enregistré pour le moment"
+
+msgid "Section order & visibility"
+msgstr "Ordre et visibilité des sections"
+
+msgid ""
+"Select a section and tap the bottom arrows to reorder. Tap the checkmark to "
+"show or hide the section. At least one section must stay visible."
+msgstr ""
+"Sélectionnez une section et appuyez sur les flèches en bas pour la "
+"réorganiser. Appuyez sur la coche pour afficher ou masquer la section. Au "
+"moins une section doit rester visible."
+
+#, lua-format
+msgid "Title Line: %s"
+msgstr "Ligne de titre : %s"
+
+#, lua-format
+msgid "Goal type: %s"
+msgstr "Type d'objectif : %s"
+
+msgid "Show remaining & charging text"
+msgstr "Afficher le texte \"en charge\"/\"restant\""
+
+msgid ""
+"Show the words \"remaining\" and \"charging\" next to the battery "
+"percentage, e.g. \"82% remaining\" instead of just \"82%\"."
+msgstr ""
+"Affiche les mots \"restant\" et \"en charge\" à côté du pourcentage de "
+"batterie, par ex. \"82% restant\" au lieu de simplement \"82%\"."
+
+msgid "Show time"
+msgstr "Afficher l'heure"
+
+msgid ""
+"Display battery drain percentage per hour based on recent usage or manual "
+"input (see Global settings menu)"
+msgstr ""
+"Affiche le pourcentage de décharge de la batterie par heure, basé sur "
+"l'usage récent ou une saisie manuelle (voir le menu Paramètres globaux)"
+
+msgid "Edit message header"
+msgstr "Modifier l'en-tête du message"
+
+msgid ""
+"Show a random quote from the css_custom_quotes.lua file in the plugin "
+"folder."
+msgstr ""
+"Affiche une citation aléatoire du fichier css_custom_quotes.lua dans le "
+"dossier du plugin."
+
+msgid ""
+"Display the author and book name below the quote, if provided in "
+"css_custom_quotes.lua."
+msgstr ""
+"Affiche l'auteur et le titre du livre sous la citation, si indiqués dans "
+"css_custom_quotes.lua."
+
+msgid "archive extractor unavailable"
+msgstr "extracteur d'archive indisponible"
+
+msgid "could not open archive"
+msgstr "impossible d'ouvrir l'archive"
+
+msgid "extract failed"
+msgstr "échec de l'extraction"
+
+msgid "Downloading update..."
+msgstr "Téléchargement de la mise à jour..."
+
+msgid "the connection failed"
+msgstr "la connexion a échoué"
+
+msgid "the connection timed out"
+msgstr "la connexion a expiré"
+
+msgid "the secure connection failed"
+msgstr "la connexion sécurisée a échoué"
+
+msgid "there was no response"
+msgstr "aucune réponse reçue"
+
+msgid "the file could not be saved"
+msgstr "le fichier n'a pas pu être enregistré"
+
+msgid "Download failed."
+msgstr "Échec du téléchargement."
+
+msgid "Installation failed: "
+msgstr "Échec de l'installation : "
+
+msgid "Customisable Sleep Screen updated to v"
+msgstr "Customisable Sleep Screen mis à jour vers v"
+
+msgid "Restart KOReader now?"
+msgstr "Redémarrer KOReader maintenant ?"
+
+msgid "Restart"
+msgstr "Redémarrer"
+
+msgid "Checking for updates..."
+msgstr "Recherche de mises à jour..."
+
+msgid "Could not check for updates."
+msgstr "Impossible de rechercher les mises à jour."
+
+#, lua-format
+msgid "Customisable Sleep Screen is up to date (v%s)"
+msgstr "Customisable Sleep Screen est à jour (v%s)"
+
+msgid "Update available"
+msgstr "Mise à jour disponible"
+
+msgid "Installed: "
+msgstr "Installée : "
+
+msgid "Latest: "
+msgstr "Dernière : "
+
+msgid "Close"
+msgstr "Fermer"
+
+msgid "Update and restart"
+msgstr "Mettre à jour et redémarrer"
+
+msgid "No download available for this release."
+msgstr "Aucun téléchargement disponible pour cette version."
+
+#, lua-format, lua-format
+msgid "Data unavailable"
+msgstr "Données non disponibles"
+
+#, lua-format
+msgid "%s & %s %s read today"
+msgstr "%s & %s %s lu aujourd'hui"
+
+msgid ""
+"Menu icons are hidden because KOReader's bundled fonts/nerdfonts/symbols.ttf"
+" couldn't be found. Restore that font file to bring the menu icons back."
+msgstr ""
+"Les icônes du menu sont masquées car le fichier fonts/nerdfonts/symbols.ttf "
+"fourni avec KOReader est introuvable. Restaurez ce fichier de police pour "
+"retrouver les icônes du menu."
+
+msgid "Transparent"
+msgstr "Transparent"
+
+msgid "File manager background colour"
+msgstr "Couleur d'arrière-plan du gestionnaire de fichiers"
+
+msgid ""
+"Colour for the alternative file manager background. Independent of your "
+"presets - stays the same no matter which preset is active."
+msgstr ""
+"Couleur pour l'arrière-plan alternatif du gestionnaire de fichiers. "
+"Indépendant de vos préréglages : reste identique quel que soit le préréglage"
+" actif."
+
+msgid "File manager background image path"
+msgstr "Chemin d'image de l'arrière-plan du gestionnaire de fichiers"
+
+msgid ""
+"Choose a single image to use as the alternative file manager background. "
+"Independent of your presets - stays the same no matter which preset is "
+"active."
+msgstr ""
+"Choisissez une image unique à utiliser comme arrière-plan alternatif du "
+"gestionnaire de fichiers. Indépendant de vos préréglages : reste identique "
+"quel que soit le préréglage actif."
+
+msgid "File manager background folder path"
+msgstr "Chemin du dossier de l'arrière-plan du gestionnaire de fichiers"
+
+msgid ""
+"Choose a folder to pick a random image from as the alternative file manager "
+"background. Independent of your presets - stays the same no matter which "
+"preset is active."
+msgstr ""
+"Choisissez un dossier dans lequel une image aléatoire sera sélectionnée "
+"comme arrière-plan alternatif du gestionnaire de fichiers. Indépendant de "
+"vos préréglages : reste identique quel que soit le préréglage actif."
+
+msgid "Stretch image to fill"
+msgstr "Étirer l'image pour remplir"
+
+msgid ""
+"When disabled, the image will be scaled to fit within the screen while "
+"preserving aspect ratio. Independent of your presets - stays the same no "
+"matter which preset is active."
+msgstr ""
+"Quand désactivé, l'image sera mise à l'échelle pour s'adapter à l'écran tout"
+" en conservant les proportions. Indépendant de vos préréglages : reste "
+"identique quel que soit le préréglage actif."
+
+msgid "Fill colour"
+msgstr "Couleur de remplissage"
+
+msgid ""
+"Background colour for the image when not stretched. Independent of your "
+"presets - stays the same no matter which preset is active."
+msgstr ""
+"Couleur d'arrière-plan pour l'image lorsqu'elle n'est pas étirée. "
+"Indépendant de vos préréglages : reste identique quel que soit le préréglage"
+" actif."
+
+msgid "Image alignment"
+msgstr "Alignement de l'image"
+
+msgid ""
+"Horizontal alignment of the image when not stretched. Independent of your "
+"presets - stays the same no matter which preset is active."
+msgstr ""
+"Alignement horizontal de l'image lorsqu'elle n'est pas étirée. Indépendant "
+"de vos préréglages : reste identique quel que soit le préréglage actif."
+
+msgid "Show alternative sleep screen (no infobox)"
+msgstr "Afficher un écran de veille alternatif (sans boîte d'informations)"
+
+msgid ""
+"When disabled (default), the regular customisable sleep screen displays in "
+"file manager using the last saved book data. When enabled, a simpler "
+"alternative is shown instead - just a background, with no information box."
+msgstr ""
+"Quand désactivé (par défaut), l'écran de veille personnalisable habituel "
+"s'affiche dans le gestionnaire de fichiers en utilisant les dernières "
+"données de livre enregistrées. Quand activé, une alternative plus simple est"
+" affichée à la place - juste un arrière-plan, sans boîte d'informations."
+
+msgid "File manager background"
+msgstr "Arrière-plan du gestionnaire de fichiers"
+
+msgid "Sleep screen in file manager"
+msgstr "Écran de veille dans le gestionnaire de fichiers"
+
+msgid ""
+"Control what the sleep screen looks like when triggered from the file "
+"manager, outside of a book."
+msgstr ""
+"Contrôlez l'apparence de l'écran de veille lorsqu'il est déclenché depuis le"
+" gestionnaire de fichiers, en dehors d'un livre."
+
+msgid ""
+"File manager display, ghosting, export, battery estimation, and stats scope."
+" Unlike the menus above, these settings don't change when you switch "
+"presets."
+msgstr ""
+"Affichage dans le gestionnaire de fichiers, rémanence, export, estimation de"
+" la batterie et portée des statistiques. Contrairement aux menus ci-dessus, "
+"ces réglages ne changent pas quand vous changez de préréglage."
+
+msgid "Global settings"
+msgstr "Paramètres globaux"
+
+msgid "System Default (cfont)"
+msgstr "Par défaut du système (cfont)"
+
+#, lua-format
+msgid "Title font face: %s"
+msgstr "Police du titre : %s"
+
+#, lua-format
+msgid "Title font size: %dpx"
+msgstr "Taille de police du titre : %dpx"
+
+#, lua-format
+msgid "Subtitle font face: %s"
+msgstr "Police du sous-titre : %s"
+
+#, lua-format
+msgid "Subtitle font size: %dpx"
+msgstr "Taille de police du sous-titre : %dpx"
+
+msgid "Time and pages read today"
+msgstr "Temps et pages lus aujourd'hui"
+
+msgid "e.g. '42 mins & 35 pgs read today'"
+msgstr "ex. '42 min & 35 p. lu aujourd'hui'"
+
+msgid ""
+"What to show as the background for the alternative file manager sleep "
+"screen. This background is independent of your presets, so it looks the same"
+" no matter which preset was last active. Only selectable when \"Show "
+"alternative sleep screen\" is turned on."
+msgstr ""
+"Ce qui s'affiche comme arrière-plan pour l'écran de veille alternatif du "
+"gestionnaire de fichiers. Cet arrière-plan est indépendant de vos "
+"préréglages, il garde donc toujours le même aspect quel que soit le dernier "
+"préréglage actif. Sélectionnable uniquement lorsque « Afficher un écran de "
+"veille alternatif » est activé."
+
+msgid ""
+"Hides the cover for this book only, for when you'd rather it not be shown on"
+" your sleep screen - without having to switch presets or background settings"
+" each time you read it. Only has an effect while Background type is set to "
+"\"Book cover\" - it has nothing to exclude otherwise."
+msgstr ""
+"Masque la couverture uniquement pour ce livre, pour le cas où vous "
+"préféreriez qu'elle n'apparaisse pas sur votre écran de veille - sans avoir "
+"à changer de préréglage ou de réglages d'arrière-plan à chaque lecture. N'a "
+"d'effet que lorsque le type d'arrière-plan est réglé sur « Couverture du "
+"livre » - sinon, il n'y a rien à exclure."
+
+msgid ""
+"What to show instead of the cover. Uses the colour, image, or folder already"
+" set in Background type. Only selectable when \"Exclude this book's cover "
+"from sleep screen\" is turned on and Background type is set to \"Book "
+"cover\"."
+msgstr ""
+"Ce qui s'affiche à la place de la couverture. Utilise la couleur, l'image ou"
+" le dossier déjà définis dans Type d'arrière-plan. Sélectionnable uniquement"
+" lorsque « Exclure la couverture de ce livre de l'écran de veille » est "
+"activé et que le type d'arrière-plan est réglé sur « Couverture du livre »."
+
+msgid "Export in greyscale"
+msgstr "Exporter en niveaux de gris"
+
+msgid ""
+"Saves the exported image without colour, reducing file size for any format."
+msgstr ""
+"Enregistre l'image exportée sans couleur, ce qui réduit la taille du fichier"
+" quel que soit le format."

@@ -8,7 +8,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. ---- Display sleep screen strings ----
-
 msgid "January"
 msgstr "Januari"
 
@@ -69,13 +68,6 @@ msgstr[1] "min"
 
 msgid "< 1 min"
 msgstr "< 1 min"
-
-#, lua-format
-msgid "~%d %s left"
-msgstr "~%d %s over"
-
-msgid "~<1 hr left"
-msgstr "~<1 uur over"
 
 msgid "Untitled"
 msgstr "Zonder titel"
@@ -149,18 +141,11 @@ msgstr "%d%% van doel"
 msgid "%d page goal"
 msgstr "%d pagina doel"
 
-#, lua-format
-msgid "~%.1f%%/hour"
-msgstr "~%.1f%%/uur"
-
 msgid "Rate unavailable"
 msgstr "Snelheid niet beschikbaar"
 
 msgid "No message set"
 msgstr "Geen bericht ingesteld"
-
-msgid "No custom quotes found. Add quotes to custom_quotes.lua."
-msgstr "Geen aangepaste citaten gevonden. Voeg citaten toe aan custom_quotes.lua."
 
 #, lua-format
 msgid "pg. %s"
@@ -181,8 +166,28 @@ msgstr "Citaten"
 msgid "Message"
 msgstr "Bericht"
 
-#. ---- All other strings (menu items, help text, headers, buttons) ----
+msgid "< 1 min left"
+msgstr "< 1 min resterend"
 
+#, lua-format
+msgid "Page %s of %s"
+msgstr "Pagina %s van %s"
+
+msgid "charging"
+msgstr "wordt opgeladen"
+
+msgid "remaining"
+msgstr "resterend"
+
+#, lua-format
+msgid "%.1f%% / hour"
+msgstr "%.1f%% / uur"
+
+msgid "No custom quotes found. Add quotes to css_custom_quotes.lua."
+msgstr ""
+"Geen eigen citaten gevonden. Voeg citaten toe aan css_custom_quotes.lua."
+
+#. ---- All other strings (menu items, help text, headers, buttons) ----
 msgid "Customisable sleep screen settings"
 msgstr "Instellingen configureerbaar slaapscherm"
 
@@ -199,38 +204,19 @@ msgid "Enable customisable sleep screen"
 msgstr "Configureerbaar slaapscherm inschakelen"
 
 msgid ""
-"Customisable Sleep Screen: no book data found.\n\nOpen a book and trigger "
-"the sleep screen at least once before it will work in the file manager."
+"Customisable Sleep Screen: no book data found.\n"
+"\n"
+"Open a book and trigger the sleep screen at least once before it will work in the file manager."
 msgstr ""
-"Configureerbaar slaapscherm: geen boekgegevens gevonden.\n\nOpen een boek en "
-"activeer het slaapscherm minstens één keer voordat het werkt in de "
-"bestandsbeheerder."
-
-msgid "Delete all custom presets"
-msgstr "Alle aangepaste presets verwijderen"
-
-msgid ""
-"Permanently removes all custom presets you've created. The built-in "
-"'Default' preset will remain. This cannot be undone."
-msgstr ""
-"Verwijdert permanent alle door u gemaakte aangepaste presets. De ingebouwde "
-"'Standaard' preset blijft behouden. Dit kan niet ongedaan worden gemaakt."
-
-msgid ""
-"Are you sure you want to delete all custom presets? (built-in presets will "
-"remain)"
-msgstr ""
-"Weet u zeker dat u alle aangepaste presets wilt verwijderen? (ingebouwde "
-"presets blijven behouden)"
+"Configureerbaar slaapscherm: geen boekgegevens gevonden.\n"
+"\n"
+"Open een boek en activeer het slaapscherm minstens één keer voordat het werkt in de bestandsbeheerder."
 
 msgid "Delete"
 msgstr "Verwijderen"
 
 msgid "Cancel"
 msgstr "Annuleren"
-
-msgid "All custom presets deleted. Built-in presets remain."
-msgstr "Alle aangepaste presets verwijderd. Ingebouwde presets blijven behouden."
 
 msgid "Sleep screen orientation"
 msgstr "Oriëntatie slaapscherm"
@@ -239,8 +225,8 @@ msgid ""
 "Force the sleep screen to display in a specific orientation, regardless of "
 "how the device is held."
 msgstr ""
-"Dwingt het slaapscherm om in een bepaalde oriëntatie weer te geven, ongeacht "
-"hoe het apparaat wordt vastgehouden."
+"Dwingt het slaapscherm om in een bepaalde oriëntatie weer te geven, ongeacht"
+" hoe het apparaat wordt vastgehouden."
 
 msgid "Auto (follow device)"
 msgstr "Automatisch (apparaat volgen)"
@@ -332,7 +318,8 @@ msgid "All books"
 msgstr "Alle boeken"
 
 msgid "Today's reading time and page count across all books read today"
-msgstr "Leestijd en aantal pagina's van vandaag voor alle vandaag gelezen boeken"
+msgstr ""
+"Leestijd en aantal pagina's van vandaag voor alle vandaag gelezen boeken"
 
 msgid "Current book only"
 msgstr "Alleen huidig boek"
@@ -359,35 +346,21 @@ msgid ""
 "When enabled, the customisable sleep screen will display in file manager "
 "using the last saved book data."
 msgstr ""
-"Indien ingeschakeld wordt het configureerbare slaapscherm weergegeven in het "
-"bestandsbeheer met de laatst opgeslagen boekgegevens."
-
-msgid "Hide built-in presets (except Default)"
-msgstr "Ingebouwde presets verbergen (behalve Standaard)"
-
-msgid ""
-"Hide the built-in presets from the preset list, keeping only the Default "
-"preset and your custom presets visible."
-msgstr ""
-"Verbergt de ingebouwde presets uit de presetlijst, zodat alleen de Standaard "
-"preset en uw aangepaste presets zichtbaar zijn."
-
-msgid "Setting saved. Preset list will update when you reopen this menu."
-msgstr ""
-"Instelling opgeslagen. De presetlijst wordt bijgewerkt wanneer u dit menu "
-"opnieuw opent."
+"Indien ingeschakeld wordt het configureerbare slaapscherm weergegeven in het"
+" bestandsbeheer met de laatst opgeslagen boekgegevens."
 
 msgid "Export sleep screen to file"
 msgstr "Slaapscherm exporteren naar bestand"
 
 msgid ""
-"When enabled, a screenshot of the sleep screen will be saved in the selected "
-"export folder each time a book is closed, using the filename and format set "
-"below."
+"When enabled, a screenshot of the sleep screen will be saved in the selected"
+" export folder each time you close a book or put the device to sleep, using "
+"the format set below."
 msgstr ""
-"Indien ingeschakeld, wordt telkens wanneer een boek wordt gesloten een "
-"schermafbeelding van het slaapscherm opgeslagen in de geselecteerde "
-"exportmap, met de hieronder ingestelde bestandsnaam en het formaat."
+"Indien ingeschakeld, wordt er telkens wanneer je een boek sluit of het "
+"apparaat in slaapstand zet een schermafbeelding van het slaapscherm "
+"opgeslagen in de geselecteerde exportmap, in het hieronder ingestelde "
+"formaat."
 
 msgid "Sleep screen export disabled."
 msgstr "Export slaapscherm uitgeschakeld."
@@ -396,20 +369,13 @@ msgid "No export folder set. Please set an export folder first."
 msgstr "Geen exportmap ingesteld. Stel eerst een exportmap in."
 
 #, lua-format
-msgid "Sleep screen will be exported to:\n%s/%s.%s"
+msgid ""
+"Sleep screen will be exported to:\n"
+"%s/%s.%s"
 msgstr "Slaapscherm wordt geëxporteerd naar: %s/%s.%s"
 
 msgid "Set export filename"
 msgstr "Bestandsnaam voor export instellen"
-
-msgid ""
-"Choose the filename used for the exported image (without extension). Some "
-"devices need a specific filename to recognise it as their native sleep "
-"screen e.g. 'suspend_others' for Tolino."
-msgstr ""
-"Kies de bestandsnaam voor de geëxporteerde afbeelding (zonder extensie). "
-"Sommige apparaten hebben een specifieke bestandsnaam nodig om het als hun "
-"eigen slaapscherm te herkennen, bijv. 'suspend_others' voor Tolino."
 
 msgid "Export filename"
 msgstr "Bestandsnaam voor export"
@@ -417,71 +383,46 @@ msgstr "Bestandsnaam voor export"
 msgid "Save"
 msgstr "Opslaan"
 
-msgid "Export format"
-msgstr "Exportformaat"
-
-msgid ""
-"Choose the image format for the exported file. BMP is needed for "
-"PocketBook's native sleep screen; PNG and JPG suit most other devices."
-msgstr ""
-"Kies het afbeeldingsformaat voor het geëxporteerde bestand. BMP is nodig "
-"voor het eigen slaapscherm van PocketBook; PNG en JPG zijn geschikt voor de "
-"meeste andere apparaten."
-
 msgid "PNG"
 msgstr "PNG"
 
-msgid "Lossless, larger file size. Default."
-msgstr "Zonder kwaliteitsverlies, groter bestand. Standaard."
+msgid "Lossless. Medium file size, slower save."
+msgstr "Lossless. Gemiddelde bestandsgrootte, langzamer opslaan."
 
 msgid "JPG"
 msgstr "JPG"
 
-msgid "Lossy, smaller file size."
-msgstr "Met kwaliteitsverlies, kleiner bestand."
+msgid "Lossy. Smallest file size, quick save."
+msgstr "Lossy. Kleinste bestandsgrootte, snel opslaan."
 
 msgid "BMP"
 msgstr "BMP"
 
-msgid "Uncompressed. Required for PocketBook's native sleep screen support."
-msgstr ""
-"Ongecomprimeerd. Vereist voor de ondersteuning van het eigen slaapscherm van "
-"PocketBook."
+msgid "Uncompressed. Largest file size, quick save."
+msgstr "Ongecomprimeerd. Grootste bestandsgrootte, snel opslaan."
 
 msgid "Set export folder"
 msgstr "Exportmap instellen"
 
-msgid "Choose the folder where the exported image will be saved."
-msgstr "Kies de map waarin de geëxporteerde afbeelding wordt opgeslagen."
-
 #, lua-format
-msgid "Export folder set to:\n%s"
-msgstr "Exportmap ingesteld op:\n%s"
+msgid ""
+"Export folder set to:\n"
+"%s"
+msgstr ""
+"Exportmap ingesteld op:\n"
+"%s"
 
 msgid "Exclude this book's cover from sleep screen"
 msgstr "Omslag van dit boek uitsluiten van slaapscherm"
 
 msgid ""
-"Hides the cover for this book only, for when you'd rather it not be shown on "
-"your sleep screen - without having to switch presets or background settings "
-"each time you read it."
+"Hides the cover for this book only, for when you'd rather it not be shown on"
+" your sleep screen - without having to switch presets or background settings"
+" each time you read it."
 msgstr ""
 "Verbergt de omslag alleen voor dit boek, voor als u liever niet heeft dat "
 "deze op uw slaapscherm verschijnt - zonder telkens van voorinstelling of "
 "achtergrondinstellingen te hoeven wisselen als u het leest."
-
-msgid "Cover-excluded fallback background"
-msgstr "Vervangende achtergrond bij uitgesloten omslag"
-
-msgid ""
-"What to show instead of the cover. Uses the colour, image, or folder already "
-"set in Background → Background type. Only selectable when \"Exclude this "
-"book's cover from sleep screen\" is turned on."
-msgstr ""
-"Wat te tonen in plaats van de omslag. Gebruikt de kleur, afbeelding of map "
-"die al zijn ingesteld bij Achtergrond → Achtergrondtype. Alleen "
-"selecteerbaar wanneer \"Omslag van dit boek uitsluiten van slaapscherm\" is "
-"ingeschakeld."
 
 msgid "No background (leave screen as-is)"
 msgstr "Geen achtergrond (scherm ongewijzigd laten)"
@@ -501,29 +442,29 @@ msgstr "Presets"
 msgid "Save, load, and manage presets."
 msgstr "Presets opslaan, laden en beheren."
 
-msgid "Display modes"
-msgstr "Weergavemodi"
-
-msgid "Global appearance settings."
-msgstr "Algemene uiterlijkinstellingen."
-
 msgid "Contents"
 msgstr "Inhoud"
 
 msgid "Control which sections appear and what information they display."
-msgstr "Bepaalt welke secties worden weergegeven en welke informatie ze tonen."
+msgstr ""
+"Bepaalt welke secties worden weergegeven en welke informatie ze tonen."
 
-msgid "Layout & Spacing"
-msgstr "Indeling en ruimte"
+msgid "Layout, Spacing & Frame"
+msgstr "Indeling, ruimte en kader"
 
-msgid "Adjust the spatial settings of the information box."
-msgstr "Past de ruimtelijke instellingen van het informatiepaneel aan."
+msgid ""
+"Position and size of the box, the gaps between sections, and its border, "
+"corner radius, and opacity."
+msgstr ""
+"Positie en grootte van het vak, de ruimte tussen secties, en de rand, "
+"hoekradius en dekking ervan."
 
 msgid "Colours, Icons & Bars"
 msgstr "Kleuren, iconen en balken"
 
 msgid "Customise section colours, icon appearance, and progress bar styling."
-msgstr "Pas sectiekleuren, uiterlijk van iconen en stijl van voortgangsbalken aan."
+msgstr ""
+"Pas sectiekleuren, uiterlijk van iconen en stijl van voortgangsbalken aan."
 
 msgid "Fonts & Text"
 msgstr "Lettertypen en tekst"
@@ -537,18 +478,8 @@ msgstr "Achtergrond"
 msgid "Choose what appears behind the information box."
 msgstr "Kies wat achter het informatiepaneel wordt weergegeven."
 
-msgid "Advanced"
-msgstr "Geavanceerd"
-
-msgid "Advanced configuration options."
-msgstr "Geavanceerde configuratie-opties."
-
 msgid "About"
 msgstr "Over"
-
-#, lua-format
-msgid "%s\nVersion: %s\n\nFor updates and issues:\ngithub.com/%s"
-msgstr "%s\nVersie: %s\n\nVoor updates en problemen:\ngithub.com/%s"
 
 msgid "Book info"
 msgstr "Boekinformatie"
@@ -564,12 +495,6 @@ msgstr "Batterijinformatie"
 
 msgid "Message info"
 msgstr "Berichtinformatie"
-
-msgid "Reorder sections"
-msgstr "Secties herordenen"
-
-msgid "Section order"
-msgstr "Sectievolgorde"
 
 msgid "At least one section must remain visible."
 msgstr "Minstens één sectie moet zichtbaar blijven."
@@ -593,7 +518,9 @@ msgstr "Hoogtelimiet voor de omslagafbeelding in pixels."
 msgid "Cover image size (pixels)"
 msgstr "Grootte omslagafbeelding (pixels)"
 
-msgid "100–150px fits neatly in most layouts. Go up to 250px+ for a prominent cover."
+msgid ""
+"100–150px fits neatly in most layouts. Go up to 250px+ for a prominent "
+"cover."
 msgstr ""
 "100–150px past netjes in de meeste indelingen. Ga tot 250px+ voor een "
 "prominente omslag."
@@ -601,8 +528,10 @@ msgstr ""
 msgid "Cover border size"
 msgstr "Randgrootte omslag"
 
-msgid "Width of the border drawn around the cover image. Set to 0 for no border."
-msgstr "Breedte van de rand rondom de omslagafbeelding. Stel in op 0 voor geen rand."
+msgid ""
+"Width of the border drawn around the cover image. Set to 0 for no border."
+msgstr ""
+"Breedte van de rand rondom de omslagafbeelding. Stel in op 0 voor geen rand."
 
 msgid "Cover border size (pixels)"
 msgstr "Randgrootte omslag (pixels)"
@@ -624,7 +553,8 @@ msgid "Cover image"
 msgstr "Omslagafbeelding"
 
 msgid "Configure the book cover image shown above the book section."
-msgstr "Configureert de boekomslagafbeelding die boven de boeksectie wordt getoond."
+msgstr ""
+"Configureert de boekomslagafbeelding die boven de boeksectie wordt getoond."
 
 msgid "Show book author"
 msgstr "Boekauteur tonen"
@@ -663,7 +593,8 @@ msgstr "Toont het voltooide percentage van het boek."
 msgid "Show chapter count (ch x of x)"
 msgstr "Aantal hoofdstukken tonen (hfst. x van x)"
 
-msgid "Display current chapter number and total chapters (e.g., 'Chapter 5 of 12')."
+msgid ""
+"Display current chapter number and total chapters (e.g., 'Chapter 5 of 12')."
 msgstr ""
 "Toont het huidige hoofdstuknummer en het totale aantal hoofdstukken (bijv. "
 "'Hoofdstuk 5 van 12')."
@@ -690,9 +621,6 @@ msgstr "Hoofdstukpercentage tonen"
 msgid "Display the percentage of the current chapter completed."
 msgstr "Toont het voltooide percentage van het huidige hoofdstuk."
 
-msgid "Title Line"
-msgstr "Titelregel"
-
 msgid "Choose what the top line of the daily info section displays."
 msgstr "Kies wat de bovenste regel van de dagelijkse infosectie toont."
 
@@ -714,11 +642,10 @@ msgstr "Vandaag gelezen pagina's en tijd"
 msgid "e.g. '35 pgs & 42 mins read today'"
 msgstr "bijv. '35 pag. & 42 min vandaag gelezen'"
 
-msgid "Goal type"
-msgstr "Doeltype"
-
-msgid "Choose whether your daily goal tracks pages read or time spent reading."
-msgstr "Kies of uw dagelijks doel gelezen pagina's of bestede leestijd bijhoudt."
+msgid ""
+"Choose whether your daily goal tracks pages read or time spent reading."
+msgstr ""
+"Kies of uw dagelijks doel gelezen pagina's of bestede leestijd bijhoudt."
 
 msgid "Page goal"
 msgstr "Paginadoel"
@@ -756,7 +683,8 @@ msgid "Daily time goal (minutes)"
 msgstr "Dagelijks tijdsdoel (minuten)"
 
 msgid "20–30 mins for a daily habit. 60+ mins for dedicated reading sessions."
-msgstr "20–30 min voor een dagelijkse gewoonte. 60+ min voor toegewijde leessessies."
+msgstr ""
+"20–30 min voor een dagelijkse gewoonte. 60+ min voor toegewijde leessessies."
 
 msgid "Show current reading streak"
 msgstr "Huidige leestreeks tonen"
@@ -792,15 +720,12 @@ msgstr "Doelpercentage tonen"
 msgid "Display the percentage of your daily goal completed."
 msgstr "Toont het voltooide percentage van uw dagelijkse doel."
 
-msgid "Show clock"
-msgstr "Tijd tonen"
-
 msgid ""
 "Display the current time. Note this is a snapshot taken when the sleep "
 "screen is shown, it does not update live while the screen is asleep."
 msgstr ""
-"Toont de huidige tijd. Let op: dit is een momentopname bij het tonen van het "
-"slaapscherm, deze wordt niet live bijgewerkt terwijl het scherm slaapt."
+"Toont de huidige tijd. Let op: dit is een momentopname bij het tonen van het"
+" slaapscherm, deze wordt niet live bijgewerkt terwijl het scherm slaapt."
 
 msgid "Show date"
 msgstr "Datum tonen"
@@ -814,13 +739,6 @@ msgstr ""
 
 msgid "Show battery consumption rate"
 msgstr "Batterijverbruikssnelheid tonen"
-
-msgid ""
-"Display battery drain percentage per hour based on recent usage or manual "
-"input (see advanced menu)"
-msgstr ""
-"Toont het batterijverbruikspercentage per uur op basis van recent gebruik of "
-"handmatige invoer (zie geavanceerd menu)"
 
 msgid "Show battery time remaining"
 msgstr "Resterende batterijduur tonen"
@@ -843,7 +761,6 @@ msgstr ""
 msgid "Edit custom message"
 msgstr "Aangepast bericht bewerken"
 
-#, lua-format
 msgid ""
 "Write your custom message text. Only active when 'Custom message' is "
 "selected. Supports variables: %d, %y, %t, %b, %r."
@@ -889,7 +806,9 @@ msgstr "Maximaal aantal tekens voor markeringen (0 = geen limiet)."
 msgid "Maximum highlight length (characters)"
 msgstr "Maximale markeringslengte (tekens)"
 
-msgid "100–150 chars keeps highlights readable. Set to 0 to show the full highlight."
+msgid ""
+"100–150 chars keeps highlights readable. Set to 0 to show the full "
+"highlight."
 msgstr ""
 "100–150 tekens houdt markeringen leesbaar. Stel in op 0 om de volledige "
 "markering te tonen."
@@ -897,27 +816,15 @@ msgstr ""
 msgid "Custom quotes"
 msgstr "Aangepaste citaten"
 
-msgid "Show a random quote from the custom_quotes.lua file in the plugin folder."
-msgstr ""
-"Toont een willekeurig citaat uit het bestand custom_quotes.lua in de "
-"pluginmap."
-
 msgid "Show quote attribution"
 msgstr "Bronvermelding citaat tonen"
-
-msgid ""
-"Display the author and book name below the quote, if provided in "
-"custom_quotes.lua."
-msgstr ""
-"Toont de auteur en boektitel onder het citaat, indien opgegeven in "
-"custom_quotes.lua."
 
 msgid "KOReader sleep message"
 msgstr "KOReader slaapschermbericht"
 
 msgid ""
-"Uses KOReaders own sleep screen message function. Enable 'Add custom message "
-"to sleep screen' to use this (Settings → Screen → Sleep screen → Sleep "
+"Uses KOReaders own sleep screen message function. Enable 'Add custom message"
+" to sleep screen' to use this (Settings → Screen → Sleep screen → Sleep "
 "screen message)."
 msgstr ""
 "Gebruikt de eigen berichtfunctie van het KOReader slaapscherm. Schakel "
@@ -930,10 +837,6 @@ msgstr "Berichtkop tonen"
 msgid "Show or hide the header label above the message text."
 msgstr "Toont of verbergt het koplabel boven de berichttekst."
 
-msgid "Message header"
-msgstr "Berichtkop"
-
-#, lua-format
 msgid ""
 "Custom header text displayed above the message. Supports variables: %d, %y, "
 "%t, %b, %r."
@@ -943,17 +846,6 @@ msgstr ""
 
 msgid "Change custom message header"
 msgstr "Aangepaste berichtkop wijzigen"
-
-msgid "Displayed sections"
-msgstr "Weergegeven secties"
-
-msgid "Toggle which sections show on the sleep screen. At least one must be visible."
-msgstr ""
-"Schakelt in welke secties op het slaapscherm worden getoond. Minstens één "
-"moet zichtbaar zijn."
-
-msgid "[ Section Content ]"
-msgstr "[ Sectie-inhoud ]"
 
 msgid "Book section"
 msgstr "Boeksectie"
@@ -1016,9 +908,9 @@ msgid "Dark mode"
 msgstr "Donkere modus"
 
 msgid ""
-"Inverts the colour scheme. Text becomes white and backgrounds becomes black. "
-"Useful for reading in low-light conditions. Can be combined with monochrome "
-"mode."
+"Inverts the colour scheme. Text becomes white and backgrounds becomes black."
+" Useful for reading in low-light conditions. Can be combined with monochrome"
+" mode."
 msgstr ""
 "Keert het kleurenschema om. Tekst wordt wit en achtergronden worden zwart. "
 "Handig voor lezen bij weinig licht. Kan worden gecombineerd met monochrome "
@@ -1033,16 +925,17 @@ msgid ""
 "assigned section colours. Can be combined with dark mode."
 msgstr ""
 "Geschikt voor zwart-wit e-readers. Kent één kleur toe aan alle secties met "
-"lichte of donkere monochrome hexwaarden. Overschrijft individueel toegewezen "
-"sectiekleuren. Kan worden gecombineerd met donkere modus."
+"lichte of donkere monochrome hexwaarden. Overschrijft individueel toegewezen"
+" sectiekleuren. Kan worden gecombineerd met donkere modus."
 
 msgid "Section gaps"
 msgstr "Ruimte tussen secties"
 
-msgid "Add transparent gaps between sections to make each appear as a separate box"
+msgid ""
+"Add transparent gaps between sections to make each appear as a separate box"
 msgstr ""
-"Voegt transparante ruimte toe tussen secties zodat elke sectie als een apart "
-"paneel verschijnt"
+"Voegt transparante ruimte toe tussen secties zodat elke sectie als een apart"
+" paneel verschijnt"
 
 msgid "Enable section gaps"
 msgstr "Ruimte tussen secties inschakelen"
@@ -1057,8 +950,8 @@ msgid "Section gap size (pixels)"
 msgstr "Grootte ruimte tussen secties (pixels)"
 
 msgid ""
-"10–20px gives a subtle separation. 30–50px makes sections feel like distinct "
-"cards."
+"10–20px gives a subtle separation. 30–50px makes sections feel like distinct"
+" cards."
 msgstr ""
 "10–20px geeft een subtiele scheiding. 30–50px laat secties aanvoelen als "
 "afzonderlijke kaarten."
@@ -1086,8 +979,8 @@ msgid ""
 "Nudges the box left (-) or right (+) from its anchor. Useful for pushing "
 "rounded corners off-screen."
 msgstr ""
-"Verschuift het paneel naar links (-) of rechts (+) vanuit zijn anker. Handig "
-"om afgeronde hoeken buiten beeld te duwen."
+"Verschuift het paneel naar links (-) of rechts (+) vanuit zijn anker. Handig"
+" om afgeronde hoeken buiten beeld te duwen."
 
 msgid "Vertical offset (px)"
 msgstr "Verticale verschuiving (px)"
@@ -1102,7 +995,8 @@ msgstr ""
 msgid "Width"
 msgstr "Breedte"
 
-msgid "Horizontal width of the information box as a percentage of screen width."
+msgid ""
+"Horizontal width of the information box as a percentage of screen width."
 msgstr ""
 "Horizontale breedte van het informatiepaneel als percentage van de "
 "schermbreedte."
@@ -1110,7 +1004,6 @@ msgstr ""
 msgid "Box width (%)"
 msgstr "Paneelbreedte (%)"
 
-#, lua-format
 msgid "60–70% suits portrait screens."
 msgstr "60–70% past goed bij staande schermen."
 
@@ -1123,7 +1016,6 @@ msgstr "Transparantie van het informatiepaneel."
 msgid "Opacity (%)"
 msgstr "Dekking (%)"
 
-#, lua-format
 msgid "75% is semi-transparent. 100% is fully opaque."
 msgstr "75% is halftransparant. 100% is volledig ondoorzichtig."
 
@@ -1152,8 +1044,8 @@ msgid ""
 "0 for no trim. 1–2px is subtle, 4–6px is a bold decorative outline around "
 "the primary border."
 msgstr ""
-"0 voor geen rand. 1–2px is subtiel, 4–6px is een vette decoratieve omlijning "
-"rondom de primaire rand."
+"0 voor geen rand. 1–2px is subtiel, 4–6px is een vette decoratieve omlijning"
+" rondom de primaire rand."
 
 msgid "Corner radius"
 msgstr "Hoekradius"
@@ -1178,7 +1070,8 @@ msgstr ""
 msgid "Internal padding"
 msgstr "Interne opvulling"
 
-msgid "Space between section borders and their content, configurable per side."
+msgid ""
+"Space between section borders and their content, configurable per side."
 msgstr "Ruimte tussen sectiegrensen en hun inhoud, per zijde instelbaar."
 
 msgid "Top"
@@ -1205,8 +1098,11 @@ msgstr "Links"
 msgid "Internal padding - left (px)"
 msgstr "Binnenmarge - links (px)"
 
-msgid "Space to the left of section content. Increase when using large corner radii."
-msgstr "Ruimte links van de sectie-inhoud. Vergroot bij gebruik van grote hoekradii."
+msgid ""
+"Space to the left of section content. Increase when using large corner "
+"radii."
+msgstr ""
+"Ruimte links van de sectie-inhoud. Vergroot bij gebruik van grote hoekradii."
 
 msgid "Right"
 msgstr "Rechts"
@@ -1217,7 +1113,9 @@ msgstr "Binnenmarge - rechts (px)"
 msgid ""
 "Space to the right of section content. Increase when using large corner "
 "radii."
-msgstr "Ruimte rechts van de sectie-inhoud. Vergroot bij gebruik van grote hoekradii."
+msgstr ""
+"Ruimte rechts van de sectie-inhoud. Vergroot bij gebruik van grote "
+"hoekradii."
 
 msgid "Set all sides equally"
 msgstr "Alle zijden gelijk instellen"
@@ -1225,10 +1123,11 @@ msgstr "Alle zijden gelijk instellen"
 msgid "Internal padding - all sides (px)"
 msgstr "Binnenmarge - alle zijden (px)"
 
-msgid "Sets top, bottom, left and right padding to the same value in one step."
+msgid ""
+"Sets top, bottom, left and right padding to the same value in one step."
 msgstr ""
-"Stelt boven-, onder-, linker- en rechteropvulling in één stap in op dezelfde "
-"waarde."
+"Stelt boven-, onder-, linker- en rechteropvulling in één stap in op dezelfde"
+" waarde."
 
 msgid "Icon to text gap"
 msgstr "Ruimte icoon naar tekst"
@@ -1239,8 +1138,10 @@ msgstr "Horizontale afstand tussen sectie-iconen en de bijbehorende tekst."
 msgid "Icon to text gap (px)"
 msgstr "Ruimte icoon naar tekst (px)"
 
-msgid "8–12px gives comfortable breathing room between icon and text. 0 is flush."
-msgstr "8–12px geeft comfortabele ademruimte tussen icoon en tekst. 0 is gelijk."
+msgid ""
+"8–12px gives comfortable breathing room between icon and text. 0 is flush."
+msgstr ""
+"8–12px geeft comfortabele ademruimte tussen icoon en tekst. 0 is gelijk."
 
 msgid "No icon sets found in customisablesleepscreen.koplugin/icons/"
 msgstr "Geen icoonsets gevonden in customisablesleepscreen.koplugin/icons/"
@@ -1254,7 +1155,8 @@ msgstr "Stelt de kleuren van de voortgangsbalk in voor elke sectie."
 msgid "Use saved colours for icon fill"
 msgstr "Opgeslagen kleuren gebruiken voor icoonvulling"
 
-msgid "When enabled, icons will match the colour of their section's progress bar."
+msgid ""
+"When enabled, icons will match the colour of their section's progress bar."
 msgstr ""
 "Indien ingeschakeld komen iconen overeen met de kleur van de voortgangsbalk "
 "van hun sectie."
@@ -1352,17 +1254,18 @@ msgid ""
 "matching the message section colour and the progress bars in other sections."
 msgstr ""
 "Toont een puur decoratieve voortgangsbalk onder de berichtensectie, passend "
-"bij de kleur van de berichtensectie en de voortgangsbalken in andere secties."
+"bij de kleur van de berichtensectie en de voortgangsbalken in andere "
+"secties."
 
 msgid "Inline progress bars"
 msgstr "Inline voortgangsbalken"
 
 msgid ""
-"Progress bars sit inside the text area rather than spanning the full section "
-"width. Automatically enabled when corner radius > 0."
+"Progress bars sit inside the text area rather than spanning the full section"
+" width. Automatically enabled when corner radius > 0."
 msgstr ""
-"Voortgangsbalken bevinden zich in het tekstgebied in plaats van de volledige "
-"sectiebreedte te beslaan. Automatisch ingeschakeld wanneer hoekradius > 0."
+"Voortgangsbalken bevinden zich in het tekstgebied in plaats van de volledige"
+" sectiebreedte te beslaan. Automatisch ingeschakeld wanneer hoekradius > 0."
 
 msgid "Enable inline bars"
 msgstr "Inline balken inschakelen"
@@ -1393,7 +1296,8 @@ msgid "Inline bar border size (px)"
 msgstr "Randgrootte inline balk (px)"
 
 msgid "0 for no border. 1–2px adds a subtle outline around the bar."
-msgstr "0 voor geen rand. 1–2px voegt een subtiele omlijning toe rondom de balk."
+msgstr ""
+"0 voor geen rand. 1–2px voegt een subtiele omlijning toe rondom de balk."
 
 msgid "Bar width"
 msgstr "Balkbreedte"
@@ -1408,7 +1312,6 @@ msgstr ""
 msgid "Inline bar width (%)"
 msgstr "Breedte inline balk (%)"
 
-#, lua-format
 msgid ""
 "100% fills the text column. The bar is aligned to match your text alignment "
 "setting."
@@ -1455,7 +1358,9 @@ msgstr "Horizontale uitlijning van alle tekst binnen secties."
 msgid "Book multiline titles"
 msgstr "Meerdere regels voor boektitels"
 
-msgid "If deselected book titles will be truncated to a single line with an ellipsis"
+msgid ""
+"If deselected book titles will be truncated to a single line with an "
+"ellipsis"
 msgstr ""
 "Als uitgeschakeld worden boektitels afgekapt tot één regel met een "
 "beletselteken"
@@ -1480,8 +1385,8 @@ msgid ""
 msgstr ""
 "Verwijdert structurele voorvoegsels zoals 'Hoofdstuk 5:' of 'Deel II' uit "
 "hoofdstuktitels en normaliseert het gebruik van hoofdletters. Werkt alleen "
-"correct met Engelstalige hoofdstuktitels — uitschakelen voor "
-"niet-Engelstalige boeken."
+"correct met Engelstalige hoofdstuktitels — uitschakelen voor niet-"
+"Engelstalige boeken."
 
 msgid "Make titles bold"
 msgstr "Titels vetgedrukt maken"
@@ -1545,7 +1450,8 @@ msgid "Cover alignment"
 msgstr "Uitlijning omslag"
 
 msgid "Horizontal alignment of the cover image when not stretched."
-msgstr "Horizontale uitlijning van de omslagafbeelding wanneer niet uitgerekt."
+msgstr ""
+"Horizontale uitlijning van de omslagafbeelding wanneer niet uitgerekt."
 
 msgid "Background type"
 msgstr "Achtergrondtype"
@@ -1554,7 +1460,8 @@ msgid "Background overlay"
 msgstr "Achtergrondoverlay"
 
 msgid "Add a colour layer over the background to reduce contrast."
-msgstr "Voegt een kleurlaag over de achtergrond toe om het contrast te verminderen."
+msgstr ""
+"Voegt een kleurlaag over de achtergrond toe om het contrast te verminderen."
 
 msgid "Overlay colour"
 msgstr "Overlaykleur"
@@ -1568,7 +1475,6 @@ msgstr "Dekking overlay"
 msgid "Overlay opacity (%)"
 msgstr "Dekking overlay (%)"
 
-#, lua-format
 msgid "0% is no overlay. 20–40% adds a soft tint. 100% is fully opaque."
 msgstr ""
 "0% is geen overlay. 20–40% voegt een zachte tint toe. 100% is volledig "
@@ -1610,26 +1516,23 @@ msgstr "Hernoemen"
 msgid "Enter new preset name"
 msgstr "Voer een nieuwe presetnaam in"
 
-msgid "[ Built-in Presets ]"
-msgstr "[ Ingebouwde presets ]"
-
-msgid "[ Your Custom Presets ]"
-msgstr "[ Uw aangepaste presets ]"
-
 msgid "Apply"
 msgstr "Toepassen"
 
 msgid "Invalid hex code. Use format: #RRGGBB"
 msgstr "Ongeldige hexcode. Gebruik formaat: #RRGGBB"
 
-msgid "Reset layout & spacing settings to default"
-msgstr "Indeling en ruimte-instellingen terugzetten naar standaard"
+msgid "Reset layout, spacing & frame settings to default"
+msgstr "Indeling, ruimte en kaderinstellingen terugzetten naar standaard"
 
-msgid "Are you sure you want to reset layout & spacing settings?"
-msgstr "Weet u zeker dat u de indeling en ruimte-instellingen wilt terugzetten?"
+msgid "Are you sure you want to reset layout, spacing & frame settings?"
+msgstr ""
+"Weet u zeker dat u de indeling, ruimte en kaderinstellingen wilt "
+"terugzetten?Weet u zeker dat u de indeling en ruimte-instellingen wilt "
+"terugzetten?"
 
-msgid "Layout & spacing settings reset to defaults"
-msgstr "Indeling en ruimte-instellingen teruggezet naar standaard"
+msgid "Layout, spacing & frame settings reset to defaults"
+msgstr "Indeling, ruimte en kaderinstellingen teruggezet naar standaard"
 
 msgid "Reset contents settings to default"
 msgstr "Inhoudinstellingen terugzetten naar standaard"
@@ -1655,7 +1558,8 @@ msgid "Reset fonts & text settings to default"
 msgstr "Lettertype en tekst-instellingen terugzetten naar standaard"
 
 msgid "Are you sure you want to reset fonts & text settings?"
-msgstr "Weet u zeker dat u de lettertype en tekst-instellingen wilt terugzetten?"
+msgstr ""
+"Weet u zeker dat u de lettertype en tekst-instellingen wilt terugzetten?"
 
 msgid "Fonts & text settings reset to defaults"
 msgstr "Lettertype en tekst-instellingen teruggezet naar standaard"
@@ -1670,7 +1574,8 @@ msgid "Background settings reset to defaults"
 msgstr "Achtergrondinstellingen teruggezet naar standaard"
 
 msgid "Reset the settings in this part of the menu to their defaults."
-msgstr "Zet de instellingen in dit deel van het menu terug naar de standaardwaarden."
+msgstr ""
+"Zet de instellingen in dit deel van het menu terug naar de standaardwaarden."
 
 msgid "factory defaults"
 msgstr "fabrieksstandaarden"
@@ -1694,3 +1599,619 @@ msgstr "Voer hex in"
 
 msgid "Enter hex colour code"
 msgstr "Voer hexadecimale kleurcode in"
+
+msgid ""
+"Saves a screenshot of the sleep screen to a file each time a book is closed."
+" Useful for devices that use an exported image as their own native sleep "
+"screen."
+msgstr ""
+"Slaat telkens wanneer een boek wordt gesloten een schermafbeelding van het "
+"slaapscherm op als bestand. Handig voor apparaten die een geëxporteerde "
+"afbeelding als eigen slaapscherm gebruiken."
+
+msgid "Enable export"
+msgstr "Exporteren inschakelen"
+
+msgid "Choose the filename used for the exported image (without extension)."
+msgstr ""
+"Kies de bestandsnaam voor de geëxporteerde afbeelding (zonder extensie)."
+
+#, lua-format
+msgid "Export format: %s"
+msgstr "Exportformaat: %s"
+
+msgid "Choose the image format and colour profile for the exported file."
+msgstr ""
+"Kies het afbeeldingsformaat en het kleurprofiel voor het geëxporteerde "
+"bestand."
+
+msgid ""
+"Choose the folder where the exported image will be saved. Must be set before"
+" export can be enabled."
+msgstr ""
+"Kies de map waarin de geëxporteerde afbeelding wordt opgeslagen. Moet zijn "
+"ingesteld voordat exporteren kan worden ingeschakeld."
+
+msgid "Preview sleep screen"
+msgstr "Voorbeeld van slaapscherm"
+
+msgid ""
+"Shows what the sleep screen currently looks like, without actually "
+"suspending the device."
+msgstr ""
+"Toont hoe het slaapscherm er momenteel uitziet, zonder het apparaat "
+"daadwerkelijk in slaapstand te zetten."
+
+msgid "Behaviour"
+msgstr "Gedrag"
+
+msgid ""
+"How the plugin behaves: file manager display, ghosting, export, battery "
+"estimation, and stats scope."
+msgstr ""
+"Hoe de plugin zich gedraagt: weergave in bestandsbeheer, ghosting, "
+"exporteren, batterijschatting en bereik van statistieken."
+
+#, lua-format
+msgid "Version: %s"
+msgstr "Versie: %s"
+
+#, lua-format
+msgid "Author: %s"
+msgstr "Auteur: %s"
+
+#, lua-format
+msgid "https://github.com/%s"
+msgstr "https://github.com/%s"
+
+#, lua-format
+msgid ""
+"GitHub:\n"
+"https://github.com/%s"
+msgstr ""
+"GitHub:\n"
+"https://github.com/%s"
+
+msgid "Check for updates"
+msgstr "Controleren op updates"
+
+msgid "Check GitHub for a newer release, and install it if one is available."
+msgstr ""
+"Controleert op GitHub op een nieuwere versie en installeert deze indien "
+"beschikbaar."
+
+msgid "Border"
+msgstr "Rand"
+
+msgid "Primary border thickness and its secondary decorative trim."
+msgstr "Dikte van de primaire rand en de secundaire decoratieve bies."
+
+msgid "Icons"
+msgstr "Pictogrammen"
+
+msgid "Icon style, size, and visibility."
+msgstr "Pictogramstijl, -grootte en -zichtbaarheid."
+
+msgid "Bars"
+msgstr "Balken"
+
+msgid "Progress bar height, visibility, and inline styling."
+msgstr "Hoogte, zichtbaarheid en inline-opmaak van voortgangsbalken."
+
+msgid "Multiline titles"
+msgstr "Titels over meerdere regels"
+
+msgid ""
+"Allow book and chapter titles to wrap across multiple lines instead of being"
+" truncated to one."
+msgstr ""
+"Boek- en hoofdstuktitels over meerdere regels laten lopen in plaats van ze "
+"tot één regel af te kappen."
+
+msgid "Cover exclusion"
+msgstr "Omslag uitsluiten"
+
+msgid ""
+"Hide this book's cover from the sleep screen, and choose what shows instead."
+msgstr ""
+"Verberg de omslag van dit boek op het slaapscherm en kies wat er in plaats "
+"daarvan wordt getoond."
+
+msgid "Fallback background"
+msgstr "Alternatieve achtergrond"
+
+msgid ""
+"What to show instead of the cover. Uses the colour, image, or folder already"
+" set in Background type. Only selectable when \"Exclude this book's cover "
+"from sleep screen\" is turned on."
+msgstr ""
+"Wat er in plaats van de omslag wordt getoond. Gebruikt de kleur, afbeelding "
+"of map die al is ingesteld bij Achtergrondtype. Alleen selecteerbaar wanneer"
+" \"Omslag van dit boek uitsluiten van slaapscherm\" is ingeschakeld."
+
+msgid ""
+"No book data available to preview yet.\n"
+"\n"
+"Open a book and show the sleep screen at least once before previewing."
+msgstr ""
+"Er zijn nog geen boekgegevens beschikbaar voor een voorbeeld.\n"
+"\n"
+"Open een boek en toon het slaapscherm minstens één keer voordat u een voorbeeld gebruikt."
+
+msgid "Couldn't build a preview - check crash.log for details."
+msgstr "Kon geen voorbeeld genereren - zie crash.log voor details."
+
+msgid "Enable automatic preset switching"
+msgstr "Automatisch wisselen van preset inschakelen"
+
+msgid ""
+"When enabled, switches between the day and night presets below as needed. If"
+" you manually switch to a different preset, this pauses until you switch "
+"back to one of the two, or use \"Sync now\" below."
+msgstr ""
+"Indien ingeschakeld, wordt indien nodig gewisseld tussen de hieronder "
+"ingestelde dag- en nachtpreset. Als u handmatig naar een andere preset "
+"wisselt, wordt dit onderbroken totdat u terugkeert naar een van beide, of "
+"\"Nu synchroniseren\" hieronder gebruikt."
+
+msgid "Sync now"
+msgstr "Nu synchroniseren"
+
+msgid ""
+"Immediately switches to the correct day/night preset, even if a different "
+"preset is currently active."
+msgstr ""
+"Wisselt onmiddellijk naar de juiste dag-/nachtpreset, ook als er momenteel "
+"een andere preset actief is."
+
+#, lua-format
+msgid ""
+"Couldn't switch to '%s' - it may no longer exist. Check the day/night preset"
+" pickers below."
+msgstr ""
+"Kon niet wisselen naar '%s' - deze bestaat mogelijk niet meer. Controleer de"
+" dag-/nachtpreset-kiezers hieronder."
+
+#, lua-format
+msgid "Switched to '%s'"
+msgstr "Gewisseld naar '%s'"
+
+#, lua-format
+msgid "Already on '%s' - no change needed"
+msgstr "Al bij '%s' - geen wijziging nodig"
+
+#, lua-format
+msgid "Day preset: %s"
+msgstr "Dagpreset: %s"
+
+msgid "Preset to switch to outside the night window."
+msgstr "Preset om naar te wisselen buiten het nachtvenster."
+
+#, lua-format
+msgid "Night preset: %s"
+msgstr "Nachtpreset: %s"
+
+msgid "Preset to switch to during the night window."
+msgstr "Preset om naar te wisselen tijdens het nachtvenster."
+
+msgid "Follow KOReader's night mode"
+msgstr "Nachtmodus van KOReader volgen"
+
+msgid "Time window"
+msgstr "Tijdvenster"
+
+#, lua-format
+msgid "Trigger: %s"
+msgstr "Trigger: %s"
+
+msgid ""
+"How the schedule decides when to switch: a fixed time window, or KOReader's "
+"own night mode setting (useful if you toggle that manually rather than on a "
+"fixed schedule)."
+msgstr ""
+"Hoe het schema bepaalt wanneer er wordt gewisseld: een vast tijdvenster, of "
+"de eigen nachtmodusinstelling van KOReader (handig als u die handmatig in- "
+"en uitschakelt in plaats van volgens een vast schema)."
+
+msgid "Switch based on the start/end times."
+msgstr "Wisselen op basis van de start-/eindtijden."
+
+msgid ""
+"Switch to the night preset whenever KOReader's own night mode is turned on, "
+"and back to the day preset when it's off."
+msgstr ""
+"Wissel naar de nachtpreset zodra de eigen nachtmodus van KOReader wordt "
+"ingeschakeld, en terug naar de dagpreset wanneer deze wordt uitgeschakeld."
+
+#, lua-format
+msgid "Night window start: %02d:%02d"
+msgstr "Begin nachtvenster: %02d:%02d"
+
+msgid "Time of day the night preset starts being used."
+msgstr "Tijdstip waarop de nachtpreset begint te worden gebruikt."
+
+msgid "Night window start"
+msgstr "Begin nachtvenster"
+
+msgid "Enter time in hours and minutes."
+msgstr "Voer de tijd in uren en minuten in."
+
+msgid "Set time"
+msgstr "Tijd instellen"
+
+#, lua-format
+msgid "Night window end: %02d:%02d"
+msgstr "Einde nachtvenster: %02d:%02d"
+
+msgid "Time of day the day preset resumes being used."
+msgstr "Tijdstip waarop de dagpreset weer wordt gebruikt."
+
+msgid "Night window end"
+msgstr "Einde nachtvenster"
+
+msgid " (auto-switch: day)"
+msgstr " (automatisch wisselen: dag)"
+
+msgid " (auto-switch: night)"
+msgstr " (automatisch wisselen: nacht)"
+
+#, lua-format
+msgid "Preview preset '%s'?"
+msgstr "Voorbeeld van preset '%s' tonen?"
+
+msgid "Preview"
+msgstr "Voorbeeld"
+
+msgid "Hold a preset below to preview it."
+msgstr "Houd een preset hieronder ingedrukt om er een voorbeeld van te tonen."
+
+msgid "Hold a custom preset below to preview, update, rename, or delete it."
+msgstr ""
+"Houd een eigen preset hieronder ingedrukt om er een voorbeeld van te tonen, "
+"deze bij te werken, te hernoemen of te verwijderen."
+
+msgid "Save your current sleep screen settings as a new custom preset."
+msgstr "Sla uw huidige slaapscherminstellingen op als nieuwe eigen preset."
+
+msgid "Automatic preset switching"
+msgstr "Automatisch wisselen van preset"
+
+msgid ""
+"Automatically switch between two presets - e.g. a light one by day and a "
+"dark one at night."
+msgstr ""
+"Wissel automatisch tussen twee presets - bijv. een lichte overdag en een "
+"donkere 's nachts."
+
+msgid "Built-in Presets"
+msgstr "Ingebouwde presets"
+
+msgid "Load one of the built-in presets."
+msgstr "Laad een van de ingebouwde presets."
+
+msgid "Your Custom Presets"
+msgstr "Uw eigen presets"
+
+msgid "Load, rename, update or delete one of your saved presets."
+msgstr "Laad, hernoem, werk bij of verwijder een van uw opgeslagen presets."
+
+msgid "No custom presets currently saved"
+msgstr "Momenteel geen eigen presets opgeslagen"
+
+msgid "Section order & visibility"
+msgstr "Volgorde en zichtbaarheid van secties"
+
+msgid ""
+"Select a section and tap the bottom arrows to reorder. Tap the checkmark to "
+"show or hide the section. At least one section must stay visible."
+msgstr ""
+"Selecteer een sectie en tik op de onderste pijlen om deze te herschikken. "
+"Tik op het vinkje om de sectie te tonen of te verbergen. Minstens één sectie"
+" moet zichtbaar blijven."
+
+#, lua-format
+msgid "Title Line: %s"
+msgstr "Titelregel: %s"
+
+#, lua-format
+msgid "Goal type: %s"
+msgstr "Doeltype: %s"
+
+msgid "Show remaining & charging text"
+msgstr "Tekst \"wordt opgeladen\"/\"resterend\" tonen"
+
+msgid ""
+"Show the words \"remaining\" and \"charging\" next to the battery "
+"percentage, e.g. \"82% remaining\" instead of just \"82%\"."
+msgstr ""
+"Toont de woorden \"resterend\" en \"wordt opgeladen\" naast het "
+"batterijpercentage, bijv. \"82% resterend\" in plaats van gewoon \"82%\"."
+
+msgid "Show time"
+msgstr "Tijd tonen"
+
+msgid ""
+"Display battery drain percentage per hour based on recent usage or manual "
+"input (see Global settings menu)"
+msgstr ""
+"Toont het batterijverbruik in procent per uur, gebaseerd op recent gebruik "
+"of handmatige invoer (zie het menu Algemene instellingen)"
+
+msgid "Edit message header"
+msgstr "Berichtkop bewerken"
+
+msgid ""
+"Show a random quote from the css_custom_quotes.lua file in the plugin "
+"folder."
+msgstr ""
+"Toont een willekeurig citaat uit het bestand css_custom_quotes.lua in de "
+"pluginmap."
+
+msgid ""
+"Display the author and book name below the quote, if provided in "
+"css_custom_quotes.lua."
+msgstr ""
+"Toont de auteur en boektitel onder het citaat, indien opgegeven in "
+"css_custom_quotes.lua."
+
+msgid "archive extractor unavailable"
+msgstr "archiefextractor niet beschikbaar"
+
+msgid "could not open archive"
+msgstr "kon archief niet openen"
+
+msgid "extract failed"
+msgstr "uitpakken mislukt"
+
+msgid "Downloading update..."
+msgstr "Update wordt gedownload..."
+
+msgid "the connection failed"
+msgstr "de verbinding is mislukt"
+
+msgid "the connection timed out"
+msgstr "de verbinding is verlopen"
+
+msgid "the secure connection failed"
+msgstr "de beveiligde verbinding is mislukt"
+
+msgid "there was no response"
+msgstr "er kwam geen reactie"
+
+msgid "the file could not be saved"
+msgstr "het bestand kon niet worden opgeslagen"
+
+msgid "Download failed."
+msgstr "Downloaden mislukt."
+
+msgid "Installation failed: "
+msgstr "Installatie mislukt: "
+
+msgid "Customisable Sleep Screen updated to v"
+msgstr "Customisable Sleep Screen bijgewerkt naar v"
+
+msgid "Restart KOReader now?"
+msgstr "KOReader nu herstarten?"
+
+msgid "Restart"
+msgstr "Herstarten"
+
+msgid "Checking for updates..."
+msgstr "Controleren op updates..."
+
+msgid "Could not check for updates."
+msgstr "Kon niet controleren op updates."
+
+#, lua-format
+msgid "Customisable Sleep Screen is up to date (v%s)"
+msgstr "Customisable Sleep Screen is up-to-date (v%s)"
+
+msgid "Update available"
+msgstr "Update beschikbaar"
+
+msgid "Installed: "
+msgstr "Geïnstalleerd: "
+
+msgid "Latest: "
+msgstr "Nieuwste: "
+
+msgid "Close"
+msgstr "Sluiten"
+
+msgid "Update and restart"
+msgstr "Bijwerken en herstarten"
+
+msgid "No download available for this release."
+msgstr "Geen download beschikbaar voor deze versie."
+
+#, lua-format, lua-format
+msgid "Data unavailable"
+msgstr "Gegevens niet beschikbaar"
+
+#, lua-format
+msgid "%s & %s %s read today"
+msgstr "%s & %s %s vandaag gelezen"
+
+msgid ""
+"Menu icons are hidden because KOReader's bundled fonts/nerdfonts/symbols.ttf"
+" couldn't be found. Restore that font file to bring the menu icons back."
+msgstr ""
+"Menupictogrammen zijn verborgen omdat het meegeleverde bestand "
+"fonts/nerdfonts/symbols.ttf van KOReader niet kon worden gevonden. Herstel "
+"dat lettertypebestand om de menupictogrammen terug te krijgen."
+
+msgid "Transparent"
+msgstr "Transparant"
+
+msgid "File manager background colour"
+msgstr "Achtergrondkleur bestandsbeheer"
+
+msgid ""
+"Colour for the alternative file manager background. Independent of your "
+"presets - stays the same no matter which preset is active."
+msgstr ""
+"Kleur voor de alternatieve achtergrond van bestandsbeheer. Onafhankelijk van"
+" je presets - blijft hetzelfde, ongeacht welke preset actief is."
+
+msgid "File manager background image path"
+msgstr "Afbeeldingspad achtergrond bestandsbeheer"
+
+msgid ""
+"Choose a single image to use as the alternative file manager background. "
+"Independent of your presets - stays the same no matter which preset is "
+"active."
+msgstr ""
+"Kies één afbeelding om te gebruiken als alternatieve achtergrond van "
+"bestandsbeheer. Onafhankelijk van je presets - blijft hetzelfde, ongeacht "
+"welke preset actief is."
+
+msgid "File manager background folder path"
+msgstr "Mappad achtergrond bestandsbeheer"
+
+msgid ""
+"Choose a folder to pick a random image from as the alternative file manager "
+"background. Independent of your presets - stays the same no matter which "
+"preset is active."
+msgstr ""
+"Kies een map om een willekeurige afbeelding uit te selecteren als "
+"alternatieve achtergrond van bestandsbeheer. Onafhankelijk van je presets - "
+"blijft hetzelfde, ongeacht welke preset actief is."
+
+msgid "Stretch image to fill"
+msgstr "Afbeelding uitrekken om te vullen"
+
+msgid ""
+"When disabled, the image will be scaled to fit within the screen while "
+"preserving aspect ratio. Independent of your presets - stays the same no "
+"matter which preset is active."
+msgstr ""
+"Wanneer uitgeschakeld wordt de afbeelding geschaald om op het scherm te "
+"passen met behoud van beeldverhouding. Onafhankelijk van je presets - blijft"
+" hetzelfde, ongeacht welke preset actief is."
+
+msgid "Fill colour"
+msgstr "Vulkleur"
+
+msgid ""
+"Background colour for the image when not stretched. Independent of your "
+"presets - stays the same no matter which preset is active."
+msgstr ""
+"Achtergrondkleur voor de afbeelding wanneer niet uitgerekt. Onafhankelijk "
+"van je presets - blijft hetzelfde, ongeacht welke preset actief is."
+
+msgid "Image alignment"
+msgstr "Uitlijning afbeelding"
+
+msgid ""
+"Horizontal alignment of the image when not stretched. Independent of your "
+"presets - stays the same no matter which preset is active."
+msgstr ""
+"Horizontale uitlijning van de afbeelding wanneer niet uitgerekt. "
+"Onafhankelijk van je presets - blijft hetzelfde, ongeacht welke preset "
+"actief is."
+
+msgid "Show alternative sleep screen (no infobox)"
+msgstr "Alternatief slaapscherm tonen (zonder informatiepaneel)"
+
+msgid ""
+"When disabled (default), the regular customisable sleep screen displays in "
+"file manager using the last saved book data. When enabled, a simpler "
+"alternative is shown instead - just a background, with no information box."
+msgstr ""
+"Wanneer uitgeschakeld (standaard) wordt het normale configureerbare "
+"slaapscherm weergegeven in bestandsbeheer met de laatst opgeslagen "
+"boekgegevens. Wanneer ingeschakeld wordt in plaats daarvan een eenvoudiger "
+"alternatief getoond - alleen een achtergrond, zonder informatiepaneel."
+
+msgid "File manager background"
+msgstr "Achtergrond bestandsbeheer"
+
+msgid "Sleep screen in file manager"
+msgstr "Slaapscherm in bestandsbeheer"
+
+msgid ""
+"Control what the sleep screen looks like when triggered from the file "
+"manager, outside of a book."
+msgstr ""
+"Bepaal hoe het slaapscherm eruitziet wanneer het vanuit bestandsbeheer wordt"
+" geactiveerd, buiten een boek."
+
+msgid ""
+"File manager display, ghosting, export, battery estimation, and stats scope."
+" Unlike the menus above, these settings don't change when you switch "
+"presets."
+msgstr ""
+"Weergave in bestandsbeheer, nabeelden, export, batterijschatting en "
+"statistiekbereik. In tegenstelling tot de menu's hierboven veranderen deze "
+"instellingen niet wanneer je van preset wisselt."
+
+msgid "Global settings"
+msgstr "Algemene instellingen"
+
+msgid "System Default (cfont)"
+msgstr "Systeemstandaard (cfont)"
+
+#, lua-format
+msgid "Title font face: %s"
+msgstr "Lettertype titel: %s"
+
+#, lua-format
+msgid "Title font size: %dpx"
+msgstr "Tekengrootte titel: %dpx"
+
+#, lua-format
+msgid "Subtitle font face: %s"
+msgstr "Lettertype ondertitel: %s"
+
+#, lua-format
+msgid "Subtitle font size: %dpx"
+msgstr "Tekengrootte ondertitel: %dpx"
+
+msgid "Time and pages read today"
+msgstr "Vandaag gelezen tijd en pagina's"
+
+msgid "e.g. '42 mins & 35 pgs read today'"
+msgstr "bijv. '42 min & 35 pag. vandaag gelezen'"
+
+msgid ""
+"What to show as the background for the alternative file manager sleep "
+"screen. This background is independent of your presets, so it looks the same"
+" no matter which preset was last active. Only selectable when \"Show "
+"alternative sleep screen\" is turned on."
+msgstr ""
+"Wat te tonen als achtergrond voor het alternatieve slaapscherm van "
+"bestandsbeheer. Deze achtergrond is onafhankelijk van je presets, dus ziet "
+"er altijd hetzelfde uit, ongeacht welke preset het laatst actief was. Alleen"
+" selecteerbaar wanneer \"Alternatief slaapscherm tonen\" is ingeschakeld."
+
+msgid ""
+"Hides the cover for this book only, for when you'd rather it not be shown on"
+" your sleep screen - without having to switch presets or background settings"
+" each time you read it. Only has an effect while Background type is set to "
+"\"Book cover\" - it has nothing to exclude otherwise."
+msgstr ""
+"Verbergt de omslag alleen voor dit boek, voor wanneer je liever niet wilt "
+"dat deze op je slaapscherm verschijnt - zonder telkens van preset of "
+"achtergrondinstellingen te hoeven wisselen. Heeft alleen effect wanneer "
+"Achtergrondtype is ingesteld op \"Boekomslag\" - anders is er niets om uit "
+"te sluiten."
+
+msgid ""
+"What to show instead of the cover. Uses the colour, image, or folder already"
+" set in Background type. Only selectable when \"Exclude this book's cover "
+"from sleep screen\" is turned on and Background type is set to \"Book "
+"cover\"."
+msgstr ""
+"Wat te tonen in plaats van de omslag. Gebruikt de kleur, afbeelding of map "
+"die al is ingesteld bij Achtergrondtype. Alleen selecteerbaar wanneer "
+"\"Omslag van dit boek uitsluiten van slaapscherm\" is ingeschakeld en "
+"Achtergrondtype is ingesteld op \"Boekomslag\"."
+
+msgid "Export in greyscale"
+msgstr "Exporteren in grijstinten"
+
+msgid ""
+"Saves the exported image without colour, reducing file size for any format."
+msgstr ""
+"Slaat de geëxporteerde afbeelding zonder kleur op, waardoor de "
+"bestandsgrootte voor elk formaat kleiner wordt."

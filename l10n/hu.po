@@ -8,7 +8,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. ---- Display sleep screen strings ----
-
 msgid "January"
 msgstr "Január"
 
@@ -69,13 +68,6 @@ msgstr[1] "perc"
 
 msgid "< 1 min"
 msgstr "< 1 perc"
-
-#, lua-format
-msgid "~%d %s left"
-msgstr "~%d %s van hátra"
-
-msgid "~<1 hr left"
-msgstr "~<1 óra van hátra"
 
 msgid "Untitled"
 msgstr "Cím nélkül"
@@ -149,20 +141,11 @@ msgstr "A cél %d%%‑a"
 msgid "%d page goal"
 msgstr "%d oldalas cél"
 
-#, lua-format
-msgid "~%.1f%%/hour"
-msgstr "~%.1f%%/óra"
-
 msgid "Rate unavailable"
 msgstr "Az arány nem elérhető"
 
 msgid "No message set"
 msgstr "Nincs üzenet beállítva"
-
-msgid "No custom quotes found. Add quotes to custom_quotes.lua."
-msgstr ""
-"Nem találhatók egyéni idézetek. Adj hozzá idézeteket a custom_quotes.lua "
-"fájlhoz."
 
 #, lua-format
 msgid "pg. %s"
@@ -183,8 +166,29 @@ msgstr "Idézetek"
 msgid "Message"
 msgstr "Üzenet"
 
-#. ---- All other strings (menu items, help text, headers, buttons) ----
+msgid "< 1 min left"
+msgstr "< 1 perc van hátra"
 
+#, lua-format
+msgid "Page %s of %s"
+msgstr "%s. oldal / %s"
+
+msgid "charging"
+msgstr "töltés"
+
+msgid "remaining"
+msgstr "hátralévő"
+
+#, lua-format
+msgid "%.1f%% / hour"
+msgstr "%.1f%% / óra"
+
+msgid "No custom quotes found. Add quotes to css_custom_quotes.lua."
+msgstr ""
+"Nem található egyéni idézet. Adjon hozzá idézeteket a css_custom_quotes.lua "
+"fájlhoz."
+
+#. ---- All other strings (menu items, help text, headers, buttons) ----
 msgid "Customisable sleep screen settings"
 msgstr "Testreszabható alvóképernyő beállításai"
 
@@ -201,39 +205,20 @@ msgid "Enable customisable sleep screen"
 msgstr "Testreszabható alvóképernyő engedélyezése"
 
 msgid ""
-"Customisable Sleep Screen: no book data found.\n\nOpen a book and trigger "
-"the sleep screen at least once before it will work in the file manager."
+"Customisable Sleep Screen: no book data found.\n"
+"\n"
+"Open a book and trigger the sleep screen at least once before it will work in the file manager."
 msgstr ""
-"Testreszabható alvóképernyő: nem találhatók könyvadatok.\n\nNyiss meg egy "
-"könyvet, és lépj legalább egyszer az alvóképernyőre,\nmielőtt a "
-"fájlkezelőben is működne."
-
-msgid "Delete all custom presets"
-msgstr "Az összes egyéni beállítás törlése"
-
-msgid ""
-"Permanently removes all custom presets you've created. The built-in "
-"'Default' preset will remain. This cannot be undone."
-msgstr ""
-"Véglegesen törli az összes általad létrehozott egyéni beállítást. A "
-"beépített\n„Alapértelmezett” beállítás megmarad. Ez a művelet nem vonható "
-"vissza."
-
-msgid ""
-"Are you sure you want to delete all custom presets? (built-in presets will "
-"remain)"
-msgstr ""
-"Biztosan törölni szeretnéd az összes egyéni beállítást? (A beépített "
-"beállítások\nmegmaradnak.)"
+"Testreszabható alvóképernyő: nem találhatók könyvadatok.\n"
+"\n"
+"Nyiss meg egy könyvet, és lépj legalább egyszer az alvóképernyőre,\n"
+"mielőtt a fájlkezelőben is működne."
 
 msgid "Delete"
 msgstr "Törlés"
 
 msgid "Cancel"
 msgstr "Mégse"
-
-msgid "All custom presets deleted. Built-in presets remain."
-msgstr "Az összes egyéni beállítás törölve. A beépített beállítások megmaradtak."
 
 msgid "Sleep screen orientation"
 msgstr "Alvóképernyő tájolása"
@@ -242,8 +227,8 @@ msgid ""
 "Force the sleep screen to display in a specific orientation, regardless of "
 "how the device is held."
 msgstr ""
-"Az alvóképernyő kényszerítése meghatározott tájolásra,\nfüggetlenül attól, "
-"hogyan tartják a készüléket."
+"Az alvóképernyő kényszerítése meghatározott tájolásra,\n"
+"függetlenül attól, hogyan tartják a készüléket."
 
 msgid "Auto (follow device)"
 msgstr "Automatikus (eszközt követi)"
@@ -286,8 +271,8 @@ msgstr "Utolsó töltés óta"
 
 msgid "Uses combined awake and sleeping battery drain since last charge"
 msgstr ""
-"Az utolsó töltés óta eltelt ébren és alvó üzemmódban mért "
-"akkumulátor-fogyasztást kombinálja"
+"Az utolsó töltés óta eltelt ébren és alvó üzemmódban mért akkumulátor-"
+"fogyasztást kombinálja"
 
 msgid "Awake since last charge"
 msgstr "Ébren töltött idő az utolsó töltés óta"
@@ -326,10 +311,10 @@ msgid ""
 "book only, or all books read today. Note: reading streak and weekly goal "
 "achievement always reflect all books regardless of this setting."
 msgstr ""
-"Azt szabályozza, hogy a mai olvasási idő és oldalszám csak az "
-"aktuális\nkönyvre, vagy az összes ma olvasott könyvre vonatkozzon. "
-"Megjegyzés: az olvasási\nsorozat és a heti cél elérése mindig az összes "
-"könyvet tükrözi, ettől a beállítástól\nfüggetlenül."
+"Azt szabályozza, hogy a mai olvasási idő és oldalszám csak az aktuális\n"
+"könyvre, vagy az összes ma olvasott könyvre vonatkozzon. Megjegyzés: az olvasási\n"
+"sorozat és a heti cél elérése mindig az összes könyvet tükrözi, ettől a beállítástól\n"
+"függetlenül."
 
 msgid "All books"
 msgstr "Összes könyv"
@@ -362,57 +347,37 @@ msgid ""
 "When enabled, the customisable sleep screen will display in file manager "
 "using the last saved book data."
 msgstr ""
-"Ha engedélyezve van, a testreszabható alvóképernyő a fájlkezelőben\naz "
-"utoljára mentett könyvadatokkal jelenik meg."
-
-msgid "Hide built-in presets (except Default)"
-msgstr "Beépített beállítások elrejtése (az Alapértelmezett kivételével)"
-
-msgid ""
-"Hide the built-in presets from the preset list, keeping only the Default "
-"preset and your custom presets visible."
-msgstr ""
-"Elrejti a beépített beállításokat a listából, csak az "
-"Alapértelmezett\nbeállítás és az egyéni beállítások maradnak láthatók."
-
-msgid "Setting saved. Preset list will update when you reopen this menu."
-msgstr "Beállítás mentve. A beállítások listája a menü újbóli megnyitásakor frissül."
+"Ha engedélyezve van, a testreszabható alvóképernyő a fájlkezelőben\n"
+"az utoljára mentett könyvadatokkal jelenik meg."
 
 msgid "Export sleep screen to file"
 msgstr "Alvóképernyő exportálása fájlba"
 
 msgid ""
-"When enabled, a screenshot of the sleep screen will be saved in the selected "
-"export folder each time a book is closed, using the filename and format set "
-"below."
+"When enabled, a screenshot of the sleep screen will be saved in the selected"
+" export folder each time you close a book or put the device to sleep, using "
+"the format set below."
 msgstr ""
-"Ha be van kapcsolva, minden könyvbezáráskor mentésre kerül az alvóképernyő "
-"képernyőképe a kiválasztott export mappába, az alább beállított fájlnévvel "
-"és formátummal."
+"Ha engedélyezve van, minden alkalommal, amikor bezár egy könyvet vagy alvó "
+"állapotba helyezi az eszközt, a rendszer elmenti az alvó képernyő "
+"pillanatképét a kiválasztott exportmappába, az alább beállított formátumban."
 
 msgid "Sleep screen export disabled."
 msgstr "Az alvóképernyő exportálása le van tiltva."
 
 msgid "No export folder set. Please set an export folder first."
 msgstr ""
-"Nincs exportálási mappa beállítva. Kérlek, először állíts be egy exportálási "
-"mappát."
+"Nincs exportálási mappa beállítva. Kérlek, először állíts be egy exportálási"
+" mappát."
 
 #, lua-format
-msgid "Sleep screen will be exported to:\n%s/%s.%s"
+msgid ""
+"Sleep screen will be exported to:\n"
+"%s/%s.%s"
 msgstr "Az alvóképernyő exportálva lesz ide: %s/%s.%s"
 
 msgid "Set export filename"
 msgstr "Export fájlnév beállítása"
-
-msgid ""
-"Choose the filename used for the exported image (without extension). Some "
-"devices need a specific filename to recognise it as their native sleep "
-"screen e.g. 'suspend_others' for Tolino."
-msgstr ""
-"Válassza ki az exportált kép fájlnevét (kiterjesztés nélkül). Egyes "
-"eszközöknek adott fájlnévre van szükségük ahhoz, hogy sajátalvóképernyőként "
-"ismerjék fel, pl. 'suspend_others' a Tolino esetén."
 
 msgid "Export filename"
 msgstr "Export fájlnév"
@@ -420,67 +385,46 @@ msgstr "Export fájlnév"
 msgid "Save"
 msgstr "Mentés"
 
-msgid "Export format"
-msgstr "Export formátum"
-
-msgid ""
-"Choose the image format for the exported file. BMP is needed for "
-"PocketBook's native sleep screen; PNG and JPG suit most other devices."
-msgstr ""
-"Válassza ki az exportált fájl képformátumát. BMP szükséges a PocketBook "
-"saját alvóképernyőjéhez; PNG és JPG megfelel a legtöbb más eszközhöz."
-
 msgid "PNG"
 msgstr "PNG"
 
-msgid "Lossless, larger file size. Default."
-msgstr "Veszteségmentes, nagyobb fájlméret. Alapértelmezett."
+msgid "Lossless. Medium file size, slower save."
+msgstr "Veszteségmentes. Közepes fájlméret, lassabb mentés."
 
 msgid "JPG"
 msgstr "JPG"
 
-msgid "Lossy, smaller file size."
-msgstr "Veszteséges, kisebb fájlméret."
+msgid "Lossy. Smallest file size, quick save."
+msgstr "Veszteséges. A legkisebb fájlméret, gyors mentés."
 
 msgid "BMP"
 msgstr "BMP"
 
-msgid "Uncompressed. Required for PocketBook's native sleep screen support."
-msgstr "Tömörítetlen. Szükséges a PocketBook saját alvóképernyő-támogatásához."
+msgid "Uncompressed. Largest file size, quick save."
+msgstr "Tömörítetlen. A legnagyobb fájlméret, gyors mentés."
 
 msgid "Set export folder"
 msgstr "Exportálási mappa beállítása"
 
-msgid "Choose the folder where the exported image will be saved."
-msgstr "Válassza ki a mappát, ahová az exportált kép mentésre kerül."
-
 #, lua-format
-msgid "Export folder set to:\n%s"
-msgstr "Exportálási mappa beállítva:\n%s"
+msgid ""
+"Export folder set to:\n"
+"%s"
+msgstr ""
+"Exportálási mappa beállítva:\n"
+"%s"
 
 msgid "Exclude this book's cover from sleep screen"
 msgstr "E könyv borítójának kihagyása az alvóképernyőről"
 
 msgid ""
-"Hides the cover for this book only, for when you'd rather it not be shown on "
-"your sleep screen - without having to switch presets or background settings "
-"each time you read it."
+"Hides the cover for this book only, for when you'd rather it not be shown on"
+" your sleep screen - without having to switch presets or background settings"
+" each time you read it."
 msgstr ""
 "Csak ennél a könyvnél rejti el a borítót, arra az esetre, ha nem szeretné, "
-"hogy megjelenjen az alvóképernyőn - anélkül, hogy minden olvasáskor váltania "
-"kellene az előbeállítást vagy a háttérbeállításokat."
-
-msgid "Cover-excluded fallback background"
-msgstr "Tartalék háttér borító kihagyásakor"
-
-msgid ""
-"What to show instead of the cover. Uses the colour, image, or folder already "
-"set in Background → Background type. Only selectable when \"Exclude this "
-"book's cover from sleep screen\" is turned on."
-msgstr ""
-"Mit jelenítsen meg a borító helyett. A Háttér → Háttér típusa alatt már "
-"beállított színt, képet vagy mappát használja. Csak akkor választható, ha az "
-"„E könyv borítójának kihagyása az alvóképernyőről” be van kapcsolva."
+"hogy megjelenjen az alvóképernyőn - anélkül, hogy minden olvasáskor váltania"
+" kellene az előbeállítást vagy a háttérbeállításokat."
 
 msgid "No background (leave screen as-is)"
 msgstr "Nincs háttér (a képernyő változatlanul marad)"
@@ -500,23 +444,21 @@ msgstr "Beállítások"
 msgid "Save, load, and manage presets."
 msgstr "Beállítások mentése, betöltése és kezelése."
 
-msgid "Display modes"
-msgstr "Megjelenítési módok"
-
-msgid "Global appearance settings."
-msgstr "Általános megjelenési beállítások."
-
 msgid "Contents"
 msgstr "Tartalom"
 
 msgid "Control which sections appear and what information they display."
 msgstr "Határozd meg, mely szakaszok jelenjenek meg és mit mutassanak."
 
-msgid "Layout & Spacing"
-msgstr "Elrendezés és térközök"
+msgid "Layout, Spacing & Frame"
+msgstr "Elrendezés, térközök és keret"
 
-msgid "Adjust the spatial settings of the information box."
-msgstr "Az információs mező térbeli beállításainak módosítása."
+msgid ""
+"Position and size of the box, the gaps between sections, and its border, "
+"corner radius, and opacity."
+msgstr ""
+"A doboz pozíciója és mérete, a szakaszok közötti térközök, valamint a "
+"kerete, saroklekerekítése és átlátszósága."
 
 msgid "Colours, Icons & Bars"
 msgstr "Színek, ikonok és sávok"
@@ -538,18 +480,8 @@ msgstr "Háttér"
 msgid "Choose what appears behind the information box."
 msgstr "Válaszd ki, mi jelenjen meg az információs mező mögött."
 
-msgid "Advanced"
-msgstr "Speciális"
-
-msgid "Advanced configuration options."
-msgstr "Speciális konfigurációs lehetőségek."
-
 msgid "About"
 msgstr "Névjegy"
-
-#, lua-format
-msgid "%s\nVersion: %s\n\nFor updates and issues:\ngithub.com/%s"
-msgstr "%s\nVerzió: %s\n\nFrissítések és hibák:\ngithub.com/%s"
 
 msgid "Book info"
 msgstr "Könyv infó"
@@ -566,12 +498,6 @@ msgstr "Akkumulátor infó"
 msgid "Message info"
 msgstr "Üzenet infó"
 
-msgid "Reorder sections"
-msgstr "Szakaszok átrendezése"
-
-msgid "Section order"
-msgstr "Szakaszok sorrendje"
-
 msgid "At least one section must remain visible."
 msgstr "Legalább egy szakasznak láthatónak kell maradnia."
 
@@ -582,8 +508,8 @@ msgid ""
 "Display the book's cover image above the title and progress in the book "
 "section."
 msgstr ""
-"A könyv borítóképének megjelenítése a cím és a haladás felett\na könyv "
-"szakaszban."
+"A könyv borítóképének megjelenítése a cím és a haladás felett\n"
+"a könyv szakaszban."
 
 msgid "Cover image size"
 msgstr "Borítókép mérete"
@@ -594,15 +520,18 @@ msgstr "A borítókép magassági korlátja képpontban."
 msgid "Cover image size (pixels)"
 msgstr "Borítókép mérete (képpont)"
 
-msgid "100–150px fits neatly in most layouts. Go up to 250px+ for a prominent cover."
+msgid ""
+"100–150px fits neatly in most layouts. Go up to 250px+ for a prominent "
+"cover."
 msgstr ""
-"100–150 px a legtöbb elrendezésbe jól illeszkedik. 250 px+ "
-"kiemelkedő\nborítóhoz."
+"100–150 px a legtöbb elrendezésbe jól illeszkedik. 250 px+ kiemelkedő\n"
+"borítóhoz."
 
 msgid "Cover border size"
 msgstr "Borítókeret mérete"
 
-msgid "Width of the border drawn around the cover image. Set to 0 for no border."
+msgid ""
+"Width of the border drawn around the cover image. Set to 0 for no border."
 msgstr "A borítókép körüli keret szélessége. 0 = nincs keret."
 
 msgid "Cover border size (pixels)"
@@ -618,8 +547,8 @@ msgid ""
 "When enabled, the cover image follows the text alignment setting instead of "
 "always being centered."
 msgstr ""
-"Ha engedélyezve van, a borítókép a szövegigazítási beállítást "
-"követi\nahelyett, hogy mindig középre legyen igazítva."
+"Ha engedélyezve van, a borítókép a szövegigazítási beállítást követi\n"
+"ahelyett, hogy mindig középre legyen igazítva."
 
 msgid "Cover image"
 msgstr "Borítókép"
@@ -652,8 +581,8 @@ msgid ""
 "Display estimated reading time left to finish the book, based on your "
 "average reading speed."
 msgstr ""
-"Megjeleníti a könyv befejezéséig hátralévő becsült olvasási időt, az átlagos "
-"olvasási sebessége alapján."
+"Megjeleníti a könyv befejezéséig hátralévő becsült olvasási időt, az átlagos"
+" olvasási sebessége alapján."
 
 msgid "Show book percentage"
 msgstr "Könyv százalékának megjelenítése"
@@ -664,7 +593,8 @@ msgstr "Megjeleníti a könyv befejezettségének százalékát."
 msgid "Show chapter count (ch x of x)"
 msgstr "Fejezetek számának megjelenítése (x. fejezet / x)"
 
-msgid "Display current chapter number and total chapters (e.g., 'Chapter 5 of 12')."
+msgid ""
+"Display current chapter number and total chapters (e.g., 'Chapter 5 of 12')."
 msgstr ""
 "Az aktuális fejezetszám és az összes fejezet megjelenítése (pl. „5. fejezet "
 "/ 12”)."
@@ -691,9 +621,6 @@ msgstr "Fejezet százalékának megjelenítése"
 msgid "Display the percentage of the current chapter completed."
 msgstr "Megjeleníti a jelenlegi fejezet befejezettségének százalékát."
 
-msgid "Title Line"
-msgstr "Cím sor"
-
 msgid "Choose what the top line of the daily info section displays."
 msgstr "Válaszd ki, mit jelenítsen meg a napi infó szakasz felső sora."
 
@@ -715,11 +642,10 @@ msgstr "Ma olvasott oldalak és idő"
 msgid "e.g. '35 pgs & 42 mins read today'"
 msgstr "pl. „35 old. és 42 percet olvastál ma”"
 
-msgid "Goal type"
-msgstr "Cél típusa"
-
-msgid "Choose whether your daily goal tracks pages read or time spent reading."
-msgstr "Válaszd ki, hogy a napi célod oldalak számát vagy olvasási időt kövessen."
+msgid ""
+"Choose whether your daily goal tracks pages read or time spent reading."
+msgstr ""
+"Válaszd ki, hogy a napi célod oldalak számát vagy olvasási időt kövessen."
 
 msgid "Page goal"
 msgstr "Oldal cél"
@@ -762,8 +688,8 @@ msgstr "Jelenlegi olvasási sorozat megjelenítése"
 
 msgid "Display consecutive days you've met your reading goal."
 msgstr ""
-"Azon egymást követő napok megjelenítése, amelyeken teljesítetted az olvasási "
-"célodat."
+"Azon egymást követő napok megjelenítése, amelyeken teljesítetted az olvasási"
+" célodat."
 
 msgid "Show weekly progress"
 msgstr "Heti haladás megjelenítése"
@@ -773,9 +699,9 @@ msgid ""
 "of the current weekday (Monday = 1... Sunday = 7). For example: Thursday "
 "with goals met on Monday and Tuesday will show 2/4."
 msgstr ""
-"A héten teljesített napok száma, az aktuális hétköznap tört részeként "
-"megjelenítve\n(Hétfő = 1 … Vasárnap = 7). Például: csütörtökön, ha hétfőn és "
-"kedden\nteljesítetted a célt, 2/4 jelenik meg."
+"A héten teljesített napok száma, az aktuális hétköznap tört részeként megjelenítve\n"
+"(Hétfő = 1 … Vasárnap = 7). Például: csütörtökön, ha hétfőn és kedden\n"
+"teljesítetted a célt, 2/4 jelenik meg."
 
 msgid "Show daily goal"
 msgstr "Napi cél megjelenítése"
@@ -790,9 +716,6 @@ msgstr "Cél százalékának megjelenítése"
 
 msgid "Display the percentage of your daily goal completed."
 msgstr "Megjeleníti a napi cél teljesítettségének százalékát."
-
-msgid "Show clock"
-msgstr "Óra megjelenítése"
 
 msgid ""
 "Display the current time. Note this is a snapshot taken when the sleep "
@@ -814,13 +737,6 @@ msgstr ""
 msgid "Show battery consumption rate"
 msgstr "Akkumulátor-fogyasztási arány megjelenítése"
 
-msgid ""
-"Display battery drain percentage per hour based on recent usage or manual "
-"input (see advanced menu)"
-msgstr ""
-"Az óránkénti akkumulátor-fogyasztás százalékának megjelenítése a "
-"közelmúltbeli\nhasználat vagy kézi bevitel alapján (lásd a speciális menüt)"
-
 msgid "Show battery time remaining"
 msgstr "Akkumulátor hátralévő idejének megjelenítése"
 
@@ -840,13 +756,12 @@ msgstr "Külön egyéni üzenet használata csak a Testreszabható alvóképerny
 msgid "Edit custom message"
 msgstr "Egyéni üzenet szerkesztése"
 
-#, lua-format
 msgid ""
 "Write your custom message text. Only active when 'Custom message' is "
 "selected. Supports variables: %d, %y, %t, %b, %r."
 msgstr ""
-"Írd be az egyéni üzenet szövegét. Csak akkor aktív, ha az „Egyéni "
-"üzenet”\nvan kiválasztva. Támogatott változók: %d, %y, %t, %b, %r."
+"Írd be az egyéni üzenet szövegét. Csak akkor aktív, ha az „Egyéni üzenet”\n"
+"van kiválasztva. Támogatott változók: %d, %y, %t, %b, %r."
 
 msgid "Custom Customisable Sleep Screen message"
 msgstr "Egyéni Testreszabható alvóképernyő üzenet"
@@ -864,8 +779,8 @@ msgid ""
 "Wraps all highlights in curly double quotes, removing any pre-existing "
 "quotation marks."
 msgstr ""
-"Az összes kiemelést tipográfiai idézőjelek közé zárja, eltávolítva\na "
-"meglévő idézőjeleket."
+"Az összes kiemelést tipográfiai idézőjelek közé zárja, eltávolítva\n"
+"a meglévő idézőjeleket."
 
 msgid "Show highlight location"
 msgstr "Kiemelés helyzetének megjelenítése"
@@ -874,19 +789,22 @@ msgid ""
 "Display the chapter title and page number where the highlight is found, "
 "shown below the highlight text."
 msgstr ""
-"A kiemelés szövege alatt megjelenik a fejezетcím és az oldalszám,\nahol a "
-"kiemelés található."
+"A kiemelés szövege alatt megjelenik a fejezетcím és az oldalszám,\n"
+"ahol a kiemelés található."
 
 msgid "Book highlight maximum length"
 msgstr "Könyv kiemelés maximális hossza"
 
 msgid "Maximum characters to display for highlights (0 = no limit)."
-msgstr "A kiemelésekhez megjelenítendő karakterek maximuma (0 = nincs korlát)."
+msgstr ""
+"A kiemelésekhez megjelenítendő karakterek maximuma (0 = nincs korlát)."
 
 msgid "Maximum highlight length (characters)"
 msgstr "Maximális kiemelés hossza (karakter)"
 
-msgid "100–150 chars keeps highlights readable. Set to 0 to show the full highlight."
+msgid ""
+"100–150 chars keeps highlights readable. Set to 0 to show the full "
+"highlight."
 msgstr ""
 "100–150 karakter olvashatóan tartja a kiemeléseket. 0 = teljes kiemelés "
 "megjelenítése."
@@ -894,33 +812,20 @@ msgstr ""
 msgid "Custom quotes"
 msgstr "Egyéni idézetek"
 
-msgid "Show a random quote from the custom_quotes.lua file in the plugin folder."
-msgstr ""
-"Véletlenszerű idézet megjelenítése a bővítmény mappájában "
-"lévő\ncustom_quotes.lua fájlból."
-
 msgid "Show quote attribution"
 msgstr "Idézet forrásának megjelenítése"
-
-msgid ""
-"Display the author and book name below the quote, if provided in "
-"custom_quotes.lua."
-msgstr ""
-"A szerző és a könyv nevének megjelenítése az idézet alatt,\nha meg van adva "
-"a custom_quotes.lua fájlban."
 
 msgid "KOReader sleep message"
 msgstr "KOReader alvóüzenet"
 
 msgid ""
-"Uses KOReaders own sleep screen message function. Enable 'Add custom message "
-"to sleep screen' to use this (Settings → Screen → Sleep screen → Sleep "
+"Uses KOReaders own sleep screen message function. Enable 'Add custom message"
+" to sleep screen' to use this (Settings → Screen → Sleep screen → Sleep "
 "screen message)."
 msgstr ""
-"A KOReader saját alvóképernyő-üzenet funkcióját használja. Az "
-"engedélyezéshez\nkapcsold be az „Egyéni üzenet hozzáadása az "
-"alvóképernyőhöz” opciót\n(Beállítások → Képernyő → Alvóképernyő → "
-"Alvóképernyő üzenet)."
+"A KOReader saját alvóképernyő-üzenet funkcióját használja. Az engedélyezéshez\n"
+"kapcsold be az „Egyéni üzenet hozzáadása az alvóképernyőhöz” opciót\n"
+"(Beállítások → Képernyő → Alvóképernyő → Alvóképernyő üzenet)."
 
 msgid "Show message header"
 msgstr "Üzenetfejléc megjelenítése"
@@ -928,30 +833,15 @@ msgstr "Üzenetfejléc megjelenítése"
 msgid "Show or hide the header label above the message text."
 msgstr "Az üzenetszöveg feletti fejléccímke megjelenítése vagy elrejtése."
 
-msgid "Message header"
-msgstr "Üzenet fejléce"
-
-#, lua-format
 msgid ""
 "Custom header text displayed above the message. Supports variables: %d, %y, "
 "%t, %b, %r."
 msgstr ""
-"Egyéni fejlécszöveg az üzenet felett. Támogatott változók: %d,\n%y, %t, %b, "
-"%r."
+"Egyéni fejlécszöveg az üzenet felett. Támogatott változók: %d,\n"
+"%y, %t, %b, %r."
 
 msgid "Change custom message header"
 msgstr "Egyéni üzenetfejléc módosítása"
-
-msgid "Displayed sections"
-msgstr "Megjelenített szakaszok"
-
-msgid "Toggle which sections show on the sleep screen. At least one must be visible."
-msgstr ""
-"Kapcsold ki-be, mely szakaszok jelenjenek meg az alvóképernyőn.\nLegalább "
-"egyiknek láthatónak kell lennie."
-
-msgid "[ Section Content ]"
-msgstr "[ Szakasz tartalma ]"
 
 msgid "Book section"
 msgstr "Könyv szakasz"
@@ -1014,12 +904,13 @@ msgid "Dark mode"
 msgstr "Sötét mód"
 
 msgid ""
-"Inverts the colour scheme. Text becomes white and backgrounds becomes black. "
-"Useful for reading in low-light conditions. Can be combined with monochrome "
-"mode."
+"Inverts the colour scheme. Text becomes white and backgrounds becomes black."
+" Useful for reading in low-light conditions. Can be combined with monochrome"
+" mode."
 msgstr ""
-"Megfordítja a színsémát. A szöveg fehér, a háttér fekete lesz.\nGyenge "
-"megvilágítású körülmények között hasznos. Kombinálható\negyszínű módokkal."
+"Megfordítja a színsémát. A szöveg fehér, a háttér fekete lesz.\n"
+"Gyenge megvilágítású körülmények között hasznos. Kombinálható\n"
+"egyszínű módokkal."
 
 msgid "Monochrome mode"
 msgstr "Egyszínű mód"
@@ -1029,17 +920,18 @@ msgid ""
 "monochrome light or monochrome dark hex values. Overwrites individual "
 "assigned section colours. Can be combined with dark mode."
 msgstr ""
-"Fekete-fehér e-olvasókhoz ajánlott. Egyetlen színt rendel az összes "
-"szakaszhoz\negyszínű világos vagy sötét hexértékek alapján. Felülírja az "
-"egyénileg\nhozzárendelt szakaszszíneket. Kombinálható sötét móddal."
+"Fekete-fehér e-olvasókhoz ajánlott. Egyetlen színt rendel az összes szakaszhoz\n"
+"egyszínű világos vagy sötét hexértékek alapján. Felülírja az egyénileg\n"
+"hozzárendelt szakaszszíneket. Kombinálható sötét móddal."
 
 msgid "Section gaps"
 msgstr "Szakaszok közötti térközök"
 
-msgid "Add transparent gaps between sections to make each appear as a separate box"
+msgid ""
+"Add transparent gaps between sections to make each appear as a separate box"
 msgstr ""
-"Átlátszó térközök hozzáadása a szakaszok közé, hogy mindegyik\nkülön "
-"dobozként jelenjen meg"
+"Átlátszó térközök hozzáadása a szakaszok közé, hogy mindegyik\n"
+"külön dobozként jelenjen meg"
 
 msgid "Enable section gaps"
 msgstr "Szakaszközök engedélyezése"
@@ -1054,11 +946,11 @@ msgid "Section gap size (pixels)"
 msgstr "Szakaszköz mérete (képpont)"
 
 msgid ""
-"10–20px gives a subtle separation. 30–50px makes sections feel like distinct "
-"cards."
+"10–20px gives a subtle separation. 30–50px makes sections feel like distinct"
+" cards."
 msgstr ""
-"10–20 px finom szétválasztást ad. 30–50 px esetén a szakaszok\nkülönálló "
-"kártyaként jelennek meg."
+"10–20 px finom szétválasztást ad. 30–50 px esetén a szakaszok\n"
+"különálló kártyaként jelennek meg."
 
 msgid "Position"
 msgstr "Pozíció"
@@ -1073,8 +965,8 @@ msgid ""
 "Nudge the box from its anchor position. Useful for pushing rounded corners "
 "off-screen."
 msgstr ""
-"A mező eltolása a rögzített pozíciótól. Hasznos a lekerekített\nsarkok "
-"képernyőn kívülre tolásához."
+"A mező eltolása a rögzített pozíciótól. Hasznos a lekerekített\n"
+"sarkok képernyőn kívülre tolásához."
 
 msgid "Horizontal offset (px)"
 msgstr "Vízszintes eltolás (px)"
@@ -1083,8 +975,8 @@ msgid ""
 "Nudges the box left (-) or right (+) from its anchor. Useful for pushing "
 "rounded corners off-screen."
 msgstr ""
-"A mezőt balra (−) vagy jobbra (+) tolja a rögzített pozíciótól.\nHasznos a "
-"lekerekített sarkok képernyőn kívülre tolásához."
+"A mezőt balra (−) vagy jobbra (+) tolja a rögzített pozíciótól.\n"
+"Hasznos a lekerekített sarkok képernyőn kívülre tolásához."
 
 msgid "Vertical offset (px)"
 msgstr "Függőleges eltolás (px)"
@@ -1093,13 +985,14 @@ msgid ""
 "Nudges the box up (+) or down (-) from its anchor. Useful for pushing "
 "rounded corners off-screen."
 msgstr ""
-"A mezőt felfelé (+) vagy lefelé (−) tolja a rögzített pozíciótól.\nHasznos a "
-"lekerekített sarkok képernyőn kívülre tolásához."
+"A mezőt felfelé (+) vagy lefelé (−) tolja a rögzített pozíciótól.\n"
+"Hasznos a lekerekített sarkok képernyőn kívülre tolásához."
 
 msgid "Width"
 msgstr "Szélesség"
 
-msgid "Horizontal width of the information box as a percentage of screen width."
+msgid ""
+"Horizontal width of the information box as a percentage of screen width."
 msgstr ""
 "Az információs mező vízszintes szélessége a képernyő szélességének "
 "százalékában."
@@ -1107,7 +1000,6 @@ msgstr ""
 msgid "Box width (%)"
 msgstr "Mező szélessége (%)"
 
-#, lua-format
 msgid "60–70% suits portrait screens."
 msgstr "60–70% álló képernyőkhöz ideális."
 
@@ -1120,7 +1012,6 @@ msgstr "Az információs mező átlátszósága."
 msgid "Opacity (%)"
 msgstr "Átlátszóság (%)"
 
-#, lua-format
 msgid "75% is semi-transparent. 100% is fully opaque."
 msgstr "75% félig átlátszó. 100% teljesen átlátszatlan."
 
@@ -1149,8 +1040,8 @@ msgid ""
 "0 for no trim. 1–2px is subtle, 4–6px is a bold decorative outline around "
 "the primary border."
 msgstr ""
-"0 = nincs dísz. 1–2 px finom, 4–6 px félkövér díszítő keret\naz elsődleges "
-"keret körül."
+"0 = nincs dísz. 1–2 px finom, 4–6 px félkövér díszítő keret\n"
+"az elsődleges keret körül."
 
 msgid "Corner radius"
 msgstr "Saroklekerekítés"
@@ -1159,8 +1050,8 @@ msgid ""
 "Round the corners of the info box. Also moves progress bars inline with the "
 "text when active."
 msgstr ""
-"Az információs mező sarkainak lekerekítése. Ha aktív, a folyamatjelzők\na "
-"szöveggel egy sorba kerülnek."
+"Az információs mező sarkainak lekerekítése. Ha aktív, a folyamatjelzők\n"
+"a szöveggel egy sorba kerülnek."
 
 msgid "Corner radius (px)"
 msgstr "Saroklekerekítés (px)"
@@ -1169,14 +1060,16 @@ msgid ""
 "0 for square corners. 15–30px for softly rounded. 150px+ for a pill-shaped "
 "box (depending on the section box height)."
 msgstr ""
-"0 = éles sarkok. 15–30 px = enyhén lekerekített. 150 px+ = kapszula "
-"alakú\nmező (a szakasz magasságától függően)."
+"0 = éles sarkok. 15–30 px = enyhén lekerekített. 150 px+ = kapszula alakú\n"
+"mező (a szakasz magasságától függően)."
 
 msgid "Internal padding"
 msgstr "Belső margó"
 
-msgid "Space between section borders and their content, configurable per side."
-msgstr "A szakaszkeretek és tartalmuk közötti távolság, oldalanként konfigurálható."
+msgid ""
+"Space between section borders and their content, configurable per side."
+msgstr ""
+"A szakaszkeretek és tartalmuk közötti távolság, oldalanként konfigurálható."
 
 msgid "Top"
 msgstr "Felső"
@@ -1202,7 +1095,9 @@ msgstr "Bal"
 msgid "Internal padding - left (px)"
 msgstr "Belső margó - balra (px)"
 
-msgid "Space to the left of section content. Increase when using large corner radii."
+msgid ""
+"Space to the left of section content. Increase when using large corner "
+"radii."
 msgstr ""
 "A szakasz tartalmától balra lévő távolság. Növeld nagy saroklekerekítés "
 "esetén."
@@ -1226,8 +1121,10 @@ msgstr "Minden oldal egyenlő beállítása"
 msgid "Internal padding - all sides (px)"
 msgstr "Belső margó - minden oldal (px)"
 
-msgid "Sets top, bottom, left and right padding to the same value in one step."
-msgstr "Egy lépésben egyenlő értéket állít be a felső, alsó, bal és jobb margóra."
+msgid ""
+"Sets top, bottom, left and right padding to the same value in one step."
+msgstr ""
+"Egy lépésben egyenlő értéket állít be a felső, alsó, bal és jobb margóra."
 
 msgid "Icon to text gap"
 msgstr "Ikon és szöveg közötti rés"
@@ -1238,8 +1135,10 @@ msgstr "Vízszintes távolság a szakaszikonok és a kísérő szöveg között.
 msgid "Icon to text gap (px)"
 msgstr "Ikon–szöveg rés (px)"
 
-msgid "8–12px gives comfortable breathing room between icon and text. 0 is flush."
-msgstr "8–12 px kényelmes teret biztosít az ikon és a szöveg között. 0 = illeszkedő."
+msgid ""
+"8–12px gives comfortable breathing room between icon and text. 0 is flush."
+msgstr ""
+"8–12 px kényelmes teret biztosít az ikon és a szöveg között. 0 = illeszkedő."
 
 msgid "No icon sets found in customisablesleepscreen.koplugin/icons/"
 msgstr ""
@@ -1255,10 +1154,11 @@ msgstr "A folyamatjelzők színének beállítása szakaszonként."
 msgid "Use saved colours for icon fill"
 msgstr "Mentett színek használata az ikonok kitöltéséhez"
 
-msgid "When enabled, icons will match the colour of their section's progress bar."
+msgid ""
+"When enabled, icons will match the colour of their section's progress bar."
 msgstr ""
-"Ha engedélyezve van, az ikonok a szakasz folyamatjelzőjének\nszínét veszik "
-"fel."
+"Ha engedélyezve van, az ikonok a szakasz folyamatjelzőjének\n"
+"színét veszik fel."
 
 msgid "Battery section (High)"
 msgstr "Akkumulátor szakasz (magas)"
@@ -1280,9 +1180,9 @@ msgid ""
 "and dark correspond to the current dark mode setting. Monochrome replaces "
 "all colours with that single chosen color."
 msgstr ""
-"Színek konfigurálása az egyszínű módhoz, az információs mező hátteréhez és a "
-"szöveghez.\nA világos és sötét az aktuális sötét mód beállításának felel "
-"meg. Az egyszínű\nmód minden színt a kiválasztott egyetlen színre cserél."
+"Színek konfigurálása az egyszínű módhoz, az információs mező hátteréhez és a szöveghez.\n"
+"A világos és sötét az aktuális sötét mód beállításának felel meg. Az egyszínű\n"
+"mód minden színt a kiválasztott egyetlen színre cserél."
 
 msgid "Monochrome mode (light)"
 msgstr "Egyszínű mód (világos)"
@@ -1351,19 +1251,18 @@ msgid ""
 "Displays a purely decorative progress bar under the message section, "
 "matching the message section colour and the progress bars in other sections."
 msgstr ""
-"Kizárólag dekoratív folyamatjelzőt jelenít meg az üzenet szakasz alatt,\naz "
-"üzenet szakasz és a többi szakasz folyamatjelzőjének színével egyezően."
+"Kizárólag dekoratív folyamatjelzőt jelenít meg az üzenet szakasz alatt,\n"
+"az üzenet szakasz és a többi szakasz folyamatjelzőjének színével egyezően."
 
 msgid "Inline progress bars"
 msgstr "Beágyazott folyamatjelzők"
 
 msgid ""
-"Progress bars sit inside the text area rather than spanning the full section "
-"width. Automatically enabled when corner radius > 0."
+"Progress bars sit inside the text area rather than spanning the full section"
+" width. Automatically enabled when corner radius > 0."
 msgstr ""
-"A folyamatjelzők a szövegterületen belül helyezkednek el, nem a "
-"teljes\nszakasz szélességén. Automatikusan engedélyezve, ha a "
-"saroklekerekítés > 0."
+"A folyamatjelzők a szövegterületen belül helyezkednek el, nem a teljes\n"
+"szakasz szélességén. Automatikusan engedélyezve, ha a saroklekerekítés > 0."
 
 msgid "Enable inline bars"
 msgstr "Beágyazott sávok engedélyezése"
@@ -1404,19 +1303,18 @@ msgid ""
 "Width of the inline progress bar as a percentage of the available text "
 "column. Alignment follows the text alignment setting."
 msgstr ""
-"A beágyazott folyamatjelző szélessége az elérhető szövegoszlop "
-"százalékában.\nAz igazítás a szövegigazítási beállítást követi."
+"A beágyazott folyamatjelző szélessége az elérhető szövegoszlop százalékában.\n"
+"Az igazítás a szövegigazítási beállítást követi."
 
 msgid "Inline bar width (%)"
 msgstr "Beágyazott sáv szélessége (%)"
 
-#, lua-format
 msgid ""
 "100% fills the text column. The bar is aligned to match your text alignment "
 "setting."
 msgstr ""
-"100% kitölti a szövegoszlopot. A sáv igazítása a "
-"szövegigazítási\nbeállításnak megfelelő."
+"100% kitölti a szövegoszlopot. A sáv igazítása a szövegigazítási\n"
+"beállításnak megfelelő."
 
 msgid "Title font face"
 msgstr "Cím betűtípusa"
@@ -1457,7 +1355,9 @@ msgstr "A szakaszokon belüli összes szöveg vízszintes igazítása."
 msgid "Book multiline titles"
 msgstr "Könyvcím több sorban"
 
-msgid "If deselected book titles will be truncated to a single line with an ellipsis"
+msgid ""
+"If deselected book titles will be truncated to a single line with an "
+"ellipsis"
 msgstr ""
 "Ha nincs kijelölve, a könyvcímek egyetlen sorra rövidülnek, három ponttal "
 "jelezve"
@@ -1480,9 +1380,9 @@ msgid ""
 "titles and normalises capitalisation. Only works correctly with English "
 "chapter titles - disable for non-English books."
 msgstr ""
-"Eltávolítja az olyan szerkezeti előtagokat, mint a „Chapter 5:” vagy „Part "
-"II”\na fejezетcímekből, és normalizálja a nagybetű-használatot. Csak angol "
-"fejezетcímekkel\nműködik helyesen – nem angol könyvek esetén tiltsd le."
+"Eltávolítja az olyan szerkezeti előtagokat, mint a „Chapter 5:” vagy „Part II”\n"
+"a fejezетcímekből, és normalizálja a nagybetű-használatot. Csak angol fejezетcímekkel\n"
+"működik helyesen – nem angol könyvek esetén tiltsd le."
 
 msgid "Make titles bold"
 msgstr "Félkövér cím"
@@ -1530,8 +1430,8 @@ msgid ""
 "When disabled, book cover will be scaled to fit within the screen while "
 "preserving aspect ratio."
 msgstr ""
-"Ha le van tiltva, a könyvborító a képarány megtartásával méreteződik\na "
-"képernyőhöz."
+"Ha le van tiltva, a könyvborító a képarány megtartásával méreteződik\n"
+"a képernyőhöz."
 
 msgid "Cover fill colour"
 msgstr "Borító kitöltési színe"
@@ -1569,9 +1469,9 @@ msgstr "Fedőréteg átlátszósága"
 msgid "Overlay opacity (%)"
 msgstr "Fedőréteg átlátszósága (%)"
 
-#, lua-format
 msgid "0% is no overlay. 20–40% adds a soft tint. 100% is fully opaque."
-msgstr "0% = nincs fedőréteg. 20–40% lágy tónust ad. 100% teljesen átlátszatlan."
+msgstr ""
+"0% = nincs fedőréteg. 20–40% lágy tónust ad. 100% teljesen átlátszatlan."
 
 msgid "None"
 msgstr "Nincs"
@@ -1607,26 +1507,23 @@ msgstr "Átnevezés"
 msgid "Enter new preset name"
 msgstr "Add meg az új beállítás nevét"
 
-msgid "[ Built-in Presets ]"
-msgstr "[ Beépített beállítások ]"
-
-msgid "[ Your Custom Presets ]"
-msgstr "[ Egyéni beállításaid ]"
-
 msgid "Apply"
 msgstr "Alkalmaz"
 
 msgid "Invalid hex code. Use format: #RRGGBB"
 msgstr "Érvénytelen hexkód. Használja a következő formátumot: #RRGGBB"
 
-msgid "Reset layout & spacing settings to default"
-msgstr "Elrendezés és térközök visszaállítása alapértelmezettre"
+msgid "Reset layout, spacing & frame settings to default"
+msgstr "Elrendezés, térközök és keret visszaállítása alapértelmezettre"
 
-msgid "Are you sure you want to reset layout & spacing settings?"
-msgstr "Biztosan visszaállítod az elrendezés és térközök beállításait?"
+msgid "Are you sure you want to reset layout, spacing & frame settings?"
+msgstr "Biztosan visszaállítod az elrendezés, térközök és keret beállításait?"
 
-msgid "Layout & spacing settings reset to defaults"
-msgstr "Az elrendezés és térközök beállításai visszaállítva az alapértelmezettre"
+msgid "Layout, spacing & frame settings reset to defaults"
+msgstr ""
+"Az elrendezés, térközök és keret beállításai visszaállítva az "
+"alapértelmezettreAz elrendezés és térközök beállításai visszaállítva az "
+"alapértelmezettre"
 
 msgid "Reset contents settings to default"
 msgstr "Tartalom beállítások visszaállítása alapértelmezettre"
@@ -1644,7 +1541,8 @@ msgid "Are you sure you want to reset colours, icons & bars settings?"
 msgstr "Biztosan visszaállítod a színek, ikonok és sávok beállításait?"
 
 msgid "Colours, icons & bars settings reset to defaults"
-msgstr "A színek, ikonok és sávok beállításai visszaállítva az alapértelmezettre"
+msgstr ""
+"A színek, ikonok és sávok beállításai visszaállítva az alapértelmezettre"
 
 msgid "Reset fonts & text settings to default"
 msgstr "Betűtípusok és szöveg visszaállítása alapértelmezettre"
@@ -1653,7 +1551,8 @@ msgid "Are you sure you want to reset fonts & text settings?"
 msgstr "Biztosan visszaállítod a betűtípusok és szöveg beállításait?"
 
 msgid "Fonts & text settings reset to defaults"
-msgstr "A betűtípusok és szöveg beállításai visszaállítva az alapértelmezettre"
+msgstr ""
+"A betűtípusok és szöveg beállításai visszaállítva az alapértelmezettre"
 
 msgid "Reset background settings to default"
 msgstr "Háttér beállítások visszaállítása alapértelmezettre"
@@ -1665,7 +1564,8 @@ msgid "Background settings reset to defaults"
 msgstr "A háttér beállításai visszaállítva az alapértelmezettre"
 
 msgid "Reset the settings in this part of the menu to their defaults."
-msgstr "A menü ezen részének beállításait visszaállítja az alapértelmezettekre."
+msgstr ""
+"A menü ezen részének beállításait visszaállítja az alapértelmezettekre."
 
 msgid "factory defaults"
 msgstr "gyári alapértelmezések"
@@ -1689,3 +1589,616 @@ msgstr "Adja meg a hexkódot"
 
 msgid "Enter hex colour code"
 msgstr "Adja meg a szín hexkódját"
+
+msgid ""
+"Saves a screenshot of the sleep screen to a file each time a book is closed."
+" Useful for devices that use an exported image as their own native sleep "
+"screen."
+msgstr ""
+"Egy könyv bezárásakor mindig elmenti az alvóképernyő képernyőképét egy "
+"fájlba. Hasznos az olyan eszközöknél, amelyek exportált képet használnak "
+"saját natív alvóképernyőként."
+
+msgid "Enable export"
+msgstr "Exportálás engedélyezése"
+
+msgid "Choose the filename used for the exported image (without extension)."
+msgstr ""
+"Válassza ki az exportált képhez használt fájlnevet (kiterjesztés nélkül)."
+
+#, lua-format
+msgid "Export format: %s"
+msgstr "Exportálási formátum: %s"
+
+msgid "Choose the image format and colour profile for the exported file."
+msgstr "Válassza ki az exportált fájl képformátumát és színprofilját."
+
+msgid ""
+"Choose the folder where the exported image will be saved. Must be set before"
+" export can be enabled."
+msgstr ""
+"Válassza ki a mappát, ahová az exportált kép mentésre kerül. Be kell "
+"állítani, mielőtt az exportálás engedélyezhető."
+
+msgid "Preview sleep screen"
+msgstr "Alvóképernyő előnézete"
+
+msgid ""
+"Shows what the sleep screen currently looks like, without actually "
+"suspending the device."
+msgstr ""
+"Megmutatja, hogyan néz ki jelenleg az alvóképernyő, anélkül hogy ténylegesen"
+" alvó állapotba helyezné az eszközt."
+
+msgid "Behaviour"
+msgstr "Viselkedés"
+
+msgid ""
+"How the plugin behaves: file manager display, ghosting, export, battery "
+"estimation, and stats scope."
+msgstr ""
+"Hogyan viselkedik a bővítmény: megjelenítés a fájlkezelőben, szellemkép, "
+"exportálás, akkumulátor-becslés és statisztikai hatókör."
+
+#, lua-format
+msgid "Version: %s"
+msgstr "Verzió: %s"
+
+#, lua-format
+msgid "Author: %s"
+msgstr "Szerző: %s"
+
+#, lua-format
+msgid "https://github.com/%s"
+msgstr "https://github.com/%s"
+
+#, lua-format
+msgid ""
+"GitHub:\n"
+"https://github.com/%s"
+msgstr ""
+"GitHub:\n"
+"https://github.com/%s"
+
+msgid "Check for updates"
+msgstr "Frissítések keresése"
+
+msgid "Check GitHub for a newer release, and install it if one is available."
+msgstr ""
+"Ellenőrzi a GitHubon, hogy van-e újabb verzió, és telepíti, ha elérhető."
+
+msgid "Border"
+msgstr "Keret"
+
+msgid "Primary border thickness and its secondary decorative trim."
+msgstr "Az elsődleges keret vastagsága és a másodlagos díszítő szegély."
+
+msgid "Icons"
+msgstr "Ikonok"
+
+msgid "Icon style, size, and visibility."
+msgstr "Ikonstílus, méret és láthatóság."
+
+msgid "Bars"
+msgstr "Sávok"
+
+msgid "Progress bar height, visibility, and inline styling."
+msgstr "A folyamatsávok magassága, láthatósága és beágyazott stílusa."
+
+msgid "Multiline titles"
+msgstr "Többsoros címek"
+
+msgid ""
+"Allow book and chapter titles to wrap across multiple lines instead of being"
+" truncated to one."
+msgstr ""
+"Engedélyezze, hogy a könyv- és fejezetcímek több sorba törjenek egy sorra "
+"rövidítés helyett."
+
+msgid "Cover exclusion"
+msgstr "Borító kizárása"
+
+msgid ""
+"Hide this book's cover from the sleep screen, and choose what shows instead."
+msgstr ""
+"Rejtse el ennek a könyvnek a borítóját az alvóképernyőn, és válassza ki, mi "
+"jelenjen meg helyette."
+
+msgid "Fallback background"
+msgstr "Tartalék háttér"
+
+msgid ""
+"What to show instead of the cover. Uses the colour, image, or folder already"
+" set in Background type. Only selectable when \"Exclude this book's cover "
+"from sleep screen\" is turned on."
+msgstr ""
+"Mi jelenjen meg a borító helyett. A Háttértípusban már beállított színt, "
+"képet vagy mappát használja. Csak akkor választható, ha az \"Ennek a "
+"könyvnek a borítója kizárva az alvóképernyőről\" be van kapcsolva."
+
+msgid ""
+"No book data available to preview yet.\n"
+"\n"
+"Open a book and show the sleep screen at least once before previewing."
+msgstr ""
+"Még nincs elérhető könyvadat az előnézethez.\n"
+"\n"
+"Nyisson meg egy könyvet, és jelenítse meg legalább egyszer az alvóképernyőt az előnézet használata előtt."
+
+msgid "Couldn't build a preview - check crash.log for details."
+msgstr ""
+"Nem sikerült előnézetet készíteni - a részletekért lásd a crash.log fájlt."
+
+msgid "Enable automatic preset switching"
+msgstr "Automatikus beállításváltás engedélyezése"
+
+msgid ""
+"When enabled, switches between the day and night presets below as needed. If"
+" you manually switch to a different preset, this pauses until you switch "
+"back to one of the two, or use \"Sync now\" below."
+msgstr ""
+"Ha engedélyezve van, szükség szerint vált a lenti nappali és éjszakai "
+"beállítás között. Ha kézzel másik beállításra vált, ez szünetel, amíg vissza"
+" nem tér a kettő egyikére, vagy nem használja a lenti \"Szinkronizálás "
+"most\" gombot."
+
+msgid "Sync now"
+msgstr "Szinkronizálás most"
+
+msgid ""
+"Immediately switches to the correct day/night preset, even if a different "
+"preset is currently active."
+msgstr ""
+"Azonnal a megfelelő nappali/éjszakai beállításra vált, még akkor is, ha "
+"jelenleg más beállítás aktív."
+
+#, lua-format
+msgid ""
+"Couldn't switch to '%s' - it may no longer exist. Check the day/night preset"
+" pickers below."
+msgstr ""
+"Nem sikerült átváltani erre: '%s' - lehet, hogy már nem létezik. Ellenőrizze"
+" a lenti nappali/éjszakai beállításválasztókat."
+
+#, lua-format
+msgid "Switched to '%s'"
+msgstr "Átváltva erre: '%s'"
+
+#, lua-format
+msgid "Already on '%s' - no change needed"
+msgstr "Már '%s' van beállítva - nincs szükség módosításra"
+
+#, lua-format
+msgid "Day preset: %s"
+msgstr "Nappali beállítás: %s"
+
+msgid "Preset to switch to outside the night window."
+msgstr "Az éjszakai időszakon kívül használandó beállítás."
+
+#, lua-format
+msgid "Night preset: %s"
+msgstr "Éjszakai beállítás: %s"
+
+msgid "Preset to switch to during the night window."
+msgstr "Az éjszakai időszak alatt használandó beállítás."
+
+msgid "Follow KOReader's night mode"
+msgstr "KOReader saját éjszakai módjának követése"
+
+msgid "Time window"
+msgstr "Időintervallum"
+
+#, lua-format
+msgid "Trigger: %s"
+msgstr "Kiváltó: %s"
+
+msgid ""
+"How the schedule decides when to switch: a fixed time window, or KOReader's "
+"own night mode setting (useful if you toggle that manually rather than on a "
+"fixed schedule)."
+msgstr ""
+"Hogyan dönti el az ütemezés, mikor váltson: egy rögzített időintervallum, "
+"vagy a KOReader saját éjszakai mód beállítása (hasznos, ha azt kézzel "
+"kapcsolja, nem rögzített ütemezés szerint)."
+
+msgid "Switch based on the start/end times."
+msgstr "Váltás a kezdési/befejezési idő alapján."
+
+msgid ""
+"Switch to the night preset whenever KOReader's own night mode is turned on, "
+"and back to the day preset when it's off."
+msgstr ""
+"Váltás az éjszakai beállításra, amint a KOReader saját éjszakai módja "
+"bekapcsol, és vissza a nappali beállításra, amikor kikapcsol."
+
+#, lua-format
+msgid "Night window start: %02d:%02d"
+msgstr "Éjszakai időszak kezdete: %02d:%02d"
+
+msgid "Time of day the night preset starts being used."
+msgstr "A napszak, amikor az éjszakai beállítás használata elkezdődik."
+
+msgid "Night window start"
+msgstr "Éjszakai időszak kezdete"
+
+msgid "Enter time in hours and minutes."
+msgstr "Adja meg az időt órában és percben."
+
+msgid "Set time"
+msgstr "Idő beállítása"
+
+#, lua-format
+msgid "Night window end: %02d:%02d"
+msgstr "Éjszakai időszak vége: %02d:%02d"
+
+msgid "Time of day the day preset resumes being used."
+msgstr "A napszak, amikor a nappali beállítás használata folytatódik."
+
+msgid "Night window end"
+msgstr "Éjszakai időszak vége"
+
+msgid " (auto-switch: day)"
+msgstr " (automatikus váltás: nappal)"
+
+msgid " (auto-switch: night)"
+msgstr " (automatikus váltás: éjszaka)"
+
+#, lua-format
+msgid "Preview preset '%s'?"
+msgstr "Megjeleníti a(z) '%s' beállítás előnézetét?"
+
+msgid "Preview"
+msgstr "Előnézet"
+
+msgid "Hold a preset below to preview it."
+msgstr "Tartsa lenyomva a lenti beállítást az előnézetéhez."
+
+msgid "Hold a custom preset below to preview, update, rename, or delete it."
+msgstr ""
+"Tartsa lenyomva a lenti egyéni beállítást az előnézethez, frissítéshez, "
+"átnevezéshez vagy törléshez."
+
+msgid "Save your current sleep screen settings as a new custom preset."
+msgstr ""
+"Mentse el a jelenlegi alvóképernyő-beállításait új egyéni beállításként."
+
+msgid "Automatic preset switching"
+msgstr "Automatikus beállításváltás"
+
+msgid ""
+"Automatically switch between two presets - e.g. a light one by day and a "
+"dark one at night."
+msgstr ""
+"Automatikusan vált két beállítás között - pl. egy világos nappal és egy "
+"sötét éjszaka."
+
+msgid "Built-in Presets"
+msgstr "Beépített beállítások"
+
+msgid "Load one of the built-in presets."
+msgstr "Töltse be az egyik beépített beállítást."
+
+msgid "Your Custom Presets"
+msgstr "Egyéni beállításai"
+
+msgid "Load, rename, update or delete one of your saved presets."
+msgstr ""
+"Töltse be, nevezze át, frissítse vagy törölje a mentett beállítások egyikét."
+
+msgid "No custom presets currently saved"
+msgstr "Jelenleg nincs mentett egyéni beállítás"
+
+msgid "Section order & visibility"
+msgstr "Szakaszok sorrendje és láthatósága"
+
+msgid ""
+"Select a section and tap the bottom arrows to reorder. Tap the checkmark to "
+"show or hide the section. At least one section must stay visible."
+msgstr ""
+"Válasszon ki egy szakaszt, és koppintson az alsó nyilakra az átrendezéshez. "
+"Koppintson a pipára a szakasz megjelenítéséhez vagy elrejtéséhez. Legalább "
+"egy szakasznak láthatónak kell maradnia."
+
+#, lua-format
+msgid "Title Line: %s"
+msgstr "Címsor: %s"
+
+#, lua-format
+msgid "Goal type: %s"
+msgstr "Céltípus: %s"
+
+msgid "Show remaining & charging text"
+msgstr "\"Töltés\"/\"hátralévő\" szöveg megjelenítése"
+
+msgid ""
+"Show the words \"remaining\" and \"charging\" next to the battery "
+"percentage, e.g. \"82% remaining\" instead of just \"82%\"."
+msgstr ""
+"Megjeleníti a \"hátralévő\" és \"töltés\" szavakat az akkumulátor százaléka "
+"mellett, pl. \"82% hátralévő\" a puszta \"82%\" helyett."
+
+msgid "Show time"
+msgstr "Idő megjelenítése"
+
+msgid ""
+"Display battery drain percentage per hour based on recent usage or manual "
+"input (see Global settings menu)"
+msgstr ""
+"Megjeleníti az óránkénti akkumulátorfogyasztást a legutóbbi használat vagy a"
+" kézi bevitel alapján (lásd a Globális beállítások menüt)"
+
+msgid "Edit message header"
+msgstr "Üzenetfejléc szerkesztése"
+
+msgid ""
+"Show a random quote from the css_custom_quotes.lua file in the plugin "
+"folder."
+msgstr ""
+"Megjelenít egy véletlenszerű idézetet a bővítménymappában lévő "
+"css_custom_quotes.lua fájlból."
+
+msgid ""
+"Display the author and book name below the quote, if provided in "
+"css_custom_quotes.lua."
+msgstr ""
+"Megjeleníti a szerzőt és a könyv címét az idézet alatt, ha meg van adva a "
+"css_custom_quotes.lua fájlban."
+
+msgid "archive extractor unavailable"
+msgstr "az archívumkicsomagoló nem érhető el"
+
+msgid "could not open archive"
+msgstr "az archívum nem nyitható meg"
+
+msgid "extract failed"
+msgstr "a kicsomagolás sikertelen"
+
+msgid "Downloading update..."
+msgstr "Frissítés letöltése..."
+
+msgid "the connection failed"
+msgstr "a kapcsolat sikertelen volt"
+
+msgid "the connection timed out"
+msgstr "a kapcsolat túllépte az időkorlátot"
+
+msgid "the secure connection failed"
+msgstr "a biztonságos kapcsolat sikertelen volt"
+
+msgid "there was no response"
+msgstr "nem érkezett válasz"
+
+msgid "the file could not be saved"
+msgstr "a fájlt nem sikerült menteni"
+
+msgid "Download failed."
+msgstr "A letöltés sikertelen."
+
+msgid "Installation failed: "
+msgstr "A telepítés sikertelen: "
+
+msgid "Customisable Sleep Screen updated to v"
+msgstr "A Customisable Sleep Screen frissítve erre: v"
+
+msgid "Restart KOReader now?"
+msgstr "Újraindítja a KOReadert most?"
+
+msgid "Restart"
+msgstr "Újraindítás"
+
+msgid "Checking for updates..."
+msgstr "Frissítések keresése..."
+
+msgid "Could not check for updates."
+msgstr "Nem sikerült ellenőrizni a frissítéseket."
+
+#, lua-format
+msgid "Customisable Sleep Screen is up to date (v%s)"
+msgstr "A Customisable Sleep Screen naprakész (v%s)"
+
+msgid "Update available"
+msgstr "Frissítés elérhető"
+
+msgid "Installed: "
+msgstr "Telepítve: "
+
+msgid "Latest: "
+msgstr "Legújabb: "
+
+msgid "Close"
+msgstr "Bezárás"
+
+msgid "Update and restart"
+msgstr "Frissítés és újraindítás"
+
+msgid "No download available for this release."
+msgstr "Ehhez a verzióhoz nincs elérhető letöltés."
+
+#, lua-format, lua-format
+msgid "Data unavailable"
+msgstr "Az adatok nem érhetők el"
+
+#, lua-format
+msgid "%s & %s %s read today"
+msgstr "Ma olvasva: %s és %s %s"
+
+msgid ""
+"Menu icons are hidden because KOReader's bundled fonts/nerdfonts/symbols.ttf"
+" couldn't be found. Restore that font file to bring the menu icons back."
+msgstr ""
+"A menüikonok rejtve vannak, mert a KOReaderhez mellékelt "
+"fonts/nerdfonts/symbols.ttf fájl nem található. Állítsa vissza ezt a "
+"betűtípusfájlt a menüikonok visszahozásához."
+
+msgid "Transparent"
+msgstr "Átlátszó"
+
+msgid "File manager background colour"
+msgstr "Fájlkezelő háttérszíne"
+
+msgid ""
+"Colour for the alternative file manager background. Independent of your "
+"presets - stays the same no matter which preset is active."
+msgstr ""
+"Az alternatív fájlkezelő-háttér színe. Független a beállításoktól - ugyanaz "
+"marad, függetlenül attól, melyik van aktívan."
+
+msgid "File manager background image path"
+msgstr "Fájlkezelő háttérkép elérési útja"
+
+msgid ""
+"Choose a single image to use as the alternative file manager background. "
+"Independent of your presets - stays the same no matter which preset is "
+"active."
+msgstr ""
+"Válasszon egyetlen képet az alternatív fájlkezelő-háttérhez. Független a "
+"beállításoktól - ugyanaz marad, függetlenül attól, melyik van aktívan."
+
+msgid "File manager background folder path"
+msgstr "Fájlkezelő háttérmappa elérési útja"
+
+msgid ""
+"Choose a folder to pick a random image from as the alternative file manager "
+"background. Independent of your presets - stays the same no matter which "
+"preset is active."
+msgstr ""
+"Válasszon egy mappát, ahonnan véletlenszerű kép kerül kiválasztásra az "
+"alternatív fájlkezelő-háttérhez. Független a beállításoktól - ugyanaz marad,"
+" függetlenül attól, melyik van aktívan."
+
+msgid "Stretch image to fill"
+msgstr "Kép nyújtása kitöltéshez"
+
+msgid ""
+"When disabled, the image will be scaled to fit within the screen while "
+"preserving aspect ratio. Independent of your presets - stays the same no "
+"matter which preset is active."
+msgstr ""
+"Ha le van tiltva, a kép a képarány megtartásával méreteződik a képernyőhöz. "
+"Független a beállításoktól - ugyanaz marad, függetlenül attól, melyik van "
+"aktívan."
+
+msgid "Fill colour"
+msgstr "Kitöltési szín"
+
+msgid ""
+"Background colour for the image when not stretched. Independent of your "
+"presets - stays the same no matter which preset is active."
+msgstr ""
+"Háttérszín a képhez, ha nincs nyújtva. Független a beállításoktól - ugyanaz "
+"marad, függetlenül attól, melyik van aktívan."
+
+msgid "Image alignment"
+msgstr "Kép igazítása"
+
+msgid ""
+"Horizontal alignment of the image when not stretched. Independent of your "
+"presets - stays the same no matter which preset is active."
+msgstr ""
+"A kép vízszintes igazítása, ha nincs nyújtva. Független a beállításoktól - "
+"ugyanaz marad, függetlenül attól, melyik van aktívan."
+
+msgid "Show alternative sleep screen (no infobox)"
+msgstr "Alternatív alvóképernyő megjelenítése (információs mező nélkül)"
+
+msgid ""
+"When disabled (default), the regular customisable sleep screen displays in "
+"file manager using the last saved book data. When enabled, a simpler "
+"alternative is shown instead - just a background, with no information box."
+msgstr ""
+"Ha le van tiltva (alapértelmezett), a szokásos testreszabható alvóképernyő "
+"jelenik meg a fájlkezelőben a legutóbb mentett könyvadatok felhasználásával."
+" Ha engedélyezve van, helyette egy egyszerűbb alternatíva jelenik meg - csak"
+" egy háttér, információs mező nélkül."
+
+msgid "File manager background"
+msgstr "Fájlkezelő háttere"
+
+msgid "Sleep screen in file manager"
+msgstr "Alvóképernyő a fájlkezelőben"
+
+msgid ""
+"Control what the sleep screen looks like when triggered from the file "
+"manager, outside of a book."
+msgstr ""
+"Szabályozza, hogyan nézzen ki az alvóképernyő, ha a fájlkezelőből, könyvön "
+"kívülről aktiválódik."
+
+msgid ""
+"File manager display, ghosting, export, battery estimation, and stats scope."
+" Unlike the menus above, these settings don't change when you switch "
+"presets."
+msgstr ""
+"Fájlkezelő megjelenítés, szellemképek, exportálás, akkumulátor-becslés és "
+"statisztikai hatókör. A fenti menüktől eltérően ezek a beállítások nem "
+"változnak a beállítás váltásakor."
+
+msgid "Global settings"
+msgstr "Globális beállítások"
+
+msgid "System Default (cfont)"
+msgstr "Rendszer alapértelmezett (cfont)"
+
+#, lua-format
+msgid "Title font face: %s"
+msgstr "Cím betűtípusa: %s"
+
+#, lua-format
+msgid "Title font size: %dpx"
+msgstr "Cím betűmérete: %dpx"
+
+#, lua-format
+msgid "Subtitle font face: %s"
+msgstr "Alcím betűtípusa: %s"
+
+#, lua-format
+msgid "Subtitle font size: %dpx"
+msgstr "Alcím betűmérete: %dpx"
+
+msgid "Time and pages read today"
+msgstr "Ma olvasott idő és oldalak"
+
+msgid "e.g. '42 mins & 35 pgs read today'"
+msgstr "pl. „42 percet és 35 oldalt olvastál ma”"
+
+msgid ""
+"What to show as the background for the alternative file manager sleep "
+"screen. This background is independent of your presets, so it looks the same"
+" no matter which preset was last active. Only selectable when \"Show "
+"alternative sleep screen\" is turned on."
+msgstr ""
+"Mi jelenjen meg háttérként az alternatív fájlkezelő-alvóképernyőn. Ez a "
+"háttér független a beállításoktól, így mindig ugyanúgy néz ki, függetlenül "
+"attól, melyik volt utoljára aktív. Csak akkor választható, ha az „Alternatív"
+" alvóképernyő megjelenítése” engedélyezve van."
+
+msgid ""
+"Hides the cover for this book only, for when you'd rather it not be shown on"
+" your sleep screen - without having to switch presets or background settings"
+" each time you read it. Only has an effect while Background type is set to "
+"\"Book cover\" - it has nothing to exclude otherwise."
+msgstr ""
+"Csak ennél a könyvnél rejti el a borítót, ha inkább nem szeretné látni az "
+"alvóképernyőn - anélkül, hogy minden alkalommal beállítást vagy "
+"háttérbeállításokat kellene váltania. Csak akkor van hatása, ha a háttér "
+"típusa „Könyvborító”-ra van állítva - egyébként nincs mit kizárni."
+
+msgid ""
+"What to show instead of the cover. Uses the colour, image, or folder already"
+" set in Background type. Only selectable when \"Exclude this book's cover "
+"from sleep screen\" is turned on and Background type is set to \"Book "
+"cover\"."
+msgstr ""
+"Mi jelenjen meg a borító helyett. A Háttér típusában már beállított színt, "
+"képet vagy mappát használja. Csak akkor választható, ha a „Ezen könyv "
+"borítójának kizárása az alvóképernyőről” engedélyezve van, és a háttér "
+"típusa „Könyvborító”-ra van állítva."
+
+msgid "Export in greyscale"
+msgstr "Exportálás szürkeárnyalatban"
+
+msgid ""
+"Saves the exported image without colour, reducing file size for any format."
+msgstr ""
+"Az exportált képet szín nélkül menti, ami bármely formátum esetén csökkenti "
+"a fájlméretet."

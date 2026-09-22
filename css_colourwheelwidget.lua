@@ -26,6 +26,12 @@ local Screen = Device.screen
 local logger = require("logger")
 local _      = require("gettext")
 
+local function isNightModeActive()
+    return (Device.screen.night_mode == true) or G_reader_settings:isTrue("night_mode")
+end
+
+-- ColorPreview: small colour swatch widget
+
 local ColorPreview = WidgetContainer:extend {}
 
 function ColorPreview:paintTo(bb, x, y)
@@ -47,6 +53,8 @@ local ColorWheelWidget = FocusManager:extend {
     cancel_callback      = nil,
     close_callback       = nil,
 }
+
+-- Colour math
 
 local function hsvToRgb(h, s, v)
     local c = v * s
@@ -74,6 +82,12 @@ local function hsvToRgb(h, s, v)
         math.floor((b + m) * 255 + 0.5)
 end
 
+local function roundToHundredth(v)
+    return math.floor(v * 100 + 0.5) / 100
+end
+
+-- ColorWheel: the circular hue/saturation dial
+
 local ColorWheel = WidgetContainer:extend {
     radius               = 0,
     hue                  = 0,
@@ -90,7 +104,7 @@ function ColorWheel:init()
         w = self.dimen.w,
         h = self.dimen.h,
     }
-    self.night_mode = self.invert_in_night_mode and G_reader_settings:isTrue("night_mode")
+    self.night_mode = self.invert_in_night_mode and isNightModeActive()
 end
 
 function ColorWheel:paintTo(bb, x, y)
@@ -173,6 +187,8 @@ function ColorWheel:updateColor(ges_pos)
 
     return true
 end
+
+-- ColorWheelWidget: the dialog that hosts the wheel, sliders & buttons
 
 function ColorWheelWidget:init()
     self.screen_width  = Screen:getWidth()
@@ -263,23 +279,23 @@ function ColorWheelWidget:_buildUI()
     }
 
     local value_minus = Button:new {
-        text        = "−",
-        enabled     = self.value > 0,
-        width       = self.button_width,
-        show_parent = self,
-        callback    = function()
-            self.value = math.max(0, self.value - 0.1)
+        text         = "−",
+        enabled_func = function() return self.value > 0 end,
+        width        = self.button_width,
+        show_parent  = self,
+        callback     = function()
+            self.value = roundToHundredth(math.max(0, self.value - 0.1))
             self:update()
         end,
     }
 
     local value_plus = Button:new {
-        text        = "＋",
-        enabled     = self.value < 1,
-        width       = self.button_width,
-        show_parent = self,
-        callback    = function()
-            self.value = math.min(1, self.value + 0.1)
+        text         = "＋",
+        enabled_func = function() return self.value < 1 end,
+        width        = self.button_width,
+        show_parent  = self,
+        callback     = function()
+            self.value = roundToHundredth(math.min(1, self.value + 0.1))
             self:update()
         end,
     }
@@ -303,7 +319,7 @@ function ColorWheelWidget:_buildUI()
 
     local preview_size = math.floor(wheel_size / 4)
 
-    local night_mode = self.invert_in_night_mode and G_reader_settings:isTrue("night_mode")
+    local night_mode = self.invert_in_night_mode and isNightModeActive()
     local preview_r, preview_g, preview_b = r, g, b
     if night_mode then
         preview_r = 255 - r
@@ -357,24 +373,24 @@ function ColorWheelWidget:_buildUI()
                             callback         = function()
                                 local text = input_dialog:getInputText()
                                 if text and text:match("^#%x%x%x%x%x%x$") then
-                                    local r = tonumber(text:sub(2, 3), 16) / 255
-                                    local g = tonumber(text:sub(4, 5), 16) / 255
-                                    local b = tonumber(text:sub(6, 7), 16) / 255
+                                    local rf = tonumber(text:sub(2, 3), 16) / 255
+                                    local gf = tonumber(text:sub(4, 5), 16) / 255
+                                    local bf = tonumber(text:sub(6, 7), 16) / 255
 
-                                    local max   = math.max(r, g, b)
-                                    local min   = math.min(r, g, b)
+                                    local max   = math.max(rf, gf, bf)
+                                    local min   = math.min(rf, gf, bf)
                                     local delta = max - min
 
                                     self.value      = max
                                     self.saturation = (max > 0) and (delta / max) or 0
 
                                     if delta > 0 then
-                                        if max == r then
-                                            self.hue = 60 * (((g - b) / delta) % 6)
-                                        elseif max == g then
-                                            self.hue = 60 * (((b - r) / delta) + 2)
+                                        if max == rf then
+                                            self.hue = 60 * (((gf - bf) / delta) % 6)
+                                        elseif max == gf then
+                                            self.hue = 60 * (((bf - rf) / delta) + 2)
                                         else
-                                            self.hue = 60 * (((r - g) / delta) + 4)
+                                            self.hue = 60 * (((rf - gf) / delta) + 4)
                                         end
                                     else
                                         self.hue = 0
@@ -499,7 +515,7 @@ function ColorWheelWidget:update()
     local r, g, b  = hsvToRgb(self.hue, self.saturation, self.value)
     local hex_text = string.format("#%02X%02X%02X", r, g, b)
 
-    local night_mode = self.invert_in_night_mode and G_reader_settings:isTrue("night_mode")
+    local night_mode = self.invert_in_night_mode and isNightModeActive()
     local preview_r, preview_g, preview_b = r, g, b
     if night_mode then
         preview_r = 255 - r
@@ -526,7 +542,7 @@ function ColorWheelWidget:update()
     UIManager:setDirty(self, "ui")
 end
 
-function ColorWheelWidget:onTapColorWheel(arg, ges_ev)
+function ColorWheelWidget:onTapColorWheel(_arg, ges_ev)
     if not self.color_wheel.dimen or not self.frame.dimen then
         return true
     end
@@ -543,7 +559,7 @@ function ColorWheelWidget:onTapColorWheel(arg, ges_ev)
     return false
 end
 
-function ColorWheelWidget:onPanColorWheel(arg, ges_ev)
+function ColorWheelWidget:onPanColorWheel(_arg, ges_ev)
     if not self.color_wheel.dimen then
         return false
     end

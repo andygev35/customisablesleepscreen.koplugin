@@ -1,4 +1,4 @@
--- Central settings store. Provides two LuaSettings instances so plugin data is stored in dedicated files rather than polluting settings.reader.lua.
+-- Central settings store: plugin data lives in two dedicated LuaSettings files in koreader/settings (separate from settings.reader.lua).
 
 local LuaSettings = require("luasettings")
 local DataStorage = require("datastorage")

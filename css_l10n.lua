@@ -3,326 +3,456 @@
 local logger = require("logger")
 local _dir   = (debug.getinfo(1, "S").source:match("^@(.+)/[^/]+$") or ".") .. "/"
 
-local function parsePluralExpression(expr)
-    local function stripOuterParens(s)
-        while true do
-            s = s:match("^%s*(.-)%s*$")
-            if s:sub(1, 1) == "(" and s:sub(-1) == ")" then
-                local depth = 0
-                local wraps_whole = true
-                for i = 1, #s do
-                    local c = s:sub(i, i)
-                    if c == "(" then
-                        depth = depth + 1
-                    elseif c == ")" then
-                        depth = depth - 1
-                        if depth == 0 and i < #s then
-                            wraps_whole = false
-                            break
-                        end
-                    end
-                end
-                if wraps_whole then
-                    s = s:sub(2, -2)
-                else
-                    break
-                end
-            else
-                break
-            end
+-- Plural-rule expression parser
+
+local function tokenisePluralExpr(expr)
+    local tokens = {}
+    local i, len = 1, #expr
+    while i <= len do
+        local c = expr:sub(i, i)
+        if c:match("%s") then
+            i = i + 1
+        elseif c:match("%d") then
+            local j = i
+            while j <= len and expr:sub(j, j):match("%d") do j = j + 1 end
+            tokens[#tokens + 1] = { kind = "num", value = tonumber(expr:sub(i, j - 1)) }
+            i = j
+        elseif c == "n" then
+            tokens[#tokens + 1] = { kind = "n" }
+            i = i + 1
+        elseif expr:sub(i, i + 1) == "&&" then
+            tokens[#tokens + 1] = { kind = "&&" }; i = i + 2
+        elseif expr:sub(i, i + 1) == "||" then
+            tokens[#tokens + 1] = { kind = "||" }; i = i + 2
+        elseif expr:sub(i, i + 1) == "==" then
+            tokens[#tokens + 1] = { kind = "==" }; i = i + 2
+        elseif expr:sub(i, i + 1) == "!=" then
+            tokens[#tokens + 1] = { kind = "!=" }; i = i + 2
+        elseif expr:sub(i, i + 1) == "<=" then
+            tokens[#tokens + 1] = { kind = "<=" }; i = i + 2
+        elseif expr:sub(i, i + 1) == ">=" then
+            tokens[#tokens + 1] = { kind = ">=" }; i = i + 2
+        elseif c == "<" or c == ">" or c == "%" or c == "!"
+            or c == "(" or c == ")" or c == "?" or c == ":" then
+            tokens[#tokens + 1] = { kind = c }
+            i = i + 1
+        else
+            i = i + 1
         end
-        return s
     end
-
-    local function translateTernary(s)
-        s = stripOuterParens(s)
-        local function findQuestion(str)
-            local depth = 0
-            for i = 1, #str do
-                local c = str:sub(i, i)
-                if c == "(" then
-                    depth = depth + 1
-                elseif c == ")" then
-                    depth = depth - 1
-                elseif c == "?" and depth == 0 then
-                    return i
-                end
-            end
-            return nil
-        end
-
-        local q = findQuestion(s)
-        if not q then
-            return s
-        end
-
-        local depth = 0
-        local colon = nil
-        for i = q + 1, #s do
-            local c = s:sub(i, i)
-            if c == "(" then
-                depth = depth + 1
-            elseif c == ")" then
-                depth = depth - 1
-            elseif c == ":" and depth == 0 then
-                colon = i
-                break
-            end
-        end
-
-        if not colon then
-            return s
-        end
-
-        local cond = s:sub(1, q - 1)
-        local truthy = s:sub(q + 1, colon - 1)
-        local falsy = s:sub(colon + 1)
-        return "(" .. translateTernary(cond) .. " and (" .. translateTernary(truthy) .. ") or (" .. translateTernary(falsy) .. "))"
-    end
-
-    expr = expr:gsub("!=", "~=")
-    expr = expr:gsub("&&", " and ")
-    expr = expr:gsub("%|%|", " or ")
-    expr = expr:gsub("!%s*", "not ")
-    expr = translateTernary(expr)
-
-    local loadfunc = loadstring or load
-    local fn, err = loadfunc(
-        "return function(n) local r = (" .. expr .. "); " ..
-        "if type(r) == 'boolean' then return r and 1 or 0 end; return r end"
-    )
-    if not fn then return nil end
-
-    local ok, pluralFn = pcall(fn)
-    if not ok or type(pluralFn) ~= "function" then return nil end
-    return pluralFn
+    return tokens
 end
 
-local function parsePO(path)
+local function buildPluralEvaluator(tokens)
+    local pos = { 1 }
+
+    local function peek()
+        return tokens[pos[1]]
+    end
+    local function advance()
+        pos[1] = pos[1] + 1
+    end
+
+    local parseTernary
+
+    local function parsePrimary()
+        local t = peek()
+        if not t then return function() return 0 end end
+        if t.kind == "num" then
+            advance()
+            local v = t.value
+            return function() return v end
+        elseif t.kind == "n" then
+            advance()
+            return function(n) return n end
+        elseif t.kind == "(" then
+            advance()
+            local inner = parseTernary()
+            if peek() and peek().kind == ")" then advance() end
+            return inner
+        end
+        advance()
+        return function() return 0 end
+    end
+
+    local function parseUnary()
+        if peek() and peek().kind == "!" then
+            advance()
+            local operand = parseUnary()
+            return function(n)
+                local v = operand(n)
+                if v == 0 or v == false then return 1 else return 0 end
+            end
+        end
+        return parsePrimary()
+    end
+
+    local function parseModulo()
+        local left = parseUnary()
+        while peek() and peek().kind == "%" do
+            advance()
+            local right = parseUnary()
+            local prev = left
+            left = function(n) return prev(n) % right(n) end
+        end
+        return left
+    end
+
+    local function boolToNum(v)
+        if v == 0 or v == false or v == nil then return 0 end
+        return 1
+    end
+
+    local function parseRelational()
+        local left = parseModulo()
+        while peek() and (peek().kind == "<" or peek().kind == "<=" or peek().kind == ">" or peek().kind == ">=") do
+            local op = peek().kind
+            advance()
+            local right = parseModulo()
+            local prev = left
+            if op == "<" then
+                left = function(n) return boolToNum(prev(n) < right(n)) end
+            elseif op == "<=" then
+                left = function(n) return boolToNum(prev(n) <= right(n)) end
+            elseif op == ">" then
+                left = function(n) return boolToNum(prev(n) > right(n)) end
+            else
+                left = function(n) return boolToNum(prev(n) >= right(n)) end
+            end
+        end
+        return left
+    end
+
+    local function parseEquality()
+        local left = parseRelational()
+        while peek() and (peek().kind == "==" or peek().kind == "!=") do
+            local op = peek().kind
+            advance()
+            local right = parseRelational()
+            local prev = left
+            if op == "==" then
+                left = function(n) return boolToNum(prev(n) == right(n)) end
+            else
+                left = function(n) return boolToNum(prev(n) ~= right(n)) end
+            end
+        end
+        return left
+    end
+
+    local function parseAnd()
+        local left = parseEquality()
+        while peek() and peek().kind == "&&" do
+            advance()
+            local right = parseEquality()
+            local prev = left
+            left = function(n)
+                if boolToNum(prev(n)) == 0 then return 0 end
+                return boolToNum(right(n))
+            end
+        end
+        return left
+    end
+
+    local function parseOr()
+        local left = parseAnd()
+        while peek() and peek().kind == "||" do
+            advance()
+            local right = parseAnd()
+            local prev = left
+            left = function(n)
+                if boolToNum(prev(n)) ~= 0 then return 1 end
+                return boolToNum(right(n))
+            end
+        end
+        return left
+    end
+
+    parseTernary = function()
+        local cond = parseOr()
+        if peek() and peek().kind == "?" then
+            advance()
+            local whenTrue = parseTernary()
+            if peek() and peek().kind == ":" then advance() end
+            local whenFalse = parseTernary()
+            return function(n)
+                if boolToNum(cond(n)) ~= 0 then return whenTrue(n) end
+                return whenFalse(n)
+            end
+        end
+        return cond
+    end
+
+    local ok, evaluator = pcall(function() return parseTernary() end)
+    if not ok then return nil end
+    return evaluator
+end
+
+local function compilePluralRule(expr)
+    if not expr or expr == "" then return nil end
+    local tokens = tokenisePluralExpr(expr)
+    if #tokens == 0 then return nil end
+    local evaluator = buildPluralEvaluator(tokens)
+    if not evaluator then return nil end
+    return function(n)
+        local ok, result = pcall(evaluator, n)
+        if not ok then return 0 end
+        local idx = math.floor(tonumber(result) or 0)
+        return idx
+    end
+end
+
+-- .po file parsing
+
+local function decodeQuoted(body)
+    local out, i, len = {}, 1, #body
+    while i <= len do
+        local c = body:sub(i, i)
+        if c == "\\" and i < len then
+            local nxt = body:sub(i + 1, i + 1)
+            if nxt == "n" then out[#out + 1] = "\n"
+            elseif nxt == "t" then out[#out + 1] = "\t"
+            elseif nxt == "r" then out[#out + 1] = "\r"
+            elseif nxt == '"' then out[#out + 1] = '"'
+            elseif nxt == "\\" then out[#out + 1] = "\\"
+            else out[#out + 1] = nxt end
+            i = i + 2
+        else
+            out[#out + 1] = c
+            i = i + 1
+        end
+    end
+    return table.concat(out)
+end
+
+local function extractQuoted(line)
+    return line:match('^%s*"(.*)"%s*$')
+end
+
+local function readCatalogue(path)
     local f = io.open(path, "r")
     if not f then return nil end
 
-    local map = {}
-    local pluralizer = nil
-    local entry = {
-        msgid = nil,
-        msgid_plural = nil,
-        msgstrs = {},
-    }
-    local current_field = nil
+    local catalogue = {}
+    local pluralRule = nil
 
-    local function flush()
-        if not entry.msgid then
-            entry = { msgid = nil, msgid_plural = nil, msgstrs = {} }
-            current_field = nil
-            return
-        end
+    local msgid, msgid_plural, msgstrs
+    local active = nil
 
-        if entry.msgid == "" then
-            local header = entry.msgstrs[0] or ""
-            for line in header:gmatch("([^\n]*)\n?") do
-                local plural_line = line:match("^Plural%-Forms:%s*(.-)%s*$")
-                if plural_line then
-                    local plural_expr = plural_line:match("plural%s*=%s*(.-)%s*;?%s*$")
-                    if plural_expr then
-                        pluralizer = parsePluralExpression(plural_expr)
-                    end
-                    break
-                end
+    local function commitEntry()
+        if msgid == nil then return end
+        if msgid == "" then
+            local header = (msgstrs and msgstrs[0]) or ""
+            local pf_expr = header:match("Plural%-Forms:[^\n]*plural%s*=%s*([^;]+);")
+            if pf_expr then
+                pluralRule = compilePluralRule(pf_expr)
             end
+        elseif msgid_plural then
+            local variants = {}
+            local has_any = false
+            for idx, str in pairs(msgstrs or {}) do
+                if str ~= "" then variants[idx] = str; has_any = true end
+            end
+            if has_any then catalogue[msgid] = variants end
         else
-            if entry.msgid_plural then
-                local trans = {}
-                for idx, str in pairs(entry.msgstrs) do
-                    if str and str ~= "" then
-                        trans[idx] = str
-                    end
-                end
-                if next(trans) then
-                    map[entry.msgid] = trans
-                end
-            else
-                local str = entry.msgstrs[0]
-                if str and str ~= "" then
-                    map[entry.msgid] = str
-                end
-            end
+            local str = msgstrs and msgstrs[0]
+            if str and str ~= "" then catalogue[msgid] = str end
         end
-
-        entry = { msgid = nil, msgid_plural = nil, msgstrs = {} }
-        current_field = nil
+        msgid, msgid_plural, msgstrs, active = nil, nil, nil, nil
     end
 
-    local function unescape(s)
-        return s:gsub("\\n", "\n"):gsub("\\t", "\t"):gsub('\\"', '"'):gsub("\\\\", "\\")
-    end
+    for raw_line in f:lines() do
+        local line = raw_line:match("^%s*(.-)%s*$")
+        if line == "" then
+            commitEntry()
+        elseif line:sub(1, 1) == "#" then
+        else
+            local id = line:match('^msgid%s+"')
+            local id_plural = line:match('^msgid_plural%s+"')
+            local str_idx = line:match('^msgstr%[(%d+)%]%s+"')
+            local str_plain = line:match('^msgstr%s+"')
+            local continuation = extractQuoted(line)
 
-    for line in f:lines() do
-        local text = line:match("^%s*(.-)%s*$")
-        if text == "" then
-            flush()
-        elseif text:match("^#") then
-        elseif text:match('^msgid%s+"') then
-            flush()
-            entry.msgid = unescape(text:match('^msgid%s+"(.*)"') or "")
-            current_field = "msgid"
-        elseif text:match('^msgid_plural%s+"') then
-            entry.msgid_plural = unescape(text:match('^msgid_plural%s+"(.*)"') or "")
-            current_field = "msgid_plural"
-        elseif text:match('^msgstr%[%d+%]%s+"') then
-            local idx = tonumber(text:match('^msgstr%[(%d+)%]%s+"'))
-            entry.msgstrs[idx] = unescape(text:match('^msgstr%[%d+%]%s+"(.*)"') or "")
-            current_field = "msgstr" .. idx
-        elseif text:match('^msgstr%s+"') then
-            entry.msgstrs[0] = unescape(text:match('^msgstr%s+"(.*)"') or "")
-            current_field = "msgstr0"
-        elseif text:match('^"') and current_field then
-            local cont = unescape(text:match('^"(.*)"') or "")
-            if current_field == "msgid" then
-                entry.msgid = entry.msgid .. cont
-            elseif current_field == "msgid_plural" then
-                entry.msgid_plural = entry.msgid_plural .. cont
-            else
-                local idx = tonumber(current_field:match("^msgstr(%d+)$"))
-                if idx then
-                    entry.msgstrs[idx] = (entry.msgstrs[idx] or "") .. cont
+            if id then
+                commitEntry()
+                local body = line:match('^msgid%s+"(.*)"%s*$') or ""
+                msgid = decodeQuoted(body)
+                msgstrs = {}
+                active = "id"
+            elseif id_plural then
+                local body = line:match('^msgid_plural%s+"(.*)"%s*$') or ""
+                msgid_plural = decodeQuoted(body)
+                active = "id_plural"
+            elseif str_idx then
+                local idx = tonumber(str_idx)
+                local body = line:match('^msgstr%[%d+%]%s+"(.*)"%s*$') or ""
+                msgstrs[idx] = decodeQuoted(body)
+                active = "str" .. idx
+            elseif str_plain then
+                local body = line:match('^msgstr%s+"(.*)"%s*$') or ""
+                msgstrs[0] = decodeQuoted(body)
+                active = "str0"
+            elseif continuation and active then
+                local piece = decodeQuoted(continuation)
+                if active == "id" then
+                    msgid = msgid .. piece
+                elseif active == "id_plural" then
+                    msgid_plural = msgid_plural .. piece
+                elseif active:sub(1, 3) == "str" then
+                    local idx = tonumber(active:sub(4)) or 0
+                    msgstrs[idx] = (msgstrs[idx] or "") .. piece
                 end
             end
         end
     end
-    flush()
+    commitEntry()
     f:close()
-    return map, pluralizer
+
+    return catalogue, pluralRule
 end
 
-local function detectLang()
-    local lang = G_reader_settings and G_reader_settings:readSetting("language")
-    if type(lang) == "string" and lang ~= "" then return lang end
-    local lc = os.getenv("LANG") or os.getenv("LC_ALL") or os.getenv("LC_MESSAGES") or ""
-    lang = lc:match("^([a-zA-Z_]+)")
-    return lang or "en"
+-- Catalogue loading
+
+local function currentLanguageTag()
+    local configured = G_reader_settings and G_reader_settings:readSetting("language")
+    if type(configured) == "string" and configured ~= "" then
+        return configured
+    end
+    local env = os.getenv("LANG") or os.getenv("LC_ALL") or os.getenv("LC_MESSAGES") or ""
+    return env:match("^([a-zA-Z_]+)") or "en"
 end
 
-local _translations = nil
+local loadedCatalogue = nil
+local installedWrapper = false
 
-local function loadTranslations()
-    local lang = detectLang()
-    if lang == "en" or lang:match("^en_") then return nil end
+local function tryLoadCatalogueFor(tag)
+    local path = _dir .. "l10n/" .. tag .. ".po"
+    local entries, pluralRule = readCatalogue(path)
+    if not entries or not next(entries) then return nil end
+    local count = 0
+    for _ in pairs(entries) do count = count + 1 end
+    logger.info("[Customisable Sleep Screen] i18n: loaded " .. path .. " (" .. count .. " strings)")
+    return { entries = entries, pluralRule = pluralRule }
+end
 
-    local function try(name)
-        local path = _dir .. "l10n/" .. name .. ".po"
-        local entries, pluralizer = parsePO(path)
-        if entries and next(entries) then
-            local n = 0; for _ in pairs(entries) do n = n + 1 end
-            logger.info("simpleui i18n: loaded " .. path .. " — " .. n .. " strings")
-            return { entries = entries, plural = pluralizer }
-        end
+local function ensureCatalogueLoaded()
+    if loadedCatalogue ~= nil then
+        return loadedCatalogue or nil
     end
 
-    return try(lang) or (function()
-        local prefix = lang:match("^([a-zA-Z]+)")
-        if prefix and prefix ~= lang then return try(prefix) end
-    end)()
-end
-
-local _installed = false
-
-local function install()
-    if _installed then return end
-
-    _translations = loadTranslations()
-    if not _translations then return end
-
-    local orig_gettext = package.loaded["gettext"]
-    if not orig_gettext then
-        local ok, gt = pcall(require, "gettext")
-        if not ok or not gt then
-            logger.warn("simpleui i18n: cannot load gettext, translations disabled")
-            return
-        end
-        orig_gettext = gt
-    end
-
-    local function translate(msgid)
-        if not _translations then return nil end
-        local entry = _translations.entries[msgid]
-        if type(entry) == "string" then
-            return entry
-        elseif type(entry) == "table" then
-            return entry[0] or entry[1]
-        end
+    local tag = currentLanguageTag()
+    if tag == "en" or tag:match("^en_") then
+        loadedCatalogue = false
         return nil
     end
 
-    local function ngettext(msgid, msgid_plural, n)
-        if _translations then
-            local entry = _translations.entries[msgid]
-            if type(entry) == "table" then
-                local idx = 0
-                if _translations.plural then
-                    idx = _translations.plural(n) or 0
-                else
-                    idx = (n == 1) and 0 or 1
-                end
-                local translated = entry[idx]
-                if translated then return translated end
-            elseif type(entry) == "string" and n == 1 then
-                return entry
-            end
+    local found = tryLoadCatalogueFor(tag)
+    if not found then
+        local base = tag:match("^([a-zA-Z]+)")
+        if base and base ~= tag then
+            found = tryLoadCatalogueFor(base)
         end
-
-        if type(orig_gettext) == "table" and type(orig_gettext.ngettext) == "function" then
-            return orig_gettext.ngettext(msgid, msgid_plural, n)
-        end
-
-        local fallback = (n == 1) and msgid or msgid_plural
-        return orig_gettext(fallback)
     end
 
-    local wrapper
-    local mt = getmetatable(orig_gettext)
-    if mt and mt.__call then
-        wrapper = setmetatable({ ngettext = ngettext }, {
-            __call = function(_, msgid)
-                local t = translate(msgid)
-                if t then return t end
-                return orig_gettext(msgid)
-            end,
-            __index = orig_gettext,
-        })
-    elseif type(orig_gettext) == "function" then
-        wrapper = setmetatable({ ngettext = ngettext }, {
-            __call = function(_, msgid)
-                local t = translate(msgid)
-                if t then return t end
-                return orig_gettext(msgid)
-            end,
-        })
+    loadedCatalogue = found or false
+    return found
+end
 
-        for k, v in pairs(orig_gettext) do
-            wrapper[k] = v
+-- Lookup
+
+local function lookupSingular(msgid)
+    local catalogue = ensureCatalogueLoaded()
+    if not catalogue then return nil end
+    local entry = catalogue.entries[msgid]
+    if type(entry) == "string" then return entry end
+    if type(entry) == "table" then return entry[0] or entry[1] end
+    return nil
+end
+
+local function lookupPlural(msgid, count)
+    local catalogue = ensureCatalogueLoaded()
+    if not catalogue then return nil end
+    local entry = catalogue.entries[msgid]
+    if type(entry) == "table" then
+        local idx = 0
+        if catalogue.pluralRule then
+            idx = catalogue.pluralRule(count) or 0
+        else
+            idx = (count == 1) and 0 or 1
         end
-    else
-        logger.warn("simpleui i18n: unexpected gettext type: " .. type(orig_gettext))
+        return entry[idx]
+    elseif type(entry) == "string" and count == 1 then
+        return entry
+    end
+    return nil
+end
+
+-- gettext hook install/uninstall
+
+local function install()
+    if installedWrapper then return end
+
+    if not ensureCatalogueLoaded() then
         return
     end
 
-    package.loaded["gettext"] = wrapper
-    _installed = true
-    logger.info("simpleui i18n: installed wrapper for language: " .. detectLang())
+    local baseGettext = package.loaded["gettext"]
+    if not baseGettext then
+        local ok, mod = pcall(require, "gettext")
+        if not ok or not mod then
+            logger.warn("[Customisable Sleep Screen] i18n: gettext module unavailable, translations disabled")
+            return
+        end
+        baseGettext = mod
+    end
+
+    local function pluralised(msgid, msgid_plural, n)
+        local hit = lookupPlural(msgid, n)
+        if hit then return hit end
+        if type(baseGettext) == "table" and type(baseGettext.ngettext) == "function" then
+            return baseGettext.ngettext(msgid, msgid_plural, n)
+        end
+        return baseGettext((n == 1) and msgid or msgid_plural)
+    end
+
+    local proxy
+    local baseMeta = getmetatable(baseGettext)
+    if baseMeta and baseMeta.__call then
+        proxy = setmetatable({ ngettext = pluralised }, {
+            __call = function(_, msgid)
+                return lookupSingular(msgid) or baseGettext(msgid)
+            end,
+            __index = baseGettext,
+        })
+    elseif type(baseGettext) == "function" then
+        proxy = setmetatable({ ngettext = pluralised }, {
+            __call = function(_, msgid)
+                return lookupSingular(msgid) or baseGettext(msgid)
+            end,
+        })
+        for k, v in pairs(baseGettext) do
+            proxy[k] = v
+        end
+    else
+        logger.warn("[Customisable Sleep Screen] i18n: unrecognised gettext shape (" .. type(baseGettext) .. ")")
+        return
+    end
+
+    package.loaded["gettext"] = proxy
+    installedWrapper = true
+    logger.info("[Customisable Sleep Screen] i18n: active for language '" .. currentLanguageTag() .. "'")
 end
 
 local function uninstall()
-    if not _installed then return end
+    if not installedWrapper then return end
     package.loaded["gettext"] = nil
     pcall(require, "gettext")
-    _installed    = false
-    _translations = nil
-    logger.info("simpleui i18n: uninstalled")
+    installedWrapper = false
+    loadedCatalogue = nil
+    logger.info("[Customisable Sleep Screen] i18n: deactivated")
 end
 
 return {
     install   = install,
     uninstall = uninstall,
-    getLang   = detectLang,
+    getLang   = currentLanguageTag,
 }

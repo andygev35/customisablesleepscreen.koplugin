@@ -8,7 +8,6 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. ---- Display sleep screen strings ----
-
 msgid "January"
 msgstr "1월"
 
@@ -67,13 +66,6 @@ msgstr[0] "분"
 
 msgid "< 1 min"
 msgstr "1분 미만"
-
-#, lua-format
-msgid "~%d %s left"
-msgstr "약 %d%s 남음"
-
-msgid "~<1 hr left"
-msgstr "약 1시간 미만 남음"
 
 msgid "Untitled"
 msgstr "제목 없음"
@@ -146,18 +138,11 @@ msgstr "목표의 %d%%"
 msgid "%d page goal"
 msgstr "%d 페이지 목표"
 
-#, lua-format
-msgid "~%.1f%%/hour"
-msgstr "약 %.1f%%/시간"
-
 msgid "Rate unavailable"
 msgstr "속도 정보 없음"
 
 msgid "No message set"
 msgstr "메시지 없음"
-
-msgid "No custom quotes found. Add quotes to custom_quotes.lua."
-msgstr "사용자 정의 인용구가 없습니다. custom_quotes.lua에 인용구를 추가하세요."
 
 #, lua-format
 msgid "pg. %s"
@@ -178,8 +163,27 @@ msgstr "인용구"
 msgid "Message"
 msgstr "메시지"
 
-#. ---- All other strings (menu items, help text, headers, buttons) ----
+msgid "< 1 min left"
+msgstr "1분 미만 남음"
 
+#, lua-format
+msgid "Page %s of %s"
+msgstr "%s / %s 페이지"
+
+msgid "charging"
+msgstr "충전 중"
+
+msgid "remaining"
+msgstr "남음"
+
+#, lua-format
+msgid "%.1f%% / hour"
+msgstr "%.1f%% / 시간"
+
+msgid "No custom quotes found. Add quotes to css_custom_quotes.lua."
+msgstr "사용자 지정 인용구를 찾을 수 없습니다. css_custom_quotes.lua에 인용구를 추가하세요."
+
+#. ---- All other strings (menu items, help text, headers, buttons) ----
 msgid "Customisable sleep screen settings"
 msgstr "맞춤형 절전 화면 설정"
 
@@ -196,31 +200,19 @@ msgid "Enable customisable sleep screen"
 msgstr "맞춤형 절전 화면 활성화"
 
 msgid ""
-"Customisable Sleep Screen: no book data found.\n\nOpen a book and trigger "
-"the sleep screen at least once before it will work in the file manager."
-msgstr "맞춤형 절전 화면: 책 데이터를 찾을 수 없습니다.\n\n파일 관리자에서 작동하려면 먼저 책을 열고 절전 화면을 최소 한 번 실행하세요."
-
-msgid "Delete all custom presets"
-msgstr "모든 사용자 프리셋 삭제"
-
-msgid ""
-"Permanently removes all custom presets you've created. The built-in "
-"'Default' preset will remain. This cannot be undone."
-msgstr "사용자가 만든 모든 프리셋을 영구적으로 삭제합니다. 기본 제공 '기본값' 프리셋은 유지됩니다. 이 작업은 취소할 수 없습니다."
-
-msgid ""
-"Are you sure you want to delete all custom presets? (built-in presets will "
-"remain)"
-msgstr "모든 사용자 프리셋을 삭제하시겠습니까? (기본 제공 프리셋은 유지됩니다)"
+"Customisable Sleep Screen: no book data found.\n"
+"\n"
+"Open a book and trigger the sleep screen at least once before it will work in the file manager."
+msgstr ""
+"맞춤형 절전 화면: 책 데이터를 찾을 수 없습니다.\n"
+"\n"
+"파일 관리자에서 작동하려면 먼저 책을 열고 절전 화면을 최소 한 번 실행하세요."
 
 msgid "Delete"
 msgstr "삭제"
 
 msgid "Cancel"
 msgstr "취소"
-
-msgid "All custom presets deleted. Built-in presets remain."
-msgstr "모든 사용자 프리셋이 삭제되었습니다. 기본 제공 프리셋은 유지됩니다."
 
 msgid "Sleep screen orientation"
 msgstr "절전 화면 방향"
@@ -341,25 +333,16 @@ msgid ""
 "using the last saved book data."
 msgstr "활성화하면 파일 관리자에서도 마지막으로 저장된 책 데이터를 사용하여 맞춤형 절전 화면이 표시됩니다."
 
-msgid "Hide built-in presets (except Default)"
-msgstr "기본 제공 프리셋 숨기기 (기본값 제외)"
-
-msgid ""
-"Hide the built-in presets from the preset list, keeping only the Default "
-"preset and your custom presets visible."
-msgstr "프리셋 목록에서 기본 제공 프리셋을 숨겨 기본값 프리셋과 사용자 프리셋만 표시합니다."
-
-msgid "Setting saved. Preset list will update when you reopen this menu."
-msgstr "설정이 저장되었습니다. 이 메뉴를 다시 열면 프리셋 목록이 업데이트됩니다."
-
 msgid "Export sleep screen to file"
 msgstr "절전 화면을 파일로 내보내기"
 
 msgid ""
-"When enabled, a screenshot of the sleep screen will be saved in the selected "
-"export folder each time a book is closed, using the filename and format set "
-"below."
-msgstr "활성화하면 책을 닫을 때마다 아래에서 설정한 파일 이름과 형식을 사용하여 절전 화면의 스크린샷이 선택한 내보내기 폴더에 저장됩니다."
+"When enabled, a screenshot of the sleep screen will be saved in the selected"
+" export folder each time you close a book or put the device to sleep, using "
+"the format set below."
+msgstr ""
+"이 옵션을 켜면 책을 닫거나 기기를 절전 모드로 전환할 때마다 절전 화면의 스크린샷이 아래에서 설정한 형식으로 선택한 내보내기 폴더에 "
+"저장됩니다."
 
 msgid "Sleep screen export disabled."
 msgstr "절전 화면 내보내기가 비활성화되었습니다."
@@ -368,19 +351,13 @@ msgid "No export folder set. Please set an export folder first."
 msgstr "내보내기 폴더가 설정되지 않았습니다. 먼저 내보내기 폴더를 설정하세요."
 
 #, lua-format
-msgid "Sleep screen will be exported to:\n%s/%s.%s"
+msgid ""
+"Sleep screen will be exported to:\n"
+"%s/%s.%s"
 msgstr "절전 화면이 다음 위치로 내보내집니다: %s/%s.%s"
 
 msgid "Set export filename"
 msgstr "내보내기 파일 이름 설정"
-
-msgid ""
-"Choose the filename used for the exported image (without extension). Some "
-"devices need a specific filename to recognise it as their native sleep "
-"screen e.g. 'suspend_others' for Tolino."
-msgstr ""
-"내보낼 이미지에 사용할 파일 이름을 선택하세요 (확장자 제외). 일부 기기는 자체 절전 화면으로 인식하려면 특정 파일 이름이 필요합니다. "
-"예: Tolino의 경우 'suspend_others'."
 
 msgid "Export filename"
 msgstr "내보내기 파일 이름"
@@ -388,63 +365,43 @@ msgstr "내보내기 파일 이름"
 msgid "Save"
 msgstr "저장"
 
-msgid "Export format"
-msgstr "내보내기 형식"
-
-msgid ""
-"Choose the image format for the exported file. BMP is needed for "
-"PocketBook's native sleep screen; PNG and JPG suit most other devices."
-msgstr ""
-"내보낼 파일의 이미지 형식을 선택하세요. PocketBook의 자체 절전 화면에는 BMP가 필요하며, PNG와 JPG는 대부분의 다른 "
-"기기에 적합합니다."
-
 msgid "PNG"
 msgstr "PNG"
 
-msgid "Lossless, larger file size. Default."
-msgstr "무손실, 파일 크기 큼. 기본값."
+msgid "Lossless. Medium file size, slower save."
+msgstr "무손실 압축. 중간 크기의 파일, 저장 속도는 느립니다."
 
 msgid "JPG"
 msgstr "JPG"
 
-msgid "Lossy, smaller file size."
-msgstr "손실 압축, 파일 크기 작음."
+msgid "Lossy. Smallest file size, quick save."
+msgstr "손실 압축. 파일 크기가 가장 작고 저장 속도가 빠릅니다."
 
 msgid "BMP"
 msgstr "BMP"
 
-msgid "Uncompressed. Required for PocketBook's native sleep screen support."
-msgstr "비압축. PocketBook의 자체 절전 화면 지원에 필요합니다."
+msgid "Uncompressed. Largest file size, quick save."
+msgstr "압축 없음. 파일 크기가 가장 크고 저장 속도는 빠릅니다."
 
 msgid "Set export folder"
 msgstr "내보내기 폴더 설정"
 
-msgid "Choose the folder where the exported image will be saved."
-msgstr "내보낸 이미지를 저장할 폴더를 선택하세요."
-
 #, lua-format
-msgid "Export folder set to:\n%s"
-msgstr "내보내기 폴더 설정됨:\n%s"
+msgid ""
+"Export folder set to:\n"
+"%s"
+msgstr ""
+"내보내기 폴더 설정됨:\n"
+"%s"
 
 msgid "Exclude this book's cover from sleep screen"
 msgstr "이 책의 표지를 절전 화면에서 제외"
 
 msgid ""
-"Hides the cover for this book only, for when you'd rather it not be shown on "
-"your sleep screen - without having to switch presets or background settings "
-"each time you read it."
+"Hides the cover for this book only, for when you'd rather it not be shown on"
+" your sleep screen - without having to switch presets or background settings"
+" each time you read it."
 msgstr "절전 화면에 표시되지 않기를 원할 때 이 책의 표지만 숨깁니다. 읽을 때마다 프리셋이나 배경 설정을 바꿀 필요가 없습니다."
-
-msgid "Cover-excluded fallback background"
-msgstr "표지 제외 시 대체 배경"
-
-msgid ""
-"What to show instead of the cover. Uses the colour, image, or folder already "
-"set in Background → Background type. Only selectable when \"Exclude this "
-"book's cover from sleep screen\" is turned on."
-msgstr ""
-"표지 대신 표시할 항목입니다. 배경 → 배경 유형에서 이미 설정한 색상, 이미지 또는 폴더를 사용합니다. \"이 책의 표지를 절전 "
-"화면에서 제외\"가 켜져 있을 때만 선택할 수 있습니다."
 
 msgid "No background (leave screen as-is)"
 msgstr "배경 없음 (화면을 그대로 유지)"
@@ -464,23 +421,19 @@ msgstr "프리셋"
 msgid "Save, load, and manage presets."
 msgstr "프리셋을 저장, 불러오기 및 관리합니다."
 
-msgid "Display modes"
-msgstr "표시 모드"
-
-msgid "Global appearance settings."
-msgstr "전체 외관 설정."
-
 msgid "Contents"
 msgstr "콘텐츠"
 
 msgid "Control which sections appear and what information they display."
 msgstr "표시할 섹션과 표시할 정보를 설정합니다."
 
-msgid "Layout & Spacing"
-msgstr "레이아웃 및 간격"
+msgid "Layout, Spacing & Frame"
+msgstr "레이아웃, 간격 및 틀"
 
-msgid "Adjust the spatial settings of the information box."
-msgstr "정보 박스의 공간 설정을 조정합니다."
+msgid ""
+"Position and size of the box, the gaps between sections, and its border, "
+"corner radius, and opacity."
+msgstr "박스의 위치와 크기, 섹션 간격, 그리고 테두리, 모서리 반경 및 불투명도."
 
 msgid "Colours, Icons & Bars"
 msgstr "색상, 아이콘 및 바"
@@ -500,18 +453,8 @@ msgstr "배경"
 msgid "Choose what appears behind the information box."
 msgstr "정보 박스 뒤에 표시될 내용을 선택합니다."
 
-msgid "Advanced"
-msgstr "고급 설정"
-
-msgid "Advanced configuration options."
-msgstr "고급 구성 옵션."
-
 msgid "About"
 msgstr "정보"
-
-#, lua-format
-msgid "%s\nVersion: %s\n\nFor updates and issues:\ngithub.com/%s"
-msgstr "%s\n버전: %s\n\n업데이트 및 문의:\ngithub.com/%s"
 
 msgid "Book info"
 msgstr "책 정보"
@@ -527,12 +470,6 @@ msgstr "배터리 정보"
 
 msgid "Message info"
 msgstr "메시지 정보"
-
-msgid "Reorder sections"
-msgstr "섹션 순서 변경"
-
-msgid "Section order"
-msgstr "섹션 순서"
 
 msgid "At least one section must remain visible."
 msgstr "최소 하나의 섹션은 표시되어야 합니다."
@@ -554,13 +491,16 @@ msgstr "픽셀 단위의 표지 이미지 높이 제한."
 msgid "Cover image size (pixels)"
 msgstr "표지 이미지 크기 (픽셀)"
 
-msgid "100–150px fits neatly in most layouts. Go up to 250px+ for a prominent cover."
+msgid ""
+"100–150px fits neatly in most layouts. Go up to 250px+ for a prominent "
+"cover."
 msgstr "100~150px는 대부분의 레이아웃에 깔끔하게 맞습니다. 눈에 띄는 표지는 250px 이상으로 설정하세요."
 
 msgid "Cover border size"
 msgstr "표지 테두리 크기"
 
-msgid "Width of the border drawn around the cover image. Set to 0 for no border."
+msgid ""
+"Width of the border drawn around the cover image. Set to 0 for no border."
 msgstr "표지 이미지 주위에 그려지는 테두리의 너비. 테두리 없음은 0으로 설정하세요."
 
 msgid "Cover border size (pixels)"
@@ -618,7 +558,8 @@ msgstr "책의 완료 비율을 표시합니다."
 msgid "Show chapter count (ch x of x)"
 msgstr "챕터 수 표시 (x장 / 전체 x장)"
 
-msgid "Display current chapter number and total chapters (e.g., 'Chapter 5 of 12')."
+msgid ""
+"Display current chapter number and total chapters (e.g., 'Chapter 5 of 12')."
 msgstr "현재 챕터 번호와 전체 챕터 수를 표시합니다 (예: '5장 / 전체 12장')."
 
 msgid "Show chapter pages (pg x of x)"
@@ -641,9 +582,6 @@ msgstr "챕터 진행률 표시"
 msgid "Display the percentage of the current chapter completed."
 msgstr "현재 챕터의 완료 비율을 표시합니다."
 
-msgid "Title Line"
-msgstr "제목 줄"
-
 msgid "Choose what the top line of the daily info section displays."
 msgstr "일간 정보 섹션의 첫 번째 줄에 표시할 내용을 선택합니다."
 
@@ -665,10 +603,8 @@ msgstr "오늘 읽은 페이지와 시간"
 msgid "e.g. '35 pgs & 42 mins read today'"
 msgstr "예: '오늘 35p & 42분 읽음'"
 
-msgid "Goal type"
-msgstr "목표 유형"
-
-msgid "Choose whether your daily goal tracks pages read or time spent reading."
+msgid ""
+"Choose whether your daily goal tracks pages read or time spent reading."
 msgstr "일일 목표를 읽은 페이지 수로 추적할지, 독서 시간으로 추적할지 선택합니다."
 
 msgid "Page goal"
@@ -738,9 +674,6 @@ msgstr "목표 달성률 표시"
 msgid "Display the percentage of your daily goal completed."
 msgstr "일일 목표의 달성 비율을 표시합니다."
 
-msgid "Show clock"
-msgstr "시계 표시"
-
 msgid ""
 "Display the current time. Note this is a snapshot taken when the sleep "
 "screen is shown, it does not update live while the screen is asleep."
@@ -756,11 +689,6 @@ msgstr "현재 날짜를 표시합니다. 이는 절전 화면이 표시될 때 
 
 msgid "Show battery consumption rate"
 msgstr "배터리 소모율 표시"
-
-msgid ""
-"Display battery drain percentage per hour based on recent usage or manual "
-"input (see advanced menu)"
-msgstr "최근 사용 또는 수동 입력을 기반으로 한 시간당 배터리 소모율 표시 (고급 설정 메뉴 참조)"
 
 msgid "Show battery time remaining"
 msgstr "남은 배터리 시간 표시"
@@ -779,11 +707,12 @@ msgstr "맞춤형 절전 화면 전용 사용자 정의 메시지 사용"
 msgid "Edit custom message"
 msgstr "사용자 정의 메시지 편집"
 
-#, lua-format
 msgid ""
 "Write your custom message text. Only active when 'Custom message' is "
 "selected. Supports variables: %d, %y, %t, %b, %r."
-msgstr "사용자 정의 메시지 텍스트를 입력합니다. '사용자 정의 메시지' 선택 시에만 활성화됩니다. 지원 변수: %d, %y, %t, %b, %r."
+msgstr ""
+"사용자 정의 메시지 텍스트를 입력합니다. '사용자 정의 메시지' 선택 시에만 활성화됩니다. 지원 변수: %d, %y, %t, %b, "
+"%r."
 
 msgid "Custom Customisable Sleep Screen message"
 msgstr "맞춤형 절전 화면 사용자 정의 메시지"
@@ -819,29 +748,23 @@ msgstr "하이라이트에 표시할 최대 글자 수 (0 = 무제한)."
 msgid "Maximum highlight length (characters)"
 msgstr "최대 하이라이트 길이 (글자 수)"
 
-msgid "100–150 chars keeps highlights readable. Set to 0 to show the full highlight."
+msgid ""
+"100–150 chars keeps highlights readable. Set to 0 to show the full "
+"highlight."
 msgstr "100~150자는 하이라이트를 읽기 좋게 유지합니다. 전체 하이라이트를 표시하려면 0으로 설정하세요."
 
 msgid "Custom quotes"
 msgstr "사용자 정의 인용구"
 
-msgid "Show a random quote from the custom_quotes.lua file in the plugin folder."
-msgstr "플러그인 폴더의 custom_quotes.lua 파일에서 무작위 인용구를 표시합니다."
-
 msgid "Show quote attribution"
 msgstr "인용구 출처 표시"
-
-msgid ""
-"Display the author and book name below the quote, if provided in "
-"custom_quotes.lua."
-msgstr "custom_quotes.lua에 제공된 경우, 인용구 아래에 저자와 책 이름을 표시합니다."
 
 msgid "KOReader sleep message"
 msgstr "KOReader 절전 메시지"
 
 msgid ""
-"Uses KOReaders own sleep screen message function. Enable 'Add custom message "
-"to sleep screen' to use this (Settings → Screen → Sleep screen → Sleep "
+"Uses KOReaders own sleep screen message function. Enable 'Add custom message"
+" to sleep screen' to use this (Settings → Screen → Sleep screen → Sleep "
 "screen message)."
 msgstr ""
 "KOReader 자체 절전 화면 메시지 기능을 사용합니다. '절전 화면에 사용자 정의 메시지 추가'를 활성화하여 사용하세요 (설정 → "
@@ -853,10 +776,6 @@ msgstr "메시지 헤더 표시"
 msgid "Show or hide the header label above the message text."
 msgstr "메시지 텍스트 위의 헤더 레이블을 표시하거나 숨깁니다."
 
-msgid "Message header"
-msgstr "메시지 헤더"
-
-#, lua-format
 msgid ""
 "Custom header text displayed above the message. Supports variables: %d, %y, "
 "%t, %b, %r."
@@ -864,15 +783,6 @@ msgstr "메시지 위에 표시되는 사용자 정의 헤더 텍스트. 지원 
 
 msgid "Change custom message header"
 msgstr "사용자 정의 메시지 헤더 변경"
-
-msgid "Displayed sections"
-msgstr "표시 섹션"
-
-msgid "Toggle which sections show on the sleep screen. At least one must be visible."
-msgstr "절전 화면에 표시할 섹션을 켜고 끕니다. 최소 하나는 표시되어야 합니다."
-
-msgid "[ Section Content ]"
-msgstr "[ 섹션 콘텐츠 ]"
 
 msgid "Book section"
 msgstr "책 섹션"
@@ -935,10 +845,12 @@ msgid "Dark mode"
 msgstr "다크 모드"
 
 msgid ""
-"Inverts the colour scheme. Text becomes white and backgrounds becomes black. "
-"Useful for reading in low-light conditions. Can be combined with monochrome "
-"mode."
-msgstr "색상 구성을 반전합니다. 텍스트가 흰색, 배경이 검정으로 바뀝니다. 어두운 환경에서의 독서에 유용합니다. 단색 모드와 결합할 수 있습니다."
+"Inverts the colour scheme. Text becomes white and backgrounds becomes black."
+" Useful for reading in low-light conditions. Can be combined with monochrome"
+" mode."
+msgstr ""
+"색상 구성을 반전합니다. 텍스트가 흰색, 배경이 검정으로 바뀝니다. 어두운 환경에서의 독서에 유용합니다. 단색 모드와 결합할 수 "
+"있습니다."
 
 msgid "Monochrome mode"
 msgstr "단색 모드"
@@ -948,13 +860,14 @@ msgid ""
 "monochrome light or monochrome dark hex values. Overwrites individual "
 "assigned section colours. Can be combined with dark mode."
 msgstr ""
-"흑백 전자책 리더에 적합합니다. 단색 밝음 또는 단색 어두움 16진수 값을 사용하여 모든 섹션에 한 가지 색상을 지정합니다. 개별 지정된 "
-"섹션 색상을 덮어씁니다. 다크 모드와 결합할 수 있습니다."
+"흑백 전자책 리더에 적합합니다. 단색 밝음 또는 단색 어두움 16진수 값을 사용하여 모든 섹션에 한 가지 색상을 지정합니다. 개별 지정된"
+" 섹션 색상을 덮어씁니다. 다크 모드와 결합할 수 있습니다."
 
 msgid "Section gaps"
 msgstr "섹션 간격"
 
-msgid "Add transparent gaps between sections to make each appear as a separate box"
+msgid ""
+"Add transparent gaps between sections to make each appear as a separate box"
 msgstr "섹션 사이에 투명한 간격을 추가하여 각 섹션이 별도의 박스처럼 보이게 합니다"
 
 msgid "Enable section gaps"
@@ -970,8 +883,8 @@ msgid "Section gap size (pixels)"
 msgstr "섹션 간격 크기 (픽셀)"
 
 msgid ""
-"10–20px gives a subtle separation. 30–50px makes sections feel like distinct "
-"cards."
+"10–20px gives a subtle separation. 30–50px makes sections feel like distinct"
+" cards."
 msgstr "10~20px는 미묘한 구분을 제공합니다. 30~50px는 섹션이 별도의 카드처럼 느껴지게 합니다."
 
 msgid "Position"
@@ -1007,13 +920,13 @@ msgstr "박스를 기준에서 위(+) 또는 아래(-)로 이동합니다. 둥�
 msgid "Width"
 msgstr "너비"
 
-msgid "Horizontal width of the information box as a percentage of screen width."
+msgid ""
+"Horizontal width of the information box as a percentage of screen width."
 msgstr "화면 너비에 대한 정보 박스의 가로 너비 비율 (%)."
 
 msgid "Box width (%)"
 msgstr "박스 너비 (%)"
 
-#, lua-format
 msgid "60–70% suits portrait screens."
 msgstr "60~70%가 세로 화면에 적합합니다."
 
@@ -1026,7 +939,6 @@ msgstr "정보 박스의 투명도."
 msgid "Opacity (%)"
 msgstr "불투명도 (%)"
 
-#, lua-format
 msgid "75% is semi-transparent. 100% is fully opaque."
 msgstr "75%는 반투명입니다. 100%는 완전히 불투명합니다."
 
@@ -1070,12 +982,14 @@ msgstr "모서리 반경 (px)"
 msgid ""
 "0 for square corners. 15–30px for softly rounded. 150px+ for a pill-shaped "
 "box (depending on the section box height)."
-msgstr "0은 직각 모서리. 15~30px는 부드럽게 둥근 모서리. 150px 이상은 알약 형태의 박스입니다 (섹션 박스 높이에 따라 다름)."
+msgstr ""
+"0은 직각 모서리. 15~30px는 부드럽게 둥근 모서리. 150px 이상은 알약 형태의 박스입니다 (섹션 박스 높이에 따라 다름)."
 
 msgid "Internal padding"
 msgstr "내부 여백"
 
-msgid "Space between section borders and their content, configurable per side."
+msgid ""
+"Space between section borders and their content, configurable per side."
 msgstr "각 면별로 설정 가능한 섹션 테두리와 콘텐츠 사이의 간격."
 
 msgid "Top"
@@ -1102,7 +1016,9 @@ msgstr "왼쪽"
 msgid "Internal padding - left (px)"
 msgstr "내부 여백 - 왼쪽 (px)"
 
-msgid "Space to the left of section content. Increase when using large corner radii."
+msgid ""
+"Space to the left of section content. Increase when using large corner "
+"radii."
 msgstr "섹션 콘텐츠 왼쪽의 간격. 큰 모서리 반경 사용 시 늘리세요."
 
 msgid "Right"
@@ -1122,7 +1038,8 @@ msgstr "모든 면 동일하게 설정"
 msgid "Internal padding - all sides (px)"
 msgstr "내부 여백 - 모든 방향 (px)"
 
-msgid "Sets top, bottom, left and right padding to the same value in one step."
+msgid ""
+"Sets top, bottom, left and right padding to the same value in one step."
 msgstr "위, 아래, 왼쪽, 오른쪽 여백을 한 번에 동일한 값으로 설정합니다."
 
 msgid "Icon to text gap"
@@ -1134,7 +1051,8 @@ msgstr "섹션 아이콘과 함께하는 텍스트 사이의 가로 간격."
 msgid "Icon to text gap (px)"
 msgstr "아이콘-텍스트 간격 (px)"
 
-msgid "8–12px gives comfortable breathing room between icon and text. 0 is flush."
+msgid ""
+"8–12px gives comfortable breathing room between icon and text. 0 is flush."
 msgstr "8~12px는 아이콘과 텍스트 사이에 편안한 여백을 줍니다. 0은 간격 없음입니다."
 
 msgid "No icon sets found in customisablesleepscreen.koplugin/icons/"
@@ -1149,7 +1067,8 @@ msgstr "각 섹션의 진행 막대 색상을 설정합니다."
 msgid "Use saved colours for icon fill"
 msgstr "아이콘 채우기에 저장된 색상 사용"
 
-msgid "When enabled, icons will match the colour of their section's progress bar."
+msgid ""
+"When enabled, icons will match the colour of their section's progress bar."
 msgstr "활성화하면 아이콘 색상이 해당 섹션의 진행 바 색상과 일치합니다."
 
 msgid "Battery section (High)"
@@ -1247,8 +1166,8 @@ msgid "Inline progress bars"
 msgstr "인라인 진행 바"
 
 msgid ""
-"Progress bars sit inside the text area rather than spanning the full section "
-"width. Automatically enabled when corner radius > 0."
+"Progress bars sit inside the text area rather than spanning the full section"
+" width. Automatically enabled when corner radius > 0."
 msgstr "진행 바가 섹션 전체 너비에 걸치지 않고 텍스트 영역 안에 위치합니다. 모서리 반경 > 0일 때 자동으로 활성화됩니다."
 
 msgid "Enable inline bars"
@@ -1290,7 +1209,6 @@ msgstr "사용 가능한 텍스트 열의 비율(%)로 나타낸 인라인 진�
 msgid "Inline bar width (%)"
 msgstr "인라인 바 너비 (%)"
 
-#, lua-format
 msgid ""
 "100% fills the text column. The bar is aligned to match your text alignment "
 "setting."
@@ -1335,7 +1253,9 @@ msgstr "섹션 내 모든 텍스트의 가로 정렬."
 msgid "Book multiline titles"
 msgstr "책 제목 여러 줄 표시"
 
-msgid "If deselected book titles will be truncated to a single line with an ellipsis"
+msgid ""
+"If deselected book titles will be truncated to a single line with an "
+"ellipsis"
 msgstr "선택 해제하면 책 제목이 줄임표와 함께 한 줄로 잘립니다"
 
 msgid "Chapter multiline titles"
@@ -1436,7 +1356,6 @@ msgstr "오버레이 불투명도"
 msgid "Overlay opacity (%)"
 msgstr "오버레이 불투명도 (%)"
 
-#, lua-format
 msgid "0% is no overlay. 20–40% adds a soft tint. 100% is fully opaque."
 msgstr "0%는 오버레이 없음. 20~40%는 부드러운 색조를 추가합니다. 100%는 완전히 불투명합니다."
 
@@ -1474,26 +1393,20 @@ msgstr "이름 변경"
 msgid "Enter new preset name"
 msgstr "새 프리셋 이름 입력"
 
-msgid "[ Built-in Presets ]"
-msgstr "[ 기본 제공 프리셋 ]"
-
-msgid "[ Your Custom Presets ]"
-msgstr "[ 사용자 프리셋 ]"
-
 msgid "Apply"
 msgstr "적용"
 
 msgid "Invalid hex code. Use format: #RRGGBB"
 msgstr "유효하지 않은 16진수 코드입니다. 형식: #RRGGBB"
 
-msgid "Reset layout & spacing settings to default"
-msgstr "레이아웃 및 간격 설정 초기화"
+msgid "Reset layout, spacing & frame settings to default"
+msgstr "레이아웃, 간격 및 틀 설정 초기화"
 
-msgid "Are you sure you want to reset layout & spacing settings?"
-msgstr "레이아웃 및 간격 설정을 초기화하시겠습니까?"
+msgid "Are you sure you want to reset layout, spacing & frame settings?"
+msgstr "레이아웃, 간격 및 틀 설정을 초기화하시겠습니까?"
 
-msgid "Layout & spacing settings reset to defaults"
-msgstr "레이아웃 및 간격 설정이 초기화되었습니다"
+msgid "Layout, spacing & frame settings reset to defaults"
+msgstr "레이아웃, 간격 및 틀 설정이 초기화되었습니다"
 
 msgid "Reset contents settings to default"
 msgstr "콘텐츠 설정 초기화"
@@ -1556,3 +1469,551 @@ msgstr "16진수 입력"
 
 msgid "Enter hex colour code"
 msgstr "16진수 색상 코드 입력"
+
+msgid ""
+"Saves a screenshot of the sleep screen to a file each time a book is closed."
+" Useful for devices that use an exported image as their own native sleep "
+"screen."
+msgstr "책을 닫을 때마다 절전 화면의 스크린샷을 파일로 저장합니다. 내보낸 이미지를 자체 절전 화면으로 사용하는 기기에 유용합니다."
+
+msgid "Enable export"
+msgstr "내보내기 활성화"
+
+msgid "Choose the filename used for the exported image (without extension)."
+msgstr "내보낸 이미지에 사용할 파일 이름을 선택하세요(확장자 제외)."
+
+#, lua-format
+msgid "Export format: %s"
+msgstr "내보내기 형식: %s"
+
+msgid "Choose the image format and colour profile for the exported file."
+msgstr "내보낼 파일의 이미지 형식과 색상 프로필을 선택하세요."
+
+msgid ""
+"Choose the folder where the exported image will be saved. Must be set before"
+" export can be enabled."
+msgstr "내보낸 이미지를 저장할 폴더를 선택하세요. 내보내기를 활성화하기 전에 설정해야 합니다."
+
+msgid "Preview sleep screen"
+msgstr "절전 화면 미리보기"
+
+msgid ""
+"Shows what the sleep screen currently looks like, without actually "
+"suspending the device."
+msgstr "기기를 실제로 절전 모드로 전환하지 않고 현재 절전 화면의 모습을 보여줍니다."
+
+msgid "Behaviour"
+msgstr "동작"
+
+msgid ""
+"How the plugin behaves: file manager display, ghosting, export, battery "
+"estimation, and stats scope."
+msgstr "플러그인의 동작 방식: 파일 관리자 표시, 고스트 현상, 내보내기, 배터리 추정, 통계 범위."
+
+#, lua-format
+msgid "Version: %s"
+msgstr "버전: %s"
+
+#, lua-format
+msgid "Author: %s"
+msgstr "제작자: %s"
+
+#, lua-format
+msgid "https://github.com/%s"
+msgstr "https://github.com/%s"
+
+#, lua-format
+msgid ""
+"GitHub:\n"
+"https://github.com/%s"
+msgstr ""
+"GitHub:\n"
+"https://github.com/%s"
+
+msgid "Check for updates"
+msgstr "업데이트 확인"
+
+msgid "Check GitHub for a newer release, and install it if one is available."
+msgstr "GitHub에서 새 버전이 있는지 확인하고, 있으면 설치합니다."
+
+msgid "Border"
+msgstr "테두리"
+
+msgid "Primary border thickness and its secondary decorative trim."
+msgstr "기본 테두리 두께와 보조 장식 테두리."
+
+msgid "Icons"
+msgstr "아이콘"
+
+msgid "Icon style, size, and visibility."
+msgstr "아이콘 스타일, 크기, 표시 여부."
+
+msgid "Bars"
+msgstr "막대"
+
+msgid "Progress bar height, visibility, and inline styling."
+msgstr "진행률 막대의 높이, 표시 여부, 인라인 스타일."
+
+msgid "Multiline titles"
+msgstr "여러 줄 제목"
+
+msgid ""
+"Allow book and chapter titles to wrap across multiple lines instead of being"
+" truncated to one."
+msgstr "책과 챕터 제목을 한 줄로 자르지 않고 여러 줄로 줄바꿈되도록 허용합니다."
+
+msgid "Cover exclusion"
+msgstr "표지 제외"
+
+msgid ""
+"Hide this book's cover from the sleep screen, and choose what shows instead."
+msgstr "이 책의 표지를 절전 화면에서 숨기고 대신 표시할 항목을 선택합니다."
+
+msgid "Fallback background"
+msgstr "대체 배경"
+
+msgid ""
+"What to show instead of the cover. Uses the colour, image, or folder already"
+" set in Background type. Only selectable when \"Exclude this book's cover "
+"from sleep screen\" is turned on."
+msgstr ""
+"표지 대신 표시할 항목입니다. 배경 유형에서 이미 설정한 색상, 이미지 또는 폴더를 사용합니다. \"이 책의 표지를 절전 화면에서 "
+"제외\"가 켜져 있을 때만 선택할 수 있습니다."
+
+msgid ""
+"No book data available to preview yet.\n"
+"\n"
+"Open a book and show the sleep screen at least once before previewing."
+msgstr ""
+"아직 미리보기에 사용할 책 데이터가 없습니다.\n"
+"\n"
+"미리보기를 사용하기 전에 책을 열고 절전 화면을 한 번 이상 표시하세요."
+
+msgid "Couldn't build a preview - check crash.log for details."
+msgstr "미리보기를 생성할 수 없습니다 - 자세한 내용은 crash.log를 확인하세요."
+
+msgid "Enable automatic preset switching"
+msgstr "자동 프리셋 전환 활성화"
+
+msgid ""
+"When enabled, switches between the day and night presets below as needed. If"
+" you manually switch to a different preset, this pauses until you switch "
+"back to one of the two, or use \"Sync now\" below."
+msgstr ""
+"활성화하면 필요에 따라 아래의 주간/야간 프리셋을 전환합니다. 수동으로 다른 프리셋으로 전환하면, 둘 중 하나로 돌아가거나 아래의 "
+"\"지금 동기화\"를 사용할 때까지 일시 중지됩니다."
+
+msgid "Sync now"
+msgstr "지금 동기화"
+
+msgid ""
+"Immediately switches to the correct day/night preset, even if a different "
+"preset is currently active."
+msgstr "현재 다른 프리셋이 활성화되어 있어도 즉시 올바른 주간/야간 프리셋으로 전환합니다."
+
+#, lua-format
+msgid ""
+"Couldn't switch to '%s' - it may no longer exist. Check the day/night preset"
+" pickers below."
+msgstr "'%s'(으)로 전환할 수 없습니다 - 더 이상 존재하지 않을 수 있습니다. 아래의 주간/야간 프리셋 선택을 확인하세요."
+
+#, lua-format
+msgid "Switched to '%s'"
+msgstr "'%s'(으)로 전환됨"
+
+#, lua-format
+msgid "Already on '%s' - no change needed"
+msgstr "이미 '%s' 상태입니다 - 변경이 필요 없습니다"
+
+#, lua-format
+msgid "Day preset: %s"
+msgstr "주간 프리셋: %s"
+
+msgid "Preset to switch to outside the night window."
+msgstr "야간 시간대 이외에 전환할 프리셋."
+
+#, lua-format
+msgid "Night preset: %s"
+msgstr "야간 프리셋: %s"
+
+msgid "Preset to switch to during the night window."
+msgstr "야간 시간대 동안 전환할 프리셋."
+
+msgid "Follow KOReader's night mode"
+msgstr "KOReader의 야간 모드 따르기"
+
+msgid "Time window"
+msgstr "시간대"
+
+#, lua-format
+msgid "Trigger: %s"
+msgstr "전환 기준: %s"
+
+msgid ""
+"How the schedule decides when to switch: a fixed time window, or KOReader's "
+"own night mode setting (useful if you toggle that manually rather than on a "
+"fixed schedule)."
+msgstr ""
+"일정이 전환 시점을 결정하는 방식: 고정된 시간대, 또는 KOReader 자체의 야간 모드 설정(고정 일정이 아니라 수동으로 전환할 때 "
+"유용함)."
+
+msgid "Switch based on the start/end times."
+msgstr "시작/종료 시간을 기준으로 전환합니다."
+
+msgid ""
+"Switch to the night preset whenever KOReader's own night mode is turned on, "
+"and back to the day preset when it's off."
+msgstr "KOReader 자체의 야간 모드가 켜질 때마다 야간 프리셋으로 전환하고, 꺼지면 주간 프리셋으로 되돌립니다."
+
+#, lua-format
+msgid "Night window start: %02d:%02d"
+msgstr "야간 시작: %02d:%02d"
+
+msgid "Time of day the night preset starts being used."
+msgstr "야간 프리셋이 사용되기 시작하는 시각."
+
+msgid "Night window start"
+msgstr "야간 시작 시각"
+
+msgid "Enter time in hours and minutes."
+msgstr "시간과 분으로 시각을 입력하세요."
+
+msgid "Set time"
+msgstr "시각 설정"
+
+#, lua-format
+msgid "Night window end: %02d:%02d"
+msgstr "야간 종료: %02d:%02d"
+
+msgid "Time of day the day preset resumes being used."
+msgstr "주간 프리셋 사용이 재개되는 시각."
+
+msgid "Night window end"
+msgstr "야간 종료 시각"
+
+msgid " (auto-switch: day)"
+msgstr " (자동 전환: 주간)"
+
+msgid " (auto-switch: night)"
+msgstr " (자동 전환: 야간)"
+
+#, lua-format
+msgid "Preview preset '%s'?"
+msgstr "프리셋 '%s'을(를) 미리 볼까요?"
+
+msgid "Preview"
+msgstr "미리보기"
+
+msgid "Hold a preset below to preview it."
+msgstr "아래 프리셋을 길게 눌러 미리 볼 수 있습니다."
+
+msgid "Hold a custom preset below to preview, update, rename, or delete it."
+msgstr "아래 사용자 지정 프리셋을 길게 눌러 미리 보기, 업데이트, 이름 변경, 삭제를 할 수 있습니다."
+
+msgid "Save your current sleep screen settings as a new custom preset."
+msgstr "현재 절전 화면 설정을 새 사용자 지정 프리셋으로 저장합니다."
+
+msgid "Automatic preset switching"
+msgstr "자동 프리셋 전환"
+
+msgid ""
+"Automatically switch between two presets - e.g. a light one by day and a "
+"dark one at night."
+msgstr "두 프리셋 사이를 자동으로 전환합니다 - 예: 낮에는 밝은 프리셋, 밤에는 어두운 프리셋."
+
+msgid "Built-in Presets"
+msgstr "내장 프리셋"
+
+msgid "Load one of the built-in presets."
+msgstr "내장 프리셋 중 하나를 불러옵니다."
+
+msgid "Your Custom Presets"
+msgstr "사용자 지정 프리셋"
+
+msgid "Load, rename, update or delete one of your saved presets."
+msgstr "저장된 프리셋 중 하나를 불러오거나, 이름을 변경하거나, 업데이트하거나, 삭제합니다."
+
+msgid "No custom presets currently saved"
+msgstr "현재 저장된 사용자 지정 프리셋이 없습니다"
+
+msgid "Section order & visibility"
+msgstr "섹션 순서 및 표시"
+
+msgid ""
+"Select a section and tap the bottom arrows to reorder. Tap the checkmark to "
+"show or hide the section. At least one section must stay visible."
+msgstr ""
+"섹션을 선택하고 아래쪽 화살표를 탭하여 순서를 바꾸세요. 체크 표시를 탭하여 섹션을 표시하거나 숨길 수 있습니다. 최소 하나의 섹션은 "
+"표시되어야 합니다."
+
+#, lua-format
+msgid "Title Line: %s"
+msgstr "제목 줄: %s"
+
+#, lua-format
+msgid "Goal type: %s"
+msgstr "목표 유형: %s"
+
+msgid "Show remaining & charging text"
+msgstr "\"충전 중\"/\"남음\" 텍스트 표시"
+
+msgid ""
+"Show the words \"remaining\" and \"charging\" next to the battery "
+"percentage, e.g. \"82% remaining\" instead of just \"82%\"."
+msgstr "배터리 퍼센트 옆에 \"남음\"과 \"충전 중\"이라는 단어를 표시합니다. 예: \"82%\" 대신 \"82% 남음\"."
+
+msgid "Show time"
+msgstr "시간 표시"
+
+msgid ""
+"Display battery drain percentage per hour based on recent usage or manual "
+"input (see Global settings menu)"
+msgstr "최근 사용량 또는 수동 입력을 기반으로 시간당 배터리 소모율을 표시합니다(전역 설정 메뉴 참조)"
+
+msgid "Edit message header"
+msgstr "메시지 머리글 편집"
+
+msgid ""
+"Show a random quote from the css_custom_quotes.lua file in the plugin "
+"folder."
+msgstr "플러그인 폴더의 css_custom_quotes.lua 파일에서 무작위 인용구를 표시합니다."
+
+msgid ""
+"Display the author and book name below the quote, if provided in "
+"css_custom_quotes.lua."
+msgstr "css_custom_quotes.lua에 지정되어 있으면 인용구 아래에 저자와 책 제목을 표시합니다."
+
+msgid "archive extractor unavailable"
+msgstr "압축 해제 도구를 사용할 수 없습니다"
+
+msgid "could not open archive"
+msgstr "압축 파일을 열 수 없습니다"
+
+msgid "extract failed"
+msgstr "압축 해제 실패"
+
+msgid "Downloading update..."
+msgstr "업데이트 다운로드 중..."
+
+msgid "the connection failed"
+msgstr "연결에 실패했습니다"
+
+msgid "the connection timed out"
+msgstr "연결 시간이 초과되었습니다"
+
+msgid "the secure connection failed"
+msgstr "보안 연결에 실패했습니다"
+
+msgid "there was no response"
+msgstr "응답이 없었습니다"
+
+msgid "the file could not be saved"
+msgstr "파일을 저장할 수 없었습니다"
+
+msgid "Download failed."
+msgstr "다운로드에 실패했습니다."
+
+msgid "Installation failed: "
+msgstr "설치에 실패했습니다: "
+
+msgid "Customisable Sleep Screen updated to v"
+msgstr "Customisable Sleep Screen이(가) v"
+
+msgid "Restart KOReader now?"
+msgstr "지금 KOReader를 다시 시작할까요?"
+
+msgid "Restart"
+msgstr "다시 시작"
+
+msgid "Checking for updates..."
+msgstr "업데이트 확인 중..."
+
+msgid "Could not check for updates."
+msgstr "업데이트를 확인할 수 없습니다."
+
+#, lua-format
+msgid "Customisable Sleep Screen is up to date (v%s)"
+msgstr "Customisable Sleep Screen이(가) 최신 상태입니다 (v%s)"
+
+msgid "Update available"
+msgstr "업데이트 사용 가능"
+
+msgid "Installed: "
+msgstr "설치됨: "
+
+msgid "Latest: "
+msgstr "최신: "
+
+msgid "Close"
+msgstr "닫기"
+
+msgid "Update and restart"
+msgstr "업데이트 후 다시 시작"
+
+msgid "No download available for this release."
+msgstr "이 버전에는 사용 가능한 다운로드가 없습니다."
+
+#, lua-format, lua-format
+msgid "Data unavailable"
+msgstr "데이터 없음"
+
+#, lua-format
+msgid "%s & %s %s read today"
+msgstr "오늘 %s & %s%s 읽음"
+
+msgid ""
+"Menu icons are hidden because KOReader's bundled fonts/nerdfonts/symbols.ttf"
+" couldn't be found. Restore that font file to bring the menu icons back."
+msgstr ""
+"KOReader에 번들로 포함된 fonts/nerdfonts/symbols.ttf 파일을 찾을 수 없어 메뉴 아이콘이 숨겨져 있습니다. "
+"메뉴 아이콘을 다시 표시하려면 해당 글꼴 파일을 복원하세요."
+
+msgid "Transparent"
+msgstr "투명"
+
+msgid "File manager background colour"
+msgstr "파일 관리자 배경 색상"
+
+msgid ""
+"Colour for the alternative file manager background. Independent of your "
+"presets - stays the same no matter which preset is active."
+msgstr "대체 파일 관리자 배경의 색상입니다. 프리셋과 무관합니다 - 어떤 프리셋이 활성화되어 있든 동일하게 유지됩니다."
+
+msgid "File manager background image path"
+msgstr "파일 관리자 배경 이미지 경로"
+
+msgid ""
+"Choose a single image to use as the alternative file manager background. "
+"Independent of your presets - stays the same no matter which preset is "
+"active."
+msgstr ""
+"대체 파일 관리자 배경으로 사용할 단일 이미지를 선택하세요. 프리셋과 무관합니다 - 어떤 프리셋이 활성화되어 있든 동일하게 유지됩니다."
+
+msgid "File manager background folder path"
+msgstr "파일 관리자 배경 폴더 경로"
+
+msgid ""
+"Choose a folder to pick a random image from as the alternative file manager "
+"background. Independent of your presets - stays the same no matter which "
+"preset is active."
+msgstr ""
+"대체 파일 관리자 배경으로 무작위 이미지를 선택할 폴더를 선택하세요. 프리셋과 무관합니다 - 어떤 프리셋이 활성화되어 있든 동일하게 "
+"유지됩니다."
+
+msgid "Stretch image to fill"
+msgstr "이미지를 늘려 채우기"
+
+msgid ""
+"When disabled, the image will be scaled to fit within the screen while "
+"preserving aspect ratio. Independent of your presets - stays the same no "
+"matter which preset is active."
+msgstr ""
+"비활성화하면 이미지가 종횡비를 유지하면서 화면에 맞게 크기가 조정됩니다. 프리셋과 무관합니다 - 어떤 프리셋이 활성화되어 있든 동일하게 "
+"유지됩니다."
+
+msgid "Fill colour"
+msgstr "채우기 색상"
+
+msgid ""
+"Background colour for the image when not stretched. Independent of your "
+"presets - stays the same no matter which preset is active."
+msgstr "늘이지 않을 때 이미지의 배경 색상입니다. 프리셋과 무관합니다 - 어떤 프리셋이 활성화되어 있든 동일하게 유지됩니다."
+
+msgid "Image alignment"
+msgstr "이미지 정렬"
+
+msgid ""
+"Horizontal alignment of the image when not stretched. Independent of your "
+"presets - stays the same no matter which preset is active."
+msgstr "늘이지 않을 때 이미지의 가로 정렬입니다. 프리셋과 무관합니다 - 어떤 프리셋이 활성화되어 있든 동일하게 유지됩니다."
+
+msgid "Show alternative sleep screen (no infobox)"
+msgstr "대체 절전 화면 표시 (정보 박스 없음)"
+
+msgid ""
+"When disabled (default), the regular customisable sleep screen displays in "
+"file manager using the last saved book data. When enabled, a simpler "
+"alternative is shown instead - just a background, with no information box."
+msgstr ""
+"비활성화(기본값)하면 파일 관리자에서 마지막으로 저장된 책 데이터를 사용하여 일반 맞춤형 절전 화면이 표시됩니다. 활성화하면 대신 더 "
+"단순한 대체 화면이 표시됩니다 - 정보 박스 없이 배경만 표시됩니다."
+
+msgid "File manager background"
+msgstr "파일 관리자 배경"
+
+msgid "Sleep screen in file manager"
+msgstr "파일 관리자에서의 절전 화면"
+
+msgid ""
+"Control what the sleep screen looks like when triggered from the file "
+"manager, outside of a book."
+msgstr "책 밖에서 파일 관리자에서 실행될 때 절전 화면이 어떻게 보일지 제어합니다."
+
+msgid ""
+"File manager display, ghosting, export, battery estimation, and stats scope."
+" Unlike the menus above, these settings don't change when you switch "
+"presets."
+msgstr ""
+"파일 관리자 표시, 잔상, 내보내기, 배터리 추정, 통계 범위. 위의 메뉴와 달리 이 설정들은 프리셋을 전환해도 변경되지 않습니다."
+
+msgid "Global settings"
+msgstr "전역 설정"
+
+msgid "System Default (cfont)"
+msgstr "시스템 기본값 (cfont)"
+
+#, lua-format
+msgid "Title font face: %s"
+msgstr "제목 글꼴: %s"
+
+#, lua-format
+msgid "Title font size: %dpx"
+msgstr "제목 글꼴 크기: %dpx"
+
+#, lua-format
+msgid "Subtitle font face: %s"
+msgstr "부제목 글꼴: %s"
+
+#, lua-format
+msgid "Subtitle font size: %dpx"
+msgstr "부제목 글꼴 크기: %dpx"
+
+msgid "Time and pages read today"
+msgstr "오늘 읽은 시간과 페이지"
+
+msgid "e.g. '42 mins & 35 pgs read today'"
+msgstr "예: '오늘 42분 & 35p 읽음'"
+
+msgid ""
+"What to show as the background for the alternative file manager sleep "
+"screen. This background is independent of your presets, so it looks the same"
+" no matter which preset was last active. Only selectable when \"Show "
+"alternative sleep screen\" is turned on."
+msgstr ""
+"파일 관리자용 대체 절전 화면의 배경으로 무엇을 표시할지 설정합니다. 이 배경은 프리셋과 무관하므로 마지막으로 활성화된 프리셋이 무엇이든"
+" 항상 동일하게 표시됩니다. \"대체 절전 화면 표시\"가 켜져 있을 때만 선택할 수 있습니다."
+
+msgid ""
+"Hides the cover for this book only, for when you'd rather it not be shown on"
+" your sleep screen - without having to switch presets or background settings"
+" each time you read it. Only has an effect while Background type is set to "
+"\"Book cover\" - it has nothing to exclude otherwise."
+msgstr ""
+"이 책만 표지를 절전 화면에 표시하고 싶지 않을 때, 읽을 때마다 프리셋이나 배경 설정을 바꾸지 않고도 표지를 숨길 수 있습니다. 배경 "
+"유형이 \"책 표지\"로 설정되어 있을 때만 효과가 있습니다 - 그렇지 않으면 제외할 대상이 없습니다."
+
+msgid ""
+"What to show instead of the cover. Uses the colour, image, or folder already"
+" set in Background type. Only selectable when \"Exclude this book's cover "
+"from sleep screen\" is turned on and Background type is set to \"Book "
+"cover\"."
+msgstr ""
+"표지 대신 무엇을 표시할지 설정합니다. 배경 유형에 이미 설정된 색상, 이미지 또는 폴더를 사용합니다. \"절전 화면에서 이 책의 표지 "
+"제외\"가 켜져 있고 배경 유형이 \"책 표지\"로 설정된 경우에만 선택할 수 있습니다."
+
+msgid "Export in greyscale"
+msgstr "그레이스케일로 내보내기"
+
+msgid ""
+"Saves the exported image without colour, reducing file size for any format."
+msgstr "내보낸 이미지를 색상 없이 저장하여 모든 형식에서 파일 크기를 줄입니다."

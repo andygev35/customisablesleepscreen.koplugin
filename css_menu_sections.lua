@@ -11,8 +11,9 @@ local PluginStore = require("css_settings").plugin()
 
 local h                       = require("css_menu_helpers")
 local getSetting              = h.getSetting
-local createToggleItem        = h.createToggleItem
-local createFlipNilOrTrueItem = h.createFlipNilOrTrueItem
+local createToggleItem         = h.createToggleItem
+local createFlipNilOrTrueItem  = h.createFlipNilOrTrueItem
+local createFlipNilOrFalseItem = h.createFlipNilOrFalseItem
 local createRadioItem         = h.createRadioItem
 local createSpinDialog        = h.createSpinDialog
 local createTextInputDialog   = h.createTextInputDialog
@@ -29,12 +30,26 @@ local function buildSectionOrderMenu()
         message = _("Message info"),
     }
 
-    local label_to_key = {}
-    for k, v in pairs(section_labels) do label_to_key[v] = k end
+    local visibility_keys = {
+        book    = SETTINGS.SHOW_BOOK,
+        chapter = SETTINGS.SHOW_CHAP,
+        goal    = SETTINGS.SHOW_GOAL,
+        battery = SETTINGS.SHOW_BATT,
+        message = SETTINGS.SHOW_MSG,
+    }
+
+    local function countVisibleSections()
+        local count = 0
+        for _, vis_key in pairs(visibility_keys) do
+            if PluginStore:readSetting(vis_key) ~= false then count = count + 1 end
+        end
+        return count
+    end
 
     return {
         {
-            text           = _("Reorder sections"),
+            text           = _("Section order & visibility"),
+            help_text      = _("Select a section and tap the bottom arrows to reorder. Tap the checkmark to show or hide the section. At least one section must stay visible."),
             keep_menu_open = true,
             callback = function()
                 local SortWidget = require("ui/widget/sortwidget")
@@ -44,16 +59,34 @@ local function buildSectionOrderMenu()
                 local item_table = {}
                 for i = 1, #defaults do
                     local key     = saved[i] or defaults[i]
-                    item_table[i] = { text = section_labels[key] or key }
+                    local vis_key = visibility_keys[key]
+                    item_table[i] = {
+                        text = section_labels[key] or key,
+                        key  = key,
+                        checked_func = function()
+                            return PluginStore:readSetting(vis_key) ~= false
+                        end,
+                        callback = function()
+                            local current = PluginStore:readSetting(vis_key) ~= false
+                            if current and countVisibleSections() <= 1 then
+                                UIManager:show(require("ui/widget/infomessage"):new {
+                                    text    = _("At least one section must remain visible."),
+                                    timeout = 2,
+                                })
+                                return
+                            end
+                            PluginStore:saveSetting(vis_key, not current)
+                        end,
+                    }
                 end
 
                 UIManager:show(SortWidget:new {
-                    title      = _("Section order"),
+                    title      = _("Section order & visibility"),
                     item_table = item_table,
                     callback   = function(self)
                         local new_order = {}
                         for i, item in ipairs(self.item_table) do
-                            new_order[i] = label_to_key[item.text] or item.text
+                            new_order[i] = item.key
                         end
                         PluginStore:saveSetting(SETTINGS.SECTION_ORDER, new_order)
                     end,
@@ -63,52 +96,7 @@ local function buildSectionOrderMenu()
     }
 end
 
-local function buildVisibilityMenu()
-    local items = {
-        { text = _("Book info"),      key = SETTINGS.SHOW_BOOK },
-        { text = _("Chapter info"),   key = SETTINGS.SHOW_CHAP },
-        { text = _("Daily info"),     key = SETTINGS.SHOW_GOAL },
-        { text = _("Battery info"),   key = SETTINGS.SHOW_BATT },
-        { text = _("Message info"),   key = SETTINGS.SHOW_MSG  },
-    }
-
-    local function countVisibleSections()
-        local count = 0
-        for i, item in ipairs(items) do
-            if PluginStore:readSetting(item.key) ~= false then count = count + 1 end
-        end
-        return count
-    end
-
-    local sub_menu = {}
-    for i, item in ipairs(items) do
-        sub_menu[#sub_menu + 1] = {
-            text   = item.text,
-            toggle = true,
-            enabled_func = function()
-                local is_current_enabled = PluginStore:readSetting(item.key) ~= false
-                if is_current_enabled then return countVisibleSections() > 1 end
-                return true
-            end,
-            checked_func = function()
-                return PluginStore:readSetting(item.key) ~= false
-            end,
-            callback = function()
-                local current      = PluginStore:readSetting(item.key) ~= false
-                local visible_count = countVisibleSections()
-                if current and visible_count <= 1 then
-                    UIManager:show(require("ui/widget/infomessage"):new {
-                        text    = _("At least one section must remain visible."),
-                        timeout = 2,
-                    })
-                    return
-                end
-                PluginStore:saveSetting(item.key, not current)
-            end,
-        }
-    end
-    return sub_menu
-end
+-- Per-section content menus
 
 local function buildBookSectionContentMenu()
     local function coverEnabled()
@@ -119,6 +107,20 @@ local function buildBookSectionContentMenu()
         createToggleItem(_("Show cover image above book info"),
             _("Display the book's cover image above the title and progress in the book section."),
             SETTINGS.COVER_IN_BOOK, false),
+        {
+            text         = _("Align cover to text alignment"),
+            help_text    = _("When enabled, the cover image follows the text alignment setting instead of always being centered."),
+            enabled_func = coverEnabled,
+            checked_func = function()
+                local val = PluginStore:readSetting(SETTINGS.COVER_ALIGN_TO_TEXT)
+                return val == nil and false or val
+            end,
+            callback = function()
+                local current = PluginStore:readSetting(SETTINGS.COVER_ALIGN_TO_TEXT)
+                if current == nil then current = false end
+                PluginStore:saveSetting(SETTINGS.COVER_ALIGN_TO_TEXT, not current)
+            end,
+        },
         {
             text           = _("Cover image size"),
             help_text      = _("Height limit for the cover image in pixels."),
@@ -149,11 +151,6 @@ local function buildBookSectionContentMenu()
                 )
             end,
         },
-        createToggleItem(
-            _("Align cover to text alignment"),
-            _("When enabled, the cover image follows the text alignment setting instead of always being centered."),
-            SETTINGS.COVER_ALIGN_TO_TEXT, false
-        ),
     }
 
     return {
@@ -204,7 +201,15 @@ local function buildGoalSectionContentMenu()
 
     return {
         {
-            text      = _("Title Line"),
+            text_func = function()
+                local labels = {
+                    pages = _("Pages read today"),
+                    time  = _("Time read today"),
+                    both  = _("Time and pages read today"),
+                }
+                local current = getSetting("GOAL_TITLE_TYPE") or "time"
+                return string.format(_("Title Line: %s"), labels[current] or current)
+            end,
             help_text = _("Choose what the top line of the daily info section displays."),
             sub_item_table = {
                 createRadioItem(
@@ -218,14 +223,17 @@ local function buildGoalSectionContentMenu()
                     SETTINGS.GOAL_TITLE_TYPE, "time"
                 ),
                 createRadioItem(
-                    _("Pages and time read today"),
-                    _("e.g. '35 pgs & 42 mins read today'"),
+                    _("Time and pages read today"),
+                    _("e.g. '42 mins & 35 pgs read today'"),
                     SETTINGS.GOAL_TITLE_TYPE, "both"
                 ),
             },
         },
         {
-            text      = _("Goal type"),
+            text_func = function()
+                local label = isTimeGoal() and _("Time goal") or _("Page goal")
+                return string.format(_("Goal type: %s"), label)
+            end,
             help_text = _("Choose whether your daily goal tracks pages read or time spent reading."),
             sub_item_table = {
                 {
@@ -233,7 +241,7 @@ local function buildGoalSectionContentMenu()
                     help_text    = _("Track daily progress by number of pages read."),
                     checked_func = function()
                         local val = PluginStore:readSetting(SETTINGS.GOAL_TYPE)
-                        return val == nil or val == "pages"
+                        return (val == nil and USER_CONFIG.GOAL_TYPE or val) == "pages"
                     end,
                     callback = function()
                         PluginStore:saveSetting(SETTINGS.GOAL_TYPE, "pages")
@@ -268,7 +276,7 @@ local function buildGoalSectionContentMenu()
                 )
             end,
         },
-        {   
+        {
             text           = _("Daily time goal"),
             help_text      = _("Set how many minutes you aim to read each day."),
             enabled_func   = function() return isTimeGoal() end,
@@ -289,17 +297,9 @@ local function buildGoalSectionContentMenu()
         createToggleItem(_("Show weekly progress"),
             _("Days this week you have met your reading goal, shown as completed days out of the current weekday (Monday = 1... Sunday = 7). For example: Thursday with goals met on Monday and Tuesday will show 2/4."),
             SETTINGS.SHOW_GOAL_ACHIEVEMENT, false),
-        {   
-            text      = _("Show daily goal"),
-            help_text = _("Target page mode: e.g. 50 page goal. Target time mode: e.g. 1hr 15min time goal."),
-            checked_func = function()
-                local val = PluginStore:readSetting(SETTINGS.SHOW_GOAL_PAGES)
-                return val == nil or val == true
-            end,
-            callback = function()
-                PluginStore:flipNilOrTrue(SETTINGS.SHOW_GOAL_PAGES)
-            end,
-        },
+        createFlipNilOrFalseItem(_("Show daily goal"),
+            _("Target page mode: e.g. 50 page goal. Target time mode: e.g. 1hr 15min time goal."),
+            SETTINGS.SHOW_GOAL_PAGES),
         createFlipNilOrTrueItem(_("Show goal percentage"),
             _("Display the percentage of your daily goal completed."),
             SETTINGS.SHOW_GOAL_PERCENTAGE),
@@ -308,14 +308,17 @@ end
 
 local function buildBatterySectionContentMenu()
     return {
-        createFlipNilOrTrueItem(_("Show clock"),
+        createToggleItem(_("Show remaining & charging text"),
+            _("Show the words \"remaining\" and \"charging\" next to the battery percentage, e.g. \"82% remaining\" instead of just \"82%\"."),
+            SETTINGS.SHOW_BATT_STATUS_TEXT, USER_CONFIG.SHOW_BATT_STATUS_TEXT),
+        createToggleItem(_("Show time"),
             _("Display the current time. Note this is a snapshot taken when the sleep screen is shown, it does not update live while the screen is asleep."),
-            SETTINGS.SHOW_BATT_CLOCK),
+            SETTINGS.SHOW_BATT_CLOCK, USER_CONFIG.SHOW_BATT_CLOCK),
         createToggleItem(_("Show date"),
             _("Display the current date. Note this is a snapshot taken when the sleep screen is shown, it does not update live while the screen is asleep."),
             SETTINGS.SHOW_BATT_DATE, false),
         createToggleItem(_("Show battery consumption rate"),
-            _("Display battery drain percentage per hour based on recent usage or manual input (see advanced menu)"),
+            _("Display battery drain percentage per hour based on recent usage or manual input (see Global settings menu)"),
             SETTINGS.SHOW_BATT_RATE, false),
         createFlipNilOrTrueItem(_("Show battery time remaining"),
             _("Display estimated hours and minutes until battery is depleted, based on current drain rate."),
@@ -325,6 +328,25 @@ end
 
 local function buildMessageSectionContentMenu()
     return {
+        createToggleItem(
+            _("Show message header"),
+            _("Show or hide the header label above the message text."),
+            SETTINGS.SHOW_MSG_HEADER, USER_CONFIG.SHOW_MSG_HEADER
+        ),
+        {
+            text           = _("Edit message header"),
+            help_text      = _("Custom header text displayed above the message. Supports variables: %d, %y, %t, %b, %r."),
+            enabled_func   = function()
+                local val = PluginStore:readSetting(SETTINGS.SHOW_MSG_HEADER)
+                return val == nil and USER_CONFIG.SHOW_MSG_HEADER or val
+            end,
+            keep_menu_open = true,
+            callback = function()
+                createTextInputDialog(_("Change custom message header"), getSetting("MSG_HEADER"),
+                    function(value) PluginStore:saveSetting(SETTINGS.MSG_HEADER, value) end)
+            end,
+            separator = true,
+        },
         createRadioItem(_("Custom message"),
             _("Use a separate custom message just for Customisable Sleep Screen"),
             SETTINGS.MESSAGE_SOURCE, "custom"),
@@ -338,6 +360,7 @@ local function buildMessageSectionContentMenu()
                     getSetting("CUSTOM_MESSAGE") or "",
                     function(value) PluginStore:saveSetting(SETTINGS.CUSTOM_MESSAGE, value) end)
             end,
+            separator = true,
         },
         createRadioItem(_("Book highlights"),
             _("Show a random highlight from the current book"),
@@ -382,43 +405,34 @@ local function buildMessageSectionContentMenu()
                     nil, 100
                 )
             end,
+            separator = true,
         },
         createRadioItem(_("Custom quotes"),
-            _("Show a random quote from the custom_quotes.lua file in the plugin folder."),
+            _("Show a random quote from the css_custom_quotes.lua file in the plugin folder."),
             SETTINGS.MESSAGE_SOURCE, "custom_quotes"),
         {
             text         = _("Show quote attribution"),
-            help_text    = _("Display the author and book name below the quote, if provided in custom_quotes.lua."),
+            help_text    = _("Display the author and book name below the quote, if provided in css_custom_quotes.lua."),
             enabled_func = function() return getSetting("MESSAGE_SOURCE") == "custom_quotes" end,
             checked_func = function() return getSetting("SHOW_QUOTE_ATTRIBUTION") end,
             callback = function()
                 PluginStore:saveSetting(SETTINGS.SHOW_QUOTE_ATTRIBUTION,
                     not getSetting("SHOW_QUOTE_ATTRIBUTION"))
             end,
+            separator = true,
         },
         createRadioItem(_("KOReader sleep message"),
             _("Uses KOReaders own sleep screen message function. Enable 'Add custom message to sleep screen' to use this (Settings → Screen → Sleep screen → Sleep screen message)."),
             SETTINGS.MESSAGE_SOURCE, "koreader",
             function() return G_reader_settings:isTrue(SETTINGS.SHOW_MSG_GLOBAL) end),
-        createToggleItem(
-            _("Show message header"),
-            _("Show or hide the header label above the message text."),
-            SETTINGS.SHOW_MSG_HEADER, true
-        ),
-        {
-            text           = _("Message header"),
-            help_text      = _("Custom header text displayed above the message. Supports variables: %d, %y, %t, %b, %r."),
-            keep_menu_open = true,
-            callback = function()
-                createTextInputDialog(_("Change custom message header"), getSetting("MSG_HEADER"),
-                    function(value) PluginStore:saveSetting(SETTINGS.MSG_HEADER, value) end)
-            end,
-        },
     }
 end
 
-local function buildContentsMenu()
+-- Top-level Contents menu (combines all of the above)
+
+local function buildContentsMenu(ui)
     local menu = {
+        h.buildPreviewMenuItem(ui, false),
         createResetMenuItem("contents", {
             SETTINGS.SHOW_BOOK,                SETTINGS.SHOW_CHAP,
             SETTINGS.SHOW_GOAL,                SETTINGS.SHOW_BATT,
@@ -434,7 +448,7 @@ local function buildContentsMenu()
             SETTINGS.SHOW_MSG_HEADER,
             SETTINGS.SHOW_BATT_DATE,
             SETTINGS.SHOW_BATT_RATE,           SETTINGS.SHOW_BATT_TIME,
-            SETTINGS.SHOW_BATT_CLOCK,
+            SETTINGS.SHOW_BATT_CLOCK,          SETTINGS.SHOW_BATT_STATUS_TEXT,
             SETTINGS.MESSAGE_SOURCE,           SETTINGS.MSG_HEADER,
             SETTINGS.CUSTOM_MESSAGE,           SETTINGS.MAX_HIGHLIGHT_LENGTH,
             SETTINGS.HIGHLIGHT_ADD_QUOTES,     SETTINGS.SHOW_HIGHLIGHT_LOCATION,
@@ -443,11 +457,7 @@ local function buildContentsMenu()
             SETTINGS.SHOW_QUOTE_ATTRIBUTION,
             SETTINGS.SHOW_BOOK_SERIES,
         }),
-        { text = _("Displayed sections"),
-          sub_item_table = buildVisibilityMenu(),
-          help_text = _("Toggle which sections show on the sleep screen. At least one must be visible.") },
         buildSectionOrderMenu()[1],
-        { text = _("[ Section Content ]"), enabled = false },
         { text = _("Book section"),       help_text = _("Configure book-specific details."),        sub_item_table = buildBookSectionContentMenu()    },
         { text = _("Chapter section"),    help_text = _("Configure chapter-specific details"),      sub_item_table = buildChapterSectionContentMenu() },
         { text = _("Daily goal section"), help_text = _("Configure reading goal details"),          sub_item_table = buildGoalSectionContentMenu()    },
@@ -459,7 +469,6 @@ end
 
 return {
     buildContentsMenu              = buildContentsMenu,
-    buildVisibilityMenu            = buildVisibilityMenu,
     buildSectionOrderMenu          = buildSectionOrderMenu,
     buildBookSectionContentMenu    = buildBookSectionContentMenu,
     buildChapterSectionContentMenu = buildChapterSectionContentMenu,

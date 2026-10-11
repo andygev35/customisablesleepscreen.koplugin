@@ -21,6 +21,7 @@ local USER_CONFIG = {
     GOAL_TYPE                = "time",
     DAILY_GOAL_MINUTES       = 30,
     SHOW_GOAL_STREAK         = false,
+    SHOW_GOAL_WEEKLY_STREAK  = false,
     SHOW_GOAL_ACHIEVEMENT    = false,
     SHOW_GOAL_PAGES          = false,
     SHOW_GOAL_PERCENTAGE     = true,
@@ -36,6 +37,8 @@ local USER_CONFIG = {
     MAX_HIGHLIGHT_LENGTH     = 150,
     HIGHLIGHT_ADD_QUOTES     = true,
     SHOW_HIGHLIGHT_LOCATION  = false,
+    HIGHLIGHT_SOURCE         = "current",
+    SHOW_HIGHLIGHT_BOOK      = false,
     SHOW_QUOTE_ATTRIBUTION   = false,
     SHOW_MSG_HEADER          = false,
     MSG_SHOW_FULL_BAR        = false,
@@ -43,6 +46,20 @@ local USER_CONFIG = {
     COVER_SIZE               = 150,
     COVER_BORDER_SIZE        = 0,
     COVER_ALIGN_TO_TEXT      = false,
+    COVER_DROP_SHADOW        = false,
+    LOCK_ENABLED             = false,
+    LOCK_ON_LAUNCH           = false,
+    LOCK_ANTI_GHOSTING_FLASH = false,
+    LOCK_DELAY_SECONDS       = 0,
+    LOCK_BG_TYPE             = "white",
+    LOCK_TEXT_COLOR          = "auto",
+    LOCK_BUTTON_STYLE        = "plain",
+    LOCK_BUTTON_SHAPE        = "circle",
+    LOCK_OWNER_MESSAGE       = "",
+    LOCK_FAILED_ATTEMPTS     = 0,
+    LOCK_LOCKOUT_ROUNDS      = 0,
+    LOCK_LOCKED_UNTIL        = 0,
+    LOCK_LOCKOUT_SECS        = 0,
 
     -- Layout, spacing & frame
     SECTION_GAPS_ENABLED     = false,
@@ -98,6 +115,7 @@ local USER_CONFIG = {
     ICON_SIZE                = 40,
     BAR_HEIGHT               = 12,
     SHOW_ICONS               = true,
+    SHOW_WHITE_ICON_OUTLINE_DARK_MODE = false,
     SHOW_BARS                = true,
 
     -- Fonts & text
@@ -140,7 +158,13 @@ local USER_CONFIG = {
     EXPORT_FILENAME          = "sleep_screen",
     EXPORT_FORMAT            = "jpg",
     EXPORT_GRAYSCALE         = false,
+    EXPORT_TRIGGER_CLOSE            = true,
+    EXPORT_TRIGGER_SUSPEND          = true,
+    EXPORT_TRIGGER_OPEN             = false,
+    EXPORT_TRIGGER_PERIODIC         = false,
+    EXPORT_TRIGGER_PERIODIC_MINUTES = 15,
     ANTI_GHOSTING_FLASH      = false,
+    ANTI_GHOSTING_FLASH_COLOR = "black",
 }
 
 local SETTINGS = {
@@ -173,6 +197,7 @@ local SETTINGS = {
     GOAL_TYPE                = "customisable_ss_goal_type",
     DAILY_GOAL_MINUTES       = "customisable_ss_daily_goal_minutes",
     SHOW_GOAL_STREAK         = "customisable_ss_show_goal_streak",
+    SHOW_GOAL_WEEKLY_STREAK  = "customisable_ss_show_goal_weekly_streak",
     SHOW_GOAL_ACHIEVEMENT    = "customisable_ss_show_goal_achievement",
     SHOW_GOAL_PAGES          = "customisable_ss_show_goal_pages",
     SHOW_GOAL_PERCENTAGE     = "customisable_ss_show_goal_percentage",
@@ -188,6 +213,8 @@ local SETTINGS = {
     MAX_HIGHLIGHT_LENGTH     = "customisable_ss_max_highlight_length",
     HIGHLIGHT_ADD_QUOTES     = "customisable_ss_highlight_add_quotes",
     SHOW_HIGHLIGHT_LOCATION  = "customisable_ss_show_highlight_location",
+    HIGHLIGHT_SOURCE         = "customisable_ss_highlight_source",
+    SHOW_HIGHLIGHT_BOOK      = "customisable_ss_show_highlight_book",
     SHOW_QUOTE_ATTRIBUTION   = "customisable_ss_show_quote_attribution",
     SHOW_MSG_HEADER          = "customisable_ss_show_msg_header",
     MSG_SHOW_FULL_BAR        = "customisable_ss_msg_show_full_bar",
@@ -195,6 +222,22 @@ local SETTINGS = {
     COVER_SIZE               = "customisable_ss_cover_size",
     COVER_BORDER_SIZE        = "customisable_ss_cover_border_size",
     COVER_ALIGN_TO_TEXT      = "customisable_ss_cover_align_to_text",
+    COVER_DROP_SHADOW        = "customisable_ss_cover_drop_shadow",
+    LOCK_ENABLED             = "customisable_ss_lock_enabled",
+    LOCK_ON_LAUNCH           = "customisable_ss_lock_on_launch",
+    LOCK_ANTI_GHOSTING_FLASH = "customisable_ss_lock_anti_ghosting_flash",
+    LOCK_DELAY_SECONDS       = "customisable_ss_lock_delay_seconds",
+    LOCK_PIN_SALT            = "customisable_ss_lock_pin_salt",
+    LOCK_PIN_HASH            = "customisable_ss_lock_pin_hash",
+    LOCK_BG_TYPE             = "customisable_ss_lock_bg_type",
+    LOCK_TEXT_COLOR          = "customisable_ss_lock_text_color",
+    LOCK_BUTTON_STYLE        = "customisable_ss_lock_button_style",
+    LOCK_BUTTON_SHAPE        = "customisable_ss_lock_button_shape",
+    LOCK_OWNER_MESSAGE       = "customisable_ss_lock_owner_message",
+    LOCK_FAILED_ATTEMPTS     = "customisable_ss_lock_failed_attempts",
+    LOCK_LOCKOUT_ROUNDS      = "customisable_ss_lock_lockout_rounds",
+    LOCK_LOCKED_UNTIL        = "customisable_ss_lock_locked_until",
+    LOCK_LOCKOUT_SECS        = "customisable_ss_lock_lockout_secs",
 
     -- Layout, spacing & frame
     SECTION_GAPS_ENABLED     = "customisable_ss_section_gaps_enabled",
@@ -250,6 +293,7 @@ local SETTINGS = {
     ICON_SIZE                = "customisable_ss_icon_size",
     BAR_HEIGHT               = "customisable_ss_bar_height",
     SHOW_ICONS               = "customisable_ss_show_icons",
+    SHOW_WHITE_ICON_OUTLINE_DARK_MODE = "customisable_ss_show_white_icon_outline_dark_mode",
     SHOW_BARS                = "customisable_ss_show_bars",
 
     -- Fonts & text
@@ -297,7 +341,13 @@ local SETTINGS = {
     EXPORT_FILENAME          = "customisable_ss_export_filename",
     EXPORT_FORMAT            = "customisable_ss_export_format",
     EXPORT_GRAYSCALE         = "customisable_ss_export_grayscale",
+    EXPORT_TRIGGER_CLOSE            = "customisable_ss_export_trigger_close",
+    EXPORT_TRIGGER_SUSPEND          = "customisable_ss_export_trigger_suspend",
+    EXPORT_TRIGGER_OPEN             = "customisable_ss_export_trigger_open",
+    EXPORT_TRIGGER_PERIODIC         = "customisable_ss_export_trigger_periodic",
+    EXPORT_TRIGGER_PERIODIC_MINUTES = "customisable_ss_export_trigger_periodic_minutes",
     ANTI_GHOSTING_FLASH      = "customisable_ss_anti_ghosting_flash",
+    ANTI_GHOSTING_FLASH_COLOR = "customisable_ss_anti_ghosting_flash_color",
 }
 
 local function getSetting(key)

@@ -64,6 +64,10 @@ msgid "min"
 msgid_plural "mins"
 msgstr[0] "phút"
 
+msgid "sec"
+msgid_plural "secs"
+msgstr[0] "giây"
+
 msgid "< 1 min"
 msgstr "< 1 phút"
 
@@ -106,16 +110,16 @@ msgid "pgs"
 msgstr "tr."
 
 #, lua-format
-msgid "%s %s & %s read today"
-msgstr "Đã đọc %s %s & %s hôm nay"
-
-#, lua-format
 msgid "%s read today"
 msgstr "Đã đọc %s hôm nay"
 
 #, lua-format
 msgid "%d day streak"
 msgstr "%d ngày liên tiếp"
+
+#, lua-format
+msgid "%d week streak"
+msgstr "Chuỗi %d tuần"
 
 #, lua-format
 msgid "%d/%d days met this week"
@@ -137,9 +141,6 @@ msgstr "%d%% mục tiêu"
 #, lua-format
 msgid "%d page goal"
 msgstr "Mục tiêu %d trang"
-
-msgid "Rate unavailable"
-msgstr "Không có dữ liệu tốc độ"
 
 msgid "No message set"
 msgstr "Chưa đặt tin nhắn"
@@ -324,35 +325,61 @@ msgid "Flash screen to reduce ghosting"
 msgstr "Nháy màn hình để giảm bóng mờ"
 
 msgid ""
-"Flashes the screen to black before showing the sleep screen, clearing "
-"residual text/image ghosting. Off by default, since not every device shows "
-"this ghosting."
+"Flashes the whole screen before showing a screen, clearing leftovers of the "
+"previous one. Off by default, since not every device shows this ghosting. "
+"The sleep screen and the lock screen each have their own switch, and the "
+"flash can be black or white."
 msgstr ""
-"Làm màn hình nháy đen trước khi hiển thị màn hình chờ, xóa bóng mờ còn sót "
-"lại của văn bản/hình ảnh. Mặc định tắt vì không phải thiết bị nào cũng gặp "
-"hiện tượng bóng mờ này."
+"Nháy toàn màn hình trước khi hiện một màn hình, xóa vết còn lại của màn hình "
+"trước. Mặc định tắt, vì không phải thiết bị nào cũng bị bóng mờ này. Màn "
+"hình chờ và màn hình khóa mỗi màn hình có công tắc riêng, và có thể nháy đen "
+"hoặc trắng."
 
-msgid "Show in file manager (outside of book)"
-msgstr "Hiển thị trong trình quản lý tệp (ngoài sách)"
+msgid "Flash screen before sleep screen"
+msgstr "Nháy màn hình trước màn hình chờ"
 
 msgid ""
-"When enabled, the customisable sleep screen will display in file manager "
-"using the last saved book data."
+"Flashes the screen (black or white, see below) before showing the sleep "
+"screen, clearing residual text/image ghosting."
 msgstr ""
-"Khi bật, màn hình chờ tùy chỉnh sẽ hiển thị trong trình quản lý tệp\n"
-"bằng dữ liệu sách đã lưu gần nhất."
+"Nháy màn hình (đen hoặc trắng, xem bên dưới) trước khi hiện màn hình chờ, "
+"xóa bóng mờ còn sót của chữ và hình ảnh."
+
+msgid "Flash screen before lock screen"
+msgstr "Nháy màn hình trước màn hình khóa"
+
+msgid ""
+"Flashes the screen (black or white, see below) before showing the lock "
+"screen, clearing leftovers of the sleep screen. Useful if you can see "
+"ghosting on the lock screen, for example with a black background. Needs the "
+"lock screen to be enabled."
+msgstr ""
+"Nháy màn hình (đen hoặc trắng, xem bên dưới) trước khi hiện màn hình khóa, "
+"xóa vết còn lại của màn hình chờ. Hữu ích nếu bạn thấy bóng mờ trên màn hình "
+"khóa, chẳng hạn với nền đen. Cần bật màn hình khóa."
+
+msgid "Black flash"
+msgstr "Nháy đen"
+
+msgid "Flash the screen to black. Clears light leftovers best."
+msgstr "Nháy màn hình sang màu đen. Xóa vết sáng màu tốt nhất."
+
+msgid "White flash"
+msgstr "Nháy trắng"
+
+msgid "Flash the screen to white. Clears dark leftovers best."
+msgstr "Nháy màn hình sang màu trắng. Xóa vết tối màu tốt nhất."
 
 msgid "Export sleep screen to file"
 msgstr "Xuất màn hình chờ ra tệp"
 
 msgid ""
-"When enabled, a screenshot of the sleep screen will be saved in the selected"
-" export folder each time you close a book or put the device to sleep, using "
-"the format set below."
+"When enabled, a screenshot of the sleep screen will be saved in the selected "
+"export folder using the format set below, on the triggers selected under "
+"'Export triggers'."
 msgstr ""
-"Khi được bật, ảnh chụp màn hình chờ sẽ được lưu vào thư mục xuất đã chọn mỗi"
-" khi bạn đóng sách hoặc đưa thiết bị vào chế độ ngủ, theo định dạng được đặt"
-" bên dưới."
+"Khi bật, ảnh chụp màn hình chờ sẽ được lưu vào thư mục xuất đã chọn theo "
+"định dạng đặt bên dưới, tại các thời điểm đã chọn trong “Thời điểm xuất”."
 
 msgid "Sleep screen export disabled."
 msgstr "Xuất màn hình chờ đã tắt."
@@ -406,14 +433,6 @@ msgstr ""
 
 msgid "Exclude this book's cover from sleep screen"
 msgstr "Loại trừ ảnh bìa của sách này khỏi màn hình chờ"
-
-msgid ""
-"Hides the cover for this book only, for when you'd rather it not be shown on"
-" your sleep screen - without having to switch presets or background settings"
-" each time you read it."
-msgstr ""
-"Chỉ ẩn ảnh bìa cho sách này, dành cho khi bạn không muốn nó hiển thị trên "
-"màn hình chờ - mà không cần đổi cấu hình sẵn hoặc cài đặt nền mỗi khi đọc."
 
 msgid "No background (leave screen as-is)"
 msgstr "Không có nền (giữ nguyên màn hình)"
@@ -486,9 +505,6 @@ msgstr "Thông tin pin"
 msgid "Message info"
 msgstr "Thông tin tin nhắn"
 
-msgid "At least one section must remain visible."
-msgstr "Ít nhất một phần phải hiển thị."
-
 msgid "Show cover image above book info"
 msgstr "Hiển thị ảnh bìa trên thông tin sách"
 
@@ -518,14 +534,27 @@ msgid "Cover border size"
 msgstr "Kích thước viền bìa"
 
 msgid ""
-"Width of the border drawn around the cover image. Set to 0 for no border."
-msgstr "Độ rộng của viền vẽ xung quanh ảnh bìa. Đặt thành 0 để không có viền."
+"Width of the border drawn around the cover image. Set to 0 for no border. "
+"Ignored while 'Add drop shadow to cover' is enabled."
+msgstr ""
+"Độ dày viền vẽ quanh ảnh bìa. Đặt 0 để không có viền. Bị bỏ qua khi “Thêm "
+"bóng đổ cho bìa sách” được bật."
 
 msgid "Cover border size (pixels)"
 msgstr "Kích thước viền bìa (pixel)"
 
 msgid "1–3px for a subtle outline. 0 to disable."
 msgstr "1–3px cho đường viền tinh tế. 0 để tắt."
+
+msgid "Add drop shadow to cover"
+msgstr "Thêm bóng đổ cho bìa sách"
+
+msgid ""
+"Gives the cover image rounded corners and a drop shadow, like a card. "
+"Replaces the regular cover border option while enabled."
+msgstr ""
+"Bo tròn góc và thêm bóng đổ cho ảnh bìa, như một tấm thẻ. Thay thế tùy chọn "
+"viền bìa thông thường khi được bật."
 
 msgid "Align cover to text alignment"
 msgstr "Căn bìa theo căn chỉnh văn bản"
@@ -621,12 +650,6 @@ msgstr "Thời gian đọc hôm nay"
 msgid "e.g. '42 mins read today'"
 msgstr "vd: '42 phút đã đọc hôm nay'"
 
-msgid "Pages and time read today"
-msgstr "Số trang và thời gian đọc hôm nay"
-
-msgid "e.g. '35 pgs & 42 mins read today'"
-msgstr "vd: '35 tr. & 42 phút đã đọc hôm nay'"
-
 msgid ""
 "Choose whether your daily goal tracks pages read or time spent reading."
 msgstr "Chọn xem mục tiêu hàng ngày theo dõi số trang đọc hay thời gian đọc."
@@ -674,6 +697,12 @@ msgstr "Hiển thị chuỗi đọc sách hiện tại"
 
 msgid "Display consecutive days you've met your reading goal."
 msgstr "Hiển thị số ngày liên tiếp bạn đạt mục tiêu đọc sách."
+
+msgid "Show weekly reading streak"
+msgstr "Hiển thị chuỗi đọc sách hàng tuần"
+
+msgid "Display consecutive weeks with any reading activity."
+msgstr "Hiển thị số tuần liên tiếp có hoạt động đọc sách."
 
 msgid "Show weekly progress"
 msgstr "Hiển thị tiến độ hàng tuần"
@@ -759,6 +788,27 @@ msgstr "Đánh dấu trong sách"
 msgid "Show a random highlight from the current book"
 msgstr "Hiển thị một đánh dấu ngẫu nhiên từ cuốn sách hiện tại"
 
+#, lua-format
+msgid "Highlight source: %s"
+msgstr "Nguồn đoạn đánh dấu: %s"
+
+msgid ""
+"Choose whether the highlight is picked from the current book only, or from "
+"all of your highlights."
+msgstr ""
+"Chọn xem đoạn đánh dấu được lấy chỉ từ sách hiện tại hay từ tất cả đoạn đánh "
+"dấu của bạn."
+
+msgid "Current book"
+msgstr "Sách hiện tại"
+
+msgid "Only show highlights from the book you're currently reading."
+msgstr "Chỉ hiển thị đoạn đánh dấu từ cuốn sách bạn đang đọc."
+
+msgid "Show highlights from a random sample of your reading history."
+msgstr ""
+"Hiển thị đoạn đánh dấu từ một mẫu ngẫu nhiên trong lịch sử đọc của bạn."
+
 msgid "Add quotation marks to highlights"
 msgstr "Thêm dấu ngoặc kép vào đánh dấu"
 
@@ -769,15 +819,21 @@ msgstr ""
 "Bọc tất cả đánh dấu trong dấu ngoặc kép cong, xóa bỏ các dấu ngoặc kép\n"
 "có sẵn."
 
-msgid "Show highlight location"
-msgstr "Hiển thị vị trí đánh dấu"
+msgid "Show highlight location (chapter & page no.)"
+msgstr "Hiển thị vị trí đoạn đánh dấu (chương và trang)"
+
+msgid "Display the chapter title and page number where the highlight is found."
+msgstr "Hiển thị tiêu đề chương và số trang nơi có đoạn đánh dấu."
+
+msgid "Show highlight book title and author"
+msgstr "Hiển thị tên sách và tác giả của đoạn đánh dấu"
 
 msgid ""
-"Display the chapter title and page number where the highlight is found, "
-"shown below the highlight text."
+"Display which book and author the highlight is from. Only applies when "
+"highlight source is set to 'All books'."
 msgstr ""
-"Hiển thị tiêu đề chương và số trang nơi đánh dấu được tìm thấy, hiển\n"
-"thị bên dưới văn bản đánh dấu."
+"Hiển thị đoạn đánh dấu đến từ sách và tác giả nào. Chỉ áp dụng khi nguồn "
+"đoạn đánh dấu được đặt là “Tất cả sách”."
 
 msgid "Book highlight maximum length"
 msgstr "Độ dài tối đa đánh dấu sách"
@@ -1197,6 +1253,16 @@ msgstr "Kích thước biểu tượng (px)"
 msgid "32–48px suits most layouts."
 msgstr "32–48px phù hợp với hầu hết các bố cục."
 
+msgid "Add white outline to icons in dark mode"
+msgstr "Thêm viền trắng cho biểu tượng ở chế độ tối"
+
+msgid ""
+"Adds a thin white outline around each icon when dark mode is on, like a "
+"sticker, so icons stay visible against dark backgrounds."
+msgstr ""
+"Thêm một đường viền trắng mỏng quanh mỗi biểu tượng khi bật chế độ tối, "
+"giống như một miếng dán, để biểu tượng vẫn dễ thấy trên nền tối."
+
 msgid "Progress bar height"
 msgstr "Chiều cao thanh tiến trình"
 
@@ -1292,9 +1358,6 @@ msgstr ""
 "100% lấp đầy cột văn bản. Thanh được căn chỉnh theo cài đặt căn chỉnh\n"
 "văn bản của bạn."
 
-msgid "Title font face"
-msgstr "Phông chữ tiêu đề"
-
 msgid "Choose the font face for the main heading text in each section"
 msgstr "Chọn phông chữ cho văn bản tiêu đề chính trong mỗi phần"
 
@@ -1306,9 +1369,6 @@ msgstr "Chọn cỡ chữ cho văn bản tiêu đề chính trong mỗi phần."
 
 msgid "10–12px works well for most screens."
 msgstr "10–12px phù hợp với hầu hết các màn hình."
-
-msgid "Subtitle font face"
-msgstr "Phông chữ phụ đề"
 
 msgid "Choose the font face for the information below the main heading text."
 msgstr "Chọn phông chữ cho thông tin bên dưới văn bản tiêu đề chính."
@@ -1556,12 +1616,11 @@ msgid "Enter hex colour code"
 msgstr "Nhập mã màu hex"
 
 msgid ""
-"Saves a screenshot of the sleep screen to a file each time a book is closed."
-" Useful for devices that use an exported image as their own native sleep "
-"screen."
+"Saves a screenshot of the sleep screen to a file. Useful for devices that "
+"use an exported image as their own native sleep screen."
 msgstr ""
-"Lưu ảnh chụp màn hình chờ vào một tệp mỗi khi đóng sách. Hữu ích cho các "
-"thiết bị dùng ảnh đã xuất làm màn hình chờ gốc của riêng chúng."
+"Lưu ảnh chụp màn hình chờ vào một tệp. Hữu ích cho các thiết bị dùng ảnh đã "
+"xuất làm màn hình chờ riêng của chúng."
 
 msgid "Enable export"
 msgstr "Bật xuất tệp"
@@ -1583,6 +1642,72 @@ msgstr ""
 "Chọn thư mục lưu ảnh đã xuất. Phải được đặt trước khi có thể bật tính năng "
 "xuất."
 
+msgid "Export triggers"
+msgstr "Thời điểm xuất"
+
+msgid ""
+"Choose when the sleep screen is exported. You can select any combination of "
+"these."
+msgstr "Chọn thời điểm xuất màn hình chờ. Bạn có thể chọn bất kỳ tổ hợp nào."
+
+msgid "On book close"
+msgstr "Khi đóng sách"
+
+msgid "Export whenever you close a book."
+msgstr "Xuất mỗi khi bạn đóng sách."
+
+msgid "On book open"
+msgstr "Khi mở sách"
+
+msgid "Export whenever you open a book."
+msgstr "Xuất mỗi khi bạn mở sách."
+
+msgid "On suspend"
+msgstr "Khi treo máy"
+
+msgid "Export whenever you put the device to sleep."
+msgstr "Xuất mỗi khi bạn đưa thiết bị vào chế độ ngủ."
+
+msgid "Periodically while reading"
+msgstr "Định kỳ khi đọc"
+
+msgid ""
+"Export automatically at a set interval while a book is open. Paused while "
+"the device is suspended, and resumes when you wake it or open another book."
+msgstr ""
+"Tự động xuất theo khoảng thời gian cố định khi đang mở sách. Tạm dừng khi "
+"thiết bị ở chế độ treo, và tiếp tục khi bạn đánh thức thiết bị hoặc mở sách "
+"khác."
+
+#, lua-format
+msgid "Periodic export interval: %d min"
+msgstr "Khoảng cách xuất định kỳ: %d phút"
+
+msgid "How often to export while 'Periodically while reading' is enabled."
+msgstr "Tần suất xuất khi “Định kỳ khi đọc” được bật."
+
+msgid "Periodic export interval (minutes)"
+msgstr "Khoảng cách xuất định kỳ (phút)"
+
+msgid "How often, in minutes, to export the sleep screen while a book is open."
+msgstr "Tần suất (tính bằng phút) xuất màn hình chờ khi đang mở sách."
+
+msgid "Export sleep screen now"
+msgstr "Xuất màn hình chờ ngay"
+
+msgid "Sleep screen exported."
+msgstr "Đã xuất màn hình chờ."
+
+msgid "Export failed. Check that an export folder is set."
+msgstr "Xuất thất bại. Hãy kiểm tra xem đã đặt thư mục xuất chưa."
+
+msgid ""
+"Sleep screen export is turned off. Enable it under 'Export sleep screen to "
+"file' to use this."
+msgstr ""
+"Tính năng xuất màn hình chờ đang tắt. Hãy bật nó trong “Xuất màn hình chờ ra "
+"tệp” để dùng chức năng này."
+
 msgid "Preview sleep screen"
 msgstr "Xem trước màn hình chờ"
 
@@ -1593,15 +1718,22 @@ msgstr ""
 "Hiển thị giao diện hiện tại của màn hình chờ mà không thực sự đưa thiết bị "
 "vào chế độ chờ."
 
-msgid "Behaviour"
-msgstr "Hành vi"
+msgid "Preview file manager sleep screen"
+msgstr "Xem trước màn hình chờ của trình quản lý tệp"
 
 msgid ""
-"How the plugin behaves: file manager display, ghosting, export, battery "
-"estimation, and stats scope."
+"Shows what the sleep screen looks like when the device goes to sleep from "
+"the file manager, without actually suspending it. Tap anywhere to close it."
 msgstr ""
-"Cách plugin hoạt động: hiển thị trong trình quản lý tệp, hiện tượng bóng mờ,"
-" xuất tệp, ước tính pin và phạm vi thống kê."
+"Hiển thị màn hình chờ trông thế nào khi thiết bị đi vào chế độ ngủ từ trình "
+"quản lý tệp, mà không thực sự treo máy. Chạm vào bất kỳ đâu để đóng."
+
+msgid ""
+"The alternative file manager sleep screen is not enabled. Turn on 'Show "
+"alternative sleep screen (no infobox)' to preview it."
+msgstr ""
+"Màn hình chờ thay thế cho trình quản lý tệp chưa được bật. Hãy bật “Hiển thị "
+"màn hình chờ thay thế (không có hộp thông tin)” để xem trước."
 
 #, lua-format
 msgid "Version: %s"
@@ -1671,15 +1803,6 @@ msgstr ""
 
 msgid "Fallback background"
 msgstr "Nền dự phòng"
-
-msgid ""
-"What to show instead of the cover. Uses the colour, image, or folder already"
-" set in Background type. Only selectable when \"Exclude this book's cover "
-"from sleep screen\" is turned on."
-msgstr ""
-"Nội dung hiển thị thay cho bìa sách. Dùng màu, ảnh hoặc thư mục đã đặt trong"
-" Loại nền. Chỉ chọn được khi bật \"Loại trừ bìa cuốn sách này khỏi màn hình "
-"chờ\"."
 
 msgid ""
 "No book data available to preview yet.\n"
@@ -1856,10 +1979,10 @@ msgstr "Thứ tự & hiển thị mục"
 
 msgid ""
 "Select a section and tap the bottom arrows to reorder. Tap the checkmark to "
-"show or hide the section. At least one section must stay visible."
+"show or hide the section. Hide every section to show only the background."
 msgstr ""
-"Chọn một mục và chạm vào các mũi tên bên dưới để sắp xếp lại. Chạm vào dấu "
-"tích để hiện hoặc ẩn mục. Phải có ít nhất một mục luôn hiển thị."
+"Chọn một phần và chạm vào các mũi tên bên dưới để sắp xếp lại. Chạm vào dấu "
+"tích để hiện hoặc ẩn phần đó. Ẩn tất cả các phần để chỉ hiển thị nền."
 
 #, lua-format
 msgid "Title Line: %s"
@@ -2162,3 +2285,242 @@ msgid ""
 msgstr ""
 "Lưu hình ảnh đã xuất mà không có màu, giúp giảm dung lượng tệp cho mọi định "
 "dạng."
+
+msgid "Lock screen"
+msgstr "Màn hình khóa"
+
+msgid ""
+"Add some security to your device and ask for a PIN after the sleep screen is "
+"cleared. Like Global settings, the lock screen settings don't change when "
+"you switch presets."
+msgstr ""
+"Tăng bảo mật cho thiết bị bằng cách yêu cầu mã PIN sau khi màn hình chờ được "
+"đóng. Giống như Cài đặt chung, cài đặt màn hình khóa không thay đổi khi bạn "
+"chuyển cấu hình."
+
+msgid "Enable lock screen"
+msgstr "Bật màn hình khóa"
+
+msgid ""
+"After the sleep screen, tap or swipe to clear it, then enter your PIN to "
+"continue. This is a convenience lock to keep casual access out, not strong "
+"security: it doesn't protect the files on your device. It only applies after "
+"sleep unless you also turn on 'Lock when KOReader starts'. Turning it off "
+"needs your current PIN. If you forget the PIN, create an empty file named "
+"reset-lock inside the customisablesleepscreen.koplugin folder and restart "
+"KOReader to clear it."
+msgstr ""
+"Sau màn hình chờ, chạm hoặc vuốt để đóng nó, rồi nhập mã PIN để tiếp tục. "
+"Đây là khóa tiện lợi để ngăn truy cập tình cờ, không phải bảo mật mạnh: nó "
+"không bảo vệ các tệp trên thiết bị. Chỉ áp dụng sau khi thiết bị ngủ, trừ "
+"khi bạn cũng bật “Khóa khi KOReader khởi động”. Tắt tính năng này cần mã PIN "
+"hiện tại. Nếu quên mã PIN, hãy tạo một tệp trống tên reset-lock trong thư "
+"mục customisablesleepscreen.koplugin rồi khởi động lại KOReader để xóa mã."
+
+msgid "The lock screen needs a touch screen."
+msgstr "Màn hình khóa cần có màn hình cảm ứng."
+
+msgid "Lock when KOReader starts"
+msgstr "Khóa khi KOReader khởi động"
+
+msgid ""
+"Also ask for the PIN when KOReader starts, so restarting the app or forcing "
+"the device to shut down and reboot can't be used to get around the lock. "
+"Turning it off needs your current PIN."
+msgstr ""
+"Cũng yêu cầu mã PIN khi KOReader khởi động, để việc khởi động lại ứng dụng "
+"hoặc buộc tắt rồi bật lại thiết bị không thể dùng để vượt qua khóa. Tắt tính "
+"năng này cần mã PIN hiện tại."
+
+msgid "Deferred locking"
+msgstr "Khóa trễ"
+
+msgid ""
+"Skip the lock screen when the device has only been asleep for a short time. "
+"Longer sleeps still ask for the PIN, and a device that went to sleep while "
+"locked always does."
+msgstr ""
+"Bỏ qua màn hình khóa khi thiết bị chỉ ngủ trong thời gian ngắn. Ngủ lâu hơn "
+"vẫn yêu cầu mã PIN, và thiết bị đã ngủ khi đang khóa thì luôn yêu cầu."
+
+msgid "Off (always lock)"
+msgstr "Tắt (luôn khóa)"
+
+msgid "Change PIN"
+msgstr "Đổi mã PIN"
+
+msgid "Set a new 4-digit PIN. You'll be asked for the current one first."
+msgstr "Đặt mã PIN mới gồm 4 chữ số. Bạn sẽ được hỏi mã hiện tại trước."
+
+msgid "Sleep screen background"
+msgstr "Nền màn hình chờ"
+
+msgid ""
+"Choose what appears behind the PIN pad: your sleep screen background, or "
+"plain white or black."
+msgstr ""
+"Chọn nội dung hiển thị phía sau bàn phím PIN: nền của màn hình chờ, hoặc nền "
+"trắng hay đen trơn."
+
+msgid "Plain white"
+msgstr "Trắng trơn"
+
+msgid "Plain black"
+msgstr "Đen trơn"
+
+msgid "Follow automatic preset switching"
+msgstr "Theo chuyển cấu hình tự động"
+
+msgid ""
+"White while your day preset is in effect and black while your night preset "
+"is. Only offered while automatic preset switching is turned on."
+msgstr ""
+"Trắng khi cấu hình ban ngày đang áp dụng và đen khi cấu hình ban đêm đang áp "
+"dụng. Chỉ có khi bật chuyển cấu hình tự động."
+
+msgid ""
+"Use the same background as your sleep screen (cover, image or colour), "
+"including its Background overlay. Images are shown around a solid panel "
+"behind the PIN pad, which keeps it readable and avoids ghosting. If your "
+"sleep screen has no background, plain white is used."
+msgstr ""
+"Dùng cùng nền với màn hình chờ (bìa sách, hình ảnh hoặc màu), bao gồm cả lớp "
+"phủ nền. Hình ảnh được hiển thị xung quanh một khung đặc phía sau bàn phím "
+"PIN, giúp dễ đọc và tránh bóng mờ. Nếu màn hình chờ không có nền, sẽ dùng "
+"màu trắng trơn."
+
+msgid "Button style"
+msgstr "Kiểu nút"
+
+msgid ""
+"How the number keys look: Plain (just the numbers), Ruled (thin lines "
+"between the rows), Outlined (circle outlines) or Filled (filled circles)."
+msgstr ""
+"Giao diện các phím số: Trơn (chỉ có số), Kẻ dòng (đường mảnh giữa các hàng), "
+"Viền (viền hình tròn) hoặc Tô đầy (hình tròn được tô đầy)."
+
+msgid "Plain"
+msgstr "Trơn"
+
+msgid "Ruled"
+msgstr "Kẻ dòng"
+
+msgid "Outlined"
+msgstr "Viền"
+
+msgid "Filled"
+msgstr "Tô đầy"
+
+msgid "Button shape"
+msgstr "Hình dạng nút"
+
+msgid ""
+"The shape of the Outlined and Filled buttons: a circle, or a square with "
+"rounded corners."
+msgstr ""
+"Hình dạng của các nút Viền và Tô đầy: hình tròn, hoặc hình vuông bo góc."
+
+msgid "Circle"
+msgstr "Hình tròn"
+
+msgid "Rounded square"
+msgstr "Hình vuông bo góc"
+
+msgid "Text colour"
+msgstr "Màu chữ"
+
+msgid ""
+"Colour of the lock screen text and digits over the sleep screen background. "
+"Auto picks black or white to suit the image as shown, after the overlay. "
+"Plain white and black backgrounds always use the opposite colour."
+msgstr ""
+"Màu chữ và chữ số của màn hình khóa trên nền màn hình chờ. Tự động chọn đen "
+"hoặc trắng cho phù hợp với hình ảnh khi hiển thị, sau lớp phủ. Nền trắng và "
+"đen trơn luôn dùng màu ngược lại."
+
+msgid "Auto"
+msgstr "Tự động"
+
+msgid "Black"
+msgstr "Đen"
+
+msgid "White"
+msgstr "Trắng"
+
+msgid "Owner message"
+msgstr "Tin nhắn của chủ sở hữu"
+
+msgid ""
+"A short message shown under the keypad, such as \"If found, call "
+"0123456789\". Up to three lines. Anyone who wakes the device can read it. "
+"Leave it empty to show nothing."
+msgstr ""
+"Một tin nhắn ngắn hiển thị bên dưới bàn phím, ví dụ “Nếu nhặt được, vui lòng "
+"gọi 0123456789”. Tối đa ba dòng. Bất kỳ ai đánh thức thiết bị đều có thể đọc "
+"được. Để trống nếu không muốn hiển thị gì."
+
+msgid "Preview lock screen"
+msgstr "Xem trước màn hình khóa"
+
+msgid ""
+"Shows the PIN screen so you can see how it looks, without locking anything. "
+"Tap anywhere to close it."
+msgstr ""
+"Hiển thị màn hình PIN để bạn xem nó trông thế nào, mà không khóa gì cả. Chạm "
+"vào bất kỳ đâu để đóng."
+
+msgid "On"
+msgstr "Bật"
+
+msgid "Off"
+msgstr "Tắt"
+
+msgid "Please enter your 4-digit PIN."
+msgstr "Vui lòng nhập mã PIN gồm 4 chữ số."
+
+msgid "Please enter your current 4-digit PIN."
+msgstr "Vui lòng nhập mã PIN hiện tại gồm 4 chữ số."
+
+msgid "Please choose a 4-digit PIN."
+msgstr "Vui lòng chọn mã PIN gồm 4 chữ số."
+
+msgid "Please confirm your 4-digit PIN."
+msgstr "Vui lòng xác nhận mã PIN gồm 4 chữ số."
+
+msgid "Sorry, incorrect PIN. Please try again."
+msgstr "Rất tiếc, mã PIN không đúng. Vui lòng thử lại."
+
+msgid "Sorry, the PINs didn't match. Please try again."
+msgstr "Rất tiếc, hai mã PIN không khớp. Vui lòng thử lại."
+
+#, lua-format
+msgid "Too many attempts. Please try again in %s."
+msgstr "Quá nhiều lần thử. Vui lòng thử lại sau %s."
+
+#, lua-format
+msgid ""
+"PIN saved.\n"
+"\n"
+"If you ever forget it, create an empty file named \"reset-lock\" inside the "
+"plugin's folder (%s) and restart KOReader. That clears the PIN."
+msgstr ""
+"Đã lưu mã PIN.\n"
+"\n"
+"Nếu bạn quên, hãy tạo một tệp trống tên “reset-lock” trong thư mục của "
+"plugin (%s) rồi khởi động lại KOReader. Việc này sẽ xóa mã PIN."
+
+msgid ""
+"Lock screen reset.\n"
+"\n"
+"You can set a new PIN in the Customisable Sleep Screen settings."
+msgstr ""
+"Đã đặt lại màn hình khóa.\n"
+"\n"
+"Bạn có thể đặt mã PIN mới trong cài đặt Customisable Sleep Screen."
+
+msgid ""
+"Couldn't reset the lock screen: the reset-lock file couldn't be deleted. Is "
+"the storage read-only?"
+msgstr ""
+"Không thể đặt lại màn hình khóa: không xóa được tệp reset-lock. Bộ nhớ có "
+"đang ở chế độ chỉ đọc không?"

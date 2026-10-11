@@ -66,6 +66,11 @@ msgid_plural "mins"
 msgstr[0] "min"
 msgstr[1] "min"
 
+msgid "sec"
+msgid_plural "secs"
+msgstr[0] "s"
+msgstr[1] "s"
+
 msgid "< 1 min"
 msgstr "< 1 min"
 
@@ -109,16 +114,16 @@ msgid "pgs"
 msgstr "págs."
 
 #, lua-format
-msgid "%s %s & %s read today"
-msgstr "%s %s & %s lido hoje"
-
-#, lua-format
 msgid "%s read today"
 msgstr "%s lido hoje"
 
 #, lua-format
 msgid "%d day streak"
 msgstr "%d dias seguidos"
+
+#, lua-format
+msgid "%d week streak"
+msgstr "Sequência de %d semanas"
 
 #, lua-format
 msgid "%d/%d days met this week"
@@ -140,9 +145,6 @@ msgstr "%d%% da meta"
 #, lua-format
 msgid "%d page goal"
 msgstr "%d meta de páginas"
-
-msgid "Rate unavailable"
-msgstr "Taxa indisponível"
 
 msgid "No message set"
 msgstr "Nenhuma mensagem definida"
@@ -331,35 +333,63 @@ msgid "Flash screen to reduce ghosting"
 msgstr "Piscar a tela para reduzir o ghosting"
 
 msgid ""
-"Flashes the screen to black before showing the sleep screen, clearing "
-"residual text/image ghosting. Off by default, since not every device shows "
-"this ghosting."
+"Flashes the whole screen before showing a screen, clearing leftovers of the "
+"previous one. Off by default, since not every device shows this ghosting. "
+"The sleep screen and the lock screen each have their own switch, and the "
+"flash can be black or white."
 msgstr ""
-"Faz a tela piscar em preto antes de exibir a tela de suspensão, eliminando o"
-" ghosting residual de texto/imagem. Desativado por padrão, já que nem todo "
-"dispositivo apresenta esse ghosting."
+"Pisca a tela inteira antes de mostrar uma tela, limpando resíduos da "
+"anterior. Desativado por padrão, pois nem todo dispositivo apresenta esse "
+"ghosting. A tela de suspensão e a tela de bloqueio têm cada uma seu próprio "
+"interruptor, e o flash pode ser preto ou branco."
 
-msgid "Show in file manager (outside of book)"
-msgstr "Mostrar no gerenciador de arquivos (fora do livro)"
+msgid "Flash screen before sleep screen"
+msgstr "Piscar a tela antes da tela de suspensão"
 
 msgid ""
-"When enabled, the customisable sleep screen will display in file manager "
-"using the last saved book data."
+"Flashes the screen (black or white, see below) before showing the sleep "
+"screen, clearing residual text/image ghosting."
 msgstr ""
-"Quando ativado, a tela de suspensão personalizável será exibida no "
-"gerenciador de arquivos usando os últimos dados do livro salvos."
+"Pisca a tela (em preto ou branco, veja abaixo) antes de mostrar a tela de "
+"suspensão, limpando o ghosting residual de texto e imagens."
+
+msgid "Flash screen before lock screen"
+msgstr "Piscar a tela antes da tela de bloqueio"
+
+msgid ""
+"Flashes the screen (black or white, see below) before showing the lock "
+"screen, clearing leftovers of the sleep screen. Useful if you can see "
+"ghosting on the lock screen, for example with a black background. Needs the "
+"lock screen to be enabled."
+msgstr ""
+"Pisca a tela (em preto ou branco, veja abaixo) antes de mostrar a tela de "
+"bloqueio, limpando resíduos da tela de suspensão. Útil se você vê ghosting "
+"na tela de bloqueio, por exemplo com fundo preto. Requer que a tela de "
+"bloqueio esteja ativada."
+
+msgid "Black flash"
+msgstr "Flash preto"
+
+msgid "Flash the screen to black. Clears light leftovers best."
+msgstr "Pisca a tela em preto. Limpa melhor os resíduos claros."
+
+msgid "White flash"
+msgstr "Flash branco"
+
+msgid "Flash the screen to white. Clears dark leftovers best."
+msgstr "Pisca a tela em branco. Limpa melhor os resíduos escuros."
 
 msgid "Export sleep screen to file"
 msgstr "Exportar tela de suspensão para arquivo"
 
 msgid ""
-"When enabled, a screenshot of the sleep screen will be saved in the selected"
-" export folder each time you close a book or put the device to sleep, using "
-"the format set below."
+"When enabled, a screenshot of the sleep screen will be saved in the selected "
+"export folder using the format set below, on the triggers selected under "
+"'Export triggers'."
 msgstr ""
-"Quando ativado, uma captura de tela da tela de suspensão será salva na pasta"
-" de exportação selecionada sempre que você fechar um livro ou colocar o "
-"dispositivo em suspensão, usando o formato definido abaixo."
+"Quando ativado, uma captura de tela da tela de suspensão será salva na pasta "
+"de exportação selecionada, no formato definido abaixo, nos gatilhos "
+"selecionados em “Gatilhos de exportação”."
 
 msgid "Sleep screen export disabled."
 msgstr "Exportação da tela de suspensão desativada."
@@ -415,15 +445,6 @@ msgstr ""
 
 msgid "Exclude this book's cover from sleep screen"
 msgstr "Excluir a capa deste livro da tela de suspensão"
-
-msgid ""
-"Hides the cover for this book only, for when you'd rather it not be shown on"
-" your sleep screen - without having to switch presets or background settings"
-" each time you read it."
-msgstr ""
-"Oculta a capa apenas para este livro, para quando você preferir que ela não "
-"apareça na sua tela de suspensão - sem precisar trocar de predefinição ou "
-"configurações de plano de fundo toda vez que ler."
 
 msgid "No background (leave screen as-is)"
 msgstr "Sem plano de fundo (deixar a tela como está)"
@@ -497,9 +518,6 @@ msgstr "Informações de bateria"
 msgid "Message info"
 msgstr "Informações da mensagem"
 
-msgid "At least one section must remain visible."
-msgstr "Pelo menos uma seção deve permanecer visível."
-
 msgid "Show cover image above book info"
 msgstr "Mostrar imagem da capa acima das informações do livro"
 
@@ -530,16 +548,27 @@ msgid "Cover border size"
 msgstr "Tamanho da borda da capa"
 
 msgid ""
-"Width of the border drawn around the cover image. Set to 0 for no border."
+"Width of the border drawn around the cover image. Set to 0 for no border. "
+"Ignored while 'Add drop shadow to cover' is enabled."
 msgstr ""
-"Largura da borda desenhada ao redor da imagem da capa. Defina como 0 para "
-"sem borda."
+"Largura da borda desenhada ao redor da capa. Use 0 para nenhuma borda. "
+"Ignorada enquanto “Adicionar sombra à capa” estiver ativado."
 
 msgid "Cover border size (pixels)"
 msgstr "Tamanho da borda da capa (pixels)"
 
 msgid "1–3px for a subtle outline. 0 to disable."
 msgstr "1–3px para um contorno sutil. 0 para desativar."
+
+msgid "Add drop shadow to cover"
+msgstr "Adicionar sombra à capa"
+
+msgid ""
+"Gives the cover image rounded corners and a drop shadow, like a card. "
+"Replaces the regular cover border option while enabled."
+msgstr ""
+"Dá à capa cantos arredondados e uma sombra, como um cartão. Substitui a "
+"opção normal de borda da capa enquanto estiver ativado."
 
 msgid "Align cover to text alignment"
 msgstr "Alinhar capa ao alinhamento de texto"
@@ -637,12 +666,6 @@ msgstr "Tempo lido hoje"
 msgid "e.g. '42 mins read today'"
 msgstr "ex.: '42 mins lido hoje'"
 
-msgid "Pages and time read today"
-msgstr "Páginas e tempo lidos hoje"
-
-msgid "e.g. '35 pgs & 42 mins read today'"
-msgstr "ex.: '35 págs. & 42 mins lido hoje'"
-
 msgid ""
 "Choose whether your daily goal tracks pages read or time spent reading."
 msgstr ""
@@ -693,6 +716,12 @@ msgstr "Mostrar sequência de leitura atual"
 
 msgid "Display consecutive days you've met your reading goal."
 msgstr "Exibe os dias consecutivos em que você atingiu sua meta de leitura."
+
+msgid "Show weekly reading streak"
+msgstr "Mostrar sequência de leitura semanal"
+
+msgid "Display consecutive weeks with any reading activity."
+msgstr "Exibe as semanas consecutivas com atividade de leitura."
 
 msgid "Show weekly progress"
 msgstr "Mostrar progresso semanal"
@@ -783,6 +812,26 @@ msgstr "Destaques do livro"
 msgid "Show a random highlight from the current book"
 msgstr "Mostrar um destaque aleatório do livro atual"
 
+#, lua-format
+msgid "Highlight source: %s"
+msgstr "Origem dos destaques: %s"
+
+msgid ""
+"Choose whether the highlight is picked from the current book only, or from "
+"all of your highlights."
+msgstr ""
+"Escolha se o destaque é sorteado apenas do livro atual ou de todos os seus "
+"destaques."
+
+msgid "Current book"
+msgstr "Livro atual"
+
+msgid "Only show highlights from the book you're currently reading."
+msgstr "Mostra apenas destaques do livro que você está lendo agora."
+
+msgid "Show highlights from a random sample of your reading history."
+msgstr "Mostra destaques de uma amostra aleatória do seu histórico de leitura."
+
 msgid "Add quotation marks to highlights"
 msgstr "Adicionar aspas aos destaques"
 
@@ -793,15 +842,22 @@ msgstr ""
 "Envolve todos os destaques em aspas duplas curvas, removendo quaisquer aspas"
 " pré-existentes."
 
-msgid "Show highlight location"
-msgstr "Mostrar localização do destaque"
+msgid "Show highlight location (chapter & page no.)"
+msgstr "Mostrar localização do destaque (capítulo e página)"
+
+msgid "Display the chapter title and page number where the highlight is found."
+msgstr ""
+"Exibe o título do capítulo e o número da página onde o destaque se encontra."
+
+msgid "Show highlight book title and author"
+msgstr "Mostrar título e autor do livro do destaque"
 
 msgid ""
-"Display the chapter title and page number where the highlight is found, "
-"shown below the highlight text."
+"Display which book and author the highlight is from. Only applies when "
+"highlight source is set to 'All books'."
 msgstr ""
-"Exibe o título do capítulo e o número da página onde o destaque se encontra,"
-" mostrado abaixo do texto do destaque."
+"Exibe de qual livro e autor é o destaque. Só se aplica quando a origem dos "
+"destaques está definida como “Todos os livros”."
 
 msgid "Book highlight maximum length"
 msgstr "Comprimento máximo do destaque do livro"
@@ -1234,6 +1290,17 @@ msgstr "Tamanho dos ícones (px)"
 msgid "32–48px suits most layouts."
 msgstr "32–48px é adequado para a maioria dos layouts."
 
+msgid "Add white outline to icons in dark mode"
+msgstr "Adicionar contorno branco aos ícones no modo escuro"
+
+msgid ""
+"Adds a thin white outline around each icon when dark mode is on, like a "
+"sticker, so icons stay visible against dark backgrounds."
+msgstr ""
+"Adiciona um contorno branco fino ao redor de cada ícone quando o modo escuro "
+"está ativado, como um adesivo, para que os ícones continuem visíveis em "
+"fundos escuros."
+
 msgid "Progress bar height"
 msgstr "Altura da barra de progresso"
 
@@ -1331,9 +1398,6 @@ msgstr ""
 "100% preenche a coluna de texto. A barra é alinhada conforme a configuração "
 "de alinhamento de texto."
 
-msgid "Title font face"
-msgstr "Fonte do título"
-
 msgid "Choose the font face for the main heading text in each section"
 msgstr "Escolhe a fonte para o texto do cabeçalho principal em cada seção"
 
@@ -1347,9 +1411,6 @@ msgstr ""
 
 msgid "10–12px works well for most screens."
 msgstr "10–12px funciona bem para a maioria das telas."
-
-msgid "Subtitle font face"
-msgstr "Fonte do subtítulo"
 
 msgid "Choose the font face for the information below the main heading text."
 msgstr ""
@@ -1618,13 +1679,12 @@ msgid "Enter hex colour code"
 msgstr "Inserir código de cor hexadecimal"
 
 msgid ""
-"Saves a screenshot of the sleep screen to a file each time a book is closed."
-" Useful for devices that use an exported image as their own native sleep "
-"screen."
+"Saves a screenshot of the sleep screen to a file. Useful for devices that "
+"use an exported image as their own native sleep screen."
 msgstr ""
-"Salva uma captura de tela da tela de suspensão em um arquivo cada vez que um"
-" livro é fechado. Útil para dispositivos que usam uma imagem exportada como "
-"sua própria tela de suspensão nativa."
+"Salva uma captura de tela da tela de suspensão em um arquivo. Útil para "
+"dispositivos que usam uma imagem exportada como a própria tela de suspensão "
+"nativa."
 
 msgid "Enable export"
 msgstr "Ativar exportação"
@@ -1647,6 +1707,79 @@ msgstr ""
 "Escolha a pasta onde a imagem exportada será salva. Deve ser definida antes "
 "de ativar a exportação."
 
+msgid "Export triggers"
+msgstr "Gatilhos de exportação"
+
+msgid ""
+"Choose when the sleep screen is exported. You can select any combination of "
+"these."
+msgstr ""
+"Escolha quando a tela de suspensão é exportada. Você pode selecionar "
+"qualquer combinação."
+
+msgid "On book close"
+msgstr "Ao fechar um livro"
+
+msgid "Export whenever you close a book."
+msgstr "Exportar sempre que você fechar um livro."
+
+msgid "On book open"
+msgstr "Ao abrir um livro"
+
+msgid "Export whenever you open a book."
+msgstr "Exportar sempre que você abrir um livro."
+
+msgid "On suspend"
+msgstr "Ao suspender"
+
+msgid "Export whenever you put the device to sleep."
+msgstr "Exportar sempre que você colocar o dispositivo em suspensão."
+
+msgid "Periodically while reading"
+msgstr "Periodicamente durante a leitura"
+
+msgid ""
+"Export automatically at a set interval while a book is open. Paused while "
+"the device is suspended, and resumes when you wake it or open another book."
+msgstr ""
+"Exporta automaticamente em um intervalo definido enquanto um livro está "
+"aberto. Pausado enquanto o dispositivo está suspenso, e retomado quando você "
+"o ativa ou abre outro livro."
+
+#, lua-format
+msgid "Periodic export interval: %d min"
+msgstr "Intervalo da exportação periódica: %d min"
+
+msgid "How often to export while 'Periodically while reading' is enabled."
+msgstr ""
+"Com que frequência exportar enquanto “Periodicamente durante a leitura” está "
+"ativado."
+
+msgid "Periodic export interval (minutes)"
+msgstr "Intervalo da exportação periódica (minutos)"
+
+msgid "How often, in minutes, to export the sleep screen while a book is open."
+msgstr ""
+"Com que frequência, em minutos, exportar a tela de suspensão enquanto um "
+"livro está aberto."
+
+msgid "Export sleep screen now"
+msgstr "Exportar tela de suspensão agora"
+
+msgid "Sleep screen exported."
+msgstr "Tela de suspensão exportada."
+
+msgid "Export failed. Check that an export folder is set."
+msgstr ""
+"Falha na exportação. Verifique se uma pasta de exportação foi definida."
+
+msgid ""
+"Sleep screen export is turned off. Enable it under 'Export sleep screen to "
+"file' to use this."
+msgstr ""
+"A exportação da tela de suspensão está desativada. Ative-a em “Exportar tela "
+"de suspensão para arquivo” para usar isto."
+
 msgid "Preview sleep screen"
 msgstr "Pré-visualizar tela de suspensão"
 
@@ -1657,15 +1790,24 @@ msgstr ""
 "Mostra a aparência atual da tela de suspensão, sem realmente suspender o "
 "dispositivo."
 
-msgid "Behaviour"
-msgstr "Comportamento"
+msgid "Preview file manager sleep screen"
+msgstr "Pré-visualizar tela de suspensão do gerenciador de arquivos"
 
 msgid ""
-"How the plugin behaves: file manager display, ghosting, export, battery "
-"estimation, and stats scope."
+"Shows what the sleep screen looks like when the device goes to sleep from "
+"the file manager, without actually suspending it. Tap anywhere to close it."
 msgstr ""
-"Como o plugin se comporta: exibição no gerenciador de arquivos, ghosting, "
-"exportação, estimativa de bateria e escopo das estatísticas."
+"Mostra como a tela de suspensão fica quando o dispositivo entra em suspensão "
+"a partir do gerenciador de arquivos, sem realmente suspendê-lo. Toque em "
+"qualquer lugar para fechar."
+
+msgid ""
+"The alternative file manager sleep screen is not enabled. Turn on 'Show "
+"alternative sleep screen (no infobox)' to preview it."
+msgstr ""
+"A tela de suspensão alternativa do gerenciador de arquivos não está ativada. "
+"Ative “Mostrar tela de suspensão alternativa (sem caixa de informações)” "
+"para pré-visualizá-la."
 
 #, lua-format
 msgid "Version: %s"
@@ -1733,15 +1875,6 @@ msgstr ""
 
 msgid "Fallback background"
 msgstr "Plano de fundo alternativo"
-
-msgid ""
-"What to show instead of the cover. Uses the colour, image, or folder already"
-" set in Background type. Only selectable when \"Exclude this book's cover "
-"from sleep screen\" is turned on."
-msgstr ""
-"O que mostrar em vez da capa. Usa a cor, imagem ou pasta já definidas em "
-"Tipo de plano de fundo. Só pode ser selecionado quando \"Excluir a capa "
-"deste livro da tela de suspensão\" estiver ativado."
 
 msgid ""
 "No book data available to preview yet.\n"
@@ -1922,11 +2055,11 @@ msgstr "Ordem e visibilidade das seções"
 
 msgid ""
 "Select a section and tap the bottom arrows to reorder. Tap the checkmark to "
-"show or hide the section. At least one section must stay visible."
+"show or hide the section. Hide every section to show only the background."
 msgstr ""
-"Selecione uma seção e toque nas setas inferiores para reordená-la. Toque na "
-"marca de seleção para mostrar ou ocultar a seção. Pelo menos uma seção deve "
-"permanecer visível."
+"Selecione uma seção e toque nas setas inferiores para reordenar. Toque na "
+"marca de seleção para mostrar ou ocultar a seção. Oculte todas as seções "
+"para mostrar apenas o plano de fundo."
 
 #, lua-format
 msgid "Title Line: %s"
@@ -2235,3 +2368,248 @@ msgid ""
 msgstr ""
 "Salva a imagem exportada sem cor, reduzindo o tamanho do arquivo em qualquer"
 " formato."
+
+msgid "Lock screen"
+msgstr "Tela de bloqueio"
+
+msgid ""
+"Add some security to your device and ask for a PIN after the sleep screen is "
+"cleared. Like Global settings, the lock screen settings don't change when "
+"you switch presets."
+msgstr ""
+"Adicione segurança ao seu dispositivo e peça um PIN depois que a tela de "
+"suspensão for dispensada. Assim como as configurações globais, as "
+"configurações da tela de bloqueio não mudam quando você troca de "
+"predefinição."
+
+msgid "Enable lock screen"
+msgstr "Ativar tela de bloqueio"
+
+msgid ""
+"After the sleep screen, tap or swipe to clear it, then enter your PIN to "
+"continue. This is a convenience lock to keep casual access out, not strong "
+"security: it doesn't protect the files on your device. It only applies after "
+"sleep unless you also turn on 'Lock when KOReader starts'. Turning it off "
+"needs your current PIN. If you forget the PIN, create an empty file named "
+"reset-lock inside the customisablesleepscreen.koplugin folder and restart "
+"KOReader to clear it."
+msgstr ""
+"Após a tela de suspensão, toque ou deslize para dispensá-la e depois digite "
+"seu PIN para continuar. Este é um bloqueio de conveniência para evitar "
+"acessos casuais, não uma segurança forte: ele não protege os arquivos do seu "
+"dispositivo. Só se aplica após a suspensão, a menos que você também ative "
+"“Bloquear ao iniciar o KOReader”. Para desativar, é necessário o PIN atual. "
+"Se esquecer o PIN, crie um arquivo vazio chamado reset-lock dentro da pasta "
+"customisablesleepscreen.koplugin e reinicie o KOReader para apagá-lo."
+
+msgid "The lock screen needs a touch screen."
+msgstr "A tela de bloqueio precisa de uma tela sensível ao toque."
+
+msgid "Lock when KOReader starts"
+msgstr "Bloquear ao iniciar o KOReader"
+
+msgid ""
+"Also ask for the PIN when KOReader starts, so restarting the app or forcing "
+"the device to shut down and reboot can't be used to get around the lock. "
+"Turning it off needs your current PIN."
+msgstr ""
+"Também pede o PIN quando o KOReader inicia, para que reiniciar o aplicativo "
+"ou forçar o desligamento e a reinicialização do dispositivo não possa ser "
+"usado para contornar o bloqueio. Para desativar, é necessário o PIN atual."
+
+msgid "Deferred locking"
+msgstr "Bloqueio adiado"
+
+msgid ""
+"Skip the lock screen when the device has only been asleep for a short time. "
+"Longer sleeps still ask for the PIN, and a device that went to sleep while "
+"locked always does."
+msgstr ""
+"Pula a tela de bloqueio quando o dispositivo ficou em suspensão por pouco "
+"tempo. Suspensões mais longas ainda pedem o PIN, e um dispositivo que entrou "
+"em suspensão já bloqueado sempre pede."
+
+msgid "Off (always lock)"
+msgstr "Desativado (sempre bloquear)"
+
+msgid "Change PIN"
+msgstr "Alterar PIN"
+
+msgid "Set a new 4-digit PIN. You'll be asked for the current one first."
+msgstr "Define um novo PIN de 4 dígitos. O atual será solicitado primeiro."
+
+msgid "Sleep screen background"
+msgstr "Plano de fundo da tela de suspensão"
+
+msgid ""
+"Choose what appears behind the PIN pad: your sleep screen background, or "
+"plain white or black."
+msgstr ""
+"Escolha o que aparece atrás do teclado do PIN: o plano de fundo da sua tela "
+"de suspensão, ou branco ou preto liso."
+
+msgid "Plain white"
+msgstr "Branco liso"
+
+msgid "Plain black"
+msgstr "Preto liso"
+
+msgid "Follow automatic preset switching"
+msgstr "Seguir a troca automática de predefinição"
+
+msgid ""
+"White while your day preset is in effect and black while your night preset "
+"is. Only offered while automatic preset switching is turned on."
+msgstr ""
+"Branco enquanto a predefinição diurna está em vigor e preto enquanto a "
+"noturna está. Só disponível com a troca automática de predefinição ativada."
+
+msgid ""
+"Use the same background as your sleep screen (cover, image or colour), "
+"including its Background overlay. Images are shown around a solid panel "
+"behind the PIN pad, which keeps it readable and avoids ghosting. If your "
+"sleep screen has no background, plain white is used."
+msgstr ""
+"Usa o mesmo plano de fundo da sua tela de suspensão (capa, imagem ou cor), "
+"incluindo a sobreposição de plano de fundo. As imagens são mostradas ao "
+"redor de um painel sólido atrás do teclado do PIN, o que o mantém legível e "
+"evita ghosting. Se a tela de suspensão não tiver plano de fundo, usa-se "
+"branco liso."
+
+msgid "Button style"
+msgstr "Estilo dos botões"
+
+msgid ""
+"How the number keys look: Plain (just the numbers), Ruled (thin lines "
+"between the rows), Outlined (circle outlines) or Filled (filled circles)."
+msgstr ""
+"Aparência das teclas numéricas: Simples (apenas os números), Com linhas "
+"(linhas finas entre as fileiras), Contornado (círculos com contorno) ou "
+"Preenchido (círculos preenchidos)."
+
+msgid "Plain"
+msgstr "Simples"
+
+msgid "Ruled"
+msgstr "Com linhas"
+
+msgid "Outlined"
+msgstr "Contornado"
+
+msgid "Filled"
+msgstr "Preenchido"
+
+msgid "Button shape"
+msgstr "Formato dos botões"
+
+msgid ""
+"The shape of the Outlined and Filled buttons: a circle, or a square with "
+"rounded corners."
+msgstr ""
+"O formato dos botões Contornado e Preenchido: um círculo ou um quadrado com "
+"cantos arredondados."
+
+msgid "Circle"
+msgstr "Círculo"
+
+msgid "Rounded square"
+msgstr "Quadrado arredondado"
+
+msgid "Text colour"
+msgstr "Cor do texto"
+
+msgid ""
+"Colour of the lock screen text and digits over the sleep screen background. "
+"Auto picks black or white to suit the image as shown, after the overlay. "
+"Plain white and black backgrounds always use the opposite colour."
+msgstr ""
+"Cor do texto e dos dígitos da tela de bloqueio sobre o plano de fundo da "
+"tela de suspensão. Auto escolhe preto ou branco conforme a imagem exibida, "
+"após a sobreposição. Fundos brancos e pretos lisos sempre usam a cor oposta."
+
+msgid "Auto"
+msgstr "Auto"
+
+msgid "Black"
+msgstr "Preto"
+
+msgid "White"
+msgstr "Branco"
+
+msgid "Owner message"
+msgstr "Mensagem do proprietário"
+
+msgid ""
+"A short message shown under the keypad, such as \"If found, call "
+"0123456789\". Up to three lines. Anyone who wakes the device can read it. "
+"Leave it empty to show nothing."
+msgstr ""
+"Uma mensagem curta mostrada abaixo do teclado, como “Se encontrado, ligue "
+"para 0123456789”. Até três linhas. Qualquer pessoa que ativar o dispositivo "
+"pode lê-la. Deixe vazio para não mostrar nada."
+
+msgid "Preview lock screen"
+msgstr "Pré-visualizar tela de bloqueio"
+
+msgid ""
+"Shows the PIN screen so you can see how it looks, without locking anything. "
+"Tap anywhere to close it."
+msgstr ""
+"Mostra a tela do PIN para você ver como ela fica, sem bloquear nada. Toque "
+"em qualquer lugar para fechar."
+
+msgid "On"
+msgstr "Ativado"
+
+msgid "Off"
+msgstr "Desativado"
+
+msgid "Please enter your 4-digit PIN."
+msgstr "Digite seu PIN de 4 dígitos."
+
+msgid "Please enter your current 4-digit PIN."
+msgstr "Digite seu PIN atual de 4 dígitos."
+
+msgid "Please choose a 4-digit PIN."
+msgstr "Escolha um PIN de 4 dígitos."
+
+msgid "Please confirm your 4-digit PIN."
+msgstr "Confirme seu PIN de 4 dígitos."
+
+msgid "Sorry, incorrect PIN. Please try again."
+msgstr "PIN incorreto. Tente novamente."
+
+msgid "Sorry, the PINs didn't match. Please try again."
+msgstr "Os PINs não coincidem. Tente novamente."
+
+#, lua-format
+msgid "Too many attempts. Please try again in %s."
+msgstr "Muitas tentativas. Tente novamente em %s."
+
+#, lua-format
+msgid ""
+"PIN saved.\n"
+"\n"
+"If you ever forget it, create an empty file named \"reset-lock\" inside the "
+"plugin's folder (%s) and restart KOReader. That clears the PIN."
+msgstr ""
+"PIN salvo.\n"
+"\n"
+"Se um dia você esquecê-lo, crie um arquivo vazio chamado “reset-lock” dentro "
+"da pasta do plugin (%s) e reinicie o KOReader. Isso apaga o PIN."
+
+msgid ""
+"Lock screen reset.\n"
+"\n"
+"You can set a new PIN in the Customisable Sleep Screen settings."
+msgstr ""
+"Tela de bloqueio redefinida.\n"
+"\n"
+"Você pode definir um novo PIN nas configurações do Customisable Sleep Screen."
+
+msgid ""
+"Couldn't reset the lock screen: the reset-lock file couldn't be deleted. Is "
+"the storage read-only?"
+msgstr ""
+"Não foi possível redefinir a tela de bloqueio: o arquivo reset-lock não pôde "
+"ser excluído. O armazenamento está somente leitura?"

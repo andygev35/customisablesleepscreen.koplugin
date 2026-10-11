@@ -31,8 +31,30 @@ local PRESET_EXCLUDED_KEYS = {
     EXPORT_ENABLED         = true,
     EXPORT_FILENAME        = true,
     EXPORT_FORMAT          = true,
+    EXPORT_GRAYSCALE       = true,
+    EXPORT_TRIGGER_CLOSE   = true,
+    EXPORT_TRIGGER_OPEN    = true,
+    EXPORT_TRIGGER_SUSPEND = true,
+    EXPORT_TRIGGER_PERIODIC = true,
+    EXPORT_TRIGGER_PERIODIC_MINUTES = true,
     ANTI_GHOSTING_FLASH    = true,
+    ANTI_GHOSTING_FLASH_COLOR = true,
     GOAL_STAT_SCOPE        = true,
+    LOCK_ENABLED           = true,
+    LOCK_ON_LAUNCH         = true,
+    LOCK_ANTI_GHOSTING_FLASH = true,
+    LOCK_DELAY_SECONDS     = true,
+    LOCK_PIN_SALT          = true,
+    LOCK_PIN_HASH          = true,
+    LOCK_BG_TYPE           = true,
+    LOCK_TEXT_COLOR        = true,
+    LOCK_BUTTON_STYLE      = true,
+    LOCK_BUTTON_SHAPE      = true,
+    LOCK_OWNER_MESSAGE     = true,
+    LOCK_FAILED_ATTEMPTS   = true,
+    LOCK_LOCKOUT_ROUNDS    = true,
+    LOCK_LOCKED_UNTIL      = true,
+    LOCK_LOCKOUT_SECS      = true,
 
     AUTO_PRESET_SWITCH_ENABLED      = true,
     AUTO_PRESET_SWITCH_TRIGGER      = true,
@@ -464,11 +486,15 @@ local function initializePresetSystem()
         end,
 
         loadPreset = function(preset, preset_name)
+            local allowed = {}
             for _, setting_key in ipairs(getAllSettingKeys()) do
+                allowed[setting_key] = true
                 PluginStore:delSetting(setting_key)
             end
             for setting_key, value in pairs(preset) do
-                PluginStore:saveSetting(setting_key, value)
+                if allowed[setting_key] then
+                    PluginStore:saveSetting(setting_key, value)
+                end
             end
             if preset_name then
                 PresetStore:saveSetting(SETTINGS.LAST_LOADED_PRESET, preset_name)

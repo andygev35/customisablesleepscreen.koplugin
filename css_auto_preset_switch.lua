@@ -37,6 +37,23 @@ local function isNightNow()
     return isInNightWindow()
 end
 
+-- Whether the automatic switching is turned on at all.
+local function isEnabled()
+    return getSetting("AUTO_PRESET_SWITCH_ENABLED") == true
+end
+
+-- True when the night side is in effect: decided by the loaded preset (what the sleep screen shows), else by the schedule / night mode.
+local function isNightPresetActive()
+    local current = PresetStore:readSetting(SETTINGS.LAST_LOADED_PRESET)
+    local day_name   = getSetting("AUTO_PRESET_SWITCH_DAY_PRESET")
+    local night_name = getSetting("AUTO_PRESET_SWITCH_NIGHT_PRESET")
+    if current ~= nil and day_name ~= night_name then
+        if current == night_name then return true end
+        if current == day_name then return false end
+    end
+    return isNightNow()
+end
+
 -- Switching
 
 local function applyIfDue(force)
@@ -63,5 +80,7 @@ return {
     isInNightWindow   = isInNightWindow,
     isNightModeActive = isNightModeActive,
     isNightNow        = isNightNow,
+    isEnabled         = isEnabled,
+    isNightPresetActive = isNightPresetActive,
     applyIfDue        = applyIfDue,
 }

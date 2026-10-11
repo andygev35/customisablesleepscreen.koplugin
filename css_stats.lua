@@ -14,11 +14,12 @@ end
 
 local function getAllStats(book_id, today_pages_override, goal_type, daily_goal_minutes)
     local result = {
-        duration     = 0,
-        pages        = 0,
-        streak       = 0,
-        days_met     = 0,
-        days_in_week = 1,
+        duration      = 0,
+        pages         = 0,
+        streak        = 0,
+        weekly_streak = 0,
+        days_met      = 0,
+        days_in_week  = 1,
     }
 
     local ok_conn, conn = pcall(SQ3.open, getDbPath(), SQ3.OPEN_READONLY)
@@ -88,6 +89,60 @@ local function getAllStats(book_id, today_pages_override, goal_type, daily_goal_
                     else
                         break
                     end
+                else
+                    break
+                end
+            end
+        end
+    end
+
+    -- Weekly streak
+    local ok_week_rows, week_rows = pcall(function()
+        local rows = {}
+        local stmt = conn:prepare([[
+            SELECT strftime('%G-%V', start_time, 'unixepoch', 'localtime') AS wk,
+                   MIN(start_time)
+            FROM page_stat_data GROUP BY wk ORDER BY wk DESC
+        ]])
+        if not stmt then error("prepare failed") end
+        for row in stmt:rows() do
+            rows[#rows + 1] = tonumber(row[2])
+        end
+        stmt:close()
+        return rows
+    end)
+
+    if ok_week_rows and week_rows and #week_rows > 0 then
+        local function isoWeek(ts)
+            return tonumber(os.date("%G", ts)), tonumber(os.date("%V", ts))
+        end
+
+        local function weeksInYear(y)
+            return tonumber(os.date("%V", os.time({ year = y, month = 12, day = 28, hour = 12 })))
+        end
+
+        local function isConsecutiveWeek(newer_ts, older_ts)
+            local newer_y, newer_w = isoWeek(newer_ts)
+            local older_y, older_w = isoWeek(older_ts)
+            if newer_y == older_y then
+                return newer_w == older_w + 1
+            end
+            return newer_y == older_y + 1 and newer_w == 1 and older_w == weeksInYear(older_y)
+        end
+
+        local now_y, now_w   = isoWeek(now)
+        local last_y, last_w = isoWeek(now - (7 * 86400))
+
+        local function isCurrentOrLastWeek(ts)
+            local y, w = isoWeek(ts)
+            return (y == now_y and w == now_w) or (y == last_y and w == last_w)
+        end
+
+        if isCurrentOrLastWeek(week_rows[1]) then
+            result.weekly_streak = 1
+            for i = 2, #week_rows do
+                if isConsecutiveWeek(week_rows[i - 1], week_rows[i]) then
+                    result.weekly_streak = result.weekly_streak + 1
                 else
                     break
                 end
@@ -224,6 +279,10 @@ local function getCurrentDailyStreak()
     return getAllStats().streak
 end
 
+local function getCurrentWeeklyStreak()
+    return getAllStats().weekly_streak
+end
+
 local function getWeeklyGoalAchievement(today_pages_override)
     local goal_type = getSetting("GOAL_TYPE") or "pages"
     if goal_type == "time" then
@@ -278,6 +337,7 @@ return {
     getAllStats                = getAllStats,
     getDailyStats             = getDailyStats,
     getCurrentDailyStreak     = getCurrentDailyStreak,
+    getCurrentWeeklyStreak    = getCurrentWeeklyStreak,
     getWeeklyGoalAchievement  = getWeeklyGoalAchievement,
     getBatteryConsumptionRate = getBatteryConsumptionRate,
 }

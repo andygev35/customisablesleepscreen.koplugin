@@ -66,6 +66,11 @@ msgid_plural "mins"
 msgstr[0] "Min"
 msgstr[1] "Min"
 
+msgid "sec"
+msgid_plural "secs"
+msgstr[0] "Sek"
+msgstr[1] "Sek"
+
 msgid "< 1 min"
 msgstr "< 1 Min"
 
@@ -109,16 +114,16 @@ msgid "pgs"
 msgstr "S."
 
 #, lua-format
-msgid "%s %s & %s read today"
-msgstr "%s %s & %s heute gelesen"
-
-#, lua-format
 msgid "%s read today"
 msgstr "%s heute gelesen"
 
 #, lua-format
 msgid "%d day streak"
 msgstr "%d Tage Leseserie"
+
+#, lua-format
+msgid "%d week streak"
+msgstr "%d Wochen Leseserie"
 
 #, lua-format
 msgid "%d/%d days met this week"
@@ -140,9 +145,6 @@ msgstr "%d%% des Ziels"
 #, lua-format
 msgid "%d page goal"
 msgstr "%d Seitenziel"
-
-msgid "Rate unavailable"
-msgstr "Rate nicht verfügbar"
 
 msgid "No message set"
 msgstr "Keine Nachricht gesetzt"
@@ -327,35 +329,65 @@ msgid "Flash screen to reduce ghosting"
 msgstr "Bildschirm aufblitzen lassen, um Geisterbilder zu reduzieren"
 
 msgid ""
-"Flashes the screen to black before showing the sleep screen, clearing "
-"residual text/image ghosting. Off by default, since not every device shows "
-"this ghosting."
+"Flashes the whole screen before showing a screen, clearing leftovers of the "
+"previous one. Off by default, since not every device shows this ghosting. "
+"The sleep screen and the lock screen each have their own switch, and the "
+"flash can be black or white."
 msgstr ""
-"Lässt den Bildschirm vor dem Anzeigen des Sperrbildschirms kurz schwarz "
-"aufblitzen, um verbleibende Geisterbilder von Text/Bildern zu entfernen. "
-"Standardmäßig deaktiviert, da nicht jedes Gerät diese Geisterbilder zeigt."
+"Lässt den ganzen Bildschirm aufblitzen, bevor ein Bildschirm angezeigt wird, "
+"und entfernt Rückstände des vorherigen. Standardmäßig aus, da nicht jedes "
+"Gerät diese Geisterbilder zeigt. Ruhebildschirm und Bildschirmsperre haben "
+"jeweils einen eigenen Schalter, und der Blitz kann schwarz oder weiß sein."
 
-msgid "Show in file manager (outside of book)"
-msgstr "Im Dateimanager anzeigen (außerhalb eines Buches)"
+msgid "Flash screen before sleep screen"
+msgstr "Bildschirm vor dem Ruhebildschirm aufblitzen lassen"
 
 msgid ""
-"When enabled, the customisable sleep screen will display in file manager "
-"using the last saved book data."
+"Flashes the screen (black or white, see below) before showing the sleep "
+"screen, clearing residual text/image ghosting."
 msgstr ""
-"Wenn aktiviert, zeigt der anpassbare Sperrbildschirm im Dateimanager die "
-"zuletzt gespeicherten Buchdaten an."
+"Lässt den Bildschirm (schwarz oder weiß, siehe unten) aufblitzen, bevor der "
+"Ruhebildschirm erscheint, und entfernt Geisterbilder von Text und Bildern."
+
+msgid "Flash screen before lock screen"
+msgstr "Bildschirm vor der Bildschirmsperre aufblitzen lassen"
+
+msgid ""
+"Flashes the screen (black or white, see below) before showing the lock "
+"screen, clearing leftovers of the sleep screen. Useful if you can see "
+"ghosting on the lock screen, for example with a black background. Needs the "
+"lock screen to be enabled."
+msgstr ""
+"Lässt den Bildschirm (schwarz oder weiß, siehe unten) aufblitzen, bevor die "
+"Bildschirmsperre erscheint, und entfernt Rückstände des Ruhebildschirms. "
+"Nützlich, wenn du auf der Bildschirmsperre Geisterbilder siehst, zum "
+"Beispiel bei schwarzem Hintergrund. Die Bildschirmsperre muss aktiviert sein."
+
+msgid "Black flash"
+msgstr "Schwarzer Blitz"
+
+msgid "Flash the screen to black. Clears light leftovers best."
+msgstr ""
+"Lässt den Bildschirm schwarz aufblitzen. Entfernt helle Rückstände am besten."
+
+msgid "White flash"
+msgstr "Weißer Blitz"
+
+msgid "Flash the screen to white. Clears dark leftovers best."
+msgstr ""
+"Lässt den Bildschirm weiß aufblitzen. Entfernt dunkle Rückstände am besten."
 
 msgid "Export sleep screen to file"
 msgstr "Sperrbildschirm in Datei exportieren"
 
 msgid ""
-"When enabled, a screenshot of the sleep screen will be saved in the selected"
-" export folder each time you close a book or put the device to sleep, using "
-"the format set below."
+"When enabled, a screenshot of the sleep screen will be saved in the selected "
+"export folder using the format set below, on the triggers selected under "
+"'Export triggers'."
 msgstr ""
-"Wenn aktiviert, wird bei jedem Schließen eines Buchs oder Versetzen des "
-"Geräts in den Ruhezustand ein Screenshot des Ruhebildschirms im ausgewählten"
-" Exportordner gespeichert, im unten festgelegten Format."
+"Wenn aktiviert, wird ein Screenshot des Ruhebildschirms im ausgewählten "
+"Exportordner im unten festgelegten Format gespeichert, und zwar bei den "
+"unter „Export-Auslöser“ gewählten Auslösern."
 
 msgid "Sleep screen export disabled."
 msgstr "Sperrbildschirm-Export deaktiviert."
@@ -408,15 +440,6 @@ msgstr "Exportordner festgelegt auf: %s"
 
 msgid "Exclude this book's cover from sleep screen"
 msgstr "Cover dieses Buches vom Sperrbildschirm ausschließen"
-
-msgid ""
-"Hides the cover for this book only, for when you'd rather it not be shown on"
-" your sleep screen - without having to switch presets or background settings"
-" each time you read it."
-msgstr ""
-"Blendet das Cover nur für dieses Buch aus, falls Sie nicht möchten, dass es "
-"auf Ihrem Sperrbildschirm erscheint - ohne dass Sie jedes Mal beim Lesen die"
-" Voreinstellung oder Hintergrundeinstellungen wechseln müssen."
 
 msgid "No background (leave screen as-is)"
 msgstr "Kein Hintergrund (Bildschirm unverändert lassen)"
@@ -491,9 +514,6 @@ msgstr "Akkuinformationen"
 msgid "Message info"
 msgstr "Nachrichteninformationen"
 
-msgid "At least one section must remain visible."
-msgstr "Mindestens ein Bereich muss sichtbar bleiben."
-
 msgid "Show cover image above book info"
 msgstr "Coverbild über Buchinformationen anzeigen"
 
@@ -524,14 +544,27 @@ msgid "Cover border size"
 msgstr "Coverrahmengröße"
 
 msgid ""
-"Width of the border drawn around the cover image. Set to 0 for no border."
-msgstr "Breite des Rahmens um das Coverbild. Auf 0 setzen für keinen Rahmen."
+"Width of the border drawn around the cover image. Set to 0 for no border. "
+"Ignored while 'Add drop shadow to cover' is enabled."
+msgstr ""
+"Breite des Rahmens um das Coverbild. 0 für keinen Rahmen. Wird ignoriert, "
+"solange „Schlagschatten für Cover hinzufügen“ aktiviert ist."
 
 msgid "Cover border size (pixels)"
 msgstr "Coverrahmengröße (Pixel)"
 
 msgid "1–3px for a subtle outline. 0 to disable."
 msgstr "1–3 px für eine dezente Umrandung. 0 zum Deaktivieren."
+
+msgid "Add drop shadow to cover"
+msgstr "Schlagschatten für Cover hinzufügen"
+
+msgid ""
+"Gives the cover image rounded corners and a drop shadow, like a card. "
+"Replaces the regular cover border option while enabled."
+msgstr ""
+"Gibt dem Coverbild abgerundete Ecken und einen Schlagschatten, wie bei einer "
+"Karte. Ersetzt solange die normale Option für den Coverrahmen."
 
 msgid "Align cover to text alignment"
 msgstr "Cover an Textausrichtung ausrichten"
@@ -630,12 +663,6 @@ msgstr "Heute gelesene Zeit"
 msgid "e.g. '42 mins read today'"
 msgstr "z. B. '42 Min heute gelesen'"
 
-msgid "Pages and time read today"
-msgstr "Heute gelesene Seiten und Zeit"
-
-msgid "e.g. '35 pgs & 42 mins read today'"
-msgstr "z. B. '35 S. & 42 Min heute gelesen'"
-
 msgid ""
 "Choose whether your daily goal tracks pages read or time spent reading."
 msgstr "Auswählen, ob das Tagesziel gelesene Seiten oder Lesezeit verfolgt."
@@ -686,6 +713,12 @@ msgstr "Aktuelle Leseserie anzeigen"
 msgid "Display consecutive days you've met your reading goal."
 msgstr ""
 "Aufeinanderfolgende Tage anzeigen, an denen das Leseziel erfüllt wurde."
+
+msgid "Show weekly reading streak"
+msgstr "Wöchentliche Leseserie anzeigen"
+
+msgid "Display consecutive weeks with any reading activity."
+msgstr "Zeigt aufeinanderfolgende Wochen mit Leseaktivität an."
 
 msgid "Show weekly progress"
 msgstr "Wöchentlichen Fortschritt anzeigen"
@@ -773,6 +806,26 @@ msgstr "Buchmarkierungen"
 msgid "Show a random highlight from the current book"
 msgstr "Zufällige Markierung aus dem aktuellen Buch anzeigen"
 
+#, lua-format
+msgid "Highlight source: %s"
+msgstr "Quelle der Markierung: %s"
+
+msgid ""
+"Choose whether the highlight is picked from the current book only, or from "
+"all of your highlights."
+msgstr ""
+"Wähle, ob die Markierung nur aus dem aktuellen Buch oder aus allen deinen "
+"Markierungen gewählt wird."
+
+msgid "Current book"
+msgstr "Aktuelles Buch"
+
+msgid "Only show highlights from the book you're currently reading."
+msgstr "Zeigt nur Markierungen aus dem Buch, das du gerade liest."
+
+msgid "Show highlights from a random sample of your reading history."
+msgstr "Zeigt Markierungen aus einer zufälligen Auswahl deines Leseverlaufs."
+
 msgid "Add quotation marks to highlights"
 msgstr "Anführungszeichen zu Markierungen hinzufügen"
 
@@ -783,15 +836,23 @@ msgstr ""
 "Umgibt alle Markierungen mit geschwungenen Anführungszeichen und entfernt "
 "vorhandene Anführungszeichen."
 
-msgid "Show highlight location"
-msgstr "Markierungsort anzeigen"
+msgid "Show highlight location (chapter & page no.)"
+msgstr "Ort der Markierung anzeigen (Kapitel & Seite)"
+
+msgid "Display the chapter title and page number where the highlight is found."
+msgstr ""
+"Zeigt den Kapiteltitel und die Seitenzahl an, wo die Markierung zu finden "
+"ist."
+
+msgid "Show highlight book title and author"
+msgstr "Buchtitel und Autor der Markierung anzeigen"
 
 msgid ""
-"Display the chapter title and page number where the highlight is found, "
-"shown below the highlight text."
+"Display which book and author the highlight is from. Only applies when "
+"highlight source is set to 'All books'."
 msgstr ""
-"Kapiteltitel und Seitennummer der Markierung anzeigen, unterhalb des "
-"Markierungstextes."
+"Zeigt an, aus welchem Buch und von welchem Autor die Markierung stammt. Gilt "
+"nur, wenn die Quelle der Markierung auf „Alle Bücher“ steht."
 
 msgid "Book highlight maximum length"
 msgstr "Maximale Länge der Buchmarkierung"
@@ -1215,6 +1276,17 @@ msgstr "Symbolgröße (px)"
 msgid "32–48px suits most layouts."
 msgstr "32–48 px eignet sich für die meisten Layouts."
 
+msgid "Add white outline to icons in dark mode"
+msgstr "Weißen Umriss um Symbole im Dunkelmodus hinzufügen"
+
+msgid ""
+"Adds a thin white outline around each icon when dark mode is on, like a "
+"sticker, so icons stay visible against dark backgrounds."
+msgstr ""
+"Fügt im Dunkelmodus einen dünnen weißen Umriss um jedes Symbol hinzu, wie "
+"bei einem Aufkleber, damit Symbole auf dunklen Hintergründen sichtbar "
+"bleiben."
+
 msgid "Progress bar height"
 msgstr "Fortschrittsbalken-Höhe"
 
@@ -1313,9 +1385,6 @@ msgstr ""
 "100 % füllt die Textspalte. Der Balken wird entsprechend der "
 "Textausrichtungseinstellung ausgerichtet."
 
-msgid "Title font face"
-msgstr "Titelschriftart"
-
 msgid "Choose the font face for the main heading text in each section"
 msgstr "Schriftart für den Hauptüberschriftstext in jedem Bereich wählen"
 
@@ -1327,9 +1396,6 @@ msgstr "Schriftgröße für den Hauptüberschriftstext in jedem Bereich wählen.
 
 msgid "10–12px works well for most screens."
 msgstr "10–12 px funktioniert gut für die meisten Bildschirme."
-
-msgid "Subtitle font face"
-msgstr "Untertitelschriftart"
 
 msgid "Choose the font face for the information below the main heading text."
 msgstr ""
@@ -1588,13 +1654,11 @@ msgid "Enter hex colour code"
 msgstr "Hex-Farbcode eingeben"
 
 msgid ""
-"Saves a screenshot of the sleep screen to a file each time a book is closed."
-" Useful for devices that use an exported image as their own native sleep "
-"screen."
+"Saves a screenshot of the sleep screen to a file. Useful for devices that "
+"use an exported image as their own native sleep screen."
 msgstr ""
-"Speichert bei jedem Schließen eines Buches einen Screenshot des "
-"Sperrbildschirms als Datei. Nützlich für Geräte, die ein exportiertes Bild "
-"als eigenen Sperrbildschirm verwenden."
+"Speichert einen Screenshot des Ruhebildschirms in einer Datei. Nützlich für "
+"Geräte, die ein exportiertes Bild als eigenen Ruhebildschirm verwenden."
 
 msgid "Enable export"
 msgstr "Export aktivieren"
@@ -1617,6 +1681,77 @@ msgstr ""
 "Ordner wählen, in dem das exportierte Bild gespeichert wird. Muss festgelegt"
 " sein, bevor der Export aktiviert werden kann."
 
+msgid "Export triggers"
+msgstr "Export-Auslöser"
+
+msgid ""
+"Choose when the sleep screen is exported. You can select any combination of "
+"these."
+msgstr ""
+"Wähle, wann der Ruhebildschirm exportiert wird. Du kannst beliebige "
+"Kombinationen auswählen."
+
+msgid "On book close"
+msgstr "Beim Schließen eines Buchs"
+
+msgid "Export whenever you close a book."
+msgstr "Exportiert, wenn du ein Buch schließt."
+
+msgid "On book open"
+msgstr "Beim Öffnen eines Buchs"
+
+msgid "Export whenever you open a book."
+msgstr "Exportiert, wenn du ein Buch öffnest."
+
+msgid "On suspend"
+msgstr "Beim Ruhezustand"
+
+msgid "Export whenever you put the device to sleep."
+msgstr "Exportiert, wenn du das Gerät in den Ruhezustand versetzt."
+
+msgid "Periodically while reading"
+msgstr "Regelmäßig beim Lesen"
+
+msgid ""
+"Export automatically at a set interval while a book is open. Paused while "
+"the device is suspended, and resumes when you wake it or open another book."
+msgstr ""
+"Exportiert automatisch in einem festen Intervall, solange ein Buch geöffnet "
+"ist. Pausiert, während das Gerät im Ruhezustand ist, und läuft weiter, wenn "
+"du es aufweckst oder ein anderes Buch öffnest."
+
+#, lua-format
+msgid "Periodic export interval: %d min"
+msgstr "Export-Intervall: %d Min"
+
+msgid "How often to export while 'Periodically while reading' is enabled."
+msgstr ""
+"Wie oft exportiert wird, solange „Regelmäßig beim Lesen“ aktiviert ist."
+
+msgid "Periodic export interval (minutes)"
+msgstr "Export-Intervall (Minuten)"
+
+msgid "How often, in minutes, to export the sleep screen while a book is open."
+msgstr ""
+"Wie oft, in Minuten, der Ruhebildschirm exportiert wird, solange ein Buch "
+"geöffnet ist."
+
+msgid "Export sleep screen now"
+msgstr "Ruhebildschirm jetzt exportieren"
+
+msgid "Sleep screen exported."
+msgstr "Ruhebildschirm exportiert."
+
+msgid "Export failed. Check that an export folder is set."
+msgstr "Export fehlgeschlagen. Prüfe, ob ein Exportordner festgelegt ist."
+
+msgid ""
+"Sleep screen export is turned off. Enable it under 'Export sleep screen to "
+"file' to use this."
+msgstr ""
+"Der Export des Ruhebildschirms ist ausgeschaltet. Aktiviere ihn unter "
+"„Sperrbildschirm in Datei exportieren“, um dies zu nutzen."
+
 msgid "Preview sleep screen"
 msgstr "Sperrbildschirm als Vorschau anzeigen"
 
@@ -1627,15 +1762,24 @@ msgstr ""
 "Zeigt, wie der Sperrbildschirm derzeit aussieht, ohne das Gerät tatsächlich "
 "in den Ruhezustand zu versetzen."
 
-msgid "Behaviour"
-msgstr "Verhalten"
+msgid "Preview file manager sleep screen"
+msgstr "Ruhebildschirm des Dateimanagers als Vorschau anzeigen"
 
 msgid ""
-"How the plugin behaves: file manager display, ghosting, export, battery "
-"estimation, and stats scope."
+"Shows what the sleep screen looks like when the device goes to sleep from "
+"the file manager, without actually suspending it. Tap anywhere to close it."
 msgstr ""
-"Wie sich das Plugin verhält: Anzeige im Dateimanager, Ghosting, Export, "
-"Akkuschätzung und Statistikbereich."
+"Zeigt, wie der Ruhebildschirm aussieht, wenn das Gerät aus dem Dateimanager "
+"in den Ruhezustand geht, ohne es tatsächlich zu suspendieren. Tippe "
+"irgendwo, um die Vorschau zu schließen."
+
+msgid ""
+"The alternative file manager sleep screen is not enabled. Turn on 'Show "
+"alternative sleep screen (no infobox)' to preview it."
+msgstr ""
+"Der alternative Sperrbildschirm für den Dateimanager ist nicht aktiviert. "
+"Aktiviere „Alternativen Sperrbildschirm anzeigen (ohne Infobox)“, um ihn als "
+"Vorschau zu sehen."
 
 #, lua-format
 msgid "Version: %s"
@@ -1705,15 +1849,6 @@ msgstr ""
 
 msgid "Fallback background"
 msgstr "Ausweichhintergrund"
-
-msgid ""
-"What to show instead of the cover. Uses the colour, image, or folder already"
-" set in Background type. Only selectable when \"Exclude this book's cover "
-"from sleep screen\" is turned on."
-msgstr ""
-"Was anstelle des Covers angezeigt werden soll. Verwendet die unter "
-"Hintergrundtyp bereits festgelegte Farbe, Bild oder Ordner. Nur wählbar, "
-"wenn \"Cover dieses Buches vom Sperrbildschirm ausschließen\" aktiviert ist."
 
 msgid ""
 "No book data available to preview yet.\n"
@@ -1895,11 +2030,11 @@ msgstr "Reihenfolge & Sichtbarkeit der Bereiche"
 
 msgid ""
 "Select a section and tap the bottom arrows to reorder. Tap the checkmark to "
-"show or hide the section. At least one section must stay visible."
+"show or hide the section. Hide every section to show only the background."
 msgstr ""
-"Wählen Sie einen Bereich aus und tippen Sie auf die unteren Pfeile, um ihn "
-"neu anzuordnen. Tippen Sie auf das Häkchen, um den Bereich ein- oder "
-"auszublenden. Mindestens ein Bereich muss sichtbar bleiben."
+"Wähle einen Bereich aus und tippe auf die Pfeile unten, um die Reihenfolge "
+"zu ändern. Tippe auf das Häkchen, um den Bereich ein- oder auszublenden. "
+"Blende alle Bereiche aus, um nur den Hintergrund anzuzeigen."
 
 #, lua-format
 msgid "Title Line: %s"
@@ -2211,3 +2346,254 @@ msgid ""
 msgstr ""
 "Speichert das exportierte Bild ohne Farbe und verringert so die Dateigröße "
 "bei jedem Format."
+
+msgid "Lock screen"
+msgstr "Bildschirmsperre"
+
+msgid ""
+"Add some security to your device and ask for a PIN after the sleep screen is "
+"cleared. Like Global settings, the lock screen settings don't change when "
+"you switch presets."
+msgstr ""
+"Schütze dein Gerät: Nach dem Ruhebildschirm wird eine PIN abgefragt. Wie die "
+"globalen Einstellungen ändern sich die Einstellungen der Bildschirmsperre "
+"nicht, wenn du Voreinstellungen wechselst."
+
+msgid "Enable lock screen"
+msgstr "Bildschirmsperre aktivieren"
+
+msgid ""
+"After the sleep screen, tap or swipe to clear it, then enter your PIN to "
+"continue. This is a convenience lock to keep casual access out, not strong "
+"security: it doesn't protect the files on your device. It only applies after "
+"sleep unless you also turn on 'Lock when KOReader starts'. Turning it off "
+"needs your current PIN. If you forget the PIN, create an empty file named "
+"reset-lock inside the customisablesleepscreen.koplugin folder and restart "
+"KOReader to clear it."
+msgstr ""
+"Tippe nach dem Ruhebildschirm oder wische, um ihn zu schließen, und gib dann "
+"deine PIN ein, um fortzufahren. Das ist eine Komfortsperre, die zufälligen "
+"Zugriff verhindert, keine starke Sicherheit: Sie schützt nicht die Dateien "
+"auf deinem Gerät. Sie gilt nur nach dem Ruhezustand, sofern du nicht auch "
+"„Beim Start von KOReader sperren“ aktivierst. Zum Ausschalten ist deine "
+"aktuelle PIN nötig. Wenn du die PIN vergisst, lege im Ordner "
+"customisablesleepscreen.koplugin eine leere Datei namens reset-lock an und "
+"starte KOReader neu, um sie zu löschen."
+
+msgid "The lock screen needs a touch screen."
+msgstr "Die Bildschirmsperre benötigt einen Touchscreen."
+
+msgid "Lock when KOReader starts"
+msgstr "Beim Start von KOReader sperren"
+
+msgid ""
+"Also ask for the PIN when KOReader starts, so restarting the app or forcing "
+"the device to shut down and reboot can't be used to get around the lock. "
+"Turning it off needs your current PIN."
+msgstr ""
+"Fragt die PIN auch beim Start von KOReader ab, damit die Sperre weder durch "
+"einen Neustart der App noch durch Herunterfahren und erneutes Hochfahren des "
+"Geräts umgangen werden kann. Zum Ausschalten ist deine aktuelle PIN nötig."
+
+msgid "Deferred locking"
+msgstr "Verzögertes Sperren"
+
+msgid ""
+"Skip the lock screen when the device has only been asleep for a short time. "
+"Longer sleeps still ask for the PIN, and a device that went to sleep while "
+"locked always does."
+msgstr ""
+"Überspringt die Bildschirmsperre, wenn das Gerät nur kurz im Ruhezustand "
+"war. Bei längeren Ruhephasen wird weiterhin die PIN abgefragt, ebenso bei "
+"einem Gerät, das bereits gesperrt in den Ruhezustand ging."
+
+msgid "Off (always lock)"
+msgstr "Aus (immer sperren)"
+
+msgid "Change PIN"
+msgstr "PIN ändern"
+
+msgid "Set a new 4-digit PIN. You'll be asked for the current one first."
+msgstr ""
+"Lege eine neue 4-stellige PIN fest. Zuerst wirst du nach der aktuellen "
+"gefragt."
+
+msgid "Sleep screen background"
+msgstr "Hintergrund des Ruhebildschirms"
+
+msgid ""
+"Choose what appears behind the PIN pad: your sleep screen background, or "
+"plain white or black."
+msgstr ""
+"Wähle, was hinter dem PIN-Feld erscheint: der Hintergrund deines "
+"Ruhebildschirms oder einfaches Weiß oder Schwarz."
+
+msgid "Plain white"
+msgstr "Einfach weiß"
+
+msgid "Plain black"
+msgstr "Einfach schwarz"
+
+msgid "Follow automatic preset switching"
+msgstr "Automatischem Voreinstellungswechsel folgen"
+
+msgid ""
+"White while your day preset is in effect and black while your night preset "
+"is. Only offered while automatic preset switching is turned on."
+msgstr ""
+"Weiß, solange deine Tag-Voreinstellung aktiv ist, und schwarz, solange deine "
+"Nacht-Voreinstellung aktiv ist. Nur verfügbar, wenn der automatische "
+"Voreinstellungswechsel eingeschaltet ist."
+
+msgid ""
+"Use the same background as your sleep screen (cover, image or colour), "
+"including its Background overlay. Images are shown around a solid panel "
+"behind the PIN pad, which keeps it readable and avoids ghosting. If your "
+"sleep screen has no background, plain white is used."
+msgstr ""
+"Verwendet denselben Hintergrund wie dein Ruhebildschirm (Cover, Bild oder "
+"Farbe) samt Hintergrundüberlagerung. Bilder werden um ein einfarbiges Feld "
+"hinter dem PIN-Feld herum gezeigt, das die Lesbarkeit sichert und "
+"Geisterbilder vermeidet. Hat dein Ruhebildschirm keinen Hintergrund, wird "
+"einfaches Weiß verwendet."
+
+msgid "Button style"
+msgstr "Tastenstil"
+
+msgid ""
+"How the number keys look: Plain (just the numbers), Ruled (thin lines "
+"between the rows), Outlined (circle outlines) or Filled (filled circles)."
+msgstr ""
+"So sehen die Zifferntasten aus: Schlicht (nur die Ziffern), Linien (dünne "
+"Linien zwischen den Reihen), Umrandet (Kreisumrisse) oder Gefüllt (gefüllte "
+"Kreise)."
+
+msgid "Plain"
+msgstr "Schlicht"
+
+msgid "Ruled"
+msgstr "Linien"
+
+msgid "Outlined"
+msgstr "Umrandet"
+
+msgid "Filled"
+msgstr "Gefüllt"
+
+msgid "Button shape"
+msgstr "Tastenform"
+
+msgid ""
+"The shape of the Outlined and Filled buttons: a circle, or a square with "
+"rounded corners."
+msgstr ""
+"Die Form der Tasten „Umrandet“ und „Gefüllt“: ein Kreis oder ein Quadrat mit "
+"abgerundeten Ecken."
+
+msgid "Circle"
+msgstr "Kreis"
+
+msgid "Rounded square"
+msgstr "Abgerundetes Quadrat"
+
+msgid "Text colour"
+msgstr "Textfarbe"
+
+msgid ""
+"Colour of the lock screen text and digits over the sleep screen background. "
+"Auto picks black or white to suit the image as shown, after the overlay. "
+"Plain white and black backgrounds always use the opposite colour."
+msgstr ""
+"Farbe von Text und Ziffern der Bildschirmsperre über dem Hintergrund des "
+"Ruhebildschirms. „Automatisch“ wählt Schwarz oder Weiß passend zum Bild, wie "
+"es nach der Überlagerung angezeigt wird. Einfach weiße und schwarze "
+"Hintergründe verwenden immer die gegenteilige Farbe."
+
+msgid "Auto"
+msgstr "Automatisch"
+
+msgid "Black"
+msgstr "Schwarz"
+
+msgid "White"
+msgstr "Weiß"
+
+msgid "Owner message"
+msgstr "Besitzernachricht"
+
+msgid ""
+"A short message shown under the keypad, such as \"If found, call "
+"0123456789\". Up to three lines. Anyone who wakes the device can read it. "
+"Leave it empty to show nothing."
+msgstr ""
+"Eine kurze Nachricht unter dem Tastenfeld, z. B. „Bei Fund bitte anrufen: "
+"0123456789“. Bis zu drei Zeilen. Jeder, der das Gerät aufweckt, kann sie "
+"lesen. Leer lassen, um nichts anzuzeigen."
+
+msgid "Preview lock screen"
+msgstr "Bildschirmsperre als Vorschau anzeigen"
+
+msgid ""
+"Shows the PIN screen so you can see how it looks, without locking anything. "
+"Tap anywhere to close it."
+msgstr ""
+"Zeigt die PIN-Eingabe, damit du siehst, wie sie aussieht, ohne etwas zu "
+"sperren. Tippe irgendwo, um sie zu schließen."
+
+msgid "On"
+msgstr "An"
+
+msgid "Off"
+msgstr "Aus"
+
+msgid "Please enter your 4-digit PIN."
+msgstr "Bitte gib deine 4-stellige PIN ein."
+
+msgid "Please enter your current 4-digit PIN."
+msgstr "Bitte gib deine aktuelle 4-stellige PIN ein."
+
+msgid "Please choose a 4-digit PIN."
+msgstr "Bitte wähle eine 4-stellige PIN."
+
+msgid "Please confirm your 4-digit PIN."
+msgstr "Bitte bestätige deine 4-stellige PIN."
+
+msgid "Sorry, incorrect PIN. Please try again."
+msgstr "Falsche PIN. Bitte versuche es erneut."
+
+msgid "Sorry, the PINs didn't match. Please try again."
+msgstr "Die PINs stimmen nicht überein. Bitte versuche es erneut."
+
+#, lua-format
+msgid "Too many attempts. Please try again in %s."
+msgstr "Zu viele Versuche. Bitte versuche es in %s erneut."
+
+#, lua-format
+msgid ""
+"PIN saved.\n"
+"\n"
+"If you ever forget it, create an empty file named \"reset-lock\" inside the "
+"plugin's folder (%s) and restart KOReader. That clears the PIN."
+msgstr ""
+"PIN gespeichert.\n"
+"\n"
+"Falls du sie je vergisst, lege im Ordner des Plugins (%s) eine leere Datei "
+"namens „reset-lock“ an und starte KOReader neu. Dadurch wird die PIN "
+"gelöscht."
+
+msgid ""
+"Lock screen reset.\n"
+"\n"
+"You can set a new PIN in the Customisable Sleep Screen settings."
+msgstr ""
+"Bildschirmsperre zurückgesetzt.\n"
+"\n"
+"Du kannst in den Einstellungen von Customisable Sleep Screen eine neue PIN "
+"festlegen."
+
+msgid ""
+"Couldn't reset the lock screen: the reset-lock file couldn't be deleted. Is "
+"the storage read-only?"
+msgstr ""
+"Die Bildschirmsperre konnte nicht zurückgesetzt werden: Die Datei reset-lock "
+"konnte nicht gelöscht werden. Ist der Speicher schreibgeschützt?"

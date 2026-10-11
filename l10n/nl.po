@@ -66,6 +66,11 @@ msgid_plural "mins"
 msgstr[0] "min"
 msgstr[1] "min"
 
+msgid "sec"
+msgid_plural "secs"
+msgstr[0] "sec"
+msgstr[1] "sec"
+
 msgid "< 1 min"
 msgstr "< 1 min"
 
@@ -109,16 +114,16 @@ msgid "pgs"
 msgstr "pag."
 
 #, lua-format
-msgid "%s %s & %s read today"
-msgstr "%s %s & %s vandaag gelezen"
-
-#, lua-format
 msgid "%s read today"
 msgstr "%s vandaag gelezen"
 
 #, lua-format
 msgid "%d day streak"
 msgstr "%d dagen op rij"
+
+#, lua-format
+msgid "%d week streak"
+msgstr "%d weken op rij"
 
 #, lua-format
 msgid "%d/%d days met this week"
@@ -140,9 +145,6 @@ msgstr "%d%% van doel"
 #, lua-format
 msgid "%d page goal"
 msgstr "%d pagina doel"
-
-msgid "Rate unavailable"
-msgstr "Snelheid niet beschikbaar"
 
 msgid "No message set"
 msgstr "Geen bericht ingesteld"
@@ -331,36 +333,64 @@ msgid "Flash screen to reduce ghosting"
 msgstr "Scherm laten opflitsen om nabeelden te verminderen"
 
 msgid ""
-"Flashes the screen to black before showing the sleep screen, clearing "
-"residual text/image ghosting. Off by default, since not every device shows "
-"this ghosting."
+"Flashes the whole screen before showing a screen, clearing leftovers of the "
+"previous one. Off by default, since not every device shows this ghosting. "
+"The sleep screen and the lock screen each have their own switch, and the "
+"flash can be black or white."
 msgstr ""
-"Laat het scherm zwart opflitsen voordat het slaapscherm wordt getoond, om "
-"resterende nabeelden van tekst/afbeeldingen te verwijderen. Standaard "
-"uitgeschakeld, omdat niet elk apparaat deze nabeelden vertoont."
+"Laat het hele scherm opflitsen voordat een scherm wordt getoond, om resten "
+"van het vorige te wissen. Standaard uit, omdat niet elk apparaat deze "
+"nabeelden vertoont. Het slaapscherm en het vergrendelscherm hebben elk een "
+"eigen schakelaar, en de flits kan zwart of wit zijn."
 
-msgid "Show in file manager (outside of book)"
-msgstr "Tonen in bestandsbeheer (buiten boek)"
+msgid "Flash screen before sleep screen"
+msgstr "Scherm laten opflitsen vóór slaapscherm"
 
 msgid ""
-"When enabled, the customisable sleep screen will display in file manager "
-"using the last saved book data."
+"Flashes the screen (black or white, see below) before showing the sleep "
+"screen, clearing residual text/image ghosting."
 msgstr ""
-"Indien ingeschakeld wordt het configureerbare slaapscherm weergegeven in het"
-" bestandsbeheer met de laatst opgeslagen boekgegevens."
+"Laat het scherm opflitsen (zwart of wit, zie hieronder) voordat het "
+"slaapscherm verschijnt, om resterende nabeelden van tekst en afbeeldingen te "
+"wissen."
+
+msgid "Flash screen before lock screen"
+msgstr "Scherm laten opflitsen vóór vergrendelscherm"
+
+msgid ""
+"Flashes the screen (black or white, see below) before showing the lock "
+"screen, clearing leftovers of the sleep screen. Useful if you can see "
+"ghosting on the lock screen, for example with a black background. Needs the "
+"lock screen to be enabled."
+msgstr ""
+"Laat het scherm opflitsen (zwart of wit, zie hieronder) voordat het "
+"vergrendelscherm verschijnt, om resten van het slaapscherm te wissen. Handig "
+"als je nabeelden ziet op het vergrendelscherm, bijvoorbeeld met een zwarte "
+"achtergrond. Het vergrendelscherm moet zijn ingeschakeld."
+
+msgid "Black flash"
+msgstr "Zwarte flits"
+
+msgid "Flash the screen to black. Clears light leftovers best."
+msgstr "Laat het scherm zwart opflitsen. Verwijdert lichte resten het best."
+
+msgid "White flash"
+msgstr "Witte flits"
+
+msgid "Flash the screen to white. Clears dark leftovers best."
+msgstr "Laat het scherm wit opflitsen. Verwijdert donkere resten het best."
 
 msgid "Export sleep screen to file"
 msgstr "Slaapscherm exporteren naar bestand"
 
 msgid ""
-"When enabled, a screenshot of the sleep screen will be saved in the selected"
-" export folder each time you close a book or put the device to sleep, using "
-"the format set below."
+"When enabled, a screenshot of the sleep screen will be saved in the selected "
+"export folder using the format set below, on the triggers selected under "
+"'Export triggers'."
 msgstr ""
-"Indien ingeschakeld, wordt er telkens wanneer je een boek sluit of het "
-"apparaat in slaapstand zet een schermafbeelding van het slaapscherm "
-"opgeslagen in de geselecteerde exportmap, in het hieronder ingestelde "
-"formaat."
+"Indien ingeschakeld wordt een schermafbeelding van het slaapscherm "
+"opgeslagen in de gekozen exportmap in het hieronder ingestelde formaat, bij "
+"de momenten die zijn gekozen onder „Exportmomenten”."
 
 msgid "Sleep screen export disabled."
 msgstr "Export slaapscherm uitgeschakeld."
@@ -414,15 +444,6 @@ msgstr ""
 
 msgid "Exclude this book's cover from sleep screen"
 msgstr "Omslag van dit boek uitsluiten van slaapscherm"
-
-msgid ""
-"Hides the cover for this book only, for when you'd rather it not be shown on"
-" your sleep screen - without having to switch presets or background settings"
-" each time you read it."
-msgstr ""
-"Verbergt de omslag alleen voor dit boek, voor als u liever niet heeft dat "
-"deze op uw slaapscherm verschijnt - zonder telkens van voorinstelling of "
-"achtergrondinstellingen te hoeven wisselen als u het leest."
 
 msgid "No background (leave screen as-is)"
 msgstr "Geen achtergrond (scherm ongewijzigd laten)"
@@ -496,9 +517,6 @@ msgstr "Batterijinformatie"
 msgid "Message info"
 msgstr "Berichtinformatie"
 
-msgid "At least one section must remain visible."
-msgstr "Minstens één sectie moet zichtbaar blijven."
-
 msgid "Show cover image above book info"
 msgstr "Omslagafbeelding boven boekinformatie tonen"
 
@@ -529,15 +547,27 @@ msgid "Cover border size"
 msgstr "Randgrootte omslag"
 
 msgid ""
-"Width of the border drawn around the cover image. Set to 0 for no border."
+"Width of the border drawn around the cover image. Set to 0 for no border. "
+"Ignored while 'Add drop shadow to cover' is enabled."
 msgstr ""
-"Breedte van de rand rondom de omslagafbeelding. Stel in op 0 voor geen rand."
+"Breedte van de rand rond de omslagafbeelding. Stel in op 0 voor geen rand. "
+"Wordt genegeerd zolang „Slagschaduw aan omslag toevoegen” is ingeschakeld."
 
 msgid "Cover border size (pixels)"
 msgstr "Randgrootte omslag (pixels)"
 
 msgid "1–3px for a subtle outline. 0 to disable."
 msgstr "1–3px voor een subtiele omlijning. 0 om uit te schakelen."
+
+msgid "Add drop shadow to cover"
+msgstr "Slagschaduw aan omslag toevoegen"
+
+msgid ""
+"Gives the cover image rounded corners and a drop shadow, like a card. "
+"Replaces the regular cover border option while enabled."
+msgstr ""
+"Geeft de omslagafbeelding afgeronde hoeken en een slagschaduw, zoals een "
+"kaart. Vervangt de gewone omslagrandoptie zolang het is ingeschakeld."
 
 msgid "Align cover to text alignment"
 msgstr "Omslag uitlijnen op tekstuitlijning"
@@ -636,12 +666,6 @@ msgstr "Vandaag gelezen tijd"
 msgid "e.g. '42 mins read today'"
 msgstr "bijv. '42 min vandaag gelezen'"
 
-msgid "Pages and time read today"
-msgstr "Vandaag gelezen pagina's en tijd"
-
-msgid "e.g. '35 pgs & 42 mins read today'"
-msgstr "bijv. '35 pag. & 42 min vandaag gelezen'"
-
 msgid ""
 "Choose whether your daily goal tracks pages read or time spent reading."
 msgstr ""
@@ -691,6 +715,12 @@ msgstr "Huidige leestreeks tonen"
 
 msgid "Display consecutive days you've met your reading goal."
 msgstr "Toont opeenvolgende dagen waarop u uw leesdoel hebt gehaald."
+
+msgid "Show weekly reading streak"
+msgstr "Wekelijkse leesreeks tonen"
+
+msgid "Display consecutive weeks with any reading activity."
+msgstr "Toont opeenvolgende weken met leesactiviteit."
 
 msgid "Show weekly progress"
 msgstr "Wekelijkse voortgang tonen"
@@ -777,6 +807,27 @@ msgstr "Boekaantekeningen"
 msgid "Show a random highlight from the current book"
 msgstr "Een willekeurige markering uit het huidige boek tonen"
 
+#, lua-format
+msgid "Highlight source: %s"
+msgstr "Bron van markeringen: %s"
+
+msgid ""
+"Choose whether the highlight is picked from the current book only, or from "
+"all of your highlights."
+msgstr ""
+"Kies of de markering alleen uit het huidige boek wordt gekozen, of uit al je "
+"markeringen."
+
+msgid "Current book"
+msgstr "Huidig boek"
+
+msgid "Only show highlights from the book you're currently reading."
+msgstr "Toont alleen markeringen uit het boek dat je nu leest."
+
+msgid "Show highlights from a random sample of your reading history."
+msgstr ""
+"Toont markeringen uit een willekeurige selectie van je leesgeschiedenis."
+
 msgid "Add quotation marks to highlights"
 msgstr "Aanhalingstekens toevoegen aan markeringen"
 
@@ -787,15 +838,21 @@ msgstr ""
 "Omsluit alle markeringen met krullende dubbele aanhalingstekens en "
 "verwijdert bestaande aanhalingstekens."
 
-msgid "Show highlight location"
-msgstr "Markeringslocatie tonen"
+msgid "Show highlight location (chapter & page no.)"
+msgstr "Locatie van markering tonen (hoofdstuk en pagina)"
+
+msgid "Display the chapter title and page number where the highlight is found."
+msgstr "Toont de hoofdstuktitel en het paginanummer waar de markering staat."
+
+msgid "Show highlight book title and author"
+msgstr "Boektitel en auteur van markering tonen"
 
 msgid ""
-"Display the chapter title and page number where the highlight is found, "
-"shown below the highlight text."
+"Display which book and author the highlight is from. Only applies when "
+"highlight source is set to 'All books'."
 msgstr ""
-"Toont de hoofdstuktitel en het paginanummer waar de markering zich bevindt, "
-"weergegeven onder de markeringstekst."
+"Toont uit welk boek en van welke auteur de markering komt. Alleen van "
+"toepassing als de bron van markeringen op „Alle boeken” staat."
 
 msgid "Book highlight maximum length"
 msgstr "Maximale lengte boekmarkering"
@@ -1222,6 +1279,17 @@ msgstr "Icoongrootte (px)"
 msgid "32–48px suits most layouts."
 msgstr "32–48px past bij de meeste indelingen."
 
+msgid "Add white outline to icons in dark mode"
+msgstr "Witte omlijning aan pictogrammen toevoegen in donkere modus"
+
+msgid ""
+"Adds a thin white outline around each icon when dark mode is on, like a "
+"sticker, so icons stay visible against dark backgrounds."
+msgstr ""
+"Voegt in de donkere modus een dunne witte omlijning rond elk pictogram toe, "
+"als een sticker, zodat pictogrammen zichtbaar blijven op donkere "
+"achtergronden."
+
 msgid "Progress bar height"
 msgstr "Hoogte voortgangsbalk"
 
@@ -1319,9 +1387,6 @@ msgstr ""
 "100% vult de tekstkolom. De balk is uitgelijnd overeenkomstig uw "
 "tekstuitlijningsinstelling."
 
-msgid "Title font face"
-msgstr "Lettertype titel"
-
 msgid "Choose the font face for the main heading text in each section"
 msgstr "Kies het lettertype voor de hoofdkopregel in elke sectie"
 
@@ -1333,9 +1398,6 @@ msgstr "Kies de tekengrootte voor de hoofdkopregel in elke sectie."
 
 msgid "10–12px works well for most screens."
 msgstr "10–12px werkt goed voor de meeste schermen."
-
-msgid "Subtitle font face"
-msgstr "Lettertype ondertitel"
 
 msgid "Choose the font face for the information below the main heading text."
 msgstr "Kies het lettertype voor de informatie onder de hoofdkopregel."
@@ -1601,13 +1663,12 @@ msgid "Enter hex colour code"
 msgstr "Voer hexadecimale kleurcode in"
 
 msgid ""
-"Saves a screenshot of the sleep screen to a file each time a book is closed."
-" Useful for devices that use an exported image as their own native sleep "
-"screen."
+"Saves a screenshot of the sleep screen to a file. Useful for devices that "
+"use an exported image as their own native sleep screen."
 msgstr ""
-"Slaat telkens wanneer een boek wordt gesloten een schermafbeelding van het "
-"slaapscherm op als bestand. Handig voor apparaten die een geëxporteerde "
-"afbeelding als eigen slaapscherm gebruiken."
+"Slaat een schermafbeelding van het slaapscherm op in een bestand. Handig "
+"voor apparaten die een geëxporteerde afbeelding als eigen slaapscherm "
+"gebruiken."
 
 msgid "Enable export"
 msgstr "Exporteren inschakelen"
@@ -1632,6 +1693,78 @@ msgstr ""
 "Kies de map waarin de geëxporteerde afbeelding wordt opgeslagen. Moet zijn "
 "ingesteld voordat exporteren kan worden ingeschakeld."
 
+msgid "Export triggers"
+msgstr "Exportmomenten"
+
+msgid ""
+"Choose when the sleep screen is exported. You can select any combination of "
+"these."
+msgstr ""
+"Kies wanneer het slaapscherm wordt geëxporteerd. Je kunt elke combinatie "
+"selecteren."
+
+msgid "On book close"
+msgstr "Bij sluiten van boek"
+
+msgid "Export whenever you close a book."
+msgstr "Exporteer telkens als je een boek sluit."
+
+msgid "On book open"
+msgstr "Bij openen van boek"
+
+msgid "Export whenever you open a book."
+msgstr "Exporteer telkens als je een boek opent."
+
+msgid "On suspend"
+msgstr "Bij opschorten"
+
+msgid "Export whenever you put the device to sleep."
+msgstr "Exporteer telkens als je het apparaat in slaapstand zet."
+
+msgid "Periodically while reading"
+msgstr "Periodiek tijdens het lezen"
+
+msgid ""
+"Export automatically at a set interval while a book is open. Paused while "
+"the device is suspended, and resumes when you wake it or open another book."
+msgstr ""
+"Exporteert automatisch met een vast interval terwijl een boek geopend is. "
+"Pauzeert terwijl het apparaat is opgeschort en gaat verder als je het wekt "
+"of een ander boek opent."
+
+#, lua-format
+msgid "Periodic export interval: %d min"
+msgstr "Interval periodiek exporteren: %d min"
+
+msgid "How often to export while 'Periodically while reading' is enabled."
+msgstr ""
+"Hoe vaak er wordt geëxporteerd zolang „Periodiek tijdens het lezen” is "
+"ingeschakeld."
+
+msgid "Periodic export interval (minutes)"
+msgstr "Interval periodiek exporteren (minuten)"
+
+msgid "How often, in minutes, to export the sleep screen while a book is open."
+msgstr ""
+"Hoe vaak, in minuten, het slaapscherm wordt geëxporteerd terwijl een boek "
+"geopend is."
+
+msgid "Export sleep screen now"
+msgstr "Slaapscherm nu exporteren"
+
+msgid "Sleep screen exported."
+msgstr "Slaapscherm geëxporteerd."
+
+msgid "Export failed. Check that an export folder is set."
+msgstr "Exporteren mislukt. Controleer of een exportmap is ingesteld."
+
+msgid ""
+"Sleep screen export is turned off. Enable it under 'Export sleep screen to "
+"file' to use this."
+msgstr ""
+"Het exporteren van het slaapscherm staat uit. Schakel het in onder "
+"„Slaapscherm exporteren naar bestand” om dit te gebruiken."
+
 msgid "Preview sleep screen"
 msgstr "Voorbeeld van slaapscherm"
 
@@ -1642,15 +1775,24 @@ msgstr ""
 "Toont hoe het slaapscherm er momenteel uitziet, zonder het apparaat "
 "daadwerkelijk in slaapstand te zetten."
 
-msgid "Behaviour"
-msgstr "Gedrag"
+msgid "Preview file manager sleep screen"
+msgstr "Voorbeeld van slaapscherm in bestandsbeheerder"
 
 msgid ""
-"How the plugin behaves: file manager display, ghosting, export, battery "
-"estimation, and stats scope."
+"Shows what the sleep screen looks like when the device goes to sleep from "
+"the file manager, without actually suspending it. Tap anywhere to close it."
 msgstr ""
-"Hoe de plugin zich gedraagt: weergave in bestandsbeheer, ghosting, "
-"exporteren, batterijschatting en bereik van statistieken."
+"Toont hoe het slaapscherm eruitziet wanneer het apparaat vanuit de "
+"bestandsbeheerder in slaapstand gaat, zonder het echt op te schorten. Tik "
+"ergens om het te sluiten."
+
+msgid ""
+"The alternative file manager sleep screen is not enabled. Turn on 'Show "
+"alternative sleep screen (no infobox)' to preview it."
+msgstr ""
+"Het alternatieve slaapscherm voor de bestandsbeheerder is niet ingeschakeld. "
+"Zet „Alternatief slaapscherm tonen (zonder informatiepaneel)” aan om het te "
+"bekijken."
 
 #, lua-format
 msgid "Version: %s"
@@ -1719,15 +1861,6 @@ msgstr ""
 
 msgid "Fallback background"
 msgstr "Alternatieve achtergrond"
-
-msgid ""
-"What to show instead of the cover. Uses the colour, image, or folder already"
-" set in Background type. Only selectable when \"Exclude this book's cover "
-"from sleep screen\" is turned on."
-msgstr ""
-"Wat er in plaats van de omslag wordt getoond. Gebruikt de kleur, afbeelding "
-"of map die al is ingesteld bij Achtergrondtype. Alleen selecteerbaar wanneer"
-" \"Omslag van dit boek uitsluiten van slaapscherm\" is ingeschakeld."
 
 msgid ""
 "No book data available to preview yet.\n"
@@ -1903,11 +2036,11 @@ msgstr "Volgorde en zichtbaarheid van secties"
 
 msgid ""
 "Select a section and tap the bottom arrows to reorder. Tap the checkmark to "
-"show or hide the section. At least one section must stay visible."
+"show or hide the section. Hide every section to show only the background."
 msgstr ""
-"Selecteer een sectie en tik op de onderste pijlen om deze te herschikken. "
-"Tik op het vinkje om de sectie te tonen of te verbergen. Minstens één sectie"
-" moet zichtbaar blijven."
+"Selecteer een sectie en tik op de pijlen onderaan om de volgorde te "
+"wijzigen. Tik op het vinkje om de sectie te tonen of te verbergen. Verberg "
+"alle secties om alleen de achtergrond te tonen."
 
 #, lua-format
 msgid "Title Line: %s"
@@ -2215,3 +2348,254 @@ msgid ""
 msgstr ""
 "Slaat de geëxporteerde afbeelding zonder kleur op, waardoor de "
 "bestandsgrootte voor elk formaat kleiner wordt."
+
+msgid "Lock screen"
+msgstr "Vergrendelscherm"
+
+msgid ""
+"Add some security to your device and ask for a PIN after the sleep screen is "
+"cleared. Like Global settings, the lock screen settings don't change when "
+"you switch presets."
+msgstr ""
+"Beveilig je apparaat en vraag om een pincode nadat het slaapscherm is "
+"gesloten. Net als de algemene instellingen veranderen de instellingen voor "
+"het vergrendelscherm niet wanneer je van preset wisselt."
+
+msgid "Enable lock screen"
+msgstr "Vergrendelscherm inschakelen"
+
+msgid ""
+"After the sleep screen, tap or swipe to clear it, then enter your PIN to "
+"continue. This is a convenience lock to keep casual access out, not strong "
+"security: it doesn't protect the files on your device. It only applies after "
+"sleep unless you also turn on 'Lock when KOReader starts'. Turning it off "
+"needs your current PIN. If you forget the PIN, create an empty file named "
+"reset-lock inside the customisablesleepscreen.koplugin folder and restart "
+"KOReader to clear it."
+msgstr ""
+"Tik of veeg na het slaapscherm om het te sluiten en voer dan je pincode in "
+"om door te gaan. Dit is een gemaksvergrendeling om toevallige toegang te "
+"voorkomen, geen sterke beveiliging: de bestanden op je apparaat worden niet "
+"beschermd. Het geldt alleen na slaapstand, tenzij je ook „Vergrendelen bij "
+"starten van KOReader” inschakelt. Uitschakelen vereist je huidige pincode. "
+"Als je de pincode vergeet, maak dan een leeg bestand met de naam reset-lock "
+"aan in de map customisablesleepscreen.koplugin en start KOReader opnieuw om "
+"de code te wissen."
+
+msgid "The lock screen needs a touch screen."
+msgstr "Het vergrendelscherm heeft een aanraakscherm nodig."
+
+msgid "Lock when KOReader starts"
+msgstr "Vergrendelen bij starten van KOReader"
+
+msgid ""
+"Also ask for the PIN when KOReader starts, so restarting the app or forcing "
+"the device to shut down and reboot can't be used to get around the lock. "
+"Turning it off needs your current PIN."
+msgstr ""
+"Vraagt ook om de pincode wanneer KOReader start, zodat het herstarten van de "
+"app of het geforceerd uitschakelen en opnieuw opstarten van het apparaat "
+"niet kan worden gebruikt om de vergrendeling te omzeilen. Uitschakelen "
+"vereist je huidige pincode."
+
+msgid "Deferred locking"
+msgstr "Uitgestelde vergrendeling"
+
+msgid ""
+"Skip the lock screen when the device has only been asleep for a short time. "
+"Longer sleeps still ask for the PIN, and a device that went to sleep while "
+"locked always does."
+msgstr ""
+"Slaat het vergrendelscherm over als het apparaat maar kort in slaapstand "
+"was. Bij langere slaapstand wordt nog steeds om de pincode gevraagd, en bij "
+"een apparaat dat vergrendeld in slaapstand ging altijd."
+
+msgid "Off (always lock)"
+msgstr "Uit (altijd vergrendelen)"
+
+msgid "Change PIN"
+msgstr "Pincode wijzigen"
+
+msgid "Set a new 4-digit PIN. You'll be asked for the current one first."
+msgstr ""
+"Stelt een nieuwe pincode van 4 cijfers in. Eerst wordt om de huidige "
+"gevraagd."
+
+msgid "Sleep screen background"
+msgstr "Achtergrond van slaapscherm"
+
+msgid ""
+"Choose what appears behind the PIN pad: your sleep screen background, or "
+"plain white or black."
+msgstr ""
+"Kies wat achter het toetsenblok verschijnt: de achtergrond van je "
+"slaapscherm, of effen wit of zwart."
+
+msgid "Plain white"
+msgstr "Effen wit"
+
+msgid "Plain black"
+msgstr "Effen zwart"
+
+msgid "Follow automatic preset switching"
+msgstr "Automatisch wisselen van preset volgen"
+
+msgid ""
+"White while your day preset is in effect and black while your night preset "
+"is. Only offered while automatic preset switching is turned on."
+msgstr ""
+"Wit zolang je dagpreset actief is en zwart zolang je nachtpreset actief is. "
+"Alleen beschikbaar als automatisch wisselen van preset is ingeschakeld."
+
+msgid ""
+"Use the same background as your sleep screen (cover, image or colour), "
+"including its Background overlay. Images are shown around a solid panel "
+"behind the PIN pad, which keeps it readable and avoids ghosting. If your "
+"sleep screen has no background, plain white is used."
+msgstr ""
+"Gebruikt dezelfde achtergrond als je slaapscherm (omslag, afbeelding of "
+"kleur), inclusief de achtergrondoverlay. Afbeeldingen worden getoond rond "
+"een effen vlak achter het toetsenblok, wat de leesbaarheid behoudt en "
+"nabeelden voorkomt. Als je slaapscherm geen achtergrond heeft, wordt effen "
+"wit gebruikt."
+
+msgid "Button style"
+msgstr "Knopstijl"
+
+msgid ""
+"How the number keys look: Plain (just the numbers), Ruled (thin lines "
+"between the rows), Outlined (circle outlines) or Filled (filled circles)."
+msgstr ""
+"Hoe de cijfertoetsen eruitzien: Effen (alleen de cijfers), Lijnen (dunne "
+"lijnen tussen de rijen), Omlijnd (omlijnde cirkels) of Gevuld (gevulde "
+"cirkels)."
+
+msgid "Plain"
+msgstr "Effen"
+
+msgid "Ruled"
+msgstr "Lijnen"
+
+msgid "Outlined"
+msgstr "Omlijnd"
+
+msgid "Filled"
+msgstr "Gevuld"
+
+msgid "Button shape"
+msgstr "Knopvorm"
+
+msgid ""
+"The shape of the Outlined and Filled buttons: a circle, or a square with "
+"rounded corners."
+msgstr ""
+"De vorm van de knoppen Omlijnd en Gevuld: een cirkel of een vierkant met "
+"afgeronde hoeken."
+
+msgid "Circle"
+msgstr "Cirkel"
+
+msgid "Rounded square"
+msgstr "Afgerond vierkant"
+
+msgid "Text colour"
+msgstr "Tekstkleur"
+
+msgid ""
+"Colour of the lock screen text and digits over the sleep screen background. "
+"Auto picks black or white to suit the image as shown, after the overlay. "
+"Plain white and black backgrounds always use the opposite colour."
+msgstr ""
+"Kleur van de tekst en cijfers van het vergrendelscherm boven de achtergrond "
+"van het slaapscherm. Auto kiest zwart of wit passend bij de afbeelding zoals "
+"getoond, na de overlay. Effen witte en zwarte achtergronden gebruiken altijd "
+"de tegenovergestelde kleur."
+
+msgid "Auto"
+msgstr "Auto"
+
+msgid "Black"
+msgstr "Zwart"
+
+msgid "White"
+msgstr "Wit"
+
+msgid "Owner message"
+msgstr "Eigenaarsbericht"
+
+msgid ""
+"A short message shown under the keypad, such as \"If found, call "
+"0123456789\". Up to three lines. Anyone who wakes the device can read it. "
+"Leave it empty to show nothing."
+msgstr ""
+"Een kort bericht onder het toetsenblok, zoals „Bij vinding bellen naar "
+"0123456789”. Maximaal drie regels. Iedereen die het apparaat wakker maakt, "
+"kan het lezen. Laat leeg om niets te tonen."
+
+msgid "Preview lock screen"
+msgstr "Voorbeeld van vergrendelscherm"
+
+msgid ""
+"Shows the PIN screen so you can see how it looks, without locking anything. "
+"Tap anywhere to close it."
+msgstr ""
+"Toont het pincodescherm zodat je kunt zien hoe het eruitziet, zonder iets te "
+"vergrendelen. Tik ergens om het te sluiten."
+
+msgid "On"
+msgstr "Aan"
+
+msgid "Off"
+msgstr "Uit"
+
+msgid "Please enter your 4-digit PIN."
+msgstr "Voer je pincode van 4 cijfers in."
+
+msgid "Please enter your current 4-digit PIN."
+msgstr "Voer je huidige pincode van 4 cijfers in."
+
+msgid "Please choose a 4-digit PIN."
+msgstr "Kies een pincode van 4 cijfers."
+
+msgid "Please confirm your 4-digit PIN."
+msgstr "Bevestig je pincode van 4 cijfers."
+
+msgid "Sorry, incorrect PIN. Please try again."
+msgstr "Onjuiste pincode. Probeer het opnieuw."
+
+msgid "Sorry, the PINs didn't match. Please try again."
+msgstr "De pincodes komen niet overeen. Probeer het opnieuw."
+
+#, lua-format
+msgid "Too many attempts. Please try again in %s."
+msgstr "Te veel pogingen. Probeer het over %s opnieuw."
+
+#, lua-format
+msgid ""
+"PIN saved.\n"
+"\n"
+"If you ever forget it, create an empty file named \"reset-lock\" inside the "
+"plugin's folder (%s) and restart KOReader. That clears the PIN."
+msgstr ""
+"Pincode opgeslagen.\n"
+"\n"
+"Als je hem ooit vergeet, maak dan een leeg bestand met de naam „reset-lock” "
+"aan in de map van de plug-in (%s) en start KOReader opnieuw. Daarmee wordt "
+"de pincode gewist."
+
+msgid ""
+"Lock screen reset.\n"
+"\n"
+"You can set a new PIN in the Customisable Sleep Screen settings."
+msgstr ""
+"Vergrendelscherm teruggezet.\n"
+"\n"
+"Je kunt een nieuwe pincode instellen in de instellingen van Customisable "
+"Sleep Screen."
+
+msgid ""
+"Couldn't reset the lock screen: the reset-lock file couldn't be deleted. Is "
+"the storage read-only?"
+msgstr ""
+"Het vergrendelscherm kon niet worden teruggezet: het bestand reset-lock kon "
+"niet worden verwijderd. Is de opslag alleen-lezen?"

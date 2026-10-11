@@ -68,6 +68,12 @@ msgstr[0] "хв"
 msgstr[1] "хв"
 msgstr[2] "хв"
 
+msgid "sec"
+msgid_plural "secs"
+msgstr[0] "с"
+msgstr[1] "с"
+msgstr[2] "с"
+
 msgid "< 1 min"
 msgstr "< 1 хв"
 
@@ -112,16 +118,16 @@ msgid "pgs"
 msgstr "стор."
 
 #, lua-format
-msgid "%s %s & %s read today"
-msgstr "%s %s і %s прочитано сьогодні"
-
-#, lua-format
 msgid "%s read today"
 msgstr "%s прочитано сьогодні"
 
 #, lua-format
 msgid "%d day streak"
 msgstr "%d днів поспіль"
+
+#, lua-format
+msgid "%d week streak"
+msgstr "Серія: %d тиж."
 
 #, lua-format
 msgid "%d/%d days met this week"
@@ -143,9 +149,6 @@ msgstr "%d%% від цілі"
 #, lua-format
 msgid "%d page goal"
 msgstr "%d сторінок за ціллю"
-
-msgid "Rate unavailable"
-msgstr "Швидкість недоступна"
 
 msgid "No message set"
 msgstr "Повідомлення не задано"
@@ -336,35 +339,60 @@ msgid "Flash screen to reduce ghosting"
 msgstr "Спалах екрана для зменшення шлейфів"
 
 msgid ""
-"Flashes the screen to black before showing the sleep screen, clearing "
-"residual text/image ghosting. Off by default, since not every device shows "
-"this ghosting."
+"Flashes the whole screen before showing a screen, clearing leftovers of the "
+"previous one. Off by default, since not every device shows this ghosting. "
+"The sleep screen and the lock screen each have their own switch, and the "
+"flash can be black or white."
 msgstr ""
-"Робить екран чорним перед показом екрана сну, усуваючи залишкові шлейфи "
-"тексту/зображень. За замовчуванням вимкнено, оскільки не всі пристрої мають "
-"цей ефект."
+"Спалахує весь екран перед показом екрана, прибираючи сліди попереднього. За "
+"замовчуванням вимкнено, бо не всі пристрої дають такий шлейф. В екрана сну "
+"та екрана блокування свої перемикачі, а спалах може бути чорним або білим."
 
-msgid "Show in file manager (outside of book)"
-msgstr "Показувати у файловому менеджері (поза книгою)"
+msgid "Flash screen before sleep screen"
+msgstr "Спалах екрана перед екраном сну"
 
 msgid ""
-"When enabled, the customisable sleep screen will display in file manager "
-"using the last saved book data."
+"Flashes the screen (black or white, see below) before showing the sleep "
+"screen, clearing residual text/image ghosting."
 msgstr ""
-"Якщо увімкнено, налаштовуваний екран сну відображатиметься у файловому\n"
-"менеджері з використанням останніх збережених даних книги."
+"Спалахує екран (чорним або білим, див. нижче) перед показом екрана сну, "
+"прибираючи залишкові шлейфи тексту й зображень."
+
+msgid "Flash screen before lock screen"
+msgstr "Спалах екрана перед екраном блокування"
+
+msgid ""
+"Flashes the screen (black or white, see below) before showing the lock "
+"screen, clearing leftovers of the sleep screen. Useful if you can see "
+"ghosting on the lock screen, for example with a black background. Needs the "
+"lock screen to be enabled."
+msgstr ""
+"Спалахує екран (чорним або білим, див. нижче) перед показом екрана "
+"блокування, прибираючи сліди екрана сну. Корисно, якщо на екрані блокування "
+"видно шлейф, наприклад за чорного тла. Потрібен увімкнений екран блокування."
+
+msgid "Black flash"
+msgstr "Чорний спалах"
+
+msgid "Flash the screen to black. Clears light leftovers best."
+msgstr "Спалах екрана чорним. Найкраще прибирає світлі сліди."
+
+msgid "White flash"
+msgstr "Білий спалах"
+
+msgid "Flash the screen to white. Clears dark leftovers best."
+msgstr "Спалах екрана білим. Найкраще прибирає темні сліди."
 
 msgid "Export sleep screen to file"
 msgstr "Експорт екрана сну у файл"
 
 msgid ""
-"When enabled, a screenshot of the sleep screen will be saved in the selected"
-" export folder each time you close a book or put the device to sleep, using "
-"the format set below."
+"When enabled, a screenshot of the sleep screen will be saved in the selected "
+"export folder using the format set below, on the triggers selected under "
+"'Export triggers'."
 msgstr ""
-"Якщо ввімкнено, знімок екрана заставки зберігатиметься у вибраній папці "
-"експорту щоразу, коли ви закриваєте книгу або переводите пристрій у сплячий "
-"режим, у форматі, вказаному нижче."
+"Якщо ввімкнено, знімок екрана сну зберігатиметься у вибраній теці експорту у "
+"форматі, заданому нижче, за тригерами, вибраними в «Тригери експорту»."
 
 msgid "Sleep screen export disabled."
 msgstr "Експорт екрана сну вимкнено."
@@ -419,15 +447,6 @@ msgstr ""
 
 msgid "Exclude this book's cover from sleep screen"
 msgstr "Приховати обкладинку цієї книги на екрані сну"
-
-msgid ""
-"Hides the cover for this book only, for when you'd rather it not be shown on"
-" your sleep screen - without having to switch presets or background settings"
-" each time you read it."
-msgstr ""
-"Приховує обкладинку лише для цієї книги, якщо ви не хочете, щоб вона "
-"з'являлася на екрані сну - без потреби змінювати пресет чи налаштування фону"
-" щоразу під час читання."
 
 msgid "No background (leave screen as-is)"
 msgstr "Без фону (залишити екран як є)"
@@ -500,9 +519,6 @@ msgstr "Відомості про батарею"
 msgid "Message info"
 msgstr "Відомості про повідомлення"
 
-msgid "At least one section must remain visible."
-msgstr "Хоча б один розділ має залишатися видимим."
-
 msgid "Show cover image above book info"
 msgstr "Показувати обкладинку над інформацією про книгу"
 
@@ -533,16 +549,27 @@ msgid "Cover border size"
 msgstr "Розмір рамки обкладинки"
 
 msgid ""
-"Width of the border drawn around the cover image. Set to 0 for no border."
+"Width of the border drawn around the cover image. Set to 0 for no border. "
+"Ignored while 'Add drop shadow to cover' is enabled."
 msgstr ""
-"Ширина рамки, намальованої навколо зображення обкладинки. Встановіть 0,\n"
-"щоб прибрати рамку."
+"Ширина рамки навколо обкладинки. Вкажіть 0, щоб рамки не було. Ігнорується, "
+"поки ввімкнено «Додати тінь до обкладинки»."
 
 msgid "Cover border size (pixels)"
 msgstr "Розмір рамки обкладинки (пікселів)"
 
 msgid "1–3px for a subtle outline. 0 to disable."
 msgstr "1–3 пкс — ледь помітний контур. 0 — вимкнути."
+
+msgid "Add drop shadow to cover"
+msgstr "Додати тінь до обкладинки"
+
+msgid ""
+"Gives the cover image rounded corners and a drop shadow, like a card. "
+"Replaces the regular cover border option while enabled."
+msgstr ""
+"Надає обкладинці заокруглені кути й тінь, як у картки. Поки ввімкнено, "
+"замінює звичайну опцію рамки обкладинки."
 
 msgid "Align cover to text alignment"
 msgstr "Вирівнювати обкладинку за вирівнюванням тексту"
@@ -643,12 +670,6 @@ msgstr "Час читання сьогодні"
 msgid "e.g. '42 mins read today'"
 msgstr "напр. «42 хв прочитано сьогодні»"
 
-msgid "Pages and time read today"
-msgstr "Сторінок і час читання сьогодні"
-
-msgid "e.g. '35 pgs & 42 mins read today'"
-msgstr "напр. «35 стор. і 42 хв прочитано сьогодні»"
-
 msgid ""
 "Choose whether your daily goal tracks pages read or time spent reading."
 msgstr ""
@@ -697,6 +718,12 @@ msgstr "Показувати поточну серію читання"
 
 msgid "Display consecutive days you've met your reading goal."
 msgstr "Відображає кількість днів поспіль, коли ви виконували ціль з читання."
+
+msgid "Show weekly reading streak"
+msgstr "Показувати тижневу серію читання"
+
+msgid "Display consecutive weeks with any reading activity."
+msgstr "Показує кількість послідовних тижнів з активністю читання."
 
 msgid "Show weekly progress"
 msgstr "Показувати тижневий прогрес"
@@ -781,6 +808,26 @@ msgstr "Виділення з книги"
 msgid "Show a random highlight from the current book"
 msgstr "Показувати випадкове виділення з поточної книги"
 
+#, lua-format
+msgid "Highlight source: %s"
+msgstr "Джерело виділень: %s"
+
+msgid ""
+"Choose whether the highlight is picked from the current book only, or from "
+"all of your highlights."
+msgstr ""
+"Виберіть, звідки береться виділення: лише з поточної книги чи з усіх ваших "
+"виділень."
+
+msgid "Current book"
+msgstr "Поточна книга"
+
+msgid "Only show highlights from the book you're currently reading."
+msgstr "Показує лише виділення з книги, яку ви читаєте зараз."
+
+msgid "Show highlights from a random sample of your reading history."
+msgstr "Показує виділення з випадкової вибірки вашої історії читання."
+
 msgid "Add quotation marks to highlights"
 msgstr "Додати лапки до виділень"
 
@@ -791,15 +838,21 @@ msgstr ""
 "Обгортає всі виділення в парні подвійні лапки, видаляючи наявні\n"
 "знаки лапок."
 
-msgid "Show highlight location"
-msgstr "Показувати місце розташування виділення"
+msgid "Show highlight location (chapter & page no.)"
+msgstr "Показувати місце виділення (розділ і сторінка)"
+
+msgid "Display the chapter title and page number where the highlight is found."
+msgstr "Показує назву розділу та номер сторінки, де розташоване виділення."
+
+msgid "Show highlight book title and author"
+msgstr "Показувати назву книги й автора виділення"
 
 msgid ""
-"Display the chapter title and page number where the highlight is found, "
-"shown below the highlight text."
+"Display which book and author the highlight is from. Only applies when "
+"highlight source is set to 'All books'."
 msgstr ""
-"Відображає назву глави та номер сторінки, де знаходиться виділення,\n"
-"під текстом виділення."
+"Показує, з якої книги й від якого автора виділення. Застосовується лише коли "
+"джерело виділень — «Усі книги»."
 
 msgid "Book highlight maximum length"
 msgstr "Максимальна довжина виділення з книги"
@@ -1227,6 +1280,16 @@ msgstr "Розмір іконок (пкс)"
 msgid "32–48px suits most layouts."
 msgstr "32–48 пкс підходить для більшості макетів."
 
+msgid "Add white outline to icons in dark mode"
+msgstr "Додати білий контур значкам у темному режимі"
+
+msgid ""
+"Adds a thin white outline around each icon when dark mode is on, like a "
+"sticker, so icons stay visible against dark backgrounds."
+msgstr ""
+"У темному режимі додає тонкий білий контур навколо кожного значка, як на "
+"наліпці, щоб значки лишалися видимими на темному тлі."
+
 msgid "Progress bar height"
 msgstr "Висота смуги прогресу"
 
@@ -1325,9 +1388,6 @@ msgstr ""
 "100% — заповнює текстову колонку. Смуга вирівнюється відповідно до\n"
 "налаштування вирівнювання тексту."
 
-msgid "Title font face"
-msgstr "Шрифт заголовка"
-
 msgid "Choose the font face for the main heading text in each section"
 msgstr "Вибір шрифту для основного заголовка в кожному розділі"
 
@@ -1339,9 +1399,6 @@ msgstr "Вибір розміру шрифту для основного заг�
 
 msgid "10–12px works well for most screens."
 msgstr "10–12 пкс добре підходить для більшості екранів."
-
-msgid "Subtitle font face"
-msgstr "Шрифт підзаголовка"
 
 msgid "Choose the font face for the information below the main heading text."
 msgstr "Вибір шрифту для інформації під основним заголовком."
@@ -1600,13 +1657,11 @@ msgid "Enter hex colour code"
 msgstr "Ввести HEX-код кольору"
 
 msgid ""
-"Saves a screenshot of the sleep screen to a file each time a book is closed."
-" Useful for devices that use an exported image as their own native sleep "
-"screen."
+"Saves a screenshot of the sleep screen to a file. Useful for devices that "
+"use an exported image as their own native sleep screen."
 msgstr ""
-"Зберігає знімок екрана сну у файл щоразу, коли книга закривається. Корисно "
-"для пристроїв, які використовують експортоване зображення як власний екран "
-"сну."
+"Зберігає знімок екрана сну у файл. Корисно для пристроїв, які використовують "
+"експортоване зображення як власний екран сну."
 
 msgid "Enable export"
 msgstr "Увімкнути експорт"
@@ -1629,6 +1684,73 @@ msgstr ""
 "Виберіть папку, куди буде збережено експортоване зображення. Має бути "
 "встановлена перед увімкненням експорту."
 
+msgid "Export triggers"
+msgstr "Тригери експорту"
+
+msgid ""
+"Choose when the sleep screen is exported. You can select any combination of "
+"these."
+msgstr ""
+"Виберіть, коли експортується екран сну. Можна вибрати будь-яку комбінацію."
+
+msgid "On book close"
+msgstr "Під час закриття книги"
+
+msgid "Export whenever you close a book."
+msgstr "Експортувати щоразу, коли ви закриваєте книгу."
+
+msgid "On book open"
+msgstr "Під час відкриття книги"
+
+msgid "Export whenever you open a book."
+msgstr "Експортувати щоразу, коли ви відкриваєте книгу."
+
+msgid "On suspend"
+msgstr "Під час переходу в режим очікування"
+
+msgid "Export whenever you put the device to sleep."
+msgstr "Експортувати щоразу, коли пристрій переходить у сон."
+
+msgid "Periodically while reading"
+msgstr "Періодично під час читання"
+
+msgid ""
+"Export automatically at a set interval while a book is open. Paused while "
+"the device is suspended, and resumes when you wake it or open another book."
+msgstr ""
+"Автоматично експортує з певним інтервалом, поки відкрито книгу. "
+"Призупиняється, поки пристрій у режимі очікування, і відновлюється після "
+"пробудження або відкриття іншої книги."
+
+#, lua-format
+msgid "Periodic export interval: %d min"
+msgstr "Інтервал періодичного експорту: %d хв"
+
+msgid "How often to export while 'Periodically while reading' is enabled."
+msgstr "Як часто експортувати, поки ввімкнено «Періодично під час читання»."
+
+msgid "Periodic export interval (minutes)"
+msgstr "Інтервал періодичного експорту (хвилини)"
+
+msgid "How often, in minutes, to export the sleep screen while a book is open."
+msgstr "Як часто, у хвилинах, експортувати екран сну, поки відкрито книгу."
+
+msgid "Export sleep screen now"
+msgstr "Експортувати екран сну зараз"
+
+msgid "Sleep screen exported."
+msgstr "Екран сну експортовано."
+
+msgid "Export failed. Check that an export folder is set."
+msgstr "Не вдалося виконати експорт. Перевірте, що задано теку експорту."
+
+msgid ""
+"Sleep screen export is turned off. Enable it under 'Export sleep screen to "
+"file' to use this."
+msgstr ""
+"Експорт екрана сну вимкнено. Увімкніть його в розділі «Експорт екрана сну у "
+"файл», щоб скористатися цим."
+
 msgid "Preview sleep screen"
 msgstr "Попередній перегляд екрана сну"
 
@@ -1639,15 +1761,23 @@ msgstr ""
 "Показує, як зараз виглядає екран сну, без фактичного переведення пристрою у "
 "сплячий режим."
 
-msgid "Behaviour"
-msgstr "Поведінка"
+msgid "Preview file manager sleep screen"
+msgstr "Попередній перегляд екрана сну файлового менеджера"
 
 msgid ""
-"How the plugin behaves: file manager display, ghosting, export, battery "
-"estimation, and stats scope."
+"Shows what the sleep screen looks like when the device goes to sleep from "
+"the file manager, without actually suspending it. Tap anywhere to close it."
 msgstr ""
-"Як поводиться плагін: відображення у файловому менеджері, шлейфи, експорт, "
-"оцінка заряду батареї та область статистики."
+"Показує, як виглядає екран сну, коли пристрій засинає з файлового менеджера, "
+"без фактичного переходу в сон. Торкніться будь-де, щоб закрити."
+
+msgid ""
+"The alternative file manager sleep screen is not enabled. Turn on 'Show "
+"alternative sleep screen (no infobox)' to preview it."
+msgstr ""
+"Альтернативний екран сну для файлового менеджера не ввімкнено. Увімкніть "
+"«Показувати альтернативний екран сну (без інформаційного блоку)», щоб "
+"переглянути його."
 
 #, lua-format
 msgid "Version: %s"
@@ -1715,15 +1845,6 @@ msgstr ""
 
 msgid "Fallback background"
 msgstr "Резервне тло"
-
-msgid ""
-"What to show instead of the cover. Uses the colour, image, or folder already"
-" set in Background type. Only selectable when \"Exclude this book's cover "
-"from sleep screen\" is turned on."
-msgstr ""
-"Що показувати замість обкладинки. Використовує колір, зображення або папку, "
-"вже задані в Типі тла. Доступно лише коли ввімкнено \"Виключити обкладинку "
-"цієї книги з екрана сну\"."
 
 msgid ""
 "No book data available to preview yet.\n"
@@ -1900,11 +2021,11 @@ msgstr "Порядок і видимість розділів"
 
 msgid ""
 "Select a section and tap the bottom arrows to reorder. Tap the checkmark to "
-"show or hide the section. At least one section must stay visible."
+"show or hide the section. Hide every section to show only the background."
 msgstr ""
-"Виберіть розділ і торкніться нижніх стрілок, щоб змінити порядок. Торкніться"
-" позначки, щоб показати або приховати розділ. Принаймні один розділ має "
-"залишатися видимим."
+"Виберіть розділ і торкніться стрілок унизу, щоб змінити порядок. Торкніться "
+"галочки, щоб показати або приховати розділ. Приховайте всі розділи, щоб "
+"показувати лише тло."
 
 #, lua-format
 msgid "Title Line: %s"
@@ -2209,3 +2330,247 @@ msgid ""
 msgstr ""
 "Зберігає експортоване зображення без кольору, зменшуючи розмір файлу для "
 "будь-якого формату."
+
+msgid "Lock screen"
+msgstr "Екран блокування"
+
+msgid ""
+"Add some security to your device and ask for a PIN after the sleep screen is "
+"cleared. Like Global settings, the lock screen settings don't change when "
+"you switch presets."
+msgstr ""
+"Додайте пристрою захисту: після закриття екрана сну запитуватиметься "
+"PIN-код. Як і глобальні налаштування, налаштування екрана блокування не "
+"змінюються під час перемикання пресетів."
+
+msgid "Enable lock screen"
+msgstr "Увімкнути екран блокування"
+
+msgid ""
+"After the sleep screen, tap or swipe to clear it, then enter your PIN to "
+"continue. This is a convenience lock to keep casual access out, not strong "
+"security: it doesn't protect the files on your device. It only applies after "
+"sleep unless you also turn on 'Lock when KOReader starts'. Turning it off "
+"needs your current PIN. If you forget the PIN, create an empty file named "
+"reset-lock inside the customisablesleepscreen.koplugin folder and restart "
+"KOReader to clear it."
+msgstr ""
+"Після екрана сну торкніться екрана або проведіть по ньому, щоб закрити його, "
+"а потім введіть PIN-код, щоб продовжити. Це зручне блокування від "
+"випадкового доступу, а не надійний захист: воно не захищає файли на "
+"пристрої. Застосовується лише після сну, якщо ви не ввімкнете також "
+"«Блокувати під час запуску KOReader». Для вимкнення потрібен поточний "
+"PIN-код. Якщо ви забули PIN-код, створіть порожній файл з назвою reset-lock "
+"у теці customisablesleepscreen.koplugin і перезапустіть KOReader, щоб "
+"скинути його."
+
+msgid "The lock screen needs a touch screen."
+msgstr "Для екрана блокування потрібен сенсорний екран."
+
+msgid "Lock when KOReader starts"
+msgstr "Блокувати під час запуску KOReader"
+
+msgid ""
+"Also ask for the PIN when KOReader starts, so restarting the app or forcing "
+"the device to shut down and reboot can't be used to get around the lock. "
+"Turning it off needs your current PIN."
+msgstr ""
+"Запитує PIN-код і під час запуску KOReader, щоб блокування не можна було "
+"обійти перезапуском застосунку чи примусовим вимкненням і повторним запуском "
+"пристрою. Для вимкнення потрібен поточний PIN-код."
+
+msgid "Deferred locking"
+msgstr "Відкладене блокування"
+
+msgid ""
+"Skip the lock screen when the device has only been asleep for a short time. "
+"Longer sleeps still ask for the PIN, and a device that went to sleep while "
+"locked always does."
+msgstr ""
+"Пропускає екран блокування, якщо пристрій спав зовсім недовго. Після довшого "
+"сну PIN-код усе одно запитується, а якщо пристрій заснув заблокованим — "
+"запитується завжди."
+
+msgid "Off (always lock)"
+msgstr "Вимк. (завжди блокувати)"
+
+msgid "Change PIN"
+msgstr "Змінити PIN-код"
+
+msgid "Set a new 4-digit PIN. You'll be asked for the current one first."
+msgstr "Задає новий 4-значний PIN-код. Спочатку буде запитано поточний."
+
+msgid "Sleep screen background"
+msgstr "Тло екрана сну"
+
+msgid ""
+"Choose what appears behind the PIN pad: your sleep screen background, or "
+"plain white or black."
+msgstr ""
+"Виберіть, що показувати за клавіатурою PIN-коду: тло вашого екрана сну або "
+"однотонний білий чи чорний."
+
+msgid "Plain white"
+msgstr "Однотонний білий"
+
+msgid "Plain black"
+msgstr "Однотонний чорний"
+
+msgid "Follow automatic preset switching"
+msgstr "Слідувати автоматичному перемиканню пресетів"
+
+msgid ""
+"White while your day preset is in effect and black while your night preset "
+"is. Only offered while automatic preset switching is turned on."
+msgstr ""
+"Білий, поки діє денний пресет, і чорний, поки діє нічний. Доступно лише за "
+"ввімкненого автоматичного перемикання пресетів."
+
+msgid ""
+"Use the same background as your sleep screen (cover, image or colour), "
+"including its Background overlay. Images are shown around a solid panel "
+"behind the PIN pad, which keeps it readable and avoids ghosting. If your "
+"sleep screen has no background, plain white is used."
+msgstr ""
+"Використовує те саме тло, що й екран сну (обкладинка, зображення чи колір), "
+"разом із накладанням на тло. Зображення показуються навколо суцільної панелі "
+"за клавіатурою PIN-коду, що зберігає читабельність і запобігає шлейфам. Якщо "
+"в екрана сну немає тла, використовується однотонний білий."
+
+msgid "Button style"
+msgstr "Стиль кнопок"
+
+msgid ""
+"How the number keys look: Plain (just the numbers), Ruled (thin lines "
+"between the rows), Outlined (circle outlines) or Filled (filled circles)."
+msgstr ""
+"Вигляд цифрових клавіш: Простий (лише цифри), З лініями (тонкі лінії між "
+"рядами), З контуром (кола-контури) або Зафарбований (зафарбовані кола)."
+
+msgid "Plain"
+msgstr "Простий"
+
+msgid "Ruled"
+msgstr "З лініями"
+
+msgid "Outlined"
+msgstr "З контуром"
+
+msgid "Filled"
+msgstr "Зафарбований"
+
+msgid "Button shape"
+msgstr "Форма кнопок"
+
+msgid ""
+"The shape of the Outlined and Filled buttons: a circle, or a square with "
+"rounded corners."
+msgstr ""
+"Форма кнопок «З контуром» і «Зафарбований»: коло або квадрат із "
+"заокругленими кутами."
+
+msgid "Circle"
+msgstr "Коло"
+
+msgid "Rounded square"
+msgstr "Заокруглений квадрат"
+
+msgid "Text colour"
+msgstr "Колір тексту"
+
+msgid ""
+"Colour of the lock screen text and digits over the sleep screen background. "
+"Auto picks black or white to suit the image as shown, after the overlay. "
+"Plain white and black backgrounds always use the opposite colour."
+msgstr ""
+"Колір тексту й цифр екрана блокування поверх тла екрана сну. «Авто» вибирає "
+"чорний або білий залежно від зображення в тому вигляді, як воно показане, "
+"після накладання. Однотонні білий і чорний фони завжди використовують "
+"протилежний колір."
+
+msgid "Auto"
+msgstr "Авто"
+
+msgid "Black"
+msgstr "Чорний"
+
+msgid "White"
+msgstr "Білий"
+
+msgid "Owner message"
+msgstr "Повідомлення власника"
+
+msgid ""
+"A short message shown under the keypad, such as \"If found, call "
+"0123456789\". Up to three lines. Anyone who wakes the device can read it. "
+"Leave it empty to show nothing."
+msgstr ""
+"Коротке повідомлення під клавіатурою, наприклад «Якщо знайшли, "
+"зателефонуйте: 0123456789». До трьох рядків. Його може прочитати будь-хто, "
+"хто розбудить пристрій. Залиште порожнім, щоб нічого не показувати."
+
+msgid "Preview lock screen"
+msgstr "Попередній перегляд екрана блокування"
+
+msgid ""
+"Shows the PIN screen so you can see how it looks, without locking anything. "
+"Tap anywhere to close it."
+msgstr ""
+"Показує екран PIN-коду, щоб ви побачили, як він виглядає, нічого не "
+"блокуючи. Торкніться будь-де, щоб закрити."
+
+msgid "On"
+msgstr "Увімк."
+
+msgid "Off"
+msgstr "Вимк."
+
+msgid "Please enter your 4-digit PIN."
+msgstr "Введіть 4-значний PIN-код."
+
+msgid "Please enter your current 4-digit PIN."
+msgstr "Введіть поточний 4-значний PIN-код."
+
+msgid "Please choose a 4-digit PIN."
+msgstr "Виберіть 4-значний PIN-код."
+
+msgid "Please confirm your 4-digit PIN."
+msgstr "Підтвердьте 4-значний PIN-код."
+
+msgid "Sorry, incorrect PIN. Please try again."
+msgstr "Неправильний PIN-код. Спробуйте ще раз."
+
+msgid "Sorry, the PINs didn't match. Please try again."
+msgstr "PIN-коди не збігаються. Спробуйте ще раз."
+
+#, lua-format
+msgid "Too many attempts. Please try again in %s."
+msgstr "Забагато спроб. Спробуйте ще раз через %s."
+
+#, lua-format
+msgid ""
+"PIN saved.\n"
+"\n"
+"If you ever forget it, create an empty file named \"reset-lock\" inside the "
+"plugin's folder (%s) and restart KOReader. That clears the PIN."
+msgstr ""
+"PIN-код збережено.\n"
+"\n"
+"Якщо ви колись його забудете, створіть порожній файл з назвою «reset-lock» у "
+"теці плагіна (%s) і перезапустіть KOReader. Це скине PIN-код."
+
+msgid ""
+"Lock screen reset.\n"
+"\n"
+"You can set a new PIN in the Customisable Sleep Screen settings."
+msgstr ""
+"Екран блокування скинуто.\n"
+"\n"
+"Новий PIN-код можна задати в налаштуваннях Customisable Sleep Screen."
+
+msgid ""
+"Couldn't reset the lock screen: the reset-lock file couldn't be deleted. Is "
+"the storage read-only?"
+msgstr ""
+"Не вдалося скинути екран блокування: не вдалося видалити файл reset-lock. "
+"Можливо, сховище доступне лише для читання?"

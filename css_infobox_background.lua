@@ -33,12 +33,15 @@ end
 
 local _active_blitbuffers = {}
 
+local _last_built_bb = nil
+
 local function trackBB(bb)
     if bb then table.insert(_active_blitbuffers, bb) end
     return bb
 end
 
 local function freeTrackedBBs()
+    _last_built_bb = nil
     for _, bb in ipairs(_active_blitbuffers) do
         if bb and bb.free then pcall(bb.free, bb) end
     end
@@ -289,7 +292,7 @@ end
 
 -- Entry points
 
-local function buildBackgroundWidget(ui, book_data)
+local function renderSleepBackground(ui, book_data)
     local screen_size = Screen:getSize()
     local bg_type     = getSetting("BG_TYPE")
 
@@ -344,6 +347,59 @@ local function buildBackgroundWidget(ui, book_data)
     return nil
 end
 
+-- Lock screen support: the lock screen reuses the sleep screen's background.
+
+local _kept_sleep_bb  = nil
+
+local function buildBackgroundWidget(ui, book_data)
+    local widget = renderSleepBackground(ui, book_data)
+    _last_built_bb = widget and widget.image or nil
+    return widget
+end
+
+local function freeKeptSleepBackground()
+    if _kept_sleep_bb then
+        pcall(_kept_sleep_bb.free, _kept_sleep_bb)
+        _kept_sleep_bb = nil
+    end
+end
+
+local function keepSleepBackground()
+    freeKeptSleepBackground()
+    local config = require("css_config")
+    local PluginStore = require("css_settings").plugin()
+    if not (PluginStore:isTrue(config.SETTINGS.LOCK_ENABLED) and getSetting("LOCK_BG_TYPE") == "sleep") then
+        return
+    end
+    local src = _last_built_bb
+    if src and src.copy then
+        local ok, copy = pcall(src.copy, src)
+        if ok then _kept_sleep_bb = copy end
+    end
+end
+
+-- Returns a screen-sized buffer the caller owns and frees, or nil if there is no background.
+
+local function getLockBackground(ui, book_data, use_kept)
+    local sz = Screen:getSize()
+    if use_kept and _kept_sleep_bb
+       and _kept_sleep_bb:getWidth() == sz.w and _kept_sleep_bb:getHeight() == sz.h then
+        local ok, copy = pcall(_kept_sleep_bb.copy, _kept_sleep_bb)
+        if ok and copy then return copy end
+    end
+
+    local saved = beginTrackingScope()
+    local ok, widget = pcall(renderSleepBackground, ui, book_data)
+    local scoped = _active_blitbuffers
+    _active_blitbuffers = saved
+
+    local final = ok and widget and widget.image or nil
+    for _, bb in ipairs(scoped) do
+        if bb ~= final and bb.free then pcall(bb.free, bb) end
+    end
+    return final
+end
+
 local function buildDimmingLayer()
     local screen_size = Screen:getSize()
     local dim_val     = getSetting("BG_DIMMING")
@@ -391,4 +447,6 @@ return {
     isCoverExcluded            = isCoverExcluded,
     COVER_EXCLUDE_KEY          = COVER_EXCLUDE_KEY,
     renderFileManagerBackground = renderFileManagerBackground,
+    keepSleepBackground        = keepSleepBackground,
+    getLockBackground          = getLockBackground,
 }

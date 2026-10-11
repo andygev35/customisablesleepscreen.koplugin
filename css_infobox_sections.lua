@@ -43,6 +43,78 @@ local getDisplayPage     = bookdata.getDisplayPage
 
 local bg_mod           = require("css_infobox_background")
 local trackBB          = bg_mod.trackBB
+
+-- Gives an icon a solid white "sticker" outline
+local function addStickerOutline(bb, size, t)
+    if bb:getType() ~= Blitbuffer.TYPE_BBRGB32 then return nil end
+    local w, h = bb:getWidth(), bb:getHeight()
+    local ox, oy = math.floor((size - w) / 2), math.floor((size - h) / 2)
+    local R, G, B, A = {}, {}, {}, {}
+    for y = 0, h - 1 do
+        for x = 0, w - 1 do
+            local c = bb:getPixel(x, y):getColorRGB32()
+            local i = (y + oy) * size + (x + ox)
+            R[i], G[i], B[i], A[i] = c.r, c.g, c.b, c.alpha
+        end
+    end
+    local offsets = {}
+    for dy = -t, t do
+        for dx = -t, t do
+            if dx * dx + dy * dy <= t * t then offsets[#offsets + 1] = { dx, dy } end
+        end
+    end
+
+    local H = {}
+    for y = 0, size - 1 do
+        for x = 0, size - 1 do
+            local halo = 0
+            for _, o in ipairs(offsets) do
+                local nx, ny = x + o[1], y + o[2]
+                if nx >= 0 and nx < size and ny >= 0 and ny < size then
+                    local a = A[ny * size + nx]
+                    if a and a > halo then halo = a end
+                end
+            end
+            H[y * size + x] = halo
+        end
+    end
+
+    local outside, queue, head = {}, {}, 1
+    local function visit(x, y)
+        local i = y * size + x
+        if not outside[i] and H[i] < 128 then outside[i] = true; queue[#queue + 1] = i end
+    end
+    for k = 0, size - 1 do visit(k, 0); visit(k, size - 1); visit(0, k); visit(size - 1, k) end
+    while head <= #queue do
+        local i = queue[head]; head = head + 1
+        local x, y = i % size, math.floor(i / size)
+        if x > 0 then visit(x - 1, y) end
+        if x < size - 1 then visit(x + 1, y) end
+        if y > 0 then visit(x, y - 1) end
+        if y < size - 1 then visit(x, y + 1) end
+    end
+    for i = 0, size * size - 1 do
+        if not outside[i] then H[i] = 255 end
+    end
+    local out = Blitbuffer.new(size, size, Blitbuffer.TYPE_BBRGB32)
+    for y = 0, size - 1 do
+        for x = 0, size - 1 do
+            local halo = H[y * size + x]
+            local i = y * size + x
+            local a = A[i] or 0
+            if halo == 0 then
+                out:setPixel(x, y, Blitbuffer.ColorRGB32(0, 0, 0, 0))
+            else
+                
+                local r = ((R[i] or 0) * a + 255 * (halo - a)) / halo
+                local g = ((G[i] or 0) * a + 255 * (halo - a)) / halo
+                local b = ((B[i] or 0) * a + 255 * (halo - a)) / halo
+                out:setPixel(x, y, Blitbuffer.ColorRGB32(math.floor(r + 0.5), math.floor(g + 0.5), math.floor(b + 0.5), halo))
+            end
+        end
+    end
+    return out
+end
 local isCoverExcluded  = bg_mod.isCoverExcluded
 
 local PluginStore = require("css_settings").plugin()
@@ -314,6 +386,19 @@ local function buildSection(total_width, title, subtitle, icon_name, progress, c
         local base_path     = _plugin_dir .. "icons/" .. icon_set .. "/" .. icon_name
         local icon_path, is_svg = nil, false
 
+        local sticker_t = 0
+        if getSetting("SHOW_WHITE_ICON_OUTLINE_DARK_MODE") and getSetting("DARK_MODE") then
+            sticker_t = math.max(2, math.floor(icon_size / 30 + 0.5))
+        end
+        local render_size = icon_size - 2 * sticker_t
+        local function finishIcon(bb)
+            if sticker_t > 0 then
+                local sticker = addStickerOutline(bb, icon_size, sticker_t)
+                if sticker then return trackBB(sticker) end
+            end
+            return bb
+        end
+
         if util.fileExists(base_path .. ".svg") then
             icon_path = base_path .. ".svg"; is_svg = true
         elseif util.fileExists(base_path .. ".png") then
@@ -340,25 +425,25 @@ local function buildSection(total_width, title, subtitle, icon_name, progress, c
                     if not temp_f then error("Could not write temp icon") end
                     temp_f:write(svg_content)
                     temp_f:close()
-                    local render_ok, bb = pcall(RenderImage.renderSVGImageFile, RenderImage, temp_path, icon_size, icon_size)
+                    local render_ok, bb = pcall(RenderImage.renderSVGImageFile, RenderImage, temp_path, render_size, render_size)
                     os.remove(temp_path)
                     if not render_ok then error("SVG fail") end
-                    return trackBB(bb)
+                    return finishIcon(trackBB(bb))
                 end)
                 if ok and result then
                     icon_widget = ImageWidget:new { image = result, width = icon_size, height = icon_size, alpha = true }
                 else
-                    local ok2, bb = pcall(RenderImage.renderSVGImageFile, RenderImage, icon_path, icon_size, icon_size)
+                    local ok2, bb = pcall(RenderImage.renderSVGImageFile, RenderImage, icon_path, render_size, render_size)
                     if ok2 and bb then
-                        icon_widget = ImageWidget:new { image = trackBB(bb), width = icon_size, height = icon_size, alpha = true }
+                        icon_widget = ImageWidget:new { image = finishIcon(trackBB(bb)), width = icon_size, height = icon_size, alpha = true }
                     end
                 end
             else
                 local ok, bb = pcall(function()
                     if is_svg then
-                        return trackBB(RenderImage:renderSVGImageFile(icon_path, icon_size, icon_size))
+                        return finishIcon(trackBB(RenderImage:renderSVGImageFile(icon_path, render_size, render_size)))
                     else
-                        return trackBB(RenderImage:renderImageFile(icon_path, icon_size, icon_size))
+                        return finishIcon(trackBB(RenderImage:renderImageFile(icon_path, render_size, render_size)))
                     end
                 end)
                 if ok and bb then
@@ -736,9 +821,13 @@ local function buildBookSection(ui, state, book_data, has_ui, total_width, color
                 local pad_right = getPad("SECTION_PADDING_RIGHT", "section_padding_right")
                 local avail_w   = total_width - pad_left - pad_right
                 local src_w, src_h = cover_bb:getWidth(), cover_bb:getHeight()
-                local scale    = math.min(avail_w / src_w, cover_size / src_h)
+                local drop_shadow  = getSetting("COVER_DROP_SHADOW")
+                local shadow_mod   = drop_shadow and render or nil
+                local shadow_offset = shadow_mod and shadow_mod.SHADOW_OFFSET or 0
+                local scale    = math.min((avail_w - shadow_offset) / src_w, (cover_size - shadow_offset) / src_h)
                 local scaled_w = math.floor(src_w * scale)
                 local scaled_h = math.floor(src_h * scale)
+                local footprint_w = scaled_w + shadow_offset
                 local cover_border = Screen:scaleBySize(getSetting("COVER_BORDER_SIZE") or 0)
                 local ok_s, scaled_bb = pcall(RenderImage.scaleBlitBuffer, RenderImage, cover_bb, scaled_w, scaled_h, false)
                 if not ok_s or not scaled_bb then return nil end
@@ -754,19 +843,22 @@ local function buildBookSection(ui, state, book_data, has_ui, total_width, color
                     if text_align == "left" then
                         x_off = col_start
                     elseif text_align == "right" then
-                        x_off = col_start + math.max(0, col_width - scaled_w)
+                        x_off = col_start + math.max(0, col_width - footprint_w)
                     else
-                        x_off = col_start + math.max(0, math.floor((col_width - scaled_w) / 2))
+                        x_off = col_start + math.max(0, math.floor((col_width - footprint_w) / 2))
                     end
                 elseif text_align == "right" then
-                    x_off = avail_w - scaled_w
+                    x_off = avail_w - footprint_w
                 elseif text_align == "left" then
                     x_off = 0
                 else
-                    x_off = math.max(0, math.floor((avail_w - scaled_w) / 2))
+                    x_off = math.max(0, math.floor((avail_w - footprint_w) / 2))
                 end
                 local img_widget
-                if cover_border > 0 then
+                if drop_shadow then
+                    local bare = ImageWidget:new { image = scaled_bb, width = scaled_w, height = scaled_h, alpha = true }
+                    img_widget = shadow_mod.wrapCoverWithShadow(bare, scaled_w, scaled_h, colors.shadow, colors.bg, colors.border)
+                elseif cover_border > 0 then
                     img_widget = FrameContainer:new {
                         bordersize = cover_border,
                         color      = colors.border,
@@ -898,18 +990,21 @@ local function buildGoalSection(ui, _state, book_data, has_ui, total_width, colo
         book_id = book_data.id_curr_book
     end
 
-    local show_streak      = getSetting("SHOW_GOAL_STREAK")
-    local show_achievement = getSetting("SHOW_GOAL_ACHIEVEMENT")
-    local goal_type        = getSetting("GOAL_TYPE") or USER_CONFIG.GOAL_TYPE or "pages"
+    local show_streak         = getSetting("SHOW_GOAL_STREAK")
+    local show_weekly_streak  = getSetting("SHOW_GOAL_WEEKLY_STREAK")
+    local show_achievement    = getSetting("SHOW_GOAL_ACHIEVEMENT")
+    local goal_type           = getSetting("GOAL_TYPE") or USER_CONFIG.GOAL_TYPE or "pages"
 
     local day_dur, day_pages
     local current_streak         = 0
+    local current_weekly_streak  = 0
     local days_met, days_in_week = 0, 0
 
     if book_data and book_data.day_duration ~= nil then
         day_dur      = book_data.day_duration
         day_pages    = book_data.day_pages or 0
-        current_streak  = book_data.streak or 0
+        current_streak         = book_data.streak or 0
+        current_weekly_streak  = book_data.weekly_streak or 0
         days_met        = book_data.days_met or 0
         days_in_week    = book_data.days_in_week or 1
     else
@@ -918,6 +1013,9 @@ local function buildGoalSection(ui, _state, book_data, has_ui, total_width, colo
         day_pages          = day_pages or 0
         if show_streak then
             current_streak = stats_mod.getCurrentDailyStreak()
+        end
+        if show_weekly_streak then
+            current_weekly_streak = stats_mod.getCurrentWeeklyStreak()
         end
         if show_achievement then
             days_met, days_in_week = stats_mod.getWeeklyGoalAchievement(day_pages)
@@ -954,8 +1052,13 @@ local function buildGoalSection(ui, _state, book_data, has_ui, total_width, colo
         goal_progress = goal_seconds > 0 and (day_dur_safe / goal_seconds) or 0
         local goal_pct = math.floor(goal_progress * 100)
 
-        if show_streak then
+        if show_streak and show_weekly_streak then
+            table.insert(subtitle_lines, string.format(_("%d day streak"), current_streak)
+                .. " · " .. string.format(_("%d week streak"), current_weekly_streak))
+        elseif show_streak then
             table.insert(subtitle_lines, string.format(_("%d day streak"), current_streak))
+        elseif show_weekly_streak then
+            table.insert(subtitle_lines, string.format(_("%d week streak"), current_weekly_streak))
         end
         if show_achievement then
             table.insert(subtitle_lines, string.format(_("%d/%d days met this week"), days_met, days_in_week))
@@ -995,8 +1098,13 @@ local function buildGoalSection(ui, _state, book_data, has_ui, total_width, colo
         goal_progress = daily_goal > 0 and (day_pages / daily_goal) or 0
         local goal_pct = math.floor(goal_progress * 100)
 
-        if show_streak then
+        if show_streak and show_weekly_streak then
+            table.insert(subtitle_lines, string.format(_("%d day streak"), current_streak)
+                .. " · " .. string.format(_("%d week streak"), current_weekly_streak))
+        elseif show_streak then
             table.insert(subtitle_lines, string.format(_("%d day streak"), current_streak))
+        elseif show_weekly_streak then
+            table.insert(subtitle_lines, string.format(_("%d week streak"), current_weekly_streak))
         end
         if show_achievement then
             table.insert(subtitle_lines, string.format(_("%d/%d days met this week"), days_met, days_in_week))
@@ -1147,19 +1255,36 @@ local function buildMessageSection(ui, _state, book_data, has_ui, total_width, c
         if cover_path then
             local highlight_data = getRandomHighlight(nil, cover_path)
             if highlight_data and highlight_data.text then
-                if getSetting("SHOW_HIGHLIGHT_LOCATION") then
-                    local location_parts = {}
-                    if highlight_data.chapter then
-                        table.insert(location_parts, highlight_data.chapter)
+                local show_book = getSetting("SHOW_HIGHLIGHT_BOOK")
+                    and getSetting("HIGHLIGHT_SOURCE") == "all"
+                    and highlight_data.book_title
+                if getSetting("SHOW_HIGHLIGHT_LOCATION") or show_book then
+                    local lines = { highlight_data.text }
+
+                    if show_book then
+                        local book_label = highlight_data.book_title
+                        if highlight_data.book_authors then
+                            book_label = book_label .. ", " .. highlight_data.book_authors
+                        end
+                        table.insert(lines, book_label)
                     end
-                    if highlight_data.page then
-                        table.insert(location_parts, string.format(_("pg. %s"),
-                            tostring(highlight_data.page)))
+
+                    if getSetting("SHOW_HIGHLIGHT_LOCATION") then
+                        local location_parts = {}
+                        if highlight_data.chapter then
+                            table.insert(location_parts, highlight_data.chapter)
+                        end
+                        if highlight_data.page then
+                            table.insert(location_parts, string.format(_("pg. %s"),
+                                tostring(highlight_data.page)))
+                        end
+                        if #location_parts > 0 then
+                            table.insert(lines, table.concat(location_parts, ", "))
+                        end
                     end
-                    if #location_parts > 0 then
-                        message_text = createMultiLineSubtitle(
-                            { highlight_data.text, table.concat(location_parts, ", ") },
-                            subtitle_face, colors.subtext)
+
+                    if #lines > 1 then
+                        message_text = createMultiLineSubtitle(lines, subtitle_face, colors.subtext)
                     else
                         message_text = highlight_data.text
                     end

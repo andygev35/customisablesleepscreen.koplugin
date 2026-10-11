@@ -123,36 +123,120 @@ end
 
 -- Highlights
 
-local function getRandomHighlight(ui, book_path_override)
-    if not book_path_override then
-        if not ui or not ui.document or not ui.document.file then return nil end
+-- "All books" mode pools highlights across your reading history. 
+local ALL_BOOKS_SCAN_LIMIT      = 50
+local ALL_BOOKS_HIGHLIGHT_LIMIT = 100
+local all_books_pool_cache      = nil
+
+local function shuffleInPlace(t)
+    for i = #t, 2, -1 do
+        local j = math.random(i)
+        t[i], t[j] = t[j], t[i]
     end
+end
 
-    local book_path  = book_path_override or ui.document.file
+-- Reads one book's highlights.
+local function collectHighlightsFromBook(book_path, want_book_info, remaining)
     local DocSettings = require("docsettings")
+    local ok, doc_settings = pcall(DocSettings.open, DocSettings, book_path)
+    if not ok or not doc_settings then return {} end
 
-    local doc_settings = DocSettings:open(book_path)
-    local annotations  = doc_settings:readSetting("annotations") or {}
+    local annotations = doc_settings:readSetting("annotations") or {}
+    local book_title, book_authors
+    if want_book_info then
+        local props = doc_settings:readSetting("doc_props")
+        if type(props) == "table" then
+            book_title   = props.display_title or props.title
+            book_authors = props.authors
+        end
+        if not book_title then
+            book_title = book_path:match("([^/]+)%.[^./]+$") or book_path:match("([^/]+)$")
+        end
+    end
     doc_settings:close()
 
-    local all_highlights = {}
+    local highlights = {}
     for _, ann in pairs(annotations) do
         if type(ann) == "table" and ann.drawer then
             local text = ann.text or ann.note
             if type(text) == "string" and text ~= "" then
                 text = util.cleanupSelectedText(text)
                 if #text >= 20 then
-                    all_highlights[#all_highlights + 1] = {
-                        text    = text,
-                        page    = ann.pageno,
-                        chapter = ann.chapter,
+                    highlights[#highlights + 1] = {
+                        text         = text,
+                        page         = ann.pageno,
+                        chapter      = ann.chapter,
+                        book_title   = book_title,
+                        book_authors = book_authors,
                     }
                 end
             end
         end
     end
 
-    if #all_highlights == 0 then return nil end
+    if remaining and #highlights > remaining then
+        shuffleInPlace(highlights)
+        local trimmed = {}
+        for i = 1, remaining do trimmed[i] = highlights[i] end
+        return trimmed
+    end
+    return highlights
+end
+
+local function buildAllBooksHighlightPool()
+    local ok_rh, ReadHistory = pcall(require, "readhistory")
+    if not ok_rh or not ReadHistory or type(ReadHistory.hist) ~= "table" then return {} end
+
+    local DocSettings = require("docsettings")
+    local candidates = {}
+    for _, item in ipairs(ReadHistory.hist) do
+        if item.file and DocSettings:findSidecarFile(item.file) then
+            candidates[#candidates + 1] = item.file
+        end
+    end
+
+    shuffleInPlace(candidates)
+
+    local pool = {}
+    local books_scanned = 0
+    for _, book_path in ipairs(candidates) do
+        if books_scanned >= ALL_BOOKS_SCAN_LIMIT or #pool >= ALL_BOOKS_HIGHLIGHT_LIMIT then break end
+        local remaining = ALL_BOOKS_HIGHLIGHT_LIMIT - #pool
+        local ok_h, book_highlights = pcall(collectHighlightsFromBook, book_path, true, remaining)
+        if ok_h then
+            books_scanned = books_scanned + 1
+            if book_highlights then
+                for _, h in ipairs(book_highlights) do
+                    pool[#pool + 1] = h
+                end
+            end
+        end
+    end
+    return pool
+end
+
+local function collectAllBooksHighlights()
+    if not all_books_pool_cache then
+        all_books_pool_cache = buildAllBooksHighlightPool()
+    end
+    return all_books_pool_cache
+end
+
+local function getRandomHighlight(ui, book_path_override)
+    local source = getSetting("HIGHLIGHT_SOURCE") or "current"
+    local all_highlights
+
+    if source == "all" then
+        all_highlights = collectAllBooksHighlights()
+    else
+        if not book_path_override then
+            if not ui or not ui.document or not ui.document.file then return nil end
+        end
+        local book_path = book_path_override or ui.document.file
+        all_highlights = collectHighlightsFromBook(book_path, false)
+    end
+
+    if not all_highlights or #all_highlights == 0 then return nil end
 
     local sel = all_highlights[math.random(#all_highlights)]
     local ht  = addQuotationMarks(sel.text)
@@ -163,7 +247,13 @@ local function getRandomHighlight(ui, book_path_override)
             ht = ht .. "\u{201D}"
         end
     end
-    return { text = ht, page = sel.page, chapter = sel.chapter }
+    return {
+        text         = ht,
+        page         = sel.page,
+        chapter      = sel.chapter,
+        book_title   = sel.book_title,
+        book_authors = sel.book_authors,
+    }
 end
 
 -- Chapter numbering
@@ -400,6 +490,7 @@ local function collectBookData(ui, state)
         data.day_duration     = stats.duration
         data.day_pages        = stats.pages
         data.streak           = stats.streak
+        data.weekly_streak    = stats.weekly_streak
         data.days_met         = stats.days_met
         data.days_in_week     = stats.days_in_week
     end

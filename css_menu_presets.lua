@@ -227,7 +227,8 @@ local function getPresetContext()
     return preset_obj, current_preset_name
 end
 
-local function buildActivePresetLine(current_preset_name, help_text)
+local function buildActivePresetLine(current_preset_name, help_text, separator)
+    if separator == nil then separator = true end
     local active_preset_text = _("Active preset: ") .. current_preset_name
 
     if PluginStore:isTrue(SETTINGS.AUTO_PRESET_SWITCH_ENABLED) then
@@ -241,11 +242,11 @@ local function buildActivePresetLine(current_preset_name, help_text)
     end
 
     return {
-        text           = active_preset_text,
+        text           = h.icons.label(h.icons.ACTIVE, active_preset_text),
         help_text      = help_text,
         keep_menu_open = true,
         callback       = function() end,
-        separator      = true,
+        separator      = separator,
     }
 end
 
@@ -493,7 +494,8 @@ local function buildPresetManagementMenu(hide_save_options, ui)
     local menu_items = {}
 
     if not hide_save_options then
-        menu_items[#menu_items + 1] = buildActivePresetLine(current_preset_name)
+        menu_items[#menu_items + 1] = buildActivePresetLine(current_preset_name, nil, false)
+        menu_items[#menu_items + 1] = h.buildPreviewMenuItem(ui)
 
         menu_items[#menu_items + 1] = {
             text           = _("Save current settings as new preset"),

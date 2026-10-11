@@ -5,13 +5,13 @@ A KOReader plugin that displays reading statistics and book information on your 
 Originally released as a patch, this project has now been rebuilt as a KOReader plugin.
 
 <p>
-<img width="1920" height="1080" alt="GHMain" src="https://github.com/user-attachments/assets/600a8f43-06e3-4e66-86df-a70fe0b28473" />
+<img width="1920" height="1080" alt="PluginSummary" src="https://github.com/user-attachments/assets/2e2b6bfa-e413-41cf-9124-0b47524d7db4" />
 </p>
 
 ## Features:
 
 - Book progress, chapter progress, daily reading/goal progress, battery stats
-- Random book highlights (with location), or custom messages
+- Random book highlights (with location) from the current book or all of your books, or custom messages
 - Save and load your own configurations, with 10 built-in presets included
 - Automatic preset switching between two presets, by schedule or by KOReader's night mode
 - Light/dark/monochrome modes (suitable for non-colour e-readers)
@@ -28,11 +28,12 @@ Originally released as a patch, this project has now been rebuilt as a KOReader 
 - Sleep screen orientation lock
 - Supports hidden flow and stable page numbers
 - Export sleep screen as image for use with android screen saver.
+- Optional 4-digit PIN lock screen after the sleep screen, with customisable looks, deferred locking, retry limits, and an owner message.
 - Language support for 16 languages: `de`, `es`, `fr`, `hu`, `it`, `ja`, `ko`, `nl`, `pl`, `pt_BR`, `pt_PT`, `ru`, `tr`, `uk`, `vi`, `zh_CN`
 
 ## Compatibility:
 
-The following list assumes KOReader’s latest build (2026.03 Snowflake) is installed and summarises the compatibility to the best of my knowledge.
+The following list assumes KOReader’s latest build (2026.07 Sailing Walrus) is installed and summarises the compatibility to the best of my knowledge.
 
 | Device                 | Status          | Notes                                                             |
 | ---------------------- | --------------- | ----------------------------------------------------------------- |
@@ -48,6 +49,8 @@ The following list assumes KOReader’s latest build (2026.03 Snowflake) is inst
 - **Custom fonts:** Add `.ttf` or `.otf` files to the KOReader fonts directory if you want to use your own fonts
 - **Quick access shortcuts:** Add preset menu access, preset cycling and settings access through KOReader’s taps & gestures. The options can be found in the taps & gestures general category
 - **Better visibility on wake:** Enable "Postpone screen update after wakeup" in settings to show sleep screen with front-light when waking up the device
+- **Forgotten lock screen PIN:** Create an empty file named `reset-lock` inside the `customisablesleepscreen.koplugin` folder and restart KOReader. The PIN is cleared and the lock screen is turned off
+- **Lock screen security:** The lock screen deters casual access but it isn’t strong security: the files on your device aren’t encrypted or protected.
 
 ## Installation:
 

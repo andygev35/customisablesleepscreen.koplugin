@@ -1,5 +1,6 @@
 -- Assembles the top-level settings menu and its submenus.
 
+local Device          = require("device")
 local UIManager       = require("ui/uimanager")
 
 local _               = require("gettext")
@@ -18,7 +19,7 @@ local h                     = require("css_menu_helpers")
 local getSetting            = h.getSetting
 local createSpinDialog      = h.createSpinDialog
 local createRadioItem       = h.createRadioItem
-local buildPreviewMenuItem  = h.buildPreviewMenuItem
+local createToggleItem      = h.createToggleItem
 local buildNumericMenu      = h.buildNumericMenu
 
 local presets_mod               = require("css_menu_presets")
@@ -102,15 +103,9 @@ local function buildFileManagerBackgroundMenu()
         if extra then sub_menu[#sub_menu + 1] = extra end
     end
 
-    sub_menu[#sub_menu + 1] = {
-        text      = _("Stretch image to fill"),
-        help_text = _("When disabled, the image will be scaled to fit within the screen while preserving aspect ratio. Independent of your presets - stays the same no matter which preset is active."),
-        enabled_func = isFmBgImageBased,
-        checked_func = function() return getSetting("FM_BG_STRETCH") end,
-        callback = function()
-            PluginStore:saveSetting(SETTINGS.FM_BG_STRETCH, not getSetting("FM_BG_STRETCH"))
-        end,
-    }
+    sub_menu[#sub_menu + 1] = createToggleItem(_("Stretch image to fill"),
+        _("When disabled, the image will be scaled to fit within the screen while preserving aspect ratio. Independent of your presets - stays the same no matter which preset is active."),
+        SETTINGS.FM_BG_STRETCH, USER_CONFIG.FM_BG_STRETCH, nil, isFmBgImageBased)
 
     sub_menu[#sub_menu + 1] = h.createColorMenuItem(
         _("Fill colour"),
@@ -136,6 +131,13 @@ end
 local function buildOutsideOfBookMenu()
     return {
         {
+            text           = iconLabel(icons.PREVIEW, _("Preview file manager sleep screen")),
+            help_text      = _("Shows what the sleep screen looks like when the device goes to sleep from the file manager, without actually suspending it. Tap anywhere to close it."),
+            keep_menu_open = true,
+            separator      = true,
+            callback       = function() h.showFileManagerSleepScreenPreview() end,
+        },
+        {
             text      = _("Show alternative sleep screen (no infobox)"),
             help_text = _("When disabled (default), the regular customisable sleep screen displays in file manager using the last saved book data. When enabled, a simpler alternative is shown instead - just a background, with no information box."),
             checked_func = isFmAltModeEnabled,
@@ -152,20 +154,220 @@ local function buildOutsideOfBookMenu()
     }
 end
 
+-- Lock screen submenus
+
+local function isLockSleepBg()
+    return getSetting("LOCK_BG_TYPE") == "sleep"
+end
+
+local function buildLockBackgroundMenu()
+
+    local switching_on = require("css_auto_preset_switch").isEnabled()
+
+    local white = createRadioItem(_("Plain white"), nil, SETTINGS.LOCK_BG_TYPE, "white")
+
+    white.checked_func = function()
+        local t = getSetting("LOCK_BG_TYPE")
+        return t == "white" or (t == "auto" and not switching_on)
+    end
+    local items = {
+        createRadioItem(_("Sleep screen background"),
+            _("Use the same background as your sleep screen (cover, image or colour), including its Background overlay. Images are shown around a solid panel behind the PIN pad, which keeps it readable and avoids ghosting. If your sleep screen has no background, plain white is used."),
+            SETTINGS.LOCK_BG_TYPE, "sleep"),
+        white,
+        createRadioItem(_("Plain black"), nil, SETTINGS.LOCK_BG_TYPE, "black"),
+    }
+    if switching_on then
+        items[#items + 1] = createRadioItem(_("Follow automatic preset switching"),
+            _("White while your day preset is in effect and black while your night preset is. Only offered while automatic preset switching is turned on."),
+            SETTINGS.LOCK_BG_TYPE, "auto")
+    end
+    items[#items].separator = true
+
+    items[#items + 1] = {
+        text      = _("Text colour"),
+        help_text = _("Colour of the lock screen text and digits over the sleep screen background. Auto picks black or white to suit the image as shown, after the overlay. Plain white and black backgrounds always use the opposite colour."),
+        enabled_func = isLockSleepBg,
+        sub_item_table = buildNumericMenu("LOCK_TEXT_COLOR", {
+            { text = _("Auto"),  val = "auto"  },
+            { text = _("Black"), val = "black" },
+            { text = _("White"), val = "white" },
+        }),
+    }
+    return items
+end
+
+local function lockIsOn()
+    return PluginStore:isTrue(SETTINGS.LOCK_ENABLED) and require("css_lockscreen").hasPin()
+end
+
+local function buildLockScreenMenu()
+    local function lock() return require("css_lockscreen") end
+    local lockOn = lockIsOn
+    local function refresh(touchmenu_instance)
+        if touchmenu_instance then touchmenu_instance:updateItems() end
+    end
+
+    return {
+        {
+            text      = iconLabel(icons.PREVIEW, _("Preview lock screen")),
+            help_text = _("Shows the PIN screen so you can see how it looks, without locking anything. Tap anywhere to close it."),
+            keep_menu_open = true,
+            separator = true,
+            callback = function() lock().preview() end,
+        },
+        {
+            text      = _("Enable lock screen"),
+            help_text = _("After the sleep screen, tap or swipe to clear it, then enter your PIN to continue. This is a convenience lock to keep casual access out, not strong security: it doesn't protect the files on your device. It only applies after sleep unless you also turn on 'Lock when KOReader starts'. Turning it off needs your current PIN. If you forget the PIN, create an empty file named reset-lock inside the customisablesleepscreen.koplugin folder and restart KOReader to clear it."),
+            keep_menu_open = true,
+            checked_func = function()
+                return PluginStore:isTrue(SETTINGS.LOCK_ENABLED) and lock().hasPin()
+            end,
+            callback = function(touchmenu_instance)
+                if PluginStore:isTrue(SETTINGS.LOCK_ENABLED) then
+                    lock().verifyThen(function()
+                        PluginStore:saveSetting(SETTINGS.LOCK_ENABLED, false)
+                        refresh(touchmenu_instance)
+                    end)
+                    return
+                end
+                if not Device:isTouchDevice() then
+                    UIManager:show(require("ui/widget/infomessage"):new {
+                        text    = _("The lock screen needs a touch screen."),
+                        timeout = 3,
+                    })
+                    return
+                end
+                local function enable()
+                    PluginStore:saveSetting(SETTINGS.LOCK_ENABLED, true)
+                    refresh(touchmenu_instance)
+                end
+                if lock().hasPin() then
+                    enable()
+                else
+                    lock().setPinFlow(enable)
+                end
+            end,
+        },
+        {
+            text      = _("Lock when KOReader starts"),
+            help_text = _("Also ask for the PIN when KOReader starts, so restarting the app or forcing the device to shut down and reboot can't be used to get around the lock. Turning it off needs your current PIN."),
+            keep_menu_open = true,
+            enabled_func = lockOn,
+            checked_func = function() return PluginStore:isTrue(SETTINGS.LOCK_ON_LAUNCH) end,
+            callback = function(touchmenu_instance)
+                if PluginStore:isTrue(SETTINGS.LOCK_ON_LAUNCH) then
+                    lock().verifyThen(function()
+                        PluginStore:saveSetting(SETTINGS.LOCK_ON_LAUNCH, false)
+                        refresh(touchmenu_instance)
+                    end)
+                else
+                    PluginStore:saveSetting(SETTINGS.LOCK_ON_LAUNCH, true)
+                    refresh(touchmenu_instance)
+                end
+            end,
+        },
+        {
+            text      = _("Deferred locking"),
+            help_text = _("Skip the lock screen when the device has only been asleep for a short time. Longer sleeps still ask for the PIN, and a device that went to sleep while locked always does."),
+            enabled_func = lockOn,
+            sub_item_table = buildNumericMenu("LOCK_DELAY_SECONDS", {
+                { text = _("Off (always lock)"), val = 0    },
+                { text = lock().durationText(30),   val = 30   },
+                { text = lock().durationText(60),   val = 60   },
+                { text = lock().durationText(120),  val = 120  },
+                { text = lock().durationText(300),  val = 300  },
+                { text = lock().durationText(600),  val = 600  },
+                { text = lock().durationText(900),  val = 900  },
+                { text = lock().durationText(1800), val = 1800 },
+                { text = lock().durationText(3600), val = 3600 },
+            }),
+        },
+        {
+            text      = _("Change PIN"),
+            help_text = _("Set a new 4-digit PIN. You'll be asked for the current one first."),
+            keep_menu_open = true,
+            enabled_func = lockOn,
+            callback = function(touchmenu_instance)
+                lock().verifyThen(function()
+                    lock().setPinFlow(function() refresh(touchmenu_instance) end)
+                end)
+            end,
+        },
+        {
+            text      = _("Button style"),
+            help_text = _("How the number keys look: Plain (just the numbers), Ruled (thin lines between the rows), Outlined (circle outlines) or Filled (filled circles)."),
+            enabled_func = lockOn,
+            sub_item_table = buildNumericMenu("LOCK_BUTTON_STYLE", {
+                { text = _("Plain"),        val = "plain"    },
+                { text = _("Ruled"),        val = "ruled"    },
+                { text = _("Outlined"),     val = "outlined" },
+                { text = _("Filled"),       val = "filled"   },
+            }),
+        },
+        {
+            text      = _("Button shape"),
+            help_text = _("The shape of the Outlined and Filled buttons: a circle, or a square with rounded corners."),
+            enabled_func = function()
+                local style = getSetting("LOCK_BUTTON_STYLE")
+                return lockOn() and (style == "filled" or style == "outlined")
+            end,
+            sub_item_table = buildNumericMenu("LOCK_BUTTON_SHAPE", {
+                { text = _("Circle"),         val = "circle" },
+                { text = _("Rounded square"), val = "square" },
+            }),
+        },
+        {
+            text      = _("Background"),
+            help_text = _("Choose what appears behind the PIN pad: your sleep screen background, or plain white or black."),
+            enabled_func = lockOn,
+            sub_item_table      = buildLockBackgroundMenu(),
+            sub_item_table_func = buildLockBackgroundMenu,
+        },
+        {
+            text      = _("Owner message"),
+            help_text = _("A short message shown under the keypad, such as \"If found, call 0123456789\". Up to three lines. Anyone who wakes the device can read it. Leave it empty to show nothing."),
+            keep_menu_open = true,
+            enabled_func = lockOn,
+            mandatory_func = function()
+                local m = getSetting("LOCK_OWNER_MESSAGE")
+                return (m and m:match("%S")) and _("On") or _("Off")
+            end,
+            callback = function(touchmenu_instance)
+                h.createTextInputDialog(_("Owner message"), getSetting("LOCK_OWNER_MESSAGE") or "", function(text)
+                    text = require("util").trim(text or "")
+                    PluginStore:saveSetting(SETTINGS.LOCK_OWNER_MESSAGE, text)
+                    if touchmenu_instance then touchmenu_instance:updateItems() end
+                end, true)
+            end,
+        },
+    }
+end
+
 -- Global settings submenu
 
 local function buildGlobalSettingsMenu()
+    local flash_pin = createToggleItem(_("Flash screen before lock screen"),
+        _("Flashes the screen (black or white, see below) before showing the lock screen, clearing leftovers of the sleep screen. Useful if you can see ghosting on the lock screen, for example with a black background. Needs the lock screen to be enabled."),
+        SETTINGS.LOCK_ANTI_GHOSTING_FLASH, false, true)
+    flash_pin.enabled_func = lockIsOn
+    local flash_black = createRadioItem(_("Black flash"), _("Flash the screen to black. Clears light leftovers best."),
+        SETTINGS.ANTI_GHOSTING_FLASH_COLOR, "black")
+    flash_black.checked_func = function() return getSetting("ANTI_GHOSTING_FLASH_COLOR") ~= "white" end
+
     return {
         {
             text      = _("Flash screen to reduce ghosting"),
-            help_text = _("Flashes the screen to black before showing the sleep screen, clearing residual text/image ghosting. Off by default, since not every device shows this ghosting."),
-            keep_menu_open = true,
-            checked_func = function()
-                return PluginStore:isTrue(SETTINGS.ANTI_GHOSTING_FLASH)
-            end,
-            callback = function()
-                PluginStore:saveSetting(SETTINGS.ANTI_GHOSTING_FLASH, not PluginStore:isTrue(SETTINGS.ANTI_GHOSTING_FLASH))
-            end,
+            help_text = _("Flashes the whole screen before showing a screen, clearing leftovers of the previous one. Off by default, since not every device shows this ghosting. The sleep screen and the lock screen each have their own switch, and the flash can be black or white."),
+            sub_item_table = {
+                createToggleItem(_("Flash screen before sleep screen"),
+                    _("Flashes the screen (black or white, see below) before showing the sleep screen, clearing residual text/image ghosting."),
+                    SETTINGS.ANTI_GHOSTING_FLASH, false),
+                flash_pin,
+                flash_black,
+                createRadioItem(_("White flash"), _("Flash the screen to white. Clears dark leftovers best."),
+                    SETTINGS.ANTI_GHOSTING_FLASH_COLOR, "white"),
+            },
         },
         {
             text      = _("Sleep screen in file manager"),
@@ -174,11 +376,11 @@ local function buildGlobalSettingsMenu()
         },
         {
             text      = _("Export sleep screen to file"),
-            help_text = _("Saves a screenshot of the sleep screen to a file each time a book is closed. Useful for devices that use an exported image as their own native sleep screen."),
+            help_text = _("Saves a screenshot of the sleep screen to a file. Useful for devices that use an exported image as their own native sleep screen."),
             sub_item_table = {
                 {
                     text      = _("Enable export"),
-                    help_text = _("When enabled, a screenshot of the sleep screen will be saved in the selected export folder each time you close a book or put the device to sleep, using the format set below."),
+                    help_text = _("When enabled, a screenshot of the sleep screen will be saved in the selected export folder using the format set below, on the triggers selected under 'Export triggers'."),
                     keep_menu_open = true,
                     checked_func = function()
                         return PluginStore:isTrue(SETTINGS.EXPORT_ENABLED)
@@ -211,6 +413,47 @@ local function buildGlobalSettingsMenu()
                         end
                         if touchmenu_instance then touchmenu_instance:updateItems() end
                     end,
+                },
+                {
+                    text      = _("Export triggers"),
+                    help_text = _("Choose when the sleep screen is exported. You can select any combination of these."),
+                    enabled_func = function() return PluginStore:isTrue(SETTINGS.EXPORT_ENABLED) end,
+                    sub_item_table = {
+                        createToggleItem(_("On book close"),
+                            _("Export whenever you close a book."),
+                            SETTINGS.EXPORT_TRIGGER_CLOSE, USER_CONFIG.EXPORT_TRIGGER_CLOSE),
+                        createToggleItem(_("On book open"),
+                            _("Export whenever you open a book."),
+                            SETTINGS.EXPORT_TRIGGER_OPEN, USER_CONFIG.EXPORT_TRIGGER_OPEN),
+                        createToggleItem(_("On suspend"),
+                            _("Export whenever you put the device to sleep."),
+                            SETTINGS.EXPORT_TRIGGER_SUSPEND, USER_CONFIG.EXPORT_TRIGGER_SUSPEND),
+                        createToggleItem(_("Periodically while reading"),
+                            _("Export automatically at a set interval while a book is open. Paused while the device is suspended, and resumes when you wake it or open another book."),
+                            SETTINGS.EXPORT_TRIGGER_PERIODIC, USER_CONFIG.EXPORT_TRIGGER_PERIODIC, true),
+                        {
+                            text_func = function()
+                                local minutes = PluginStore:readSetting(SETTINGS.EXPORT_TRIGGER_PERIODIC_MINUTES)
+                                    or USER_CONFIG.EXPORT_TRIGGER_PERIODIC_MINUTES
+                                return string.format(_("Periodic export interval: %d min"), minutes)
+                            end,
+                            help_text = _("How often to export while 'Periodically while reading' is enabled."),
+                            enabled_func = function() return PluginStore:isTrue(SETTINGS.EXPORT_TRIGGER_PERIODIC) end,
+                            keep_menu_open = true,
+                            callback = function()
+                                local current_value = PluginStore:readSetting(SETTINGS.EXPORT_TRIGGER_PERIODIC_MINUTES)
+                                    or USER_CONFIG.EXPORT_TRIGGER_PERIODIC_MINUTES
+                                createSpinDialog(
+                                    _("Periodic export interval (minutes)"),
+                                    current_value,
+                                    5, 60, 5,
+                                    function(val) PluginStore:saveSetting(SETTINGS.EXPORT_TRIGGER_PERIODIC_MINUTES, val) end,
+                                    _("How often, in minutes, to export the sleep screen while a book is open."),
+                                    nil, 5
+                                )
+                            end,
+                        },
+                    },
                 },
                 {
                     text      = _("Set export filename"),
@@ -256,18 +499,9 @@ local function buildGlobalSettingsMenu()
                     help_text = _("Choose the image format and colour profile for the exported file."),
                     enabled_func   = function() return PluginStore:isTrue(SETTINGS.EXPORT_ENABLED) end,
                     sub_item_table = {
-                        {
-                            text      = _("Export in greyscale"),
-                            help_text = _("Saves the exported image without colour, reducing file size for any format."),
-                            keep_menu_open = true,
-                            checked_func = function()
-                                return PluginStore:isTrue(SETTINGS.EXPORT_GRAYSCALE)
-                            end,
-                            callback = function()
-                                PluginStore:saveSetting(SETTINGS.EXPORT_GRAYSCALE,
-                                    not PluginStore:isTrue(SETTINGS.EXPORT_GRAYSCALE))
-                            end,
-                        },
+                        createToggleItem(_("Export in greyscale"),
+                            _("Saves the exported image without colour, reducing file size for any format."),
+                            SETTINGS.EXPORT_GRAYSCALE, false),
                         {
                             text      = _("JPG"),
                             help_text = _("Lossy. Smallest file size, quick save."),
@@ -422,13 +656,13 @@ local function getCustomisableSleepScreenSettingsMenu(hide_presets, ui)
         }
     end
 
-    menu_table[#menu_table + 1] = buildPreviewMenuItem(ui)
 
     menu_table[#menu_table + 1] = { text = iconLabel(icons.CONTENTS,   _("Contents")),              help_text = _("Control which sections appear and what information they display."),      sub_item_table = buildContentsMenu(ui)         }
     menu_table[#menu_table + 1] = { text = iconLabel(icons.LAYOUT,     _("Layout, Spacing & Frame")), help_text = _("Position and size of the box, the gaps between sections, and its border, corner radius, and opacity."), sub_item_table = buildLayoutAndSpacingMenu(ui) }
     menu_table[#menu_table + 1] = { text = iconLabel(icons.COLOURS,    _("Colours, Icons & Bars")), help_text = _("Customise section colours, icon appearance, and progress bar styling."), sub_item_table = buildColorsIconsBarsMenu(ui)  }
     menu_table[#menu_table + 1] = { text = iconLabel(icons.FONTS,      _("Fonts & Text")),          help_text = _("Configure text appearance."),                                            sub_item_table = buildFontsAndTextMenu(ui)     }
     menu_table[#menu_table + 1] = { text = iconLabel(icons.BACKGROUND, _("Background")),            help_text = _("Choose what appears behind the information box."),                       sub_item_table = buildBackgroundMenu(ui)       }
+    menu_table[#menu_table + 1] = { text = iconLabel(icons.LOCK,       _("Lock screen")),           help_text = _("Add some security to your device and ask for a PIN after the sleep screen is cleared. Like Global settings, the lock screen settings don't change when you switch presets."), sub_item_table = buildLockScreenMenu() }
     menu_table[#menu_table + 1] = { text = iconLabel(icons.GLOBAL, _("Global settings")),        help_text = _("File manager display, ghosting, export, battery estimation, and stats scope. Unlike the menus above, these settings don't change when you switch presets."), sub_item_table = buildGlobalSettingsMenu(),    separator = true }
 
     menu_table[#menu_table + 1] = {

@@ -28,6 +28,8 @@ icons.BACKGROUND = "\xEE\xA7\xA8"   -- U+E9E8  image
 icons.GLOBAL     = "\xEF\x82\xAC"   -- U+F0AC  globe
 icons.ABOUT      = "\xEE\xA7\xBC"   -- U+E9FC  information-outline
 icons.RESET      = "\xEE\xAD\x98"   -- U+EB58  replay
+icons.ACTIVE     = "\xEE\xB3\x9F"   -- U+ECDF  check-circle (the active preset)
+icons.LOCK       = "\xEF\x80\xA3"   -- U+F023  lock.1 (same glyph as the PIN pad)
 
 local symbols_font_available = nil
 
@@ -95,10 +97,11 @@ end
 
 -- Menu-item factories: toggles, radios, colour pickers
 
-local function createToggleItem(text, help_text, setting_key, default_value, separator)
+local function createToggleItem(text, help_text, setting_key, default_value, separator, enabled_func)
     return {
         text      = text,
         help_text = help_text,
+        enabled_func = enabled_func,
         checked_func = function()
             local val = PluginStore:readSetting(setting_key)
             return val == nil and (default_value or false) or val
@@ -430,16 +433,17 @@ local function createSpinDialog(title, current_value, min_val, max_val, step, on
     })
 end
 
-local function createTextInputDialog(title, current_value, on_save)
+local function createTextInputDialog(title, current_value, on_save, allow_newline)
     local InputDialog = require("ui/widget/inputdialog")
     local box
     box = InputDialog:new {
         title  = title,
         input  = current_value,
         width  = Screen:getWidth() * 0.8,
+        allow_newline = allow_newline or false,
         buttons = {{
             { text = _("Cancel"), callback = function() UIManager:close(box) end },
-            { text = _("Save"), is_enter_default = true, callback = function()
+            { text = _("Save"), is_enter_default = not allow_newline, callback = function()
                 on_save(box:getInputText())
                 UIManager:close(box)
             end },
@@ -530,7 +534,9 @@ local function showSleepScreenPreviewWidget(widget, saved_rotation, night_mode_s
     }, "full")
 end
 
-local function buildSleepScreenPreviewWidget(ui)
+-- Preview what the sleep screen shows from the file manager
+
+local function buildSleepScreenPreviewWidget(ui, as_file_manager)
     local ib = require("css_infobox")
 
     ib.freeTrackedBBs()
@@ -558,21 +564,26 @@ local function buildSleepScreenPreviewWidget(ui)
         end
     end
 
-    local book_data
-    local doc_ui, doc_state
-    if ui and ui.document then
-        doc_ui, doc_state = ui, ui.view and ui.view.state
-        book_data = ib.collectBookData(doc_ui, doc_state)
+    local widget
+    if as_file_manager and getSetting("FM_ALT_MODE") then
+        widget = ib.buildFileManagerBackground()
     else
-        book_data = ib.loadLastBookData()
-    end
+        local book_data
+        local doc_ui, doc_state
+        if not as_file_manager and ui and ui.document then
+            doc_ui, doc_state = ui, ui.view and ui.view.state
+            book_data = ib.collectBookData(doc_ui, doc_state)
+        else
+            book_data = ib.loadLastBookData()
+        end
 
-    if not book_data then
-        restoreRotation()
-        return nil, _("No book data available to preview yet.\n\nOpen a book and show the sleep screen at least once before previewing.")
-    end
+        if not book_data then
+            restoreRotation()
+            return nil, _("No book data available to preview yet.\n\nOpen a book and show the sleep screen at least once before previewing.")
+        end
 
-    local widget = ib.buildInfoBox(doc_ui, doc_state, book_data)
+        widget = ib.buildInfoBox(doc_ui, doc_state, book_data)
+    end
     if not widget then
         restoreRotation()
         return nil, _("Couldn't build a preview - check crash.log for details.")
@@ -585,6 +596,21 @@ end
 
 local function showSleepScreenPreview(ui)
     local widget, err, saved_rotation, night_mode_state = buildSleepScreenPreviewWidget(ui)
+    if not widget then
+        UIManager:show(require("ui/widget/infomessage"):new { text = err })
+        return
+    end
+    showSleepScreenPreviewWidget(widget, saved_rotation, night_mode_state)
+end
+
+local function showFileManagerSleepScreenPreview()
+    if not getSetting("FM_ALT_MODE") then
+        UIManager:show(require("ui/widget/infomessage"):new {
+            text = _("The alternative file manager sleep screen is not enabled. Turn on 'Show alternative sleep screen (no infobox)' to preview it."),
+        })
+        return
+    end
+    local widget, err, saved_rotation, night_mode_state = buildSleepScreenPreviewWidget(nil, true)
     if not widget then
         UIManager:show(require("ui/widget/infomessage"):new { text = err })
         return
@@ -622,6 +648,7 @@ return {
     showSleepScreenPreviewWidget = showSleepScreenPreviewWidget,
     buildSleepScreenPreviewWidget = buildSleepScreenPreviewWidget,
     showSleepScreenPreview       = showSleepScreenPreview,
+    showFileManagerSleepScreenPreview = showFileManagerSleepScreenPreview,
     buildPreviewMenuItem         = buildPreviewMenuItem,
     icons                        = icons,
     isSymbolsFontAvailable       = isSymbolsFontAvailable,

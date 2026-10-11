@@ -38,27 +38,34 @@ local function buildSectionOrderMenu()
         message = SETTINGS.SHOW_MSG,
     }
 
-    local function countVisibleSections()
-        local count = 0
-        for _, vis_key in pairs(visibility_keys) do
-            if PluginStore:readSetting(vis_key) ~= false then count = count + 1 end
-        end
-        return count
-    end
-
     return {
         {
             text           = _("Section order & visibility"),
-            help_text      = _("Select a section and tap the bottom arrows to reorder. Tap the checkmark to show or hide the section. At least one section must stay visible."),
+            help_text      = _("Select a section and tap the bottom arrows to reorder. Tap the checkmark to show or hide the section. Hide every section to show only the background."),
             keep_menu_open = true,
             callback = function()
                 local SortWidget = require("ui/widget/sortwidget")
 
-                local saved      = getSetting("SECTION_ORDER") or {}
+                local saved      = getSetting("SECTION_ORDER")
                 local defaults   = USER_CONFIG.SECTION_ORDER
+                if type(saved) ~= "table" then saved = {} end
+
+                local order, seen = {}, {}
+                for _, key in ipairs(saved) do
+                    if visibility_keys[key] and not seen[key] then
+                        seen[key] = true
+                        order[#order + 1] = key
+                    end
+                end
+                for _, key in ipairs(defaults) do
+                    if visibility_keys[key] and not seen[key] then
+                        seen[key] = true
+                        order[#order + 1] = key
+                    end
+                end
+
                 local item_table = {}
-                for i = 1, #defaults do
-                    local key     = saved[i] or defaults[i]
+                for i, key in ipairs(order) do
                     local vis_key = visibility_keys[key]
                     item_table[i] = {
                         text = section_labels[key] or key,
@@ -67,15 +74,7 @@ local function buildSectionOrderMenu()
                             return PluginStore:readSetting(vis_key) ~= false
                         end,
                         callback = function()
-                            local current = PluginStore:readSetting(vis_key) ~= false
-                            if current and countVisibleSections() <= 1 then
-                                UIManager:show(require("ui/widget/infomessage"):new {
-                                    text    = _("At least one section must remain visible."),
-                                    timeout = 2,
-                                })
-                                return
-                            end
-                            PluginStore:saveSetting(vis_key, not current)
+                            PluginStore:saveSetting(vis_key, PluginStore:readSetting(vis_key) == false)
                         end,
                     }
                 end
@@ -122,6 +121,20 @@ local function buildBookSectionContentMenu()
             end,
         },
         {
+            text         = _("Add drop shadow to cover"),
+            help_text    = _("Gives the cover image rounded corners and a drop shadow, like a card. Replaces the regular cover border option while enabled."),
+            enabled_func = coverEnabled,
+            checked_func = function()
+                local val = PluginStore:readSetting(SETTINGS.COVER_DROP_SHADOW)
+                return val == nil and false or val
+            end,
+            callback = function()
+                local current = PluginStore:readSetting(SETTINGS.COVER_DROP_SHADOW)
+                if current == nil then current = false end
+                PluginStore:saveSetting(SETTINGS.COVER_DROP_SHADOW, not current)
+            end,
+        },
+        {
             text           = _("Cover image size"),
             help_text      = _("Height limit for the cover image in pixels."),
             enabled_func   = coverEnabled,
@@ -138,8 +151,8 @@ local function buildBookSectionContentMenu()
         },
         {
             text           = _("Cover border size"),
-            help_text      = _("Width of the border drawn around the cover image. Set to 0 for no border."),
-            enabled_func   = coverEnabled,
+            help_text      = _("Width of the border drawn around the cover image. Set to 0 for no border. Ignored while 'Add drop shadow to cover' is enabled."),
+            enabled_func   = function() return coverEnabled() and not getSetting("COVER_DROP_SHADOW") end,
             keep_menu_open = true,
             callback = function()
                 createSpinDialog(
@@ -294,6 +307,9 @@ local function buildGoalSectionContentMenu()
         createToggleItem(_("Show current reading streak"),
             _("Display consecutive days you've met your reading goal."),
             SETTINGS.SHOW_GOAL_STREAK, false),
+        createToggleItem(_("Show weekly reading streak"),
+            _("Display consecutive weeks with any reading activity."),
+            SETTINGS.SHOW_GOAL_WEEKLY_STREAK, false),
         createToggleItem(_("Show weekly progress"),
             _("Days this week you have met your reading goal, shown as completed days out of the current weekday (Monday = 1... Sunday = 7). For example: Thursday with goals met on Monday and Tuesday will show 2/4."),
             SETTINGS.SHOW_GOAL_ACHIEVEMENT, false),
@@ -366,29 +382,49 @@ local function buildMessageSectionContentMenu()
             _("Show a random highlight from the current book"),
             SETTINGS.MESSAGE_SOURCE, "highlight"),
         {
-            text      = _("Add quotation marks to highlights"),
-            help_text = _("Wraps all highlights in curly double quotes, removing any pre-existing quotation marks."),
+            text_func = function()
+                local source = getSetting("HIGHLIGHT_SOURCE")
+                local labels = { current = _("Current book"), all = _("All books") }
+                return string.format(_("Highlight source: %s"), labels[source] or _("Current book"))
+            end,
+            help_text = _("Choose whether the highlight is picked from the current book only, or from all of your highlights."),
             enabled_func = function() return getSetting("MESSAGE_SOURCE") == "highlight" end,
-            checked_func = function()
-                local setting = getSetting("HIGHLIGHT_ADD_QUOTES")
-                return setting == nil and USER_CONFIG.HIGHLIGHT_ADD_QUOTES or setting
-            end,
-            callback = function()
-                local current = getSetting("HIGHLIGHT_ADD_QUOTES")
-                if current == nil then current = USER_CONFIG.HIGHLIGHT_ADD_QUOTES end
-                PluginStore:saveSetting(SETTINGS.HIGHLIGHT_ADD_QUOTES, not current)
-            end,
+            sub_item_table = {
+                {
+                    text      = _("Current book"),
+                    help_text = _("Only show highlights from the book you're currently reading."),
+                    checked_func = function()
+                        local source = getSetting("HIGHLIGHT_SOURCE")
+                        return source == nil or source == "current"
+                    end,
+                    callback = function()
+                        PluginStore:saveSetting(SETTINGS.HIGHLIGHT_SOURCE, "current")
+                    end,
+                    radio = true,
+                },
+                {
+                    text      = _("All books"),
+                    help_text = _("Show highlights from a random sample of your reading history."),
+                    checked_func = function() return getSetting("HIGHLIGHT_SOURCE") == "all" end,
+                    callback = function()
+                        PluginStore:saveSetting(SETTINGS.HIGHLIGHT_SOURCE, "all")
+                    end,
+                    radio = true,
+                },
+            },
         },
-        {
-            text      = _("Show highlight location"),
-            help_text = _("Display the chapter title and page number where the highlight is found, shown below the highlight text."),
-            enabled_func = function() return getSetting("MESSAGE_SOURCE") == "highlight" end,
-            checked_func = function() return getSetting("SHOW_HIGHLIGHT_LOCATION") end,
-            callback = function()
-                PluginStore:saveSetting(SETTINGS.SHOW_HIGHLIGHT_LOCATION,
-                    not getSetting("SHOW_HIGHLIGHT_LOCATION"))
-            end,
-        },
+        createToggleItem(_("Show highlight book title and author"),
+            _("Display which book and author the highlight is from. Only applies when highlight source is set to 'All books'."),
+            SETTINGS.SHOW_HIGHLIGHT_BOOK, USER_CONFIG.SHOW_HIGHLIGHT_BOOK, nil,
+            function()
+                return getSetting("MESSAGE_SOURCE") == "highlight" and getSetting("HIGHLIGHT_SOURCE") == "all"
+            end),
+        createToggleItem(_("Show highlight location (chapter & page no.)"),
+            _("Display the chapter title and page number where the highlight is found."),
+            SETTINGS.SHOW_HIGHLIGHT_LOCATION, USER_CONFIG.SHOW_HIGHLIGHT_LOCATION, nil, function() return getSetting("MESSAGE_SOURCE") == "highlight" end),
+        createToggleItem(_("Add quotation marks to highlights"),
+            _("Wraps all highlights in curly double quotes, removing any pre-existing quotation marks."),
+            SETTINGS.HIGHLIGHT_ADD_QUOTES, USER_CONFIG.HIGHLIGHT_ADD_QUOTES, nil, function() return getSetting("MESSAGE_SOURCE") == "highlight" end),
         {
             text           = _("Book highlight maximum length"),
             help_text      = _("Maximum characters to display for highlights (0 = no limit)."),
@@ -410,17 +446,9 @@ local function buildMessageSectionContentMenu()
         createRadioItem(_("Custom quotes"),
             _("Show a random quote from the css_custom_quotes.lua file in the plugin folder."),
             SETTINGS.MESSAGE_SOURCE, "custom_quotes"),
-        {
-            text         = _("Show quote attribution"),
-            help_text    = _("Display the author and book name below the quote, if provided in css_custom_quotes.lua."),
-            enabled_func = function() return getSetting("MESSAGE_SOURCE") == "custom_quotes" end,
-            checked_func = function() return getSetting("SHOW_QUOTE_ATTRIBUTION") end,
-            callback = function()
-                PluginStore:saveSetting(SETTINGS.SHOW_QUOTE_ATTRIBUTION,
-                    not getSetting("SHOW_QUOTE_ATTRIBUTION"))
-            end,
-            separator = true,
-        },
+        createToggleItem(_("Show quote attribution"),
+            _("Display the author and book name below the quote, if provided in css_custom_quotes.lua."),
+            SETTINGS.SHOW_QUOTE_ATTRIBUTION, USER_CONFIG.SHOW_QUOTE_ATTRIBUTION, true, function() return getSetting("MESSAGE_SOURCE") == "custom_quotes" end),
         createRadioItem(_("KOReader sleep message"),
             _("Uses KOReaders own sleep screen message function. Enable 'Add custom message to sleep screen' to use this (Settings → Screen → Sleep screen → Sleep screen message)."),
             SETTINGS.MESSAGE_SOURCE, "koreader",
@@ -443,6 +471,7 @@ local function buildContentsMenu(ui)
             SETTINGS.SHOW_CHAP_TIME_REMAINING, SETTINGS.SHOW_CHAP_PERCENTAGE,
             SETTINGS.DAILY_GOAL,               SETTINGS.GOAL_TYPE,
             SETTINGS.DAILY_GOAL_MINUTES,       SETTINGS.SHOW_GOAL_STREAK,
+            SETTINGS.SHOW_GOAL_WEEKLY_STREAK,
             SETTINGS.SHOW_GOAL_ACHIEVEMENT,    SETTINGS.SHOW_GOAL_PAGES,
             SETTINGS.SHOW_GOAL_PERCENTAGE,     SETTINGS.GOAL_TITLE_TYPE,
             SETTINGS.SHOW_MSG_HEADER,
@@ -452,8 +481,10 @@ local function buildContentsMenu(ui)
             SETTINGS.MESSAGE_SOURCE,           SETTINGS.MSG_HEADER,
             SETTINGS.CUSTOM_MESSAGE,           SETTINGS.MAX_HIGHLIGHT_LENGTH,
             SETTINGS.HIGHLIGHT_ADD_QUOTES,     SETTINGS.SHOW_HIGHLIGHT_LOCATION,
+            SETTINGS.HIGHLIGHT_SOURCE,         SETTINGS.SHOW_HIGHLIGHT_BOOK,
             SETTINGS.COVER_IN_BOOK,            SETTINGS.COVER_SIZE,
             SETTINGS.COVER_BORDER_SIZE,        SETTINGS.COVER_ALIGN_TO_TEXT,
+            SETTINGS.COVER_DROP_SHADOW,
             SETTINGS.SHOW_QUOTE_ATTRIBUTION,
             SETTINGS.SHOW_BOOK_SERIES,
         }),

@@ -310,23 +310,54 @@ function CustomisableSleepScreen:init()
             title    = _("Cycle through customisable sleep screen presets"),
             general  = true,
         })
+        Dispatcher:registerAction("customisable_ss_export_now", {
+            category = "none",
+            event    = "ExportCustomisableSleepScreenNow",
+            title    = _("Export sleep screen now"),
+            general  = true,
+        })
     end
 
     self.ui.menu:registerToMainMenu(self)
+
+    -- Forgot-PIN recovery
+    if plugin_store:readSetting(SETTINGS.LOCK_PIN_HASH) ~= nil or plugin_store:isTrue(SETTINGS.LOCK_ENABLED) then
+        pcall(function() require("css_lockscreen").applyResetFile() end)
+    end
+
+    if plugin_store:isTrue(SETTINGS.LOCK_ENABLED) and plugin_store:isTrue(SETTINGS.LOCK_ON_LAUNCH) then
+        pcall(function() require("css_lockscreen").lockOnLaunch() end)
+    end
 
     if not CustomisableSleepScreen._hooks_installed then
         self:_installScreensaverHook()
         CustomisableSleepScreen._hooks_installed = true
     end
 
+    local self_ref = self
+
     self.onCloseDocument = function()
-        pcall(function() CustomisableSleepScreen:_exportCurrentBookData() end)
+        self_ref:_cancelPeriodicExport()
+        if config.getSetting("EXPORT_TRIGGER_CLOSE") then
+            pcall(function() self_ref:_exportCurrentBookData() end)
+        end
     end
 
-    local self_ref = self
+    self.onReaderReady = function()
+        if config.getSetting("EXPORT_TRIGGER_OPEN") then
+            pcall(function() self_ref:_exportCurrentBookData() end)
+        end
+        self_ref:_schedulePeriodicExport()
+    end
+
+    self.onResume = function()
+        self_ref:_schedulePeriodicExport()
+    end
+
     self.onShowCustomisableSleepScreenSettings = function() return self_ref:_onShowSettings() end
     self.onShowCustomisableSleepScreenPresets  = function() return self_ref:_onShowPresets()  end
     self.onCycleCustomisableSleepScreenPresets = function() return self_ref:_onCyclePresets() end
+    self.onExportCustomisableSleepScreenNow    = function() return self_ref:_onExportNow()    end
     self.onPowerOff = function()
         return self_ref:_onPowerOff()
     end
@@ -337,13 +368,13 @@ end
 function CustomisableSleepScreen:_exportToCoverImage(ui, state, book_data)
 
     if G_reader_settings:readSetting(SETTINGS.TYPE) ~= "customisable_ss" then
-        return
+        return false
     end
 
     local plugin_store = css_settings.plugin()
-    if not plugin_store:isTrue(SETTINGS.EXPORT_ENABLED) then return end
+    if not plugin_store:isTrue(SETTINGS.EXPORT_ENABLED) then return false end
     local export_path = plugin_store:readSetting(SETTINGS.EXPORT_PATH)
-    if not export_path or export_path == "" then return end
+    if not export_path or export_path == "" then return false end
 
     local ib = getInfobox()
 
@@ -352,7 +383,7 @@ function CustomisableSleepScreen:_exportToCoverImage(ui, state, book_data)
 
     if not widget then
         ib.endTrackingScope(tracking_scope)
-        return
+        return false
     end
 
     local Blitbuffer     = require("ffi/blitbuffer")
@@ -367,7 +398,7 @@ function CustomisableSleepScreen:_exportToCoverImage(ui, state, book_data)
     if not ok_bb then
         logger.warn("[Customisable Sleep Screen] export failed: could not create blitbuffer: " .. tostring(bb))
         ib.endTrackingScope(tracking_scope)
-        return
+        return false
     end
 
     local wrapped = FrameContainer:new {
@@ -391,6 +422,7 @@ function CustomisableSleepScreen:_exportToCoverImage(ui, state, book_data)
     bb:free()
 
     ib.endTrackingScope(tracking_scope)
+    return ok
 end
 
 function CustomisableSleepScreen:_exportCurrentBookData()
@@ -413,14 +445,42 @@ function CustomisableSleepScreen:_exportCurrentBookData()
         local book_data = ib.collectBookData(ui, state)
         if book_data then
             ib.saveLastBookData(book_data)
-            self:_exportToCoverImage(ui, state, book_data)
+            return self:_exportToCoverImage(ui, state, book_data)
         end
+        return false
     else
         local book_data = ib.loadLastBookData()
         if book_data then
-            self:_exportToCoverImage(nil, nil, book_data)
+            return self:_exportToCoverImage(nil, nil, book_data)
         end
+        return false
     end
+end
+
+-- Manual export gesture
+
+function CustomisableSleepScreen:_onExportNow()
+    local InfoMessage = require("ui/widget/infomessage")
+
+    if G_reader_settings:readSetting(SETTINGS.TYPE) ~= "customisable_ss" then
+        return true
+    end
+
+    local plugin_store = css_settings.plugin()
+    if not plugin_store:isTrue(SETTINGS.EXPORT_ENABLED) then
+        UIManager:show(InfoMessage:new {
+            text    = _("Sleep screen export is turned off. Enable it under 'Export sleep screen to file' to use this."),
+            timeout = 3,
+        })
+        return true
+    end
+
+    local ok = self:_exportCurrentBookData()
+    UIManager:show(InfoMessage:new {
+        text    = ok and _("Sleep screen exported.") or _("Export failed. Check that an export folder is set."),
+        timeout = 2,
+    })
+    return true
 end
 
 -- Power-off hook
@@ -537,6 +597,8 @@ function CustomisableSleepScreen:onCloseWidget()
         return
     end
 
+    self:_cancelPeriodicExport()
+
     if CustomisableSleepScreen._hooks_installed then
         pcall(function() self._screensaver_hook:revert() end)
         pcall(function() self._screensaver_close_hook:revert() end)
@@ -556,8 +618,39 @@ function CustomisableSleepScreen:onCloseWidget()
     pcall(function() G_reader_settings:flush() end)
 end
 
+-- Periodic export scheduling
+
+function CustomisableSleepScreen:_cancelPeriodicExport()
+    if self._periodic_export_action then
+        UIManager:unschedule(self._periodic_export_action)
+        self._periodic_export_action = nil
+    end
+end
+
+function CustomisableSleepScreen:_schedulePeriodicExport()
+    self:_cancelPeriodicExport()
+
+    if G_reader_settings:readSetting(SETTINGS.TYPE) ~= "customisable_ss" then return end
+    local plugin_store = css_settings.plugin()
+    if not plugin_store:isTrue(SETTINGS.EXPORT_ENABLED) then return end
+    if not plugin_store:isTrue(SETTINGS.EXPORT_TRIGGER_PERIODIC) then return end
+
+    local minutes = plugin_store:readSetting(SETTINGS.EXPORT_TRIGGER_PERIODIC_MINUTES)
+        or USER_CONFIG.EXPORT_TRIGGER_PERIODIC_MINUTES
+
+    local self_ref = self
+    self._periodic_export_action = function()
+        pcall(function() self_ref:_exportCurrentBookData() end)
+        self_ref:_schedulePeriodicExport()
+    end
+    UIManager:scheduleIn(minutes * 60, self._periodic_export_action)
+end
+
 function CustomisableSleepScreen:onSuspend()
-    pcall(function() self:_exportCurrentBookData() end)
+    self:_cancelPeriodicExport()
+    if config.getSetting("EXPORT_TRIGGER_SUSPEND") then
+        pcall(function() self:_exportCurrentBookData() end)
+    end
     pcall(function() css_settings.flush() end)
     pcall(function() G_reader_settings:flush() end)
 end
@@ -573,6 +666,20 @@ function CustomisableSleepScreen:_installScreensaverHook()
     local css = self
 
     self._screensaver_close_hook = util.wrapMethod(Screensaver, "close", function(ss_self)
+        if css._lock_gate then
+            local gate = css._lock_gate
+            if UIManager:isWidgetShown(gate) then
+                local deferred = false
+                pcall(function()
+                    deferred = require("css_lockscreen").deferralApplies(css._lock_slept_at, css._lock_was_locked)
+                end)
+                if not deferred then
+                    return
+                end
+                UIManager:close(gate)
+            end
+            css._lock_gate = nil
+        end
         if css._saved_rotation ~= nil then
             Screen:setRotationMode(css._saved_rotation)
             css._saved_rotation = nil
@@ -588,7 +695,7 @@ function CustomisableSleepScreen:_installScreensaverHook()
         return css._screensaver_widget_close_hook:raw_call(sw_self)
     end)
 
-    self._screensaver_hook = util.wrapMethod(Screensaver, "show", function(ss_self)
+    local function show_sleep_screen(ss_self)
         local screensaver_type = G_reader_settings:readSetting("screensaver_type")
         if screensaver_type ~= "customisable_ss" then
             return css._screensaver_hook:raw_call(ss_self)
@@ -620,7 +727,8 @@ function CustomisableSleepScreen:_installScreensaverHook()
             pcall(function()
                 if Device:hasEinkScreen() then
                     local Blitbuffer = require("ffi/blitbuffer")
-                    Screen.bb:fill(Blitbuffer.COLOR_BLACK)
+                    local white = css_settings.plugin():readSetting(SETTINGS.ANTI_GHOSTING_FLASH_COLOR) == "white"
+                    Screen.bb:fill(white and Blitbuffer.COLOR_WHITE or Blitbuffer.COLOR_BLACK)
                     Screen:refreshFull(0, 0, Screen:getWidth(), Screen:getHeight())
                 end
             end)
@@ -677,6 +785,8 @@ function CustomisableSleepScreen:_installScreensaverHook()
 
         if not widget then return css._screensaver_hook:raw_call(ss_self) end
 
+        pcall(function() require("css_infobox_background").keepSleepBackground() end)
+
         logger.info("[Customisable Sleep Screen] Sleep screen built successfully")
 
         css._night_mode_state = getRender().suppressNightMode()
@@ -695,7 +805,7 @@ function CustomisableSleepScreen:_installScreensaverHook()
         UIManager:show(ss_self.screensaver_widget, "full")
 
         local screensaver_delay = G_reader_settings:readSetting("screensaver_delay")
-        if screensaver_delay == "gesture" and ui then
+        if screensaver_delay == "gesture" and ui and not css:_lockActive() then
             local ScreenSaverLockWidget = require("ui/widget/screensaverlockwidget")
             ss_self.screensaver_lock_widget = ScreenSaverLockWidget:new {
                 ui = ui,
@@ -711,7 +821,72 @@ function CustomisableSleepScreen:_installScreensaverHook()
             end
             UIManager:show(ss_self.screensaver_lock_widget)
         end
+    end
+
+    self._screensaver_hook = util.wrapMethod(Screensaver, "show", function(ss_self)
+        local result = show_sleep_screen(ss_self)
+        css:_installLockGate(ss_self)
+        return result
     end)
+end
+
+-- Optional passcode lock
+
+function CustomisableSleepScreen:_lockActive()
+    local ok, active = pcall(function() return require("css_lockscreen").isEnabled() end)
+    return ok and active == true
+end
+
+function CustomisableSleepScreen:_installLockGate(ss_self)
+    if not self:_lockActive() then return end
+    if not Device.screen_saver_mode then return end
+
+    local css = self
+    local ok, err = pcall(function()
+        local lock = require("css_lockscreen")
+        if css._lock_gate then
+            UIManager:close(css._lock_gate)
+            css._lock_gate = nil
+        end
+        local gate = lock.Gate:new {
+            on_dismiss = function(g) css:_releaseLockGate(g, ss_self) end,
+        }
+        css._lock_gate = gate
+        css._lock_slept_at  = os.time()
+        css._lock_was_locked = lock.isUnlockPadShown()
+        UIManager:show(gate)
+    end)
+    if not ok then
+        logger.warn("[Customisable Sleep Screen] lock gate failed: " .. tostring(err))
+        css._lock_gate = nil
+    end
+end
+
+function CustomisableSleepScreen:_releaseLockGate(gate, ss_self)
+    if self._lock_gate ~= gate then return end
+    self._lock_gate = nil
+
+    if self._saved_rotation ~= nil then
+        Screen:setRotationMode(self._saved_rotation)
+        self._saved_rotation = nil
+    end
+
+    local night_state = self._night_mode_state
+    self._night_mode_state = nil
+
+    UIManager:close(gate)
+    local sleep_widget = ss_self.screensaver_widget
+    if sleep_widget then
+        sleep_widget:onClose()
+    else
+        ss_self:cleanup()
+    end
+
+    local ok, err = pcall(function() require("css_lockscreen").showUnlock(night_state) end)
+    if not ok then
+        logger.warn("[Customisable Sleep Screen] passcode pad failed: " .. tostring(err))
+        if night_state then pcall(function() getRender().restoreNightMode(night_state) end) end
+    end
 end
 
 -- Dispatcher actions (gestures/shortcuts)

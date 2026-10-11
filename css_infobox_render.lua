@@ -1,6 +1,10 @@
 -- Shared rendering utilities
 
 local Blitbuffer         = require("ffi/blitbuffer")
+local FrameContainer     = require("ui/widget/container/framecontainer")
+local Geom               = require("ui/geometry")
+local OverlapGroup       = require("ui/widget/overlapgroup")
+local Widget             = require("ui/widget/widget")
 local logger             = require("logger")
 local util               = require("util")
 local Device             = require("device")
@@ -235,6 +239,7 @@ local function setupRenderingContext()
         text     = getCachedColor(dark and getSetting("COLOR_TEXT_DARK")    or getSetting("COLOR_TEXT")),
         subtext  = getCachedColor(dark and getSetting("COLOR_TEXT_DARK")    or getSetting("COLOR_TEXT")),
         bar_bg   = dark and blendHex(bg_hex, 255, 255, 255, 0.18)           or blendHex(bg_hex, 0, 0, 0, 0.18),
+        shadow   = dark and blendHex(bg_hex, 255, 255, 255, 0.5)           or blendHex(bg_hex, 0, 0, 0, 0.5),
         border   = getCachedColor(dark and getSetting("COLOR_TEXT_DARK")    or getSetting("COLOR_TEXT")),
         border_2 = getCachedColor(dark and getSetting("COLOR_BOX_BG_DARK")  or getSetting("COLOR_BOX_BG")),
     }
@@ -374,6 +379,178 @@ local function restoreNightMode(state)
     UIManager:setDirty(nil, "full")
 end
 
+-- Cover drop shadow
+local SHADOW_OFFSET = Screen:scaleBySize(4)
+local CARD_RADIUS   = Screen:scaleBySize(4)
+local CARD_BORDER   = Screen:scaleBySize(1)
+
+local function paintColorSafeBorder(bb, x, y, w, h, border_size, color, radius, anti_alias)
+    if not color or not border_size or border_size <= 0 then return end
+    local ffi = require("ffi")
+    local ColorRGB32_t = ffi.typeof("ColorRGB32")
+    local is_rgb32 = ffi.istype(ColorRGB32_t, color)
+    local suppress_invert = is_rgb32 and Device:isAndroid() and bb:getInverse() == 1
+    if suppress_invert then bb:setInverse(0) end
+    if is_rgb32 then
+        bb:paintBorderRGB32(x, y, w, h, border_size, color, radius, anti_alias)
+    else
+        bb:paintBorder(x, y, w, h, border_size, color, radius, anti_alias)
+    end
+    if suppress_invert then bb:setInverse(1) end
+end
+
+local ShadowRect = Widget:extend{ width = nil, height = nil, color = nil }
+function ShadowRect:init()
+    self.dimen = Geom:new{ w = self.width, h = self.height }
+end
+function ShadowRect:paintTo(bb, x, y)
+    bb:paintRoundedRect(x, y, self.width, self.height, self.color, CARD_RADIUS)
+end
+
+local RoundedCornerCard = Widget:extend{
+    inner           = nil,
+    width           = nil,
+    height          = nil,
+    radius          = 0,
+    border_size     = 0,
+    border_color    = nil,
+    bg_color        = nil,
+    shadow_color    = nil,
+    shadow_offset_x = 0,
+    shadow_offset_y = 0,
+    shadow_radius   = 0,
+}
+
+function RoundedCornerCard:init()
+    self.dimen = Geom:new{ w = self.width, h = self.height }
+end
+function RoundedCornerCard:getSize() return self.dimen end
+function RoundedCornerCard:free(...)
+    if self.inner and self.inner.free then self.inner:free(...) end
+end
+
+function RoundedCornerCard:_pixelInShadow(px, py)
+    if not self.shadow_color then return false end
+    local sox, soy = self.shadow_offset_x, self.shadow_offset_y
+    local sw, sh   = self.width, self.height
+    if px < sox or py < soy or px >= sox + sw or py >= soy + sh then
+        return false
+    end
+    local sr = self.shadow_radius or 0
+    if sr <= 0 then return true end
+    local sx, sy = px - sox, py - soy
+    local cx, cy
+    if sx < sr and sy < sr then
+        cx, cy = sr, sr
+    elseif sx >= sw - sr and sy < sr then
+        cx, cy = sw - sr, sr
+    elseif sx < sr and sy >= sh - sr then
+        cx, cy = sr, sh - sr
+    elseif sx >= sw - sr and sy >= sh - sr then
+        cx, cy = sw - sr, sh - sr
+    end
+    if not cx then return true end
+    local ddx, ddy = sx - cx, sy - cy
+    return ddx * ddx + ddy * ddy <= sr * sr
+end
+
+function RoundedCornerCard:paintTo(bb, x, y)
+    self.dimen.x, self.dimen.y = x, y
+
+    if self.inner then
+        self.inner:paintTo(bb, x, y)
+    end
+
+    if self.radius and self.radius > 0 then
+        local r     = self.radius
+        local w, h  = self.width, self.height
+        local bg    = self.bg_color or Blitbuffer.COLOR_WHITE
+        local r_sq  = r * r
+        local shadow_paint = self.shadow_color
+
+        for dy = 0, r - 1 do
+            local cutoff_top = 0
+            local dy_top_sq = (dy - r) * (dy - r)
+            while cutoff_top < r and (cutoff_top - r) * (cutoff_top - r) + dy_top_sq > r_sq do
+                cutoff_top = cutoff_top + 1
+            end
+            if cutoff_top > 0 then
+                bb:paintRect(x, y + dy, cutoff_top, 1, bg)
+                bb:paintRect(x + w - cutoff_top, y + dy, cutoff_top, 1, bg)
+            end
+
+            local cutoff_bot = 0
+            local dy_bot_sq = dy * dy
+            while cutoff_bot < r and (cutoff_bot - r) * (cutoff_bot - r) + dy_bot_sq > r_sq do
+                cutoff_bot = cutoff_bot + 1
+            end
+            if cutoff_bot > 0 then
+                bb:paintRect(x, y + h - r + dy, cutoff_bot, 1, bg)
+
+                if self.shadow_color then
+                    local py = h - r + dy
+                    local run_start, run_in_shadow
+                    for dx = 0, cutoff_bot - 1 do
+                        local px = w - cutoff_bot + dx
+                        local in_shadow = self:_pixelInShadow(px, py)
+                        if run_start == nil then
+                            run_start, run_in_shadow = dx, in_shadow
+                        elseif in_shadow ~= run_in_shadow then
+                            bb:paintRect(x + w - cutoff_bot + run_start, y + py,
+                                         dx - run_start, 1,
+                                         run_in_shadow and shadow_paint or bg)
+                            run_start, run_in_shadow = dx, in_shadow
+                        end
+                    end
+                    if run_start then
+                        bb:paintRect(x + w - cutoff_bot + run_start, y + py,
+                                     cutoff_bot - run_start, 1,
+                                     run_in_shadow and shadow_paint or bg)
+                    end
+                else
+                    bb:paintRect(x + w - cutoff_bot, y + h - r + dy, cutoff_bot, 1, bg)
+                end
+            end
+        end
+    end
+
+    if self.border_size and self.border_size > 0 then
+        local border_color = self.border_color or Blitbuffer.COLOR_BLACK
+        paintColorSafeBorder(bb, x, y, self.width, self.height,
+                              self.border_size, border_color, self.radius, true)
+    end
+end
+
+local function wrapCoverWithShadow(cover, card_w, card_h, shadow_color, bg_color, border_color)
+    local shadow_layer = FrameContainer:new{
+        bordersize   = 0,
+        padding      = 0,
+        padding_top  = SHADOW_OFFSET,
+        padding_left = SHADOW_OFFSET,
+        ShadowRect:new{ width = card_w, height = card_h, color = shadow_color },
+    }
+
+    local card = RoundedCornerCard:new{
+        inner           = cover,
+        width           = card_w,
+        height          = card_h,
+        radius          = CARD_RADIUS,
+        border_size     = CARD_BORDER,
+        border_color    = border_color,
+        bg_color        = bg_color,
+        shadow_color    = shadow_color,
+        shadow_offset_x = SHADOW_OFFSET,
+        shadow_offset_y = SHADOW_OFFSET,
+        shadow_radius   = CARD_RADIUS,
+    }
+
+    return OverlapGroup:new{
+        dimen = Geom:new{ w = card_w + SHADOW_OFFSET, h = card_h + SHADOW_OFFSET },
+        shadow_layer,
+        card,
+    }
+end
+
 return {
     applyProgressWidgetPatch   = applyProgressWidgetPatch,
     restoreProgressWidgetPatch = restoreProgressWidgetPatch,
@@ -391,4 +568,6 @@ return {
     getSetting                 = getSetting,
     suppressNightMode          = suppressNightMode,
     restoreNightMode           = restoreNightMode,
+    SHADOW_OFFSET              = SHADOW_OFFSET,
+    wrapCoverWithShadow        = wrapCoverWithShadow,
 }

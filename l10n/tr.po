@@ -66,6 +66,11 @@ msgid_plural "mins"
 msgstr[0] "dk"
 msgstr[1] "dk"
 
+msgid "sec"
+msgid_plural "secs"
+msgstr[0] "sn"
+msgstr[1] "sn"
+
 msgid "< 1 min"
 msgstr "< 1 dk"
 
@@ -109,16 +114,16 @@ msgid "pgs"
 msgstr "sy."
 
 #, lua-format
-msgid "%s %s & %s read today"
-msgstr "Bugün %s %s ve %s okundu"
-
-#, lua-format
 msgid "%s read today"
 msgstr "Bugün %s okundu"
 
 #, lua-format
 msgid "%d day streak"
 msgstr "%d günlük seri"
+
+#, lua-format
+msgid "%d week streak"
+msgstr "%d haftalık seri"
 
 #, lua-format
 msgid "%d/%d days met this week"
@@ -140,9 +145,6 @@ msgstr "Hedefin %d%%'i"
 #, lua-format
 msgid "%d page goal"
 msgstr "%d sayfa hedefi"
-
-msgid "Rate unavailable"
-msgstr "Hız bilgisi yok"
 
 msgid "No message set"
 msgstr "Mesaj ayarlanmadı"
@@ -330,35 +332,63 @@ msgid "Flash screen to reduce ghosting"
 msgstr "Hayalet görüntüyü azaltmak için ekranı flaşlat"
 
 msgid ""
-"Flashes the screen to black before showing the sleep screen, clearing "
-"residual text/image ghosting. Off by default, since not every device shows "
-"this ghosting."
+"Flashes the whole screen before showing a screen, clearing leftovers of the "
+"previous one. Off by default, since not every device shows this ghosting. "
+"The sleep screen and the lock screen each have their own switch, and the "
+"flash can be black or white."
 msgstr ""
-"Uyku ekranını göstermeden önce ekranı siyaha çevirerek kalıntı metin/görsel "
-"hayaletlerini temizler. Her cihaz bu etkiyi göstermediğinden varsayılan "
-"olarak kapalıdır."
+"Bir ekranı göstermeden önce tüm ekranı flaşlatarak öncekinin kalıntılarını "
+"temizler. Her cihazda bu hayalet görüntü olmadığı için varsayılan olarak "
+"kapalıdır. Uyku ekranı ve kilit ekranının her birinin kendi anahtarı vardır "
+"ve flaş siyah veya beyaz olabilir."
 
-msgid "Show in file manager (outside of book)"
-msgstr "Dosya yöneticisinde göster (kitap dışında)"
+msgid "Flash screen before sleep screen"
+msgstr "Uyku ekranından önce ekranı flaşlat"
 
 msgid ""
-"When enabled, the customisable sleep screen will display in file manager "
-"using the last saved book data."
+"Flashes the screen (black or white, see below) before showing the sleep "
+"screen, clearing residual text/image ghosting."
 msgstr ""
-"Etkinleştirildiğinde, özelleştirilebilir uyku ekranı dosya yöneticisinde\n"
-"son kaydedilen kitap verileriyle görüntülenir."
+"Uyku ekranını göstermeden önce ekranı (siyah veya beyaz, aşağıya bakın) "
+"flaşlatarak kalan metin/görüntü hayalet izlerini temizler."
+
+msgid "Flash screen before lock screen"
+msgstr "Kilit ekranından önce ekranı flaşlat"
+
+msgid ""
+"Flashes the screen (black or white, see below) before showing the lock "
+"screen, clearing leftovers of the sleep screen. Useful if you can see "
+"ghosting on the lock screen, for example with a black background. Needs the "
+"lock screen to be enabled."
+msgstr ""
+"Kilit ekranını göstermeden önce ekranı (siyah veya beyaz, aşağıya bakın) "
+"flaşlatarak uyku ekranının kalıntılarını temizler. Kilit ekranında, örneğin "
+"siyah arka planla, hayalet görüntü görüyorsanız kullanışlıdır. Kilit "
+"ekranının etkin olması gerekir."
+
+msgid "Black flash"
+msgstr "Siyah flaş"
+
+msgid "Flash the screen to black. Clears light leftovers best."
+msgstr "Ekranı siyaha flaşlatır. Açık renkli kalıntıları en iyi temizler."
+
+msgid "White flash"
+msgstr "Beyaz flaş"
+
+msgid "Flash the screen to white. Clears dark leftovers best."
+msgstr "Ekranı beyaza flaşlatır. Koyu renkli kalıntıları en iyi temizler."
 
 msgid "Export sleep screen to file"
 msgstr "Uyku ekranını dosyaya aktar"
 
 msgid ""
-"When enabled, a screenshot of the sleep screen will be saved in the selected"
-" export folder each time you close a book or put the device to sleep, using "
-"the format set below."
+"When enabled, a screenshot of the sleep screen will be saved in the selected "
+"export folder using the format set below, on the triggers selected under "
+"'Export triggers'."
 msgstr ""
-"Etkinleştirildiğinde, bir kitabı her kapattığınızda veya cihazı uyku moduna "
-"aldığınızda, uyku ekranının bir ekran görüntüsü aşağıda belirlenen biçimde "
-"seçili dışa aktarma klasörüne kaydedilir."
+"Etkinleştirildiğinde, uyku ekranının ekran görüntüsü seçilen dışa aktarma "
+"klasörüne aşağıda ayarlanan biçimde, “Dışa aktarma tetikleyicileri” altında "
+"seçilen tetikleyicilerde kaydedilir."
 
 msgid "Sleep screen export disabled."
 msgstr "Uyku ekranı dışa aktarımı devre dışı."
@@ -412,15 +442,6 @@ msgstr ""
 
 msgid "Exclude this book's cover from sleep screen"
 msgstr "Bu kitabın kapağını uyku ekranından hariç tut"
-
-msgid ""
-"Hides the cover for this book only, for when you'd rather it not be shown on"
-" your sleep screen - without having to switch presets or background settings"
-" each time you read it."
-msgstr ""
-"Yalnızca bu kitap için kapağı gizler; uyku ekranınızda görünmesini "
-"istemediğinizde, her okuduğunuzda ön ayar veya arka plan ayarlarını "
-"değiştirmenize gerek kalmadan kullanabilirsiniz."
 
 msgid "No background (leave screen as-is)"
 msgstr "Arka plan yok (ekranı olduğu gibi bırak)"
@@ -494,9 +515,6 @@ msgstr "Pil bilgisi"
 msgid "Message info"
 msgstr "Mesaj bilgisi"
 
-msgid "At least one section must remain visible."
-msgstr "En az bir bölüm görünür kalmalıdır."
-
 msgid "Show cover image above book info"
 msgstr "Kitap bilgisinin üzerinde kapak görselini göster"
 
@@ -527,16 +545,27 @@ msgid "Cover border size"
 msgstr "Kapak kenarlık boyutu"
 
 msgid ""
-"Width of the border drawn around the cover image. Set to 0 for no border."
+"Width of the border drawn around the cover image. Set to 0 for no border. "
+"Ignored while 'Add drop shadow to cover' is enabled."
 msgstr ""
-"Kapak görseli etrafına çizilen kenarlığın genişliği. Kenarlık istemiyorsanız\n"
-"0 girin."
+"Kapak görüntüsünün çevresine çizilen kenarlığın kalınlığı. Kenarlık olmaması "
+"için 0 yapın. “Kapağa gölge ekle” etkinken yok sayılır."
 
 msgid "Cover border size (pixels)"
 msgstr "Kapak kenarlık boyutu (piksel)"
 
 msgid "1–3px for a subtle outline. 0 to disable."
 msgstr "1–3px ince bir çerçeve. 0 devre dışı bırakmak için."
+
+msgid "Add drop shadow to cover"
+msgstr "Kapağa gölge ekle"
+
+msgid ""
+"Gives the cover image rounded corners and a drop shadow, like a card. "
+"Replaces the regular cover border option while enabled."
+msgstr ""
+"Kapak görüntüsüne kart gibi yuvarlatılmış köşeler ve gölge verir. Açıkken "
+"normal kapak kenarlığı seçeneğinin yerini alır."
 
 msgid "Align cover to text alignment"
 msgstr "Kapağı metin hizalamasıyla hizala"
@@ -634,12 +663,6 @@ msgstr "Bugün okuma süresi"
 msgid "e.g. '42 mins read today'"
 msgstr "örn. 'bugün 42 dk okundu'"
 
-msgid "Pages and time read today"
-msgstr "Bugün okunan sayfalar ve süre"
-
-msgid "e.g. '35 pgs & 42 mins read today'"
-msgstr "örn. 'bugün 35 sy. ve 42 dk okundu'"
-
 msgid ""
 "Choose whether your daily goal tracks pages read or time spent reading."
 msgstr ""
@@ -688,6 +711,12 @@ msgstr "Mevcut okuma serisini göster"
 
 msgid "Display consecutive days you've met your reading goal."
 msgstr "Okuma hedefinizi tutturduğunuz ardışık günleri gösterir."
+
+msgid "Show weekly reading streak"
+msgstr "Haftalık okuma serisini göster"
+
+msgid "Display consecutive weeks with any reading activity."
+msgstr "Okuma etkinliği olan ardışık haftaları gösterir."
 
 msgid "Show weekly progress"
 msgstr "Haftalık ilerlemeyi göster"
@@ -772,6 +801,27 @@ msgstr "Kitap vurguları"
 msgid "Show a random highlight from the current book"
 msgstr "Mevcut kitaptan rastgele bir vurgu gösterir"
 
+#, lua-format
+msgid "Highlight source: %s"
+msgstr "Vurgu kaynağı: %s"
+
+msgid ""
+"Choose whether the highlight is picked from the current book only, or from "
+"all of your highlights."
+msgstr ""
+"Vurgunun yalnızca geçerli kitaptan mı yoksa tüm vurgularınızdan mı "
+"seçileceğini belirleyin."
+
+msgid "Current book"
+msgstr "Geçerli kitap"
+
+msgid "Only show highlights from the book you're currently reading."
+msgstr "Yalnızca şu an okuduğunuz kitaptaki vurguları gösterir."
+
+msgid "Show highlights from a random sample of your reading history."
+msgstr ""
+"Okuma geçmişinizden rastgele seçilen bir örneklemden vurguları gösterir."
+
 msgid "Add quotation marks to highlights"
 msgstr "Vurgulara tırnak işareti ekle"
 
@@ -782,15 +832,21 @@ msgstr ""
 "Tüm vurguları kıvrık çift tırnakla sarar ve mevcut tırnak işaretlerini\n"
 "kaldırır."
 
-msgid "Show highlight location"
-msgstr "Vurgu konumunu göster"
+msgid "Show highlight location (chapter & page no.)"
+msgstr "Vurgu konumunu göster (bölüm ve sayfa)"
+
+msgid "Display the chapter title and page number where the highlight is found."
+msgstr "Vurgunun bulunduğu bölümün başlığını ve sayfa numarasını gösterir."
+
+msgid "Show highlight book title and author"
+msgstr "Vurgunun kitap başlığını ve yazarını göster"
 
 msgid ""
-"Display the chapter title and page number where the highlight is found, "
-"shown below the highlight text."
+"Display which book and author the highlight is from. Only applies when "
+"highlight source is set to 'All books'."
 msgstr ""
-"Vurgunun bulunduğu bölüm başlığını ve sayfa numarasını vurgu metninin\n"
-"altında gösterir."
+"Vurgunun hangi kitaptan ve hangi yazardan olduğunu gösterir. Yalnızca vurgu "
+"kaynağı “Tüm kitaplar” olduğunda geçerlidir."
 
 msgid "Book highlight maximum length"
 msgstr "Kitap vurgusu maksimum uzunluğu"
@@ -1216,6 +1272,16 @@ msgstr "Simge boyutu (px)"
 msgid "32–48px suits most layouts."
 msgstr "32–48px çoğu düzen için uygundur."
 
+msgid "Add white outline to icons in dark mode"
+msgstr "Karanlık modda simgelere beyaz anahat ekle"
+
+msgid ""
+"Adds a thin white outline around each icon when dark mode is on, like a "
+"sticker, so icons stay visible against dark backgrounds."
+msgstr ""
+"Karanlık mod açıkken her simgenin etrafına çıkartma gibi ince bir beyaz "
+"anahat ekler; böylece simgeler koyu arka planlarda görünür kalır."
+
 msgid "Progress bar height"
 msgstr "İlerleme çubuğu yüksekliği"
 
@@ -1313,9 +1379,6 @@ msgstr ""
 "100% metin sütununu doldurur. Çubuk metin hizalama ayarınızla eşleşecek\n"
 "şekilde hizalanır."
 
-msgid "Title font face"
-msgstr "Başlık yazı tipi"
-
 msgid "Choose the font face for the main heading text in each section"
 msgstr "Her bölümdeki ana başlık metni için yazı tipini seçin"
 
@@ -1327,9 +1390,6 @@ msgstr "Her bölümdeki ana başlık metni için yazı boyutunu seçin."
 
 msgid "10–12px works well for most screens."
 msgstr "10–12px çoğu ekran için iyi çalışır."
-
-msgid "Subtitle font face"
-msgstr "Alt başlık yazı tipi"
 
 msgid "Choose the font face for the information below the main heading text."
 msgstr "Ana başlık metninin altındaki bilgi için yazı tipini seçin."
@@ -1580,13 +1640,12 @@ msgid "Enter hex colour code"
 msgstr "Hex renk kodu girin"
 
 msgid ""
-"Saves a screenshot of the sleep screen to a file each time a book is closed."
-" Useful for devices that use an exported image as their own native sleep "
-"screen."
+"Saves a screenshot of the sleep screen to a file. Useful for devices that "
+"use an exported image as their own native sleep screen."
 msgstr ""
-"Her kitap kapatıldığında uyku ekranının ekran görüntüsünü bir dosyaya "
-"kaydeder. Dışa aktarılan bir görüntüyü kendi yerel uyku ekranı olarak "
-"kullanan cihazlar için kullanışlıdır."
+"Uyku ekranının ekran görüntüsünü bir dosyaya kaydeder. Dışa aktarılan "
+"görüntüyü kendi yerel uyku ekranı olarak kullanan cihazlar için "
+"kullanışlıdır."
 
 msgid "Enable export"
 msgstr "Dışa aktarmayı etkinleştir"
@@ -1609,6 +1668,76 @@ msgstr ""
 "Dışa aktarılan görüntünün kaydedileceği klasörü seçin. Dışa aktarma "
 "etkinleştirilmeden önce ayarlanmalıdır."
 
+msgid "Export triggers"
+msgstr "Dışa aktarma tetikleyicileri"
+
+msgid ""
+"Choose when the sleep screen is exported. You can select any combination of "
+"these."
+msgstr ""
+"Uyku ekranının ne zaman dışa aktarılacağını seçin. Herhangi bir kombinasyonu "
+"seçebilirsiniz."
+
+msgid "On book close"
+msgstr "Kitap kapatılınca"
+
+msgid "Export whenever you close a book."
+msgstr "Bir kitabı her kapattığınızda dışa aktar."
+
+msgid "On book open"
+msgstr "Kitap açılınca"
+
+msgid "Export whenever you open a book."
+msgstr "Bir kitabı her açtığınızda dışa aktar."
+
+msgid "On suspend"
+msgstr "Askıya alınınca"
+
+msgid "Export whenever you put the device to sleep."
+msgstr "Cihazı her uyku moduna aldığınızda dışa aktar."
+
+msgid "Periodically while reading"
+msgstr "Okurken düzenli aralıklarla"
+
+msgid ""
+"Export automatically at a set interval while a book is open. Paused while "
+"the device is suspended, and resumes when you wake it or open another book."
+msgstr ""
+"Bir kitap açıkken belirli aralıklarla otomatik olarak dışa aktarır. Cihaz "
+"askıdayken duraklar, uyandırdığınızda veya başka bir kitap açtığınızda devam "
+"eder."
+
+#, lua-format
+msgid "Periodic export interval: %d min"
+msgstr "Düzenli dışa aktarma aralığı: %d dk"
+
+msgid "How often to export while 'Periodically while reading' is enabled."
+msgstr "“Okurken düzenli aralıklarla” etkinken ne sıklıkla dışa aktarılacağı."
+
+msgid "Periodic export interval (minutes)"
+msgstr "Düzenli dışa aktarma aralığı (dakika)"
+
+msgid "How often, in minutes, to export the sleep screen while a book is open."
+msgstr "Bir kitap açıkken uyku ekranının kaç dakikada bir dışa aktarılacağı."
+
+msgid "Export sleep screen now"
+msgstr "Uyku ekranını şimdi dışa aktar"
+
+msgid "Sleep screen exported."
+msgstr "Uyku ekranı dışa aktarıldı."
+
+msgid "Export failed. Check that an export folder is set."
+msgstr ""
+"Dışa aktarma başarısız oldu. Bir dışa aktarma klasörünün ayarlandığını "
+"kontrol edin."
+
+msgid ""
+"Sleep screen export is turned off. Enable it under 'Export sleep screen to "
+"file' to use this."
+msgstr ""
+"Uyku ekranı dışa aktarımı kapalı. Bunu kullanmak için “Uyku ekranını dosyaya "
+"aktar” altından etkinleştirin."
+
 msgid "Preview sleep screen"
 msgstr "Uyku ekranını önizle"
 
@@ -1619,15 +1748,23 @@ msgstr ""
 "Cihazı gerçekten uyku moduna almadan uyku ekranının şu anki görünümünü "
 "gösterir."
 
-msgid "Behaviour"
-msgstr "Davranış"
+msgid "Preview file manager sleep screen"
+msgstr "Dosya yöneticisi uyku ekranını önizle"
 
 msgid ""
-"How the plugin behaves: file manager display, ghosting, export, battery "
-"estimation, and stats scope."
+"Shows what the sleep screen looks like when the device goes to sleep from "
+"the file manager, without actually suspending it. Tap anywhere to close it."
 msgstr ""
-"Eklentinin nasıl davrandığı: dosya yöneticisinde görüntüleme, hayalet "
-"görüntü, dışa aktarma, pil tahmini ve istatistik kapsamı."
+"Cihaz dosya yöneticisinden uykuya geçtiğinde uyku ekranının nasıl "
+"göründüğünü, cihazı gerçekten askıya almadan gösterir. Kapatmak için "
+"herhangi bir yere dokunun."
+
+msgid ""
+"The alternative file manager sleep screen is not enabled. Turn on 'Show "
+"alternative sleep screen (no infobox)' to preview it."
+msgstr ""
+"Dosya yöneticisi için alternatif uyku ekranı etkin değil. Önizlemek için "
+"'Alternatif uyku ekranını göster (bilgi kutusu olmadan)' seçeneğini açın."
 
 #, lua-format
 msgid "Version: %s"
@@ -1694,15 +1831,6 @@ msgstr ""
 
 msgid "Fallback background"
 msgstr "Yedek arka plan"
-
-msgid ""
-"What to show instead of the cover. Uses the colour, image, or folder already"
-" set in Background type. Only selectable when \"Exclude this book's cover "
-"from sleep screen\" is turned on."
-msgstr ""
-"Kapak yerine ne gösterileceği. Arka plan türünde zaten ayarlanmış olan "
-"rengi, görüntüyü veya klasörü kullanır. Yalnızca \"Bu kitabın kapağını uyku "
-"ekranından hariç tut\" açıkken seçilebilir."
 
 msgid ""
 "No book data available to preview yet.\n"
@@ -1881,11 +2009,11 @@ msgstr "Bölüm sırası ve görünürlüğü"
 
 msgid ""
 "Select a section and tap the bottom arrows to reorder. Tap the checkmark to "
-"show or hide the section. At least one section must stay visible."
+"show or hide the section. Hide every section to show only the background."
 msgstr ""
-"Bir bölüm seçin ve yeniden sıralamak için alttaki oklara dokunun. Bölümü "
-"gösterip gizlemek için onay işaretine dokunun. En az bir bölüm görünür "
-"kalmalıdır."
+"Bir bölüm seçin ve sırasını değiştirmek için alttaki oklara dokunun. Bölümü "
+"göstermek veya gizlemek için onay işaretine dokunun. Yalnızca arka planı "
+"göstermek için tüm bölümleri gizleyin."
 
 #, lua-format
 msgid "Title Line: %s"
@@ -2191,3 +2319,245 @@ msgid ""
 msgstr ""
 "Dışa aktarılan görüntüyü renksiz kaydeder ve böylece her biçim için dosya "
 "boyutunu küçültür."
+
+msgid "Lock screen"
+msgstr "Kilit ekranı"
+
+msgid ""
+"Add some security to your device and ask for a PIN after the sleep screen is "
+"cleared. Like Global settings, the lock screen settings don't change when "
+"you switch presets."
+msgstr ""
+"Cihazınıza güvenlik ekleyin ve uyku ekranı kapatıldıktan sonra PIN isteyin. "
+"Genel ayarlar gibi, kilit ekranı ayarları da önayarlar arasında geçiş "
+"yaptığınızda değişmez."
+
+msgid "Enable lock screen"
+msgstr "Kilit ekranını etkinleştir"
+
+msgid ""
+"After the sleep screen, tap or swipe to clear it, then enter your PIN to "
+"continue. This is a convenience lock to keep casual access out, not strong "
+"security: it doesn't protect the files on your device. It only applies after "
+"sleep unless you also turn on 'Lock when KOReader starts'. Turning it off "
+"needs your current PIN. If you forget the PIN, create an empty file named "
+"reset-lock inside the customisablesleepscreen.koplugin folder and restart "
+"KOReader to clear it."
+msgstr ""
+"Uyku ekranından sonra kapatmak için dokunun veya kaydırın, ardından devam "
+"etmek için PIN'inizi girin. Bu, tesadüfi erişimi engelleyen bir kolaylık "
+"kilididir, güçlü bir güvenlik değildir: cihazınızdaki dosyaları korumaz. "
+"“KOReader başlarken kilitle” seçeneğini de açmadıkça yalnızca uykudan sonra "
+"uygulanır. Kapatmak için geçerli PIN gerekir. PIN'i unutursanız "
+"customisablesleepscreen.koplugin klasörünün içine reset-lock adlı boş bir "
+"dosya oluşturun ve temizlemek için KOReader'ı yeniden başlatın."
+
+msgid "The lock screen needs a touch screen."
+msgstr "Kilit ekranı için dokunmatik ekran gerekir."
+
+msgid "Lock when KOReader starts"
+msgstr "KOReader başlarken kilitle"
+
+msgid ""
+"Also ask for the PIN when KOReader starts, so restarting the app or forcing "
+"the device to shut down and reboot can't be used to get around the lock. "
+"Turning it off needs your current PIN."
+msgstr ""
+"KOReader başlarken de PIN ister; böylece uygulamayı yeniden başlatmak veya "
+"cihazı zorla kapatıp yeniden açmak kilidi aşmak için kullanılamaz. Kapatmak "
+"için geçerli PIN gerekir."
+
+msgid "Deferred locking"
+msgstr "Ertelenmiş kilitleme"
+
+msgid ""
+"Skip the lock screen when the device has only been asleep for a short time. "
+"Longer sleeps still ask for the PIN, and a device that went to sleep while "
+"locked always does."
+msgstr ""
+"Cihaz yalnızca kısa süre uykuda kaldıysa kilit ekranını atlar. Daha uzun "
+"uykular yine PIN ister; kilitliyken uykuya geçen cihaz ise her zaman ister."
+
+msgid "Off (always lock)"
+msgstr "Kapalı (her zaman kilitle)"
+
+msgid "Change PIN"
+msgstr "PIN'i değiştir"
+
+msgid "Set a new 4-digit PIN. You'll be asked for the current one first."
+msgstr "Yeni 4 haneli bir PIN belirler. Önce geçerli PIN sorulur."
+
+msgid "Sleep screen background"
+msgstr "Uyku ekranı arka planı"
+
+msgid ""
+"Choose what appears behind the PIN pad: your sleep screen background, or "
+"plain white or black."
+msgstr ""
+"PIN tuş takımının arkasında ne görüneceğini seçin: uyku ekranınızın arka "
+"planı veya düz beyaz ya da siyah."
+
+msgid "Plain white"
+msgstr "Düz beyaz"
+
+msgid "Plain black"
+msgstr "Düz siyah"
+
+msgid "Follow automatic preset switching"
+msgstr "Otomatik önayar geçişini takip et"
+
+msgid ""
+"White while your day preset is in effect and black while your night preset "
+"is. Only offered while automatic preset switching is turned on."
+msgstr ""
+"Gündüz önayarınız geçerliyken beyaz, gece önayarınız geçerliyken siyah. "
+"Yalnızca otomatik önayar geçişi açıkken sunulur."
+
+msgid ""
+"Use the same background as your sleep screen (cover, image or colour), "
+"including its Background overlay. Images are shown around a solid panel "
+"behind the PIN pad, which keeps it readable and avoids ghosting. If your "
+"sleep screen has no background, plain white is used."
+msgstr ""
+"Uyku ekranınızla aynı arka planı (kapak, görsel veya renk), arka plan "
+"kaplamasıyla birlikte kullanır. Görseller PIN tuş takımının arkasındaki düz "
+"bir panelin çevresinde gösterilir; bu, okunabilirliği korur ve hayalet "
+"görüntüyü önler. Uyku ekranınızın arka planı yoksa düz beyaz kullanılır."
+
+msgid "Button style"
+msgstr "Düğme stili"
+
+msgid ""
+"How the number keys look: Plain (just the numbers), Ruled (thin lines "
+"between the rows), Outlined (circle outlines) or Filled (filled circles)."
+msgstr ""
+"Rakam tuşlarının görünümü: Düz (yalnızca rakamlar), Çizgili (satırlar "
+"arasında ince çizgiler), Anahatlı (daire anahatları) veya Dolu (dolu "
+"daireler)."
+
+msgid "Plain"
+msgstr "Düz"
+
+msgid "Ruled"
+msgstr "Çizgili"
+
+msgid "Outlined"
+msgstr "Anahatlı"
+
+msgid "Filled"
+msgstr "Dolu"
+
+msgid "Button shape"
+msgstr "Düğme şekli"
+
+msgid ""
+"The shape of the Outlined and Filled buttons: a circle, or a square with "
+"rounded corners."
+msgstr ""
+"Anahatlı ve Dolu düğmelerin şekli: daire veya yuvarlatılmış köşeli kare."
+
+msgid "Circle"
+msgstr "Daire"
+
+msgid "Rounded square"
+msgstr "Yuvarlatılmış kare"
+
+msgid "Text colour"
+msgstr "Metin rengi"
+
+msgid ""
+"Colour of the lock screen text and digits over the sleep screen background. "
+"Auto picks black or white to suit the image as shown, after the overlay. "
+"Plain white and black backgrounds always use the opposite colour."
+msgstr ""
+"Uyku ekranı arka planı üzerindeki kilit ekranı metninin ve rakamlarının "
+"rengi. Otomatik, kaplamadan sonra gösterilen görüntüye uygun olarak siyah "
+"veya beyazı seçer. Düz beyaz ve siyah arka planlar her zaman karşıt rengi "
+"kullanır."
+
+msgid "Auto"
+msgstr "Otomatik"
+
+msgid "Black"
+msgstr "Siyah"
+
+msgid "White"
+msgstr "Beyaz"
+
+msgid "Owner message"
+msgstr "Sahip mesajı"
+
+msgid ""
+"A short message shown under the keypad, such as \"If found, call "
+"0123456789\". Up to three lines. Anyone who wakes the device can read it. "
+"Leave it empty to show nothing."
+msgstr ""
+"Tuş takımının altında gösterilen kısa bir mesaj, örneğin “Bulursanız "
+"0123456789 numarasını arayın”. En fazla üç satır. Cihazı uyandıran herkes "
+"okuyabilir. Hiçbir şey göstermemek için boş bırakın."
+
+msgid "Preview lock screen"
+msgstr "Kilit ekranını önizle"
+
+msgid ""
+"Shows the PIN screen so you can see how it looks, without locking anything. "
+"Tap anywhere to close it."
+msgstr ""
+"Hiçbir şeyi kilitlemeden PIN ekranının nasıl göründüğünü görmenizi sağlar. "
+"Kapatmak için herhangi bir yere dokunun."
+
+msgid "On"
+msgstr "Açık"
+
+msgid "Off"
+msgstr "Kapalı"
+
+msgid "Please enter your 4-digit PIN."
+msgstr "Lütfen 4 haneli PIN'inizi girin."
+
+msgid "Please enter your current 4-digit PIN."
+msgstr "Lütfen geçerli 4 haneli PIN'inizi girin."
+
+msgid "Please choose a 4-digit PIN."
+msgstr "Lütfen 4 haneli bir PIN seçin."
+
+msgid "Please confirm your 4-digit PIN."
+msgstr "Lütfen 4 haneli PIN'inizi onaylayın."
+
+msgid "Sorry, incorrect PIN. Please try again."
+msgstr "Üzgünüz, PIN yanlış. Lütfen tekrar deneyin."
+
+msgid "Sorry, the PINs didn't match. Please try again."
+msgstr "Üzgünüz, PIN'ler eşleşmedi. Lütfen tekrar deneyin."
+
+#, lua-format
+msgid "Too many attempts. Please try again in %s."
+msgstr "Çok fazla deneme. Lütfen %s sonra tekrar deneyin."
+
+#, lua-format
+msgid ""
+"PIN saved.\n"
+"\n"
+"If you ever forget it, create an empty file named \"reset-lock\" inside the "
+"plugin's folder (%s) and restart KOReader. That clears the PIN."
+msgstr ""
+"PIN kaydedildi.\n"
+"\n"
+"Bir gün unutursanız eklentinin klasörünün (%s) içine “reset-lock” adlı boş "
+"bir dosya oluşturun ve KOReader'ı yeniden başlatın. Bu, PIN'i temizler."
+
+msgid ""
+"Lock screen reset.\n"
+"\n"
+"You can set a new PIN in the Customisable Sleep Screen settings."
+msgstr ""
+"Kilit ekranı sıfırlandı.\n"
+"\n"
+"Customisable Sleep Screen ayarlarında yeni bir PIN belirleyebilirsiniz."
+
+msgid ""
+"Couldn't reset the lock screen: the reset-lock file couldn't be deleted. Is "
+"the storage read-only?"
+msgstr ""
+"Kilit ekranı sıfırlanamadı: reset-lock dosyası silinemedi. Depolama salt "
+"okunur mu?"

@@ -64,6 +64,10 @@ msgid "min"
 msgid_plural "mins"
 msgstr[0] "分钟"
 
+msgid "sec"
+msgid_plural "secs"
+msgstr[0] "秒"
+
 msgid "< 1 min"
 msgstr "不到1分钟"
 
@@ -106,16 +110,16 @@ msgid "pgs"
 msgstr "页"
 
 #, lua-format
-msgid "%s %s & %s read today"
-msgstr "今日已读%s%s & %s"
-
-#, lua-format
 msgid "%s read today"
 msgstr "今日已读%s"
 
 #, lua-format
 msgid "%d day streak"
 msgstr "连续%d天"
+
+#, lua-format
+msgid "%d week streak"
+msgstr "连续%d周"
 
 #, lua-format
 msgid "%d/%d days met this week"
@@ -137,9 +141,6 @@ msgstr "目标的%d%%"
 #, lua-format
 msgid "%d page goal"
 msgstr "%d页目标"
-
-msgid "Rate unavailable"
-msgstr "速率不可用"
 
 msgid "No message set"
 msgstr "未设置消息"
@@ -318,27 +319,51 @@ msgid "Flash screen to reduce ghosting"
 msgstr "闪烁屏幕以减少重影"
 
 msgid ""
-"Flashes the screen to black before showing the sleep screen, clearing "
-"residual text/image ghosting. Off by default, since not every device shows "
-"this ghosting."
-msgstr "在显示休眠屏幕之前先将屏幕闪为黑色，以清除残留的文字/图像重影。默认关闭，因为并非所有设备都会出现此重影现象。"
+"Flashes the whole screen before showing a screen, clearing leftovers of the "
+"previous one. Off by default, since not every device shows this ghosting. "
+"The sleep screen and the lock screen each have their own switch, and the "
+"flash can be black or white."
+msgstr ""
+"在显示某个屏幕前让整个屏幕闪烁，清除上一个屏幕的残留。默认关闭，因为并非所有设备都会出现这种重影。休眠屏幕和锁屏各有独立的开关，闪烁可选择黑色或白色。"
 
-msgid "Show in file manager (outside of book)"
-msgstr "在文件管理器中显示（书籍之外）"
+msgid "Flash screen before sleep screen"
+msgstr "显示休眠屏幕前闪烁屏幕"
 
 msgid ""
-"When enabled, the customisable sleep screen will display in file manager "
-"using the last saved book data."
-msgstr "启用后，可定制休眠屏幕将在文件管理器中使用最后保存的书籍数据显示。"
+"Flashes the screen (black or white, see below) before showing the sleep "
+"screen, clearing residual text/image ghosting."
+msgstr "在显示休眠屏幕前闪烁屏幕（黑色或白色，见下方），清除残留的文字和图像重影。"
+
+msgid "Flash screen before lock screen"
+msgstr "显示锁屏前闪烁屏幕"
+
+msgid ""
+"Flashes the screen (black or white, see below) before showing the lock "
+"screen, clearing leftovers of the sleep screen. Useful if you can see "
+"ghosting on the lock screen, for example with a black background. Needs the "
+"lock screen to be enabled."
+msgstr "在显示锁屏前闪烁屏幕（黑色或白色，见下方），清除休眠屏幕的残留。如果锁屏上出现重影（例如使用黑色背景时），此功能很有用。需要启用锁屏。"
+
+msgid "Black flash"
+msgstr "黑色闪烁"
+
+msgid "Flash the screen to black. Clears light leftovers best."
+msgstr "将屏幕闪烁为黑色。最适合清除浅色残留。"
+
+msgid "White flash"
+msgstr "白色闪烁"
+
+msgid "Flash the screen to white. Clears dark leftovers best."
+msgstr "将屏幕闪烁为白色。最适合清除深色残留。"
 
 msgid "Export sleep screen to file"
 msgstr "导出休眠屏幕到文件"
 
 msgid ""
-"When enabled, a screenshot of the sleep screen will be saved in the selected"
-" export folder each time you close a book or put the device to sleep, using "
-"the format set below."
-msgstr "启用后，每次关闭书籍或使设备进入睡眠时，都会按下方设置的格式，将睡眠屏幕的截图保存到所选的导出文件夹中。"
+"When enabled, a screenshot of the sleep screen will be saved in the selected "
+"export folder using the format set below, on the triggers selected under "
+"'Export triggers'."
+msgstr "启用后，将按“导出触发时机”中选择的时机，把休眠屏幕的截图以下方设置的格式保存到所选导出文件夹。"
 
 msgid "Sleep screen export disabled."
 msgstr "休眠屏幕导出已禁用。"
@@ -392,12 +417,6 @@ msgstr ""
 
 msgid "Exclude this book's cover from sleep screen"
 msgstr "在休眠屏幕中排除本书封面"
-
-msgid ""
-"Hides the cover for this book only, for when you'd rather it not be shown on"
-" your sleep screen - without having to switch presets or background settings"
-" each time you read it."
-msgstr "仅隐藏本书的封面，适用于您不想让它出现在休眠屏幕上的情况——无需每次阅读时都切换预设或背景设置。"
 
 msgid "No background (leave screen as-is)"
 msgstr "无背景（保持屏幕原样）"
@@ -467,9 +486,6 @@ msgstr "电池信息"
 msgid "Message info"
 msgstr "消息信息"
 
-msgid "At least one section must remain visible."
-msgstr "至少一个区域必须保持可见。"
-
 msgid "Show cover image above book info"
 msgstr "在书籍信息上方显示封面图片"
 
@@ -496,14 +512,23 @@ msgid "Cover border size"
 msgstr "封面边框大小"
 
 msgid ""
-"Width of the border drawn around the cover image. Set to 0 for no border."
-msgstr "封面图片周围边框的宽度。设为 0 则无边框。"
+"Width of the border drawn around the cover image. Set to 0 for no border. "
+"Ignored while 'Add drop shadow to cover' is enabled."
+msgstr "封面图片周围边框的宽度。设为 0 则无边框。启用“为封面添加阴影”期间将被忽略。"
 
 msgid "Cover border size (pixels)"
 msgstr "封面边框大小（像素）"
 
 msgid "1–3px for a subtle outline. 0 to disable."
 msgstr "1–3px 为细微轮廓。0 为禁用。"
+
+msgid "Add drop shadow to cover"
+msgstr "为封面添加阴影"
+
+msgid ""
+"Gives the cover image rounded corners and a drop shadow, like a card. "
+"Replaces the regular cover border option while enabled."
+msgstr "为封面图片添加圆角和阴影，如同卡片。启用期间会取代常规的封面边框选项。"
 
 msgid "Align cover to text alignment"
 msgstr "封面与文本对齐方式一致"
@@ -593,12 +618,6 @@ msgstr "今日阅读时间"
 msgid "e.g. '42 mins read today'"
 msgstr "ex. '今日已读42分钟'"
 
-msgid "Pages and time read today"
-msgstr "今日已读页数与时间"
-
-msgid "e.g. '35 pgs & 42 mins read today'"
-msgstr "ex. '今日已读35页 & 42分钟'"
-
 msgid ""
 "Choose whether your daily goal tracks pages read or time spent reading."
 msgstr "选择每日目标是按阅读页数还是阅读时间计算。"
@@ -644,6 +663,12 @@ msgstr "显示当前连续阅读天数"
 
 msgid "Display consecutive days you've met your reading goal."
 msgstr "显示您连续达成阅读目标的天数。"
+
+msgid "Show weekly reading streak"
+msgstr "显示每周连续阅读"
+
+msgid "Display consecutive weeks with any reading activity."
+msgstr "显示有阅读记录的连续周数。"
 
 msgid "Show weekly progress"
 msgstr "显示每周进度"
@@ -719,6 +744,24 @@ msgstr "书籍高亮"
 msgid "Show a random highlight from the current book"
 msgstr "显示当前书籍的随机高亮内容"
 
+#, lua-format
+msgid "Highlight source: %s"
+msgstr "高亮来源：%s"
+
+msgid ""
+"Choose whether the highlight is picked from the current book only, or from "
+"all of your highlights."
+msgstr "选择高亮仅从当前书籍中选取，还是从您的所有高亮中选取。"
+
+msgid "Current book"
+msgstr "当前书籍"
+
+msgid "Only show highlights from the book you're currently reading."
+msgstr "仅显示您当前正在阅读的书籍中的高亮。"
+
+msgid "Show highlights from a random sample of your reading history."
+msgstr "显示从您的阅读历史中随机抽取的高亮。"
+
 msgid "Add quotation marks to highlights"
 msgstr "为高亮添加引号"
 
@@ -727,13 +770,19 @@ msgid ""
 "quotation marks."
 msgstr "将所有高亮用弯引号包裹，并删除已有的引号。"
 
-msgid "Show highlight location"
-msgstr "显示高亮位置"
+msgid "Show highlight location (chapter & page no.)"
+msgstr "显示高亮位置（章节和页码）"
+
+msgid "Display the chapter title and page number where the highlight is found."
+msgstr "显示高亮所在章节的标题和页码。"
+
+msgid "Show highlight book title and author"
+msgstr "显示高亮所属书名和作者"
 
 msgid ""
-"Display the chapter title and page number where the highlight is found, "
-"shown below the highlight text."
-msgstr "在高亮文本下方显示高亮所在的章节标题和页码。"
+"Display which book and author the highlight is from. Only applies when "
+"highlight source is set to 'All books'."
+msgstr "显示高亮来自哪本书和哪位作者。仅在高亮来源设为“所有书籍”时有效。"
 
 msgid "Book highlight maximum length"
 msgstr "书籍高亮最大长度"
@@ -1127,6 +1176,14 @@ msgstr "图标大小（px）"
 msgid "32–48px suits most layouts."
 msgstr "32–48px 适合大多数布局。"
 
+msgid "Add white outline to icons in dark mode"
+msgstr "深色模式下为图标添加白色描边"
+
+msgid ""
+"Adds a thin white outline around each icon when dark mode is on, like a "
+"sticker, so icons stay visible against dark backgrounds."
+msgstr "开启深色模式时，在每个图标周围添加一圈细白色描边，类似贴纸，使图标在深色背景上依然清晰可见。"
+
 msgid "Progress bar height"
 msgstr "进度条高度"
 
@@ -1213,9 +1270,6 @@ msgid ""
 "setting."
 msgstr "100% 填满文本列。条的对齐方式与您的文本对齐设置匹配。"
 
-msgid "Title font face"
-msgstr "标题字体"
-
 msgid "Choose the font face for the main heading text in each section"
 msgstr "为每个区域的主标题文本选择字体"
 
@@ -1227,9 +1281,6 @@ msgstr "为每个区域的主标题文本选择字体大小。"
 
 msgid "10–12px works well for most screens."
 msgstr "10–12px 适合大多数屏幕。"
-
-msgid "Subtitle font face"
-msgstr "副标题字体"
 
 msgid "Choose the font face for the information below the main heading text."
 msgstr "为主标题文本下方的信息选择字体。"
@@ -1470,10 +1521,9 @@ msgid "Enter hex colour code"
 msgstr "输入十六进制颜色代码"
 
 msgid ""
-"Saves a screenshot of the sleep screen to a file each time a book is closed."
-" Useful for devices that use an exported image as their own native sleep "
-"screen."
-msgstr "每次关闭书籍时都会将休眠屏幕的截图保存为文件。适用于将导出图像用作自身原生休眠屏幕的设备。"
+"Saves a screenshot of the sleep screen to a file. Useful for devices that "
+"use an exported image as their own native sleep screen."
+msgstr "将休眠屏幕的截图保存到文件。适用于将导出图片作为自身原生休眠屏幕的设备。"
 
 msgid "Enable export"
 msgstr "启用导出"
@@ -1493,6 +1543,67 @@ msgid ""
 " export can be enabled."
 msgstr "选择保存导出图像的文件夹。必须先设置此项才能启用导出。"
 
+msgid "Export triggers"
+msgstr "导出触发时机"
+
+msgid ""
+"Choose when the sleep screen is exported. You can select any combination of "
+"these."
+msgstr "选择何时导出休眠屏幕。可以任意组合选择。"
+
+msgid "On book close"
+msgstr "关闭书籍时"
+
+msgid "Export whenever you close a book."
+msgstr "每次关闭书籍时导出。"
+
+msgid "On book open"
+msgstr "打开书籍时"
+
+msgid "Export whenever you open a book."
+msgstr "每次打开书籍时导出。"
+
+msgid "On suspend"
+msgstr "挂起时"
+
+msgid "Export whenever you put the device to sleep."
+msgstr "每次让设备进入休眠时导出。"
+
+msgid "Periodically while reading"
+msgstr "阅读时定期导出"
+
+msgid ""
+"Export automatically at a set interval while a book is open. Paused while "
+"the device is suspended, and resumes when you wake it or open another book."
+msgstr "打开书籍时按设定的时间间隔自动导出。设备挂起期间暂停，唤醒设备或打开另一本书后恢复。"
+
+#, lua-format
+msgid "Periodic export interval: %d min"
+msgstr "定期导出间隔：%d 分钟"
+
+msgid "How often to export while 'Periodically while reading' is enabled."
+msgstr "启用“阅读时定期导出”后的导出频率。"
+
+msgid "Periodic export interval (minutes)"
+msgstr "定期导出间隔（分钟）"
+
+msgid "How often, in minutes, to export the sleep screen while a book is open."
+msgstr "打开书籍时导出休眠屏幕的间隔（分钟）。"
+
+msgid "Export sleep screen now"
+msgstr "立即导出休眠屏幕"
+
+msgid "Sleep screen exported."
+msgstr "休眠屏幕已导出。"
+
+msgid "Export failed. Check that an export folder is set."
+msgstr "导出失败。请检查是否已设置导出文件夹。"
+
+msgid ""
+"Sleep screen export is turned off. Enable it under 'Export sleep screen to "
+"file' to use this."
+msgstr "休眠屏幕导出已关闭。请在“导出休眠屏幕到文件”中启用后再使用。"
+
 msgid "Preview sleep screen"
 msgstr "预览休眠屏幕"
 
@@ -1501,13 +1612,18 @@ msgid ""
 "suspending the device."
 msgstr "显示休眠屏幕当前的样子，而不会真正让设备进入休眠状态。"
 
-msgid "Behaviour"
-msgstr "行为"
+msgid "Preview file manager sleep screen"
+msgstr "预览文件管理器的休眠屏幕"
 
 msgid ""
-"How the plugin behaves: file manager display, ghosting, export, battery "
-"estimation, and stats scope."
-msgstr "插件的行为方式：文件管理器中的显示、重影处理、导出、电池估算和统计范围。"
+"Shows what the sleep screen looks like when the device goes to sleep from "
+"the file manager, without actually suspending it. Tap anywhere to close it."
+msgstr "显示设备从文件管理器进入休眠时休眠屏幕的外观，不会真正挂起设备。点击任意位置关闭。"
+
+msgid ""
+"The alternative file manager sleep screen is not enabled. Turn on 'Show "
+"alternative sleep screen (no infobox)' to preview it."
+msgstr "文件管理器的备用休眠屏幕未启用。请开启“显示备用休眠屏幕（无信息框）”以预览。"
 
 #, lua-format
 msgid "Version: %s"
@@ -1570,12 +1686,6 @@ msgstr "在休眠屏幕中隐藏此书的封面，并选择改为显示的内容
 
 msgid "Fallback background"
 msgstr "备用背景"
-
-msgid ""
-"What to show instead of the cover. Uses the colour, image, or folder already"
-" set in Background type. Only selectable when \"Exclude this book's cover "
-"from sleep screen\" is turned on."
-msgstr "代替封面显示的内容。使用背景类型中已设置的颜色、图像或文件夹。仅当启用“在休眠屏幕中排除此书封面”时才可选择。"
 
 msgid ""
 "No book data available to preview yet.\n"
@@ -1734,8 +1844,8 @@ msgstr "区块顺序与可见性"
 
 msgid ""
 "Select a section and tap the bottom arrows to reorder. Tap the checkmark to "
-"show or hide the section. At least one section must stay visible."
-msgstr "选择一个区块并点击底部箭头以重新排序。点击复选标记以显示或隐藏该区块。至少要保留一个区块可见。"
+"show or hide the section. Hide every section to show only the background."
+msgstr "选择一个区域，点击底部箭头调整顺序。点击对勾可显示或隐藏该区域。隐藏所有区域则只显示背景。"
 
 #, lua-format
 msgid "Title Line: %s"
@@ -1998,3 +2108,212 @@ msgstr "以灰度导出"
 msgid ""
 "Saves the exported image without colour, reducing file size for any format."
 msgstr "以无色方式保存导出的图像，从而减小任何格式的文件大小。"
+
+msgid "Lock screen"
+msgstr "锁屏"
+
+msgid ""
+"Add some security to your device and ask for a PIN after the sleep screen is "
+"cleared. Like Global settings, the lock screen settings don't change when "
+"you switch presets."
+msgstr "为设备增加一层保护：关闭休眠屏幕后要求输入 PIN。与全局设置一样，锁屏设置不会随预设切换而改变。"
+
+msgid "Enable lock screen"
+msgstr "启用锁屏"
+
+msgid ""
+"After the sleep screen, tap or swipe to clear it, then enter your PIN to "
+"continue. This is a convenience lock to keep casual access out, not strong "
+"security: it doesn't protect the files on your device. It only applies after "
+"sleep unless you also turn on 'Lock when KOReader starts'. Turning it off "
+"needs your current PIN. If you forget the PIN, create an empty file named "
+"reset-lock inside the customisablesleepscreen.koplugin folder and restart "
+"KOReader to clear it."
+msgstr ""
+"休眠屏幕出现后，点击或滑动将其关闭，然后输入 PIN "
+"继续。这是用于防止随意访问的便利锁，并非强力安全措施：它不会保护设备上的文件。除非同时开启“KOReader "
+"启动时锁定”，否则仅在休眠后生效。关闭它需要输入当前 PIN。如果忘记 PIN，请在 customisablesleepscreen.koplugin "
+"文件夹内创建一个名为 reset-lock 的空文件，然后重启 KOReader 即可清除。"
+
+msgid "The lock screen needs a touch screen."
+msgstr "锁屏需要触摸屏。"
+
+msgid "Lock when KOReader starts"
+msgstr "KOReader 启动时锁定"
+
+msgid ""
+"Also ask for the PIN when KOReader starts, so restarting the app or forcing "
+"the device to shut down and reboot can't be used to get around the lock. "
+"Turning it off needs your current PIN."
+msgstr "KOReader 启动时也要求输入 PIN，这样就无法通过重启应用或强制关机再开机来绕过锁定。关闭它需要输入当前 PIN。"
+
+msgid "Deferred locking"
+msgstr "延迟锁定"
+
+msgid ""
+"Skip the lock screen when the device has only been asleep for a short time. "
+"Longer sleeps still ask for the PIN, and a device that went to sleep while "
+"locked always does."
+msgstr "设备仅休眠很短时间时跳过锁屏。休眠时间较长仍会要求输入 PIN，而在锁定状态下进入休眠的设备始终要求输入。"
+
+msgid "Off (always lock)"
+msgstr "关（始终锁定）"
+
+msgid "Change PIN"
+msgstr "更改 PIN"
+
+msgid "Set a new 4-digit PIN. You'll be asked for the current one first."
+msgstr "设置新的 4 位 PIN。系统会先要求输入当前 PIN。"
+
+msgid "Sleep screen background"
+msgstr "休眠屏幕背景"
+
+msgid ""
+"Choose what appears behind the PIN pad: your sleep screen background, or "
+"plain white or black."
+msgstr "选择 PIN 键盘后面显示的内容：休眠屏幕的背景，或纯白色、纯黑色。"
+
+msgid "Plain white"
+msgstr "纯白"
+
+msgid "Plain black"
+msgstr "纯黑"
+
+msgid "Follow automatic preset switching"
+msgstr "跟随自动预设切换"
+
+msgid ""
+"White while your day preset is in effect and black while your night preset "
+"is. Only offered while automatic preset switching is turned on."
+msgstr "日间预设生效时为白色，夜间预设生效时为黑色。仅在开启自动预设切换时可选。"
+
+msgid ""
+"Use the same background as your sleep screen (cover, image or colour), "
+"including its Background overlay. Images are shown around a solid panel "
+"behind the PIN pad, which keeps it readable and avoids ghosting. If your "
+"sleep screen has no background, plain white is used."
+msgstr ""
+"使用与休眠屏幕相同的背景（封面、图片或颜色），包括其背景叠加。图片显示在 PIN "
+"键盘后面的纯色面板周围，既保证可读性，又避免重影。如果休眠屏幕没有背景，则使用纯白色。"
+
+msgid "Button style"
+msgstr "按钮样式"
+
+msgid ""
+"How the number keys look: Plain (just the numbers), Ruled (thin lines "
+"between the rows), Outlined (circle outlines) or Filled (filled circles)."
+msgstr "数字键的外观：简洁（只有数字）、分隔线（行与行之间有细线）、描边（圆形轮廓）或实心（实心圆）。"
+
+msgid "Plain"
+msgstr "简洁"
+
+msgid "Ruled"
+msgstr "分隔线"
+
+msgid "Outlined"
+msgstr "描边"
+
+msgid "Filled"
+msgstr "实心"
+
+msgid "Button shape"
+msgstr "按钮形状"
+
+msgid ""
+"The shape of the Outlined and Filled buttons: a circle, or a square with "
+"rounded corners."
+msgstr "“描边”和“实心”按钮的形状：圆形，或带圆角的方形。"
+
+msgid "Circle"
+msgstr "圆形"
+
+msgid "Rounded square"
+msgstr "圆角方形"
+
+msgid "Text colour"
+msgstr "文字颜色"
+
+msgid ""
+"Colour of the lock screen text and digits over the sleep screen background. "
+"Auto picks black or white to suit the image as shown, after the overlay. "
+"Plain white and black backgrounds always use the opposite colour."
+msgstr "休眠屏幕背景上锁屏文字和数字的颜色。“自动”会根据叠加后实际显示的图像选择黑色或白色。纯白和纯黑背景始终使用相反的颜色。"
+
+msgid "Auto"
+msgstr "自动"
+
+msgid "Black"
+msgstr "黑色"
+
+msgid "White"
+msgstr "白色"
+
+msgid "Owner message"
+msgstr "机主留言"
+
+msgid ""
+"A short message shown under the keypad, such as \"If found, call "
+"0123456789\". Up to three lines. Anyone who wakes the device can read it. "
+"Leave it empty to show nothing."
+msgstr "显示在键盘下方的一条简短留言，例如“如拾到，请致电 0123456789”。最多三行。任何唤醒设备的人都能看到。留空则不显示任何内容。"
+
+msgid "Preview lock screen"
+msgstr "预览锁屏"
+
+msgid ""
+"Shows the PIN screen so you can see how it looks, without locking anything. "
+"Tap anywhere to close it."
+msgstr "显示 PIN 界面以便查看外观，不会锁定任何内容。点击任意位置关闭。"
+
+msgid "On"
+msgstr "开"
+
+msgid "Off"
+msgstr "关"
+
+msgid "Please enter your 4-digit PIN."
+msgstr "请输入您的 4 位 PIN。"
+
+msgid "Please enter your current 4-digit PIN."
+msgstr "请输入您当前的 4 位 PIN。"
+
+msgid "Please choose a 4-digit PIN."
+msgstr "请设置一个 4 位 PIN。"
+
+msgid "Please confirm your 4-digit PIN."
+msgstr "请确认您的 4 位 PIN。"
+
+msgid "Sorry, incorrect PIN. Please try again."
+msgstr "抱歉，PIN 不正确。请重试。"
+
+msgid "Sorry, the PINs didn't match. Please try again."
+msgstr "抱歉，两次输入的 PIN 不一致。请重试。"
+
+#, lua-format
+msgid "Too many attempts. Please try again in %s."
+msgstr "尝试次数过多。请在 %s 后重试。"
+
+#, lua-format
+msgid ""
+"PIN saved.\n"
+"\n"
+"If you ever forget it, create an empty file named \"reset-lock\" inside the "
+"plugin's folder (%s) and restart KOReader. That clears the PIN."
+msgstr ""
+"PIN 已保存。\n"
+"\n"
+"如果您忘记了它，请在插件文件夹（%s）内创建一个名为“reset-lock”的空文件，然后重启 KOReader，即可清除 PIN。"
+
+msgid ""
+"Lock screen reset.\n"
+"\n"
+"You can set a new PIN in the Customisable Sleep Screen settings."
+msgstr ""
+"锁屏已重置。\n"
+"\n"
+"您可以在 Customisable Sleep Screen 设置中设置新的 PIN。"
+
+msgid ""
+"Couldn't reset the lock screen: the reset-lock file couldn't be deleted. Is "
+"the storage read-only?"
+msgstr "无法重置锁屏：无法删除 reset-lock 文件。存储是否为只读？"

@@ -64,6 +64,10 @@ msgid "min"
 msgid_plural "mins"
 msgstr[0] "분"
 
+msgid "sec"
+msgid_plural "secs"
+msgstr[0] "초"
+
 msgid "< 1 min"
 msgstr "1분 미만"
 
@@ -106,16 +110,16 @@ msgid "pgs"
 msgstr "p"
 
 #, lua-format
-msgid "%s %s & %s read today"
-msgstr "오늘 %s%s & %s 읽음"
-
-#, lua-format
 msgid "%s read today"
 msgstr "오늘 %s 읽음"
 
 #, lua-format
 msgid "%d day streak"
 msgstr "%d일 연속"
+
+#, lua-format
+msgid "%d week streak"
+msgstr "%d주 연속"
 
 #, lua-format
 msgid "%d/%d days met this week"
@@ -137,9 +141,6 @@ msgstr "목표의 %d%%"
 #, lua-format
 msgid "%d page goal"
 msgstr "%d 페이지 목표"
-
-msgid "Rate unavailable"
-msgstr "속도 정보 없음"
 
 msgid "No message set"
 msgstr "메시지 없음"
@@ -318,31 +319,54 @@ msgid "Flash screen to reduce ghosting"
 msgstr "잔상 감소를 위해 화면 깜빡임"
 
 msgid ""
-"Flashes the screen to black before showing the sleep screen, clearing "
-"residual text/image ghosting. Off by default, since not every device shows "
-"this ghosting."
+"Flashes the whole screen before showing a screen, clearing leftovers of the "
+"previous one. Off by default, since not every device shows this ghosting. "
+"The sleep screen and the lock screen each have their own switch, and the "
+"flash can be black or white."
 msgstr ""
-"절전 화면을 표시하기 전에 화면을 검게 깜빡여 남아 있는 텍스트/이미지 잔상을 지웁니다. 모든 기기에서 이 잔상 현상이 나타나는 것은 "
-"아니므로 기본적으로 꺼져 있습니다."
+"화면을 표시하기 전에 전체 화면을 깜빡여 이전 화면의 잔상을 지웁니다. 모든 기기에서 이런 잔상이 나타나는 것은 아니므로 기본적으로 꺼져 "
+"있습니다. 절전 화면과 잠금 화면에는 각각 별도의 스위치가 있으며, 깜빡임은 검정 또는 흰색으로 할 수 있습니다."
 
-msgid "Show in file manager (outside of book)"
-msgstr "파일 관리자에서 표시 (책 밖에서)"
+msgid "Flash screen before sleep screen"
+msgstr "절전 화면 전에 화면 깜빡임"
 
 msgid ""
-"When enabled, the customisable sleep screen will display in file manager "
-"using the last saved book data."
-msgstr "활성화하면 파일 관리자에서도 마지막으로 저장된 책 데이터를 사용하여 맞춤형 절전 화면이 표시됩니다."
+"Flashes the screen (black or white, see below) before showing the sleep "
+"screen, clearing residual text/image ghosting."
+msgstr "절전 화면을 표시하기 전에 화면을 (검정 또는 흰색, 아래 참조) 깜빡여 남아 있는 글자와 이미지 잔상을 지웁니다."
+
+msgid "Flash screen before lock screen"
+msgstr "잠금 화면 전에 화면 깜빡임"
+
+msgid ""
+"Flashes the screen (black or white, see below) before showing the lock "
+"screen, clearing leftovers of the sleep screen. Useful if you can see "
+"ghosting on the lock screen, for example with a black background. Needs the "
+"lock screen to be enabled."
+msgstr ""
+"잠금 화면을 표시하기 전에 화면을 (검정 또는 흰색, 아래 참조) 깜빡여 절전 화면의 잔상을 지웁니다. 검정 배경 등에서 잠금 화면에 "
+"잔상이 보일 때 유용합니다. 잠금 화면이 활성화되어 있어야 합니다."
+
+msgid "Black flash"
+msgstr "검정 깜빡임"
+
+msgid "Flash the screen to black. Clears light leftovers best."
+msgstr "화면을 검정으로 깜빡입니다. 밝은 잔상 제거에 가장 좋습니다."
+
+msgid "White flash"
+msgstr "흰색 깜빡임"
+
+msgid "Flash the screen to white. Clears dark leftovers best."
+msgstr "화면을 흰색으로 깜빡입니다. 어두운 잔상 제거에 가장 좋습니다."
 
 msgid "Export sleep screen to file"
 msgstr "절전 화면을 파일로 내보내기"
 
 msgid ""
-"When enabled, a screenshot of the sleep screen will be saved in the selected"
-" export folder each time you close a book or put the device to sleep, using "
-"the format set below."
-msgstr ""
-"이 옵션을 켜면 책을 닫거나 기기를 절전 모드로 전환할 때마다 절전 화면의 스크린샷이 아래에서 설정한 형식으로 선택한 내보내기 폴더에 "
-"저장됩니다."
+"When enabled, a screenshot of the sleep screen will be saved in the selected "
+"export folder using the format set below, on the triggers selected under "
+"'Export triggers'."
+msgstr "켜면 절전 화면의 스크린샷이 선택한 내보내기 폴더에 아래에서 설정한 형식으로, ‘내보내기 시점’에서 선택한 시점에 저장됩니다."
 
 msgid "Sleep screen export disabled."
 msgstr "절전 화면 내보내기가 비활성화되었습니다."
@@ -396,12 +420,6 @@ msgstr ""
 
 msgid "Exclude this book's cover from sleep screen"
 msgstr "이 책의 표지를 절전 화면에서 제외"
-
-msgid ""
-"Hides the cover for this book only, for when you'd rather it not be shown on"
-" your sleep screen - without having to switch presets or background settings"
-" each time you read it."
-msgstr "절전 화면에 표시되지 않기를 원할 때 이 책의 표지만 숨깁니다. 읽을 때마다 프리셋이나 배경 설정을 바꿀 필요가 없습니다."
 
 msgid "No background (leave screen as-is)"
 msgstr "배경 없음 (화면을 그대로 유지)"
@@ -471,9 +489,6 @@ msgstr "배터리 정보"
 msgid "Message info"
 msgstr "메시지 정보"
 
-msgid "At least one section must remain visible."
-msgstr "최소 하나의 섹션은 표시되어야 합니다."
-
 msgid "Show cover image above book info"
 msgstr "책 정보 위에 표지 이미지 표시"
 
@@ -500,14 +515,24 @@ msgid "Cover border size"
 msgstr "표지 테두리 크기"
 
 msgid ""
-"Width of the border drawn around the cover image. Set to 0 for no border."
-msgstr "표지 이미지 주위에 그려지는 테두리의 너비. 테두리 없음은 0으로 설정하세요."
+"Width of the border drawn around the cover image. Set to 0 for no border. "
+"Ignored while 'Add drop shadow to cover' is enabled."
+msgstr ""
+"표지 이미지 주위에 그려지는 테두리의 두께입니다. 0이면 테두리가 없습니다. ‘표지에 그림자 추가’가 켜져 있는 동안은 무시됩니다."
 
 msgid "Cover border size (pixels)"
 msgstr "표지 테두리 크기 (픽셀)"
 
 msgid "1–3px for a subtle outline. 0 to disable."
 msgstr "1~3px는 미묘한 윤곽선. 비활성화하려면 0으로 설정하세요."
+
+msgid "Add drop shadow to cover"
+msgstr "표지에 그림자 추가"
+
+msgid ""
+"Gives the cover image rounded corners and a drop shadow, like a card. "
+"Replaces the regular cover border option while enabled."
+msgstr "표지 이미지에 둥근 모서리와 그림자를 적용해 카드처럼 보이게 합니다. 켜져 있는 동안은 기본 표지 테두리 옵션을 대체합니다."
 
 msgid "Align cover to text alignment"
 msgstr "텍스트 정렬에 맞춰 표지 정렬"
@@ -597,12 +622,6 @@ msgstr "오늘 읽은 시간"
 msgid "e.g. '42 mins read today'"
 msgstr "예: '오늘 42분 읽음'"
 
-msgid "Pages and time read today"
-msgstr "오늘 읽은 페이지와 시간"
-
-msgid "e.g. '35 pgs & 42 mins read today'"
-msgstr "예: '오늘 35p & 42분 읽음'"
-
 msgid ""
 "Choose whether your daily goal tracks pages read or time spent reading."
 msgstr "일일 목표를 읽은 페이지 수로 추적할지, 독서 시간으로 추적할지 선택합니다."
@@ -648,6 +667,12 @@ msgstr "현재 연속 독서 기록 표시"
 
 msgid "Display consecutive days you've met your reading goal."
 msgstr "독서 목표를 달성한 연속 일수를 표시합니다."
+
+msgid "Show weekly reading streak"
+msgstr "주간 연속 독서 표시"
+
+msgid "Display consecutive weeks with any reading activity."
+msgstr "독서 활동이 있었던 연속된 주 수를 표시합니다."
 
 msgid "Show weekly progress"
 msgstr "주간 진행 상황 표시"
@@ -723,6 +748,24 @@ msgstr "책 하이라이트"
 msgid "Show a random highlight from the current book"
 msgstr "현재 책에서 무작위 하이라이트 표시"
 
+#, lua-format
+msgid "Highlight source: %s"
+msgstr "하이라이트 출처: %s"
+
+msgid ""
+"Choose whether the highlight is picked from the current book only, or from "
+"all of your highlights."
+msgstr "하이라이트를 현재 책에서만 고를지, 모든 하이라이트에서 고를지 선택합니다."
+
+msgid "Current book"
+msgstr "현재 책"
+
+msgid "Only show highlights from the book you're currently reading."
+msgstr "현재 읽고 있는 책의 하이라이트만 표시합니다."
+
+msgid "Show highlights from a random sample of your reading history."
+msgstr "독서 기록에서 무작위로 고른 하이라이트를 표시합니다."
+
 msgid "Add quotation marks to highlights"
 msgstr "하이라이트에 인용 부호 추가"
 
@@ -731,13 +774,19 @@ msgid ""
 "quotation marks."
 msgstr "모든 하이라이트를 물결 모양의 큰따옴표로 감싸고 기존 인용 부호를 제거합니다."
 
-msgid "Show highlight location"
-msgstr "하이라이트 위치 표시"
+msgid "Show highlight location (chapter & page no.)"
+msgstr "하이라이트 위치 표시 (장 및 페이지)"
+
+msgid "Display the chapter title and page number where the highlight is found."
+msgstr "하이라이트가 있는 장 제목과 페이지 번호를 표시합니다."
+
+msgid "Show highlight book title and author"
+msgstr "하이라이트 책 제목 및 저자 표시"
 
 msgid ""
-"Display the chapter title and page number where the highlight is found, "
-"shown below the highlight text."
-msgstr "하이라이트가 있는 챕터 제목과 페이지 번호를 하이라이트 텍스트 아래에 표시합니다."
+"Display which book and author the highlight is from. Only applies when "
+"highlight source is set to 'All books'."
+msgstr "하이라이트가 어느 책과 저자의 것인지 표시합니다. 하이라이트 출처가 ‘모든 책’일 때만 적용됩니다."
 
 msgid "Book highlight maximum length"
 msgstr "책 하이라이트 최대 길이"
@@ -1130,6 +1179,14 @@ msgstr "아이콘 크기 (px)"
 msgid "32–48px suits most layouts."
 msgstr "32~48px가 대부분의 레이아웃에 적합합니다."
 
+msgid "Add white outline to icons in dark mode"
+msgstr "다크 모드에서 아이콘에 흰색 윤곽선 추가"
+
+msgid ""
+"Adds a thin white outline around each icon when dark mode is on, like a "
+"sticker, so icons stay visible against dark backgrounds."
+msgstr "다크 모드일 때 스티커처럼 각 아이콘 둘레에 얇은 흰색 윤곽선을 추가하여 어두운 배경에서도 아이콘이 잘 보이게 합니다."
+
 msgid "Progress bar height"
 msgstr "진행 바 높이"
 
@@ -1214,9 +1271,6 @@ msgid ""
 "setting."
 msgstr "100%는 텍스트 열을 채웁니다. 바는 텍스트 정렬 설정에 맞춰 정렬됩니다."
 
-msgid "Title font face"
-msgstr "제목 글꼴"
-
 msgid "Choose the font face for the main heading text in each section"
 msgstr "각 섹션의 주 제목 텍스트에 사용할 글꼴을 선택"
 
@@ -1228,9 +1282,6 @@ msgstr "각 섹션의 주 제목 텍스트에 사용할 글꼴 크기를 선택�
 
 msgid "10–12px works well for most screens."
 msgstr "10~12px가 대부분의 화면에 잘 맞습니다."
-
-msgid "Subtitle font face"
-msgstr "부제목 글꼴"
 
 msgid "Choose the font face for the information below the main heading text."
 msgstr "주 제목 텍스트 아래 정보에 사용할 글꼴을 선택합니다."
@@ -1471,10 +1522,9 @@ msgid "Enter hex colour code"
 msgstr "16진수 색상 코드 입력"
 
 msgid ""
-"Saves a screenshot of the sleep screen to a file each time a book is closed."
-" Useful for devices that use an exported image as their own native sleep "
-"screen."
-msgstr "책을 닫을 때마다 절전 화면의 스크린샷을 파일로 저장합니다. 내보낸 이미지를 자체 절전 화면으로 사용하는 기기에 유용합니다."
+"Saves a screenshot of the sleep screen to a file. Useful for devices that "
+"use an exported image as their own native sleep screen."
+msgstr "절전 화면의 스크린샷을 파일로 저장합니다. 내보낸 이미지를 기기 자체의 절전 화면으로 사용하는 기기에 유용합니다."
 
 msgid "Enable export"
 msgstr "내보내기 활성화"
@@ -1494,6 +1544,69 @@ msgid ""
 " export can be enabled."
 msgstr "내보낸 이미지를 저장할 폴더를 선택하세요. 내보내기를 활성화하기 전에 설정해야 합니다."
 
+msgid "Export triggers"
+msgstr "내보내기 시점"
+
+msgid ""
+"Choose when the sleep screen is exported. You can select any combination of "
+"these."
+msgstr "절전 화면을 내보낼 시점을 선택합니다. 원하는 대로 조합해서 선택할 수 있습니다."
+
+msgid "On book close"
+msgstr "책을 닫을 때"
+
+msgid "Export whenever you close a book."
+msgstr "책을 닫을 때마다 내보냅니다."
+
+msgid "On book open"
+msgstr "책을 열 때"
+
+msgid "Export whenever you open a book."
+msgstr "책을 열 때마다 내보냅니다."
+
+msgid "On suspend"
+msgstr "대기 상태일 때"
+
+msgid "Export whenever you put the device to sleep."
+msgstr "기기를 절전 상태로 만들 때마다 내보냅니다."
+
+msgid "Periodically while reading"
+msgstr "독서 중 주기적으로"
+
+msgid ""
+"Export automatically at a set interval while a book is open. Paused while "
+"the device is suspended, and resumes when you wake it or open another book."
+msgstr ""
+"책이 열려 있는 동안 일정한 간격으로 자동 내보내기를 합니다. 기기가 대기 상태인 동안은 일시 중지되며, 기기를 깨우거나 다른 책을 열면 "
+"다시 시작됩니다."
+
+#, lua-format
+msgid "Periodic export interval: %d min"
+msgstr "주기적 내보내기 간격: %d분"
+
+msgid "How often to export while 'Periodically while reading' is enabled."
+msgstr "‘독서 중 주기적으로’가 켜져 있을 때 내보내는 빈도입니다."
+
+msgid "Periodic export interval (minutes)"
+msgstr "주기적 내보내기 간격 (분)"
+
+msgid "How often, in minutes, to export the sleep screen while a book is open."
+msgstr "책이 열려 있는 동안 절전 화면을 내보내는 간격(분)입니다."
+
+msgid "Export sleep screen now"
+msgstr "절전 화면 지금 내보내기"
+
+msgid "Sleep screen exported."
+msgstr "절전 화면을 내보냈습니다."
+
+msgid "Export failed. Check that an export folder is set."
+msgstr "내보내기에 실패했습니다. 내보내기 폴더가 설정되어 있는지 확인하세요."
+
+msgid ""
+"Sleep screen export is turned off. Enable it under 'Export sleep screen to "
+"file' to use this."
+msgstr "절전 화면 내보내기가 꺼져 있습니다. 사용하려면 ‘절전 화면을 파일로 내보내기’에서 켜세요."
+
 msgid "Preview sleep screen"
 msgstr "절전 화면 미리보기"
 
@@ -1502,13 +1615,20 @@ msgid ""
 "suspending the device."
 msgstr "기기를 실제로 절전 모드로 전환하지 않고 현재 절전 화면의 모습을 보여줍니다."
 
-msgid "Behaviour"
-msgstr "동작"
+msgid "Preview file manager sleep screen"
+msgstr "파일 관리자 절전 화면 미리보기"
 
 msgid ""
-"How the plugin behaves: file manager display, ghosting, export, battery "
-"estimation, and stats scope."
-msgstr "플러그인의 동작 방식: 파일 관리자 표시, 고스트 현상, 내보내기, 배터리 추정, 통계 범위."
+"Shows what the sleep screen looks like when the device goes to sleep from "
+"the file manager, without actually suspending it. Tap anywhere to close it."
+msgstr ""
+"파일 관리자에서 기기가 절전 상태로 들어갈 때 절전 화면이 어떻게 보이는지, 실제로 대기 상태로 전환하지 않고 보여 줍니다. 아무 곳이나 "
+"탭하면 닫힙니다."
+
+msgid ""
+"The alternative file manager sleep screen is not enabled. Turn on 'Show "
+"alternative sleep screen (no infobox)' to preview it."
+msgstr "파일 관리자용 대체 절전 화면이 활성화되어 있지 않습니다. 미리 보려면 ‘대체 절전 화면 표시 (정보 박스 없음)’를 켜세요."
 
 #, lua-format
 msgid "Version: %s"
@@ -1571,14 +1691,6 @@ msgstr "이 책의 표지를 절전 화면에서 숨기고 대신 표시할 항�
 
 msgid "Fallback background"
 msgstr "대체 배경"
-
-msgid ""
-"What to show instead of the cover. Uses the colour, image, or folder already"
-" set in Background type. Only selectable when \"Exclude this book's cover "
-"from sleep screen\" is turned on."
-msgstr ""
-"표지 대신 표시할 항목입니다. 배경 유형에서 이미 설정한 색상, 이미지 또는 폴더를 사용합니다. \"이 책의 표지를 절전 화면에서 "
-"제외\"가 켜져 있을 때만 선택할 수 있습니다."
 
 msgid ""
 "No book data available to preview yet.\n"
@@ -1741,10 +1853,10 @@ msgstr "섹션 순서 및 표시"
 
 msgid ""
 "Select a section and tap the bottom arrows to reorder. Tap the checkmark to "
-"show or hide the section. At least one section must stay visible."
+"show or hide the section. Hide every section to show only the background."
 msgstr ""
-"섹션을 선택하고 아래쪽 화살표를 탭하여 순서를 바꾸세요. 체크 표시를 탭하여 섹션을 표시하거나 숨길 수 있습니다. 최소 하나의 섹션은 "
-"표시되어야 합니다."
+"섹션을 선택하고 아래 화살표를 탭해 순서를 바꿉니다. 체크 표시를 탭하면 섹션을 표시하거나 숨깁니다. 모든 섹션을 숨기면 배경만 "
+"표시됩니다."
 
 #, lua-format
 msgid "Title Line: %s"
@@ -2017,3 +2129,223 @@ msgstr "그레이스케일로 내보내기"
 msgid ""
 "Saves the exported image without colour, reducing file size for any format."
 msgstr "내보낸 이미지를 색상 없이 저장하여 모든 형식에서 파일 크기를 줄입니다."
+
+msgid "Lock screen"
+msgstr "잠금 화면"
+
+msgid ""
+"Add some security to your device and ask for a PIN after the sleep screen is "
+"cleared. Like Global settings, the lock screen settings don't change when "
+"you switch presets."
+msgstr ""
+"절전 화면을 닫은 뒤 PIN을 요구해 기기에 보안을 더합니다. 전역 설정처럼 잠금 화면 설정은 프리셋을 전환해도 바뀌지 않습니다."
+
+msgid "Enable lock screen"
+msgstr "잠금 화면 활성화"
+
+msgid ""
+"After the sleep screen, tap or swipe to clear it, then enter your PIN to "
+"continue. This is a convenience lock to keep casual access out, not strong "
+"security: it doesn't protect the files on your device. It only applies after "
+"sleep unless you also turn on 'Lock when KOReader starts'. Turning it off "
+"needs your current PIN. If you forget the PIN, create an empty file named "
+"reset-lock inside the customisablesleepscreen.koplugin folder and restart "
+"KOReader to clear it."
+msgstr ""
+"절전 화면에서 탭하거나 스와이프해 닫은 다음 PIN을 입력하면 계속할 수 있습니다. 이것은 우연한 접근을 막는 간편 잠금일 뿐 강력한 "
+"보안이 아니며, 기기의 파일을 보호하지 않습니다. ‘KOReader 시작 시 잠금’도 켜지 않는 한 절전 후에만 적용됩니다. 끄려면 현재 "
+"PIN이 필요합니다. PIN을 잊었다면 customisablesleepscreen.koplugin 폴더 안에 reset-lock이라는 빈 "
+"파일을 만들고 KOReader를 다시 시작하면 해제됩니다."
+
+msgid "The lock screen needs a touch screen."
+msgstr "잠금 화면에는 터치스크린이 필요합니다."
+
+msgid "Lock when KOReader starts"
+msgstr "KOReader 시작 시 잠금"
+
+msgid ""
+"Also ask for the PIN when KOReader starts, so restarting the app or forcing "
+"the device to shut down and reboot can't be used to get around the lock. "
+"Turning it off needs your current PIN."
+msgstr ""
+"KOReader가 시작될 때도 PIN을 요구하므로, 앱을 다시 시작하거나 기기를 강제로 종료했다가 재부팅해서 잠금을 우회할 수 없습니다. "
+"끄려면 현재 PIN이 필요합니다."
+
+msgid "Deferred locking"
+msgstr "지연 잠금"
+
+msgid ""
+"Skip the lock screen when the device has only been asleep for a short time. "
+"Longer sleeps still ask for the PIN, and a device that went to sleep while "
+"locked always does."
+msgstr ""
+"기기가 잠깐만 절전 상태였다면 잠금 화면을 건너뜁니다. 더 오래 절전 상태였다면 여전히 PIN을 묻고, 잠긴 상태로 절전에 들어간 기기는 "
+"항상 PIN을 묻습니다."
+
+msgid "Off (always lock)"
+msgstr "끔 (항상 잠금)"
+
+msgid "Change PIN"
+msgstr "PIN 변경"
+
+msgid "Set a new 4-digit PIN. You'll be asked for the current one first."
+msgstr "새 4자리 PIN을 설정합니다. 먼저 현재 PIN을 묻습니다."
+
+msgid "Sleep screen background"
+msgstr "절전 화면 배경"
+
+msgid ""
+"Choose what appears behind the PIN pad: your sleep screen background, or "
+"plain white or black."
+msgstr "PIN 패드 뒤에 표시할 것을 선택합니다: 절전 화면 배경, 또는 단색 흰색이나 검정."
+
+msgid "Plain white"
+msgstr "단색 흰색"
+
+msgid "Plain black"
+msgstr "단색 검정"
+
+msgid "Follow automatic preset switching"
+msgstr "자동 프리셋 전환 따르기"
+
+msgid ""
+"White while your day preset is in effect and black while your night preset "
+"is. Only offered while automatic preset switching is turned on."
+msgstr ""
+"주간 프리셋이 적용 중일 때는 흰색, 야간 프리셋이 적용 중일 때는 검정입니다. 자동 프리셋 전환이 켜져 있을 때만 선택할 수 있습니다."
+
+msgid ""
+"Use the same background as your sleep screen (cover, image or colour), "
+"including its Background overlay. Images are shown around a solid panel "
+"behind the PIN pad, which keeps it readable and avoids ghosting. If your "
+"sleep screen has no background, plain white is used."
+msgstr ""
+"절전 화면과 같은 배경(표지, 이미지 또는 색상)을 배경 오버레이까지 포함하여 사용합니다. 이미지는 PIN 패드 뒤의 단색 패널 주위에 "
+"표시되어 가독성을 유지하고 잔상을 방지합니다. 절전 화면에 배경이 없으면 단색 흰색이 사용됩니다."
+
+msgid "Button style"
+msgstr "버튼 스타일"
+
+msgid ""
+"How the number keys look: Plain (just the numbers), Ruled (thin lines "
+"between the rows), Outlined (circle outlines) or Filled (filled circles)."
+msgstr "숫자 키의 모양: 단순(숫자만), 구분선(줄 사이에 가는 선), 윤곽선(원 윤곽선), 채움(채워진 원)."
+
+msgid "Plain"
+msgstr "단순"
+
+msgid "Ruled"
+msgstr "구분선"
+
+msgid "Outlined"
+msgstr "윤곽선"
+
+msgid "Filled"
+msgstr "채움"
+
+msgid "Button shape"
+msgstr "버튼 모양"
+
+msgid ""
+"The shape of the Outlined and Filled buttons: a circle, or a square with "
+"rounded corners."
+msgstr "윤곽선 및 채움 버튼의 모양: 원 또는 모서리가 둥근 사각형."
+
+msgid "Circle"
+msgstr "원"
+
+msgid "Rounded square"
+msgstr "둥근 사각형"
+
+msgid "Text colour"
+msgstr "글자 색상"
+
+msgid ""
+"Colour of the lock screen text and digits over the sleep screen background. "
+"Auto picks black or white to suit the image as shown, after the overlay. "
+"Plain white and black backgrounds always use the opposite colour."
+msgstr ""
+"절전 화면 배경 위에 표시되는 잠금 화면 글자와 숫자의 색상입니다. 자동은 오버레이 적용 후 표시되는 이미지에 맞춰 검정 또는 흰색을 "
+"고릅니다. 단색 흰색과 검정 배경은 항상 반대 색을 사용합니다."
+
+msgid "Auto"
+msgstr "자동"
+
+msgid "Black"
+msgstr "검정"
+
+msgid "White"
+msgstr "흰색"
+
+msgid "Owner message"
+msgstr "소유자 메시지"
+
+msgid ""
+"A short message shown under the keypad, such as \"If found, call "
+"0123456789\". Up to three lines. Anyone who wakes the device can read it. "
+"Leave it empty to show nothing."
+msgstr ""
+"키패드 아래에 표시되는 짧은 메시지입니다. 예: “발견하시면 0123456789로 연락 주세요”. 최대 3줄. 기기를 깨우는 사람은 "
+"누구나 읽을 수 있습니다. 비워 두면 아무것도 표시하지 않습니다."
+
+msgid "Preview lock screen"
+msgstr "잠금 화면 미리보기"
+
+msgid ""
+"Shows the PIN screen so you can see how it looks, without locking anything. "
+"Tap anywhere to close it."
+msgstr "아무것도 잠그지 않고 PIN 화면이 어떻게 보이는지 보여 줍니다. 아무 곳이나 탭하면 닫힙니다."
+
+msgid "On"
+msgstr "켬"
+
+msgid "Off"
+msgstr "끔"
+
+msgid "Please enter your 4-digit PIN."
+msgstr "4자리 PIN을 입력해 주세요."
+
+msgid "Please enter your current 4-digit PIN."
+msgstr "현재 4자리 PIN을 입력해 주세요."
+
+msgid "Please choose a 4-digit PIN."
+msgstr "4자리 PIN을 설정해 주세요."
+
+msgid "Please confirm your 4-digit PIN."
+msgstr "4자리 PIN을 다시 입력해 확인해 주세요."
+
+msgid "Sorry, incorrect PIN. Please try again."
+msgstr "PIN이 올바르지 않습니다. 다시 시도해 주세요."
+
+msgid "Sorry, the PINs didn't match. Please try again."
+msgstr "PIN이 일치하지 않습니다. 다시 시도해 주세요."
+
+#, lua-format
+msgid "Too many attempts. Please try again in %s."
+msgstr "시도 횟수가 너무 많습니다. %s 후에 다시 시도해 주세요."
+
+#, lua-format
+msgid ""
+"PIN saved.\n"
+"\n"
+"If you ever forget it, create an empty file named \"reset-lock\" inside the "
+"plugin's folder (%s) and restart KOReader. That clears the PIN."
+msgstr ""
+"PIN이 저장되었습니다.\n"
+"\n"
+"잊어버린 경우 플러그인 폴더(%s) 안에 ‘reset-lock’이라는 빈 파일을 만들고 KOReader를 다시 시작하세요. PIN이 "
+"해제됩니다."
+
+msgid ""
+"Lock screen reset.\n"
+"\n"
+"You can set a new PIN in the Customisable Sleep Screen settings."
+msgstr ""
+"잠금 화면이 초기화되었습니다.\n"
+"\n"
+"Customisable Sleep Screen 설정에서 새 PIN을 설정할 수 있습니다."
+
+msgid ""
+"Couldn't reset the lock screen: the reset-lock file couldn't be deleted. Is "
+"the storage read-only?"
+msgstr "잠금 화면을 초기화하지 못했습니다: reset-lock 파일을 삭제할 수 없었습니다. 저장소가 읽기 전용인가요?"

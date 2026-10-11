@@ -184,14 +184,9 @@ local function buildLayoutAndSpacingMenu(ui)
             text = _("Section gaps"),
             help_text = _("Add transparent gaps between sections to make each appear as a separate box"),
             sub_item_table = {
-                {
-                    text      = _("Enable section gaps"),
-                    checked_func = function() return getSetting("SECTION_GAPS_ENABLED") end,
-                    callback = function()
-                        PluginStore:saveSetting(SETTINGS.SECTION_GAPS_ENABLED,
-                            not getSetting("SECTION_GAPS_ENABLED"))
-                    end,
-                },
+                createToggleItem(_("Enable section gaps"),
+                    nil,
+                    SETTINGS.SECTION_GAPS_ENABLED, USER_CONFIG.SECTION_GAPS_ENABLED),
                 {
                     text      = _("Section gap size"),
                     help_text = _("Spacing between sections when gaps are enabled."),
@@ -423,6 +418,7 @@ local function buildColorsIconsBarsMenu(ui)
             SETTINGS.ICON_USE_BAR_COLOR,    SETTINGS.ICON_SET,
             SETTINGS.ICON_SIZE,             SETTINGS.BAR_HEIGHT,
             SETTINGS.SHOW_ICONS,            SETTINGS.SHOW_BARS,
+            SETTINGS.SHOW_WHITE_ICON_OUTLINE_DARK_MODE,
             SETTINGS.MSG_SHOW_FULL_BAR,     SETTINGS.COLOR_BOX_BG,
             SETTINGS.COLOR_BOX_BG_DARK,     SETTINGS.COLOR_TEXT,
             SETTINGS.COLOR_TEXT_DARK,       SETTINGS.BAR_INLINE,
@@ -493,6 +489,9 @@ local function buildColorsIconsBarsMenu(ui)
                         PluginStore:saveSetting(SETTINGS.SHOW_ICONS, getSetting("SHOW_ICONS") == false)
                     end,
                 },
+                createToggleItem(_("Add white outline to icons in dark mode"),
+                    _("Adds a thin white outline around each icon when dark mode is on, like a sticker, so icons stay visible against dark backgrounds."),
+                    SETTINGS.SHOW_WHITE_ICON_OUTLINE_DARK_MODE, USER_CONFIG.SHOW_WHITE_ICON_OUTLINE_DARK_MODE, nil, function() return getSetting("SHOW_ICONS") ~= false end),
                 { text = _("Icon set"),            help_text = _("Choose from different icon styles."),
                   enabled_func = function() return getSetting("SHOW_ICONS") ~= false end,
                   sub_item_table = buildIconSetMenu() },

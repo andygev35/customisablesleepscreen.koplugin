@@ -180,15 +180,7 @@ local function buildInfoBox(ui, state, book_data)
 
         local section_order = getSetting("SECTION_ORDER")
         if not section_order or type(section_order) ~= "table" or #section_order == 0 then
-            section_order = { "book", "chapter", "goal", "battery", "message", "cover" }
-        else
-            local has_cover = false
-            for _, v in ipairs(section_order) do
-                if v == "cover" then has_cover = true; break end
-            end
-            if not has_cover then
-                table.insert(section_order, "cover")
-            end
+            section_order = { "book", "chapter", "goal", "battery", "message" }
         end
 
         local built_sections = {}
@@ -206,6 +198,15 @@ local function buildInfoBox(ui, state, book_data)
                     logger.warn("[Customisable Sleep Screen] section failed: " .. tostring(key) .. " error: " .. tostring(section))
                 end
             end
+        end
+
+        if #built_sections == 0 then
+            local screen_size = Screen:getSize()
+            return OverlapGroup:new {
+                dimen = screen_size,
+                buildBackgroundWidget(ui, book_data) or HorizontalSpan:new { width = screen_size.w },
+                buildDimmingLayer(),
+            }
         end
 
         local border_wrap

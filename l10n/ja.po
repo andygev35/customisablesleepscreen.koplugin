@@ -64,6 +64,10 @@ msgid "min"
 msgid_plural "mins"
 msgstr[0] "分"
 
+msgid "sec"
+msgid_plural "secs"
+msgstr[0] "秒"
+
 msgid "< 1 min"
 msgstr "1分未満"
 
@@ -106,16 +110,16 @@ msgid "pgs"
 msgstr "p"
 
 #, lua-format
-msgid "%s %s & %s read today"
-msgstr "今日：%s%s & %s"
-
-#, lua-format
 msgid "%s read today"
 msgstr "今日の読書時間：%s"
 
 #, lua-format
 msgid "%d day streak"
 msgstr "%d日連続"
+
+#, lua-format
+msgid "%d week streak"
+msgstr "%d週連続"
 
 #, lua-format
 msgid "%d/%d days met this week"
@@ -137,9 +141,6 @@ msgstr "目標の%d%%"
 #, lua-format
 msgid "%d page goal"
 msgstr "%dページ目標"
-
-msgid "Rate unavailable"
-msgstr "レート不明"
 
 msgid "No message set"
 msgstr "メッセージ未設定"
@@ -317,29 +318,53 @@ msgid "Flash screen to reduce ghosting"
 msgstr "残像軽減のため画面をフラッシュ"
 
 msgid ""
-"Flashes the screen to black before showing the sleep screen, clearing "
-"residual text/image ghosting. Off by default, since not every device shows "
-"this ghosting."
+"Flashes the whole screen before showing a screen, clearing leftovers of the "
+"previous one. Off by default, since not every device shows this ghosting. "
+"The sleep screen and the lock screen each have their own switch, and the "
+"flash can be black or white."
 msgstr ""
-"スリープ画面を表示する前に画面を黒くフラッシュさせ、残ったテキストや画像の残像を消します。すべての機種でこの残像が発生するわけではないため、初期設定ではオフです。"
+"画面を表示する前に画面全体をフラッシュして、前の画面の残像を消します。すべての端末でこの残像が出るわけではないため、初期設定ではオフです。スリープ画面とロック画面にはそれぞれ専用のスイッチがあり、フラッシュは黒または白にできます。"
 
-msgid "Show in file manager (outside of book)"
-msgstr "ファイルマネージャーで表示（本を開いていない場合）"
+msgid "Flash screen before sleep screen"
+msgstr "スリープ画面の前に画面をフラッシュ"
 
 msgid ""
-"When enabled, the customisable sleep screen will display in file manager "
-"using the last saved book data."
-msgstr "有効にすると、ファイルマネージャーでも最後に保存した本のデータを使ってカスタマイズ可能スリープ画面が表示されます。"
+"Flashes the screen (black or white, see below) before showing the sleep "
+"screen, clearing residual text/image ghosting."
+msgstr "スリープ画面を表示する前に画面を（黒または白で、下記参照）フラッシュして、文字や画像の残像を消します。"
+
+msgid "Flash screen before lock screen"
+msgstr "ロック画面の前に画面をフラッシュ"
+
+msgid ""
+"Flashes the screen (black or white, see below) before showing the lock "
+"screen, clearing leftovers of the sleep screen. Useful if you can see "
+"ghosting on the lock screen, for example with a black background. Needs the "
+"lock screen to be enabled."
+msgstr ""
+"ロック画面を表示する前に画面を（黒または白で、下記参照）フラッシュして、スリープ画面の残像を消します。黒い背景などでロック画面に残像が見える場合に便利です。ロック画面が有効になっている必要があります。"
+
+msgid "Black flash"
+msgstr "黒でフラッシュ"
+
+msgid "Flash the screen to black. Clears light leftovers best."
+msgstr "画面を黒でフラッシュします。明るい残像の除去に最適です。"
+
+msgid "White flash"
+msgstr "白でフラッシュ"
+
+msgid "Flash the screen to white. Clears dark leftovers best."
+msgstr "画面を白でフラッシュします。暗い残像の除去に最適です。"
 
 msgid "Export sleep screen to file"
 msgstr "スリープ画面をファイルに書き出す"
 
 msgid ""
-"When enabled, a screenshot of the sleep screen will be saved in the selected"
-" export folder each time you close a book or put the device to sleep, using "
-"the format set below."
+"When enabled, a screenshot of the sleep screen will be saved in the selected "
+"export folder using the format set below, on the triggers selected under "
+"'Export triggers'."
 msgstr ""
-"有効にすると、本を閉じるか端末をスリープにするたびに、スリープ画面のスクリーンショットが選択したエクスポートフォルダに、下記で設定した形式で保存されます。"
+"有効にすると、スリープ画面のスクリーンショットが、選択した書き出しフォルダーに下記で設定した形式で、「書き出しのタイミング」で選んだタイミングで保存されます。"
 
 msgid "Sleep screen export disabled."
 msgstr "スリープ画面の書き出しは無効です。"
@@ -393,12 +418,6 @@ msgstr ""
 
 msgid "Exclude this book's cover from sleep screen"
 msgstr "この本の表紙をスリープ画面から除外"
-
-msgid ""
-"Hides the cover for this book only, for when you'd rather it not be shown on"
-" your sleep screen - without having to switch presets or background settings"
-" each time you read it."
-msgstr "スリープ画面に表示したくない場合に、この本の表紙だけを非表示にします。読むたびにプリセットや背景設定を切り替える必要はありません。"
 
 msgid "No background (leave screen as-is)"
 msgstr "背景なし（画面をそのままにする）"
@@ -468,9 +487,6 @@ msgstr "バッテリー情報"
 msgid "Message info"
 msgstr "メッセージ情報"
 
-msgid "At least one section must remain visible."
-msgstr "少なくとも1つのセクションを表示する必要があります。"
-
 msgid "Show cover image above book info"
 msgstr "書籍情報の上に表紙を表示"
 
@@ -497,14 +513,23 @@ msgid "Cover border size"
 msgstr "表紙の枠線サイズ"
 
 msgid ""
-"Width of the border drawn around the cover image. Set to 0 for no border."
-msgstr "表紙画像周囲の枠線の幅。0で枠線なし。"
+"Width of the border drawn around the cover image. Set to 0 for no border. "
+"Ignored while 'Add drop shadow to cover' is enabled."
+msgstr "表紙画像の周りに描く枠線の太さです。0で枠線なし。「表紙にドロップシャドウを追加」が有効な間は無視されます。"
 
 msgid "Cover border size (pixels)"
 msgstr "表紙の枠線サイズ（ピクセル）"
 
 msgid "1–3px for a subtle outline. 0 to disable."
 msgstr "1〜3pxで控えめなアウトライン。0で無効。"
+
+msgid "Add drop shadow to cover"
+msgstr "表紙にドロップシャドウを追加"
+
+msgid ""
+"Gives the cover image rounded corners and a drop shadow, like a card. "
+"Replaces the regular cover border option while enabled."
+msgstr "表紙画像に角丸とドロップシャドウを付けて、カードのように見せます。有効な間は通常の表紙の枠線オプションの代わりになります。"
 
 msgid "Align cover to text alignment"
 msgstr "テキスト配置に合わせて表紙を配置"
@@ -594,12 +619,6 @@ msgstr "今日の読書時間"
 msgid "e.g. '42 mins read today'"
 msgstr "例：「42分 今日読書」"
 
-msgid "Pages and time read today"
-msgstr "今日のページ数と読書時間"
-
-msgid "e.g. '35 pgs & 42 mins read today'"
-msgstr "例：「35p & 42分 今日読書」"
-
 msgid ""
 "Choose whether your daily goal tracks pages read or time spent reading."
 msgstr "日次目標をページ数で管理するか、読書時間で管理するかを選択します。"
@@ -645,6 +664,12 @@ msgstr "現在の連続読書日数を表示"
 
 msgid "Display consecutive days you've met your reading goal."
 msgstr "読書目標を達成した連続日数を表示します。"
+
+msgid "Show weekly reading streak"
+msgstr "週間の連続読書を表示"
+
+msgid "Display consecutive weeks with any reading activity."
+msgstr "読書した週が連続している数を表示します。"
 
 msgid "Show weekly progress"
 msgstr "週間進捗を表示"
@@ -718,6 +743,24 @@ msgstr "本のハイライト"
 msgid "Show a random highlight from the current book"
 msgstr "現在の本からランダムなハイライトを表示"
 
+#, lua-format
+msgid "Highlight source: %s"
+msgstr "ハイライトの取得元: %s"
+
+msgid ""
+"Choose whether the highlight is picked from the current book only, or from "
+"all of your highlights."
+msgstr "ハイライトを現在の本のみから選ぶか、すべてのハイライトから選ぶかを選択します。"
+
+msgid "Current book"
+msgstr "現在の本"
+
+msgid "Only show highlights from the book you're currently reading."
+msgstr "現在読んでいる本のハイライトのみ表示します。"
+
+msgid "Show highlights from a random sample of your reading history."
+msgstr "読書履歴からランダムに選んだハイライトを表示します。"
+
 msgid "Add quotation marks to highlights"
 msgstr "ハイライトに引用符を追加"
 
@@ -726,13 +769,19 @@ msgid ""
 "quotation marks."
 msgstr "すべてのハイライトを波形二重引用符で囲み、既存の引用符を削除します。"
 
-msgid "Show highlight location"
-msgstr "ハイライトの位置を表示"
+msgid "Show highlight location (chapter & page no.)"
+msgstr "ハイライトの位置を表示（章とページ）"
+
+msgid "Display the chapter title and page number where the highlight is found."
+msgstr "ハイライトがある章のタイトルとページ番号を表示します。"
+
+msgid "Show highlight book title and author"
+msgstr "ハイライトの本のタイトルと著者を表示"
 
 msgid ""
-"Display the chapter title and page number where the highlight is found, "
-"shown below the highlight text."
-msgstr "ハイライトのあるチャプタータイトルとページ番号をハイライトテキストの下に表示します。"
+"Display which book and author the highlight is from. Only applies when "
+"highlight source is set to 'All books'."
+msgstr "ハイライトの出典となる本と著者を表示します。ハイライトの取得元が「すべての本」のときのみ有効です。"
 
 msgid "Book highlight maximum length"
 msgstr "ハイライトの最大文字数"
@@ -1120,6 +1169,14 @@ msgstr "アイコンサイズ（px）"
 msgid "32–48px suits most layouts."
 msgstr "32〜48pxがほとんどのレイアウトに適しています。"
 
+msgid "Add white outline to icons in dark mode"
+msgstr "ダークモードでアイコンに白い縁取りを追加"
+
+msgid ""
+"Adds a thin white outline around each icon when dark mode is on, like a "
+"sticker, so icons stay visible against dark backgrounds."
+msgstr "ダークモードのとき、ステッカーのように各アイコンの周りに細い白い縁取りを付けて、暗い背景でもアイコンが見えるようにします。"
+
 msgid "Progress bar height"
 msgstr "プログレスバーの高さ"
 
@@ -1204,9 +1261,6 @@ msgid ""
 "setting."
 msgstr "100%でテキスト列を埋めます。バーはテキスト配置設定に合わせて配置されます。"
 
-msgid "Title font face"
-msgstr "タイトルのフォント"
-
 msgid "Choose the font face for the main heading text in each section"
 msgstr "各セクションのメイン見出しテキストのフォントを選択"
 
@@ -1218,9 +1272,6 @@ msgstr "各セクションのメイン見出しテキストのフォントサイ
 
 msgid "10–12px works well for most screens."
 msgstr "10〜12pxがほとんどの画面に適しています。"
-
-msgid "Subtitle font face"
-msgstr "サブタイトルのフォント"
 
 msgid "Choose the font face for the information below the main heading text."
 msgstr "メイン見出しテキストの下の情報のフォントを選択します。"
@@ -1461,11 +1512,9 @@ msgid "Enter hex colour code"
 msgstr "16進数カラーコードを入力"
 
 msgid ""
-"Saves a screenshot of the sleep screen to a file each time a book is closed."
-" Useful for devices that use an exported image as their own native sleep "
-"screen."
-msgstr ""
-"本を閉じるたびにスリープ画面のスクリーンショットをファイルに保存します。書き出した画像を端末本体のスリープ画面として使うデバイスに便利です。"
+"Saves a screenshot of the sleep screen to a file. Useful for devices that "
+"use an exported image as their own native sleep screen."
+msgstr "スリープ画面のスクリーンショットをファイルに保存します。書き出した画像をネイティブのスリープ画面として使う端末で便利です。"
 
 msgid "Enable export"
 msgstr "書き出しを有効にする"
@@ -1485,6 +1534,67 @@ msgid ""
 " export can be enabled."
 msgstr "書き出す画像を保存するフォルダを選んでください。書き出しを有効にする前に設定する必要があります。"
 
+msgid "Export triggers"
+msgstr "書き出しのタイミング"
+
+msgid ""
+"Choose when the sleep screen is exported. You can select any combination of "
+"these."
+msgstr "スリープ画面を書き出すタイミングを選択します。複数を組み合わせて選択できます。"
+
+msgid "On book close"
+msgstr "本を閉じたとき"
+
+msgid "Export whenever you close a book."
+msgstr "本を閉じるたびに書き出します。"
+
+msgid "On book open"
+msgstr "本を開いたとき"
+
+msgid "Export whenever you open a book."
+msgstr "本を開くたびに書き出します。"
+
+msgid "On suspend"
+msgstr "サスペンド時"
+
+msgid "Export whenever you put the device to sleep."
+msgstr "端末をスリープにするたびに書き出します。"
+
+msgid "Periodically while reading"
+msgstr "読書中に定期的に"
+
+msgid ""
+"Export automatically at a set interval while a book is open. Paused while "
+"the device is suspended, and resumes when you wake it or open another book."
+msgstr "本を開いている間、一定の間隔で自動的に書き出します。端末がサスペンド中は一時停止し、復帰したときや別の本を開いたときに再開します。"
+
+#, lua-format
+msgid "Periodic export interval: %d min"
+msgstr "定期書き出しの間隔: %d分"
+
+msgid "How often to export while 'Periodically while reading' is enabled."
+msgstr "「読書中に定期的に」が有効なときの書き出し頻度です。"
+
+msgid "Periodic export interval (minutes)"
+msgstr "定期書き出しの間隔（分）"
+
+msgid "How often, in minutes, to export the sleep screen while a book is open."
+msgstr "本を開いている間にスリープ画面を書き出す間隔（分）です。"
+
+msgid "Export sleep screen now"
+msgstr "スリープ画面を今すぐ書き出す"
+
+msgid "Sleep screen exported."
+msgstr "スリープ画面を書き出しました。"
+
+msgid "Export failed. Check that an export folder is set."
+msgstr "書き出しに失敗しました。書き出し先フォルダーが設定されているか確認してください。"
+
+msgid ""
+"Sleep screen export is turned off. Enable it under 'Export sleep screen to "
+"file' to use this."
+msgstr "スリープ画面の書き出しがオフになっています。使用するには「スリープ画面をファイルに書き出す」で有効にしてください。"
+
 msgid "Preview sleep screen"
 msgstr "スリープ画面をプレビュー"
 
@@ -1493,13 +1603,19 @@ msgid ""
 "suspending the device."
 msgstr "実際にスリープ状態にすることなく、現在のスリープ画面の見た目を表示します。"
 
-msgid "Behaviour"
-msgstr "動作"
+msgid "Preview file manager sleep screen"
+msgstr "ファイルマネージャーのスリープ画面をプレビュー"
 
 msgid ""
-"How the plugin behaves: file manager display, ghosting, export, battery "
-"estimation, and stats scope."
-msgstr "プラグインの動作: ファイルマネージャーでの表示、ゴースト対策、書き出し、バッテリー推定、統計の範囲。"
+"Shows what the sleep screen looks like when the device goes to sleep from "
+"the file manager, without actually suspending it. Tap anywhere to close it."
+msgstr "ファイルマネージャーから端末がスリープに入るときのスリープ画面の見た目を、実際にサスペンドせずに表示します。どこかをタップすると閉じます。"
+
+msgid ""
+"The alternative file manager sleep screen is not enabled. Turn on 'Show "
+"alternative sleep screen (no infobox)' to preview it."
+msgstr ""
+"ファイルマネージャー用の代替スリープ画面は有効になっていません。プレビューするには「代替スリープ画面を表示（情報ボックスなし）」をオンにしてください。"
 
 #, lua-format
 msgid "Version: %s"
@@ -1562,13 +1678,6 @@ msgstr "この本の表紙をスリープ画面から非表示にし、代わり
 
 msgid "Fallback background"
 msgstr "代替背景"
-
-msgid ""
-"What to show instead of the cover. Uses the colour, image, or folder already"
-" set in Background type. Only selectable when \"Exclude this book's cover "
-"from sleep screen\" is turned on."
-msgstr ""
-"表紙の代わりに表示する内容。背景タイプですでに設定されている色、画像、フォルダを使用します。「この本の表紙をスリープ画面から除外」がオンのときのみ選択できます。"
 
 msgid ""
 "No book data available to preview yet.\n"
@@ -1730,9 +1839,9 @@ msgstr "セクションの並び順と表示"
 
 msgid ""
 "Select a section and tap the bottom arrows to reorder. Tap the checkmark to "
-"show or hide the section. At least one section must stay visible."
+"show or hide the section. Hide every section to show only the background."
 msgstr ""
-"セクションを選択し、下部の矢印をタップして並べ替えます。チェックマークをタップしてセクションの表示/非表示を切り替えます。少なくとも1つのセクションは表示しておく必要があります。"
+"セクションを選択し、下の矢印をタップして並べ替えます。チェックマークをタップするとセクションの表示/非表示を切り替えます。すべてのセクションを非表示にすると背景のみが表示されます。"
 
 #, lua-format
 msgid "Title Line: %s"
@@ -1999,3 +2108,214 @@ msgstr "グレースケールでエクスポート"
 msgid ""
 "Saves the exported image without colour, reducing file size for any format."
 msgstr "エクスポートした画像を色なしで保存し、どの形式でもファイルサイズを削減します。"
+
+msgid "Lock screen"
+msgstr "ロック画面"
+
+msgid ""
+"Add some security to your device and ask for a PIN after the sleep screen is "
+"cleared. Like Global settings, the lock screen settings don't change when "
+"you switch presets."
+msgstr ""
+"スリープ画面を閉じた後にPINを要求して、端末のセキュリティを高めます。グローバル設定と同様に、ロック画面の設定はプリセットを切り替えても変わりません。"
+
+msgid "Enable lock screen"
+msgstr "ロック画面を有効にする"
+
+msgid ""
+"After the sleep screen, tap or swipe to clear it, then enter your PIN to "
+"continue. This is a convenience lock to keep casual access out, not strong "
+"security: it doesn't protect the files on your device. It only applies after "
+"sleep unless you also turn on 'Lock when KOReader starts'. Turning it off "
+"needs your current PIN. If you forget the PIN, create an empty file named "
+"reset-lock inside the customisablesleepscreen.koplugin folder and restart "
+"KOReader to clear it."
+msgstr ""
+"スリープ画面でタップまたはスワイプして閉じ、PINを入力して続行します。これは偶然のアクセスを防ぐための簡易ロックであり、強力なセキュリティではありません。端末内のファイルは保護されません。「KOReader起動時にロック」も有効にしない限り、スリープ後にのみ適用されます。オフにするには現在のPINが必要です。PINを忘れた場合は、customisablesleepscreen.koplugin "
+"フォルダー内に reset-lock という名前の空のファイルを作成し、KOReaderを再起動すると解除されます。"
+
+msgid "The lock screen needs a touch screen."
+msgstr "ロック画面にはタッチスクリーンが必要です。"
+
+msgid "Lock when KOReader starts"
+msgstr "KOReader起動時にロック"
+
+msgid ""
+"Also ask for the PIN when KOReader starts, so restarting the app or forcing "
+"the device to shut down and reboot can't be used to get around the lock. "
+"Turning it off needs your current PIN."
+msgstr ""
+"KOReaderの起動時にもPINを要求します。アプリの再起動や、端末を強制終了して再起動することでロックを回避できなくなります。オフにするには現在のPINが必要です。"
+
+msgid "Deferred locking"
+msgstr "遅延ロック"
+
+msgid ""
+"Skip the lock screen when the device has only been asleep for a short time. "
+"Longer sleeps still ask for the PIN, and a device that went to sleep while "
+"locked always does."
+msgstr ""
+"端末のスリープ時間が短い場合はロック画面を省略します。長いスリープでは引き続きPINが必要で、ロック中にスリープに入った端末では常に必要です。"
+
+msgid "Off (always lock)"
+msgstr "オフ（常にロック）"
+
+msgid "Change PIN"
+msgstr "PINを変更"
+
+msgid "Set a new 4-digit PIN. You'll be asked for the current one first."
+msgstr "新しい4桁のPINを設定します。先に現在のPINの入力が求められます。"
+
+msgid "Sleep screen background"
+msgstr "スリープ画面の背景"
+
+msgid ""
+"Choose what appears behind the PIN pad: your sleep screen background, or "
+"plain white or black."
+msgstr "PINパッドの背後に表示するものを選択します：スリープ画面の背景、または無地の白か黒。"
+
+msgid "Plain white"
+msgstr "無地の白"
+
+msgid "Plain black"
+msgstr "無地の黒"
+
+msgid "Follow automatic preset switching"
+msgstr "自動プリセット切り替えに従う"
+
+msgid ""
+"White while your day preset is in effect and black while your night preset "
+"is. Only offered while automatic preset switching is turned on."
+msgstr "昼用プリセットが有効な間は白、夜用プリセットが有効な間は黒になります。自動プリセット切り替えがオンのときのみ選択できます。"
+
+msgid ""
+"Use the same background as your sleep screen (cover, image or colour), "
+"including its Background overlay. Images are shown around a solid panel "
+"behind the PIN pad, which keeps it readable and avoids ghosting. If your "
+"sleep screen has no background, plain white is used."
+msgstr ""
+"スリープ画面と同じ背景（表紙、画像、または色）を、背景オーバーレイも含めて使用します。画像はPINパッドの背後にある単色のパネルの周りに表示され、読みやすさを保ち、残像を防ぎます。スリープ画面に背景がない場合は無地の白が使われます。"
+
+msgid "Button style"
+msgstr "ボタンのスタイル"
+
+msgid ""
+"How the number keys look: Plain (just the numbers), Ruled (thin lines "
+"between the rows), Outlined (circle outlines) or Filled (filled circles)."
+msgstr "数字キーの見た目：シンプル（数字のみ）、罫線（行の間に細い線）、枠線（円の枠線）、塗りつぶし（塗りつぶしの円）。"
+
+msgid "Plain"
+msgstr "シンプル"
+
+msgid "Ruled"
+msgstr "罫線"
+
+msgid "Outlined"
+msgstr "枠線"
+
+msgid "Filled"
+msgstr "塗りつぶし"
+
+msgid "Button shape"
+msgstr "ボタンの形"
+
+msgid ""
+"The shape of the Outlined and Filled buttons: a circle, or a square with "
+"rounded corners."
+msgstr "枠線と塗りつぶしボタンの形：円、または角丸の四角形。"
+
+msgid "Circle"
+msgstr "円"
+
+msgid "Rounded square"
+msgstr "角丸四角形"
+
+msgid "Text colour"
+msgstr "文字色"
+
+msgid ""
+"Colour of the lock screen text and digits over the sleep screen background. "
+"Auto picks black or white to suit the image as shown, after the overlay. "
+"Plain white and black backgrounds always use the opposite colour."
+msgstr ""
+"スリープ画面の背景上に表示されるロック画面の文字と数字の色です。「自動」はオーバーレイ適用後に表示される画像に合わせて黒か白を選びます。無地の白と黒の背景では常に反対の色が使われます。"
+
+msgid "Auto"
+msgstr "自動"
+
+msgid "Black"
+msgstr "黒"
+
+msgid "White"
+msgstr "白"
+
+msgid "Owner message"
+msgstr "持ち主のメッセージ"
+
+msgid ""
+"A short message shown under the keypad, such as \"If found, call "
+"0123456789\". Up to three lines. Anyone who wakes the device can read it. "
+"Leave it empty to show nothing."
+msgstr ""
+"テンキーの下に表示される短いメッセージです。例：「見つけた方は0123456789までご連絡ください」。最大3行。端末を起動した人なら誰でも読めます。空欄にすると何も表示されません。"
+
+msgid "Preview lock screen"
+msgstr "ロック画面をプレビュー"
+
+msgid ""
+"Shows the PIN screen so you can see how it looks, without locking anything. "
+"Tap anywhere to close it."
+msgstr "何もロックせずに、PIN画面の見た目を確認できます。どこかをタップすると閉じます。"
+
+msgid "On"
+msgstr "オン"
+
+msgid "Off"
+msgstr "オフ"
+
+msgid "Please enter your 4-digit PIN."
+msgstr "4桁のPINを入力してください。"
+
+msgid "Please enter your current 4-digit PIN."
+msgstr "現在の4桁のPINを入力してください。"
+
+msgid "Please choose a 4-digit PIN."
+msgstr "4桁のPINを設定してください。"
+
+msgid "Please confirm your 4-digit PIN."
+msgstr "4桁のPINをもう一度入力してください。"
+
+msgid "Sorry, incorrect PIN. Please try again."
+msgstr "PINが違います。もう一度お試しください。"
+
+msgid "Sorry, the PINs didn't match. Please try again."
+msgstr "PINが一致しません。もう一度お試しください。"
+
+#, lua-format
+msgid "Too many attempts. Please try again in %s."
+msgstr "試行回数が多すぎます。%s後にもう一度お試しください。"
+
+#, lua-format
+msgid ""
+"PIN saved.\n"
+"\n"
+"If you ever forget it, create an empty file named \"reset-lock\" inside the "
+"plugin's folder (%s) and restart KOReader. That clears the PIN."
+msgstr ""
+"PINを保存しました。\n"
+"\n"
+"忘れた場合は、プラグインのフォルダー（%s）内に「reset-lock」という名前の空のファイルを作成し、KOReaderを再起動してください。PINが解除されます。"
+
+msgid ""
+"Lock screen reset.\n"
+"\n"
+"You can set a new PIN in the Customisable Sleep Screen settings."
+msgstr ""
+"ロック画面をリセットしました。\n"
+"\n"
+"Customisable Sleep Screenの設定で新しいPINを設定できます。"
+
+msgid ""
+"Couldn't reset the lock screen: the reset-lock file couldn't be deleted. Is "
+"the storage read-only?"
+msgstr "ロック画面をリセットできませんでした：reset-lock ファイルを削除できませんでした。ストレージが読み取り専用ではありませんか？"

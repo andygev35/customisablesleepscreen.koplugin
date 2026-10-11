@@ -5,7 +5,7 @@ A KOReader plugin that displays reading statistics and book information on your 
 Originally released as a patch, this project has now been rebuilt as a KOReader plugin.
 
 <p>
-<img width="1920" height="1080" alt="GHMain" src="https://github.com/user-attachments/assets/600a8f43-06e3-4e66-86df-a70fe0b28473" />
+<img width="1920" height="1080" alt="PluginSummary" src="https://github.com/user-attachments/assets/2e2b6bfa-e413-41cf-9124-0b47524d7db4" />
 </p>
 
 ## Features:

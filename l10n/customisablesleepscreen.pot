@@ -322,14 +322,15 @@ msgid ""
 "Flashes the whole screen before showing a screen, clearing leftovers of the "
 "previous one. Off by default, since not every device shows this ghosting. "
 "The sleep screen and the lock screen each have their own switch, and the "
-"flash can be black or white."
+"flash can be a full white, black, white reset, or a single black or white "
+"flash."
 msgstr ""
 
 msgid "Flash screen before sleep screen"
 msgstr ""
 
 msgid ""
-"Flashes the screen (black or white, see below) before showing the sleep "
+"Flashes the screen (see the flash style below) before showing the sleep "
 "screen, clearing residual text/image ghosting."
 msgstr ""
 
@@ -337,10 +338,16 @@ msgid "Flash screen before lock screen"
 msgstr ""
 
 msgid ""
-"Flashes the screen (black or white, see below) before showing the lock "
+"Flashes the screen (see the flash style below) before showing the lock "
 "screen, clearing leftovers of the sleep screen. Useful if you can see "
 "ghosting on the lock screen, for example with a black background. Needs the "
 "lock screen to be enabled."
+msgstr ""
+
+msgid "Full reset (white, black, white)"
+msgstr ""
+
+msgid "Flashes the screen to white, then black, then white again. Drives every pixel to both extremes and back, which resets the e-ink panel most thoroughly. Takes slightly longer than a single flash."
 msgstr ""
 
 msgid "Black flash"

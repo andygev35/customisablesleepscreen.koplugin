@@ -164,7 +164,7 @@ local USER_CONFIG = {
     EXPORT_TRIGGER_PERIODIC         = false,
     EXPORT_TRIGGER_PERIODIC_MINUTES = 15,
     ANTI_GHOSTING_FLASH      = false,
-    ANTI_GHOSTING_FLASH_COLOR = "black",
+    ANTI_GHOSTING_FLASH_COLOR = "cycle",
 }
 
 local SETTINGS = {

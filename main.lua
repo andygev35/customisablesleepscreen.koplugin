@@ -725,12 +725,8 @@ function CustomisableSleepScreen:_installScreensaverHook()
 
         if css_settings.plugin():isTrue(SETTINGS.ANTI_GHOSTING_FLASH) then
             pcall(function()
-                if Device:hasEinkScreen() then
-                    local Blitbuffer = require("ffi/blitbuffer")
-                    local white = css_settings.plugin():readSetting(SETTINGS.ANTI_GHOSTING_FLASH_COLOR) == "white"
-                    Screen.bb:fill(white and Blitbuffer.COLOR_WHITE or Blitbuffer.COLOR_BLACK)
-                    Screen:refreshFull(0, 0, Screen:getWidth(), Screen:getHeight())
-                end
+                require("css_antighost").flash(
+                    css_settings.plugin():readSetting(SETTINGS.ANTI_GHOSTING_FLASH_COLOR))
             end)
         end
 

@@ -749,15 +749,7 @@ local active_unlock_pad = nil
 
 local function antiGhostingFlash()
     if not store():isTrue(SETTINGS.LOCK_ANTI_GHOSTING_FLASH) then return false end
-    local flashed = false
-    pcall(function()
-        if Device:hasEinkScreen() then
-            Screen.bb:fill(setting("ANTI_GHOSTING_FLASH_COLOR") == "white" and Blitbuffer.COLOR_WHITE or Blitbuffer.COLOR_BLACK)
-            Screen:refreshFull(0, 0, Screen:getWidth(), Screen:getHeight())
-            flashed = true
-        end
-    end)
-    return flashed
+    return require("css_antighost").flash(store():readSetting(SETTINGS.ANTI_GHOSTING_FLASH_COLOR))
 end
 
 local function showUnlock(night_state)

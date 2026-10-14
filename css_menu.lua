@@ -348,25 +348,36 @@ end
 
 local function buildGlobalSettingsMenu()
     local flash_pin = createToggleItem(_("Flash screen before lock screen"),
-        _("Flashes the screen (black or white, see below) before showing the lock screen, clearing leftovers of the sleep screen. Useful if you can see ghosting on the lock screen, for example with a black background. Needs the lock screen to be enabled."),
+        _("Flashes the screen (see the flash style below) before showing the lock screen, clearing leftovers of the sleep screen. Useful if you can see ghosting on the lock screen, for example with a black background. Needs the lock screen to be enabled."),
         SETTINGS.LOCK_ANTI_GHOSTING_FLASH, false, true)
     flash_pin.enabled_func = lockIsOn
+    local resolveFlashMode = require("css_antighost").resolveMode
+    local function flashModeIs(mode)
+        return function() return resolveFlashMode(getSetting("ANTI_GHOSTING_FLASH_COLOR")) == mode end
+    end
+    local flash_cycle = createRadioItem(_("Full reset (white, black, white)"),
+        _("Flashes the screen to white, then black, then white again. Drives every pixel to both extremes and back, which resets the e-ink panel most thoroughly. Takes slightly longer than a single flash."),
+        SETTINGS.ANTI_GHOSTING_FLASH_COLOR, "cycle")
+    flash_cycle.checked_func = flashModeIs("cycle")
     local flash_black = createRadioItem(_("Black flash"), _("Flash the screen to black. Clears light leftovers best."),
         SETTINGS.ANTI_GHOSTING_FLASH_COLOR, "black")
-    flash_black.checked_func = function() return getSetting("ANTI_GHOSTING_FLASH_COLOR") ~= "white" end
+    flash_black.checked_func = flashModeIs("black")
+    local flash_white = createRadioItem(_("White flash"), _("Flash the screen to white. Clears dark leftovers best."),
+        SETTINGS.ANTI_GHOSTING_FLASH_COLOR, "white")
+    flash_white.checked_func = flashModeIs("white")
 
     return {
         {
             text      = _("Flash screen to reduce ghosting"),
-            help_text = _("Flashes the whole screen before showing a screen, clearing leftovers of the previous one. Off by default, since not every device shows this ghosting. The sleep screen and the lock screen each have their own switch, and the flash can be black or white."),
+            help_text = _("Flashes the whole screen before showing a screen, clearing leftovers of the previous one. Off by default, since not every device shows this ghosting. The sleep screen and the lock screen each have their own switch, and the flash can be a full white, black, white reset, or a single black or white flash."),
             sub_item_table = {
                 createToggleItem(_("Flash screen before sleep screen"),
-                    _("Flashes the screen (black or white, see below) before showing the sleep screen, clearing residual text/image ghosting."),
+                    _("Flashes the screen (see the flash style below) before showing the sleep screen, clearing residual text/image ghosting."),
                     SETTINGS.ANTI_GHOSTING_FLASH, false),
                 flash_pin,
+                flash_cycle,
                 flash_black,
-                createRadioItem(_("White flash"), _("Flash the screen to white. Clears dark leftovers best."),
-                    SETTINGS.ANTI_GHOSTING_FLASH_COLOR, "white"),
+                flash_white,
             },
         },
         {
